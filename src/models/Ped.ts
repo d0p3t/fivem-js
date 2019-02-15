@@ -109,6 +109,9 @@ export enum SpeechModifier {
 }
 
 export class Ped extends Entity {
+  public static Exists(ped: Ped): boolean {
+    return typeof ped !== 'undefined' && ped.Exists();
+  }
   constructor(handle: number) {
     super(handle);
   }
@@ -130,5 +133,9 @@ export class Ped extends Entity {
 
   public set DrivingStyle(style: DrivingStyle) {
     SetDriveTaskDrivingStyle(this.handle, Number(style));
+  }
+
+  public Exists(): boolean {
+    return super.Exists() && GetEntityType(this.handle) === 1;
   }
 }

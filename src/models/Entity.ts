@@ -1,4 +1,4 @@
-import * as Math from '../utils/Math';
+import { Vector3 } from '../utils/Vector3';
 
 export class Entity {
   protected handle: number;
@@ -25,16 +25,16 @@ export class Entity {
     return !this.IsDead();
   }
 
-  public get Position(): Math.Vector3 {
+  public get Position(): Vector3 {
     const coords = GetEntityCoords(this.handle, false);
-    return new Math.Vector3(coords[0], coords[1], coords[2]);
+    return new Vector3(coords[0], coords[1], coords[2]);
   }
 
-  public set Position(position: Math.Vector3) {
+  public set Position(position: Vector3) {
     SetEntityCoords(this.handle, position.x, position.y, position.z, false, false, false, true);
   }
 
-  public set PositionNoOffset(position: Math.Vector3) {
+  public set PositionNoOffset(position: Vector3) {
     SetEntityCoordsNoOffset(this.handle, position.x, position.y, position.z, true, true, true);
   }
 
