@@ -1,4 +1,4 @@
-import { Vector3 } from './utils/Math';
+import { Vector3 } from './utils/Vector3';
 import { PointF } from './utils/PointF';
 
 export class Scaleform {
