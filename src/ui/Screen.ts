@@ -1,4 +1,4 @@
-import { Notification } from './../Notification';
+import { Notification } from './Notification';
 import { PointF } from './../utils/PointF';
 import * as String from './../utils/String';
 import { Vector3 } from './../utils/Vector3';

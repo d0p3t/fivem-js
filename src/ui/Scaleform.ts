@@ -1,5 +1,5 @@
-import { PointF } from './utils/PointF';
-import { Vector3 } from './utils/Vector3';
+import { PointF } from '../utils/PointF';
+import { Vector3 } from '../utils/Vector3';
 
 export class Scaleform {
   protected handle: number;
