@@ -1,11 +1,13 @@
-import { Vector3 } from './utils/Vector3';
 import { PointF } from './utils/PointF';
+import { Vector3 } from './utils/Vector3';
 
 export class Scaleform {
   protected handle: number;
+  protected name: string;
 
   constructor(name: string) {
-    this.handle = RequestScaleformMovie(name);
+    this.name = name;
+    this.handle = RequestScaleformMovie(this.name);
   }
 
   public get Handle(): number {
@@ -24,6 +26,19 @@ export class Scaleform {
     if (this.IsLoaded) {
       SetScaleformMovieAsNoLongerNeeded(this.handle);
     }
+  }
+
+  public Load(handle: number): Promise<number> {
+    return new Promise(resolve => {
+      const interval = setInterval(() => {
+        if (HasScaleformMovieLoaded(handle)) {
+          clearInterval(interval);
+          resolve(handle);
+        } else {
+          handle = RequestScaleformMovie(this.name);
+        }
+      }, 0);
+    });
   }
 
   public CallFunction(name: string, args: object[]): void {

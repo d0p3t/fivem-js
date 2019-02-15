@@ -378,12 +378,39 @@ export abstract class Game {
 
     return this.cachedPlayer;
   }
+
   public static get PlayerPed(): Ped {
     return this.Player.Character;
   }
 
+  public static get MaxPlayers(): number {
+    return GetConvarInt('sv_maxclients', 0);
+  }
+
+  public static *PlayerList(): IterableIterator<Player> {
+    const players: Player[] = [];
+
+    for (let i = 0; i < this.MaxPlayers; i++) {
+      if (NetworkIsPlayerActive(i)) {
+        yield new Player(i);
+      }
+    }
+  }
+
   public static IsControlPressed(index: number, control: Control): boolean {
-    return IsDisabledControlPressed(index, Number(control)) ? true : false;
+    return !!IsControlPressed(index, Number(control));
+  }
+
+  public static IsControlJustPressed(index: number, control: Control): boolean {
+    return !!IsControlJustPressed(index, Number(control));
+  }
+
+  public static IsControlReleased(index: number, control: Control): boolean {
+    return !!IsControlReleased(index, Number(control));
+  }
+
+  public static IsControlJustReleased(index: number, control: Control): boolean {
+    return !!IsControlJustReleased(index, Number(control));
   }
 
   protected static cachedPlayer: Player;

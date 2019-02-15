@@ -1,4 +1,8 @@
 export class Color {
+  public static FromArgb(a: number, r: number, g: number, b: number) {
+    return new Color(a, r, g, b);
+  }
+
   public a: number;
   public r: number;
   public g: number;

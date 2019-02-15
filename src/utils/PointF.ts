@@ -5,5 +5,8 @@ export interface IPointF {
 }
 
 export class PointF implements IPointF {
+  public static Empty(): PointF {
+    return new PointF(0, 0, 0);
+  }
   constructor(public x: number, public y: number, public z: number) {}
 }
