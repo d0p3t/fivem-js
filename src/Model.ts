@@ -16,42 +16,29 @@ export class Model {
   }
 
   public get IsPed(): boolean {
-    return IsModelAPed(this.hash) ? true : false;
+    return !!IsModelAPed(this.hash);
   }
 
   public get IsVehicle(): boolean {
-    return IsModelAVehicle(this.hash) ? true : false;
+    return !!IsModelAVehicle(this.hash);
   }
 
   public get IsLoaded(): boolean {
-    return HasModelLoaded(this.hash) ? true : false;
+    return !!HasModelLoaded(this.hash);
   }
 
-  public async Request(timeout: number): Promise<boolean> {
+  public Request(timeout: number): Promise<boolean> {
     return new Promise(resolve => {
+      if (!IsModelInCdimage(this.hash) && !IsModelValid(this.hash) && !IsWeaponValid(this.hash)) {
+        resolve(false);
+      }
+      RequestModel(this.hash);
+      const start = GetGameTimer();
       const interval = setInterval(() => {
-        if (!this.IsLoaded) {
-          if (IsModelInCdimage(this.hash) || IsModelValid(this.hash) || IsWeaponValid(this.hash)) {
-            RequestModel(this.hash);
-
-            const timer = GetGameTimer();
-            while (!this.IsLoaded) {
-              setTimeout(() => {
-                /* waiting */
-              }, 1);
-
-              if (GetGameTimer() - timer >= timeout) {
-                clearInterval(interval);
-                resolve(false);
-              }
-            }
-          } else {
-            clearInterval(interval);
-            resolve(false);
-          }
+        if (this.IsLoaded || GetGameTimer() - start >= timeout) {
+          clearInterval(interval);
+          resolve(this.IsLoaded);
         }
-        clearInterval(interval);
-        resolve(true);
       }, 0);
     });
   }
