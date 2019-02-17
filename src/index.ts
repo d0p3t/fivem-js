@@ -25,3 +25,10 @@ export * from './Blip';
 // export * from './Camera';
 // export * from './Checkpoint';
 // export * from './Raycast';
+
+// Utils
+export * from './utils/Color';
+export * from './utils/Math';
+export * from './utils/PointF';
+export * from './utils/String';
+export * from './utils/Vector3';
