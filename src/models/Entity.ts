@@ -9,12 +9,21 @@ export class Entity {
   public get Handle(): number {
     return this.handle;
   }
+
   public get Health(): number {
     return GetEntityHealth(this.handle);
   }
 
   public set Health(amount: number) {
     SetEntityHealth(this.handle, amount);
+  }
+
+  public get MaxHealth(): number {
+    return GetEntityMaxHealth(this.handle) - 100;
+  }
+
+  public set MaxHealth(amount: number) {
+    SetEntityMaxHealth(this.handle, amount + 100);
   }
 
   public IsDead(): boolean {
@@ -44,6 +53,14 @@ export class Entity {
 
   public set Heading(heading: number) {
     SetEntityHeading(this.handle, heading);
+  }
+
+  public get IsCollisionEnabled(): boolean {
+    return !!!GetEntityCollisonDisabled(this.handle);
+  }
+
+  public set IsCollisionEnabled(value: boolean) {
+    SetEntityCollision(this.handle, value, false);
   }
 
   // and so on
