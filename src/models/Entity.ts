@@ -1,5 +1,5 @@
-import { Vector3 } from '../utils/Vector3';
 import { Game } from '../Game';
+import { Vector3 } from '../utils/Vector3';
 
 export class Entity {
   protected handle: number;
