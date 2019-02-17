@@ -2,6 +2,7 @@ import { Vector3 } from '../utils/Vector3';
 
 export class Entity {
   protected handle: number;
+
   constructor(handle: number) {
     this.handle = handle;
   }
@@ -63,7 +64,6 @@ export class Entity {
     SetEntityCollision(this.handle, value, false);
   }
 
-  // and so on
   public Exists(): boolean {
     return DoesEntityExist(this.handle) ? true : false;
   }

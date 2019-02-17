@@ -1,9 +1,9 @@
-import { Entity } from './Entity';
 import { DrivingStyle, HelmetType, RagdollType, SpeechModifier } from './../hashes/PedHash';
+import { VehicleSeat } from './../hashes/VehicleHash';
+import { WeaponHash } from './../hashes/WeaponHash';
+import { Vector3 } from './../utils/Vector3';
+import { Entity } from './Entity';
 import { Vehicle } from './Vehicle';
-import { Vector3 } from '../utils/Vector3';
-import { VehicleSeat } from '../hashes/VehicleHash';
-import { WeaponHash } from '../hashes/WeaponHash';
 
 export class Ped extends Entity {
   public static Exists(ped: Ped): boolean {
@@ -135,8 +135,9 @@ export class Ped extends Entity {
     modifier: SpeechModifier = SpeechModifier.Standard,
   ): void {
     if (Number(modifier) >= 0 && Number(modifier) < this.speechModifierNames.length) {
-      if (voiceName === '') PlayAmbientSpeech1(this.handle, speechName, this.speechModifierNames[Number(modifier)]);
-      else
+      if (voiceName === '') {
+        PlayAmbientSpeech1(this.handle, speechName, this.speechModifierNames[Number(modifier)]);
+      } else {
         PlayAmbientSpeechWithVoice(
           this.handle,
           speechName,
@@ -144,6 +145,7 @@ export class Ped extends Entity {
           this.speechModifierNames[Number(modifier)],
           false,
         );
+      }
     } else {
       throw new RangeError('modifier');
     }

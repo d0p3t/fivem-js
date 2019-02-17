@@ -1,7 +1,7 @@
-import { Notification } from './Notification';
 import { PointF } from './../utils/PointF';
 import * as String from './../utils/String';
 import { Vector3 } from './../utils/Vector3';
+import { Notification } from './Notification';
 
 export abstract class Screen {
   public static get Width(): number {
