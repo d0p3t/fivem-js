@@ -32,3 +32,16 @@ export * from './utils/Math';
 export * from './utils/PointF';
 export * from './utils/String';
 export * from './utils/Vector3';
+
+// Hashes
+export * from './hashes/PedHash';
+export * from './hashes/VehicleHash';
+export * from './hashes/WeaponHash';
+
+// Enums
+export * from './enums/CursorSprite';
+export * from './enums/Hud';
+export * from './enums/LoadingSpinnerType';
+export * from './enums/ScreenEffect';
+
+
