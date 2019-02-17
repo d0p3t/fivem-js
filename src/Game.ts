@@ -384,7 +384,7 @@ export abstract class Game {
   }
 
   public static get MaxPlayers(): number {
-    return GetConvarInt('sv_maxclients', 0);
+    return GetConvarInt('sv_maxclients', 0); // not replicated
   }
 
   public static *PlayerList(): IterableIterator<Player> {

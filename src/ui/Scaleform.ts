@@ -41,7 +41,7 @@ export class Scaleform {
     });
   }
 
-  public CallFunction(name: string, args: object[]): void {
+  public CallFunction(name: string, args: any[]): void {
     BeginScaleformMovieMethod(this.handle, name);
     args.forEach(arg => {
       switch (typeof arg) {

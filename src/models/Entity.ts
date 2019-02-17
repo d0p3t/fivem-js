@@ -1,4 +1,5 @@
 import { Vector3 } from '../utils/Vector3';
+import { Game } from '../Game';
 
 export class Entity {
   protected handle: number;
@@ -66,5 +67,12 @@ export class Entity {
 
   public Exists(): boolean {
     return DoesEntityExist(this.handle) ? true : false;
+  }
+
+  public Delete(): void {
+    if (this.handle !== Game.PlayerPed.Handle) {
+      SetEntityAsMissionEntity(this.handle, false, true);
+      DeleteEntity(this.handle);
+    }
   }
 }

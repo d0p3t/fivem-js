@@ -270,7 +270,7 @@ export abstract class World {
 
   public static CreateVehicle(model: Model, position: Vector3, heading: number = 0): Promise<Vehicle> {
     return new Promise(async resolve => {
-      if (!model.IsPed || !(await model.Request(1000))) {
+      if (!model.IsVehicle || !(await model.Request(1000))) {
         return null;
       }
       resolve(new Vehicle(CreateVehicle(model.Hash, position.x, position.y, position.z, heading, true, false)));
