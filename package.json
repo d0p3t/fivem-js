@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/d0p3t/fivem-js#readme",
   "files": [
-    "lib /**/*"
+    "lib/**/*"
   ],
   "devDependencies": {
     "@types/jest": "^24.0.1",
