@@ -1,7 +1,7 @@
 {
   "name": "fivem-js",
   "version": "1.0.0",
-  "description": "Javascript wrapper for the FiveM natives API",
+  "description": "Javascript/Typescript wrapper for the FiveM natives",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -23,6 +23,7 @@
     "fivem",
     "wrapper",
     "javascript",
+    "typescript",
     "citizenfx"
   ],
   "author": "Remco Troost <d0p3t>",
