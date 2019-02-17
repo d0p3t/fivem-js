@@ -43,5 +43,3 @@ export * from './enums/CursorSprite';
 export * from './enums/Hud';
 export * from './enums/LoadingSpinnerType';
 export * from './enums/ScreenEffect';
-
-
