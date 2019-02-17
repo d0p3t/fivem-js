@@ -28,19 +28,6 @@ export class Scaleform {
     }
   }
 
-  public Load(handle: number): Promise<number> {
-    return new Promise(resolve => {
-      const interval = setInterval(() => {
-        if (HasScaleformMovieLoaded(handle)) {
-          clearInterval(interval);
-          resolve(handle);
-        } else {
-          handle = RequestScaleformMovie(this.name);
-        }
-      }, 0);
-    });
-  }
-
   public CallFunction(name: string, args: any[]): void {
     BeginScaleformMovieMethod(this.handle, name);
     args.forEach(arg => {
