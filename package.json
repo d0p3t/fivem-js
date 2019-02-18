@@ -13,7 +13,9 @@
     "prepublishOnly": "npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "typedoc": "typedoc",
+    "docs": "npm run typedoc -- --options typedoc.json --exclude ./lib"
   },
   "repository": {
     "type": "git",
@@ -42,6 +44,7 @@
     "ts-jest": "^23.10.5",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.18.0",
+    "typedoc": "^0.14.2",
     "typescript": "^3.3.3"
   },
   "dependencies": {
