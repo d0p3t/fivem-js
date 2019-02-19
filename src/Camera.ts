@@ -1,6 +1,6 @@
-import { Vector3 } from './utils/Vector3';
 import { CameraShake } from './enums/CameraShake';
 import { Entity } from './models/Entity';
+import { Vector3 } from './utils/Vector3';
 
 export class Camera {
   private readonly shakeNames: string[] = [
