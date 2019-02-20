@@ -24,7 +24,7 @@ export * from './Audio';
 export * from './Blip';
 export * from './Camera';
 // export * from './Checkpoint';
-// export * from './Raycast';
+export * from './Raycast';
 
 // Utils
 export * from './utils/Color';
