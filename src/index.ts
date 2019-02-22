@@ -23,7 +23,7 @@ export * from './ui/Screen';
 export * from './Audio';
 export * from './Blip';
 export * from './Camera';
-// export * from './Checkpoint';
+export * from './Checkpoint';
 export * from './Raycast';
 
 // Utils
@@ -45,3 +45,4 @@ export * from './enums/ScreenEffect';
 export * from './hashes/PedHash';
 export * from './hashes/VehicleHash';
 export * from './hashes/WeaponHash';
+export * from './hashes/MaterialHash';
