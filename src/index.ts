@@ -24,7 +24,11 @@ export * from './Audio';
 export * from './Blip';
 export * from './Camera';
 export * from './Checkpoint';
+export * from './GameplayCamera';
+export * from './ParticleEffect';
+export * from './ParticleEffectAsset';
 export * from './Raycast';
+export * from './RelationshipGroup';
 
 // Utils
 export * from './utils/Color';
@@ -42,6 +46,7 @@ export * from './enums/Hud';
 export * from './enums/LoadingSpinnerType';
 export * from './enums/RadioStation';
 export * from './enums/Relationship';
+export * from './enums/RopeType';
 export * from './enums/ScreenEffect';
 
 // Hashes
