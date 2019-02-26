@@ -37,8 +37,11 @@ export * from './utils/Vector3';
 export * from './enums/AudioFlag';
 export * from './enums/CameraShake';
 export * from './enums/CursorSprite';
+export * from './enums/Font';
 export * from './enums/Hud';
 export * from './enums/LoadingSpinnerType';
+export * from './enums/RadioStation';
+export * from './enums/Relationship';
 export * from './enums/ScreenEffect';
 
 // Hashes
