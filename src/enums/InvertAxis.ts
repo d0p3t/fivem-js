@@ -5,6 +5,6 @@ export enum InvertAxisFlags {
   Z = 4,
 }
 
-export type InvertAxis = {
+export interface InvertAxis {
   flags: InvertAxisFlags;
-};
+}
