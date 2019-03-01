@@ -4,6 +4,7 @@ export * from './World';
 
 // Entity Classes
 export * from './models/Entity';
+export * from './models/EntityBone';
 export * from './models/Ped';
 export * from './models/Player';
 export * from './models/Prop';
@@ -35,6 +36,7 @@ export * from './utils/Vector3';
 
 // Enums
 export * from './enums/AudioFlag';
+export * from './enums/Bone';
 export * from './enums/CameraShake';
 export * from './enums/CursorSprite';
 export * from './enums/Hud';

@@ -1,8 +1,10 @@
 import { Game } from '../Game';
 import { Vector3 } from '../utils/Vector3';
+import { EntityBoneCollection } from './EntityBoneCollection';
 
 export class Entity {
   protected handle: number;
+  protected bones: EntityBoneCollection;
 
   constructor(handle: number) {
     this.handle = handle;
@@ -63,6 +65,13 @@ export class Entity {
 
   public set IsCollisionEnabled(value: boolean) {
     SetEntityCollision(this.handle, value, false);
+  }
+
+  public get Bones(): EntityBoneCollection {
+    if (this.bones === null) {
+      this.bones = new EntityBoneCollection(this);
+    }
+    return this.bones;
   }
 
   public Exists(): boolean {
