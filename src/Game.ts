@@ -405,6 +405,10 @@ export abstract class Game {
     return !!IsControlJustPressed(index, Number(control));
   }
 
+  public static IsDisabledControlJustPressed(index: number, control: Control): boolean {
+    return !!IsDisabledControlJustPressed(index, Number(control));
+  }
+
   public static IsControlReleased(index: number, control: Control): boolean {
     return !!IsControlReleased(index, Number(control));
   }

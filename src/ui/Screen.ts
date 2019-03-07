@@ -5,11 +5,11 @@ import { Notification } from './Notification';
 
 export abstract class Screen {
   public static get Width(): number {
-    return GetScreenResolution()[0];
+    return GetScreenActiveResolution()[0];
   }
 
   public static get Height(): number {
-    return GetScreenResolution()[1];
+    return GetScreenActiveResolution()[1];
   }
 
   public static get AspectRatio(): number {

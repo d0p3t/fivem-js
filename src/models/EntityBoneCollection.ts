@@ -7,7 +7,5 @@ export class EntityBoneCollection {
 
   protected readonly owner: Entity;
 
-  constructor(owner: Entity) {
-    
-  }
+  constructor(owner: Entity) {}
 }

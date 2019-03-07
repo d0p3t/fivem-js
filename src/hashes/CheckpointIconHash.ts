@@ -41,12 +41,9 @@ export enum CheckpointIcon {
   Empty,
   Ring,
   Empty2,
-<<<<<<< HEAD
   // CylinderCustomShape,
   // CylinderCustomShape2,
   // CylinderCustomShape3,
-=======
->>>>>>> edb8ed6d564df8582641484ee8ab206dade1c145
   Cyclinder = 45,
   Cyclinder2,
   Cyclinder3,
