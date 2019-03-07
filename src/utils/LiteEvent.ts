@@ -1,16 +1,16 @@
-interface ILiteEvent {
-  on(handler: { (...args: any[]): void }): void;
-  off(handler: { (...args: any[]): void }): void;
+export interface ILiteEvent {
+  on(handler: { (...args: any[]) }): void;
+  off(handler: { (...args: any[]) }): void;
 }
 
 export default class LiteEvent implements ILiteEvent {
-  private handlers: { (...args: any[]): void }[] = [];
+  private handlers: Array<{ (...args: any[]) }> = [];
 
-  public on(handler: { (...args: any[]): void }): void {
+  public on(handler: { (...args: any[]) }): void {
     this.handlers.push(handler);
   }
 
-  public off(handler: { (...args: any[]): void }): void {
+  public off(handler: { (...args: any[]) }): void {
     this.handlers = this.handlers.filter(h => h !== handler);
   }
 

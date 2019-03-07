@@ -20,7 +20,7 @@ export default class Text extends IElement {
     this.centered = centered || false;
   }
 
-  Draw(caption, pos, scale, color, font, centered) {
+  public Draw(caption, pos, scale, color, font, centered): void {
     if (caption && !pos && !scale && !color && !font && !centered) {
       pos = new Point(this.pos.X + caption.Width, this.pos.Y + caption.Height);
       scale = this.scale;
@@ -31,7 +31,7 @@ export default class Text extends IElement {
     const x = pos.X / 1280.0;
     const y = pos.Y / 720.0;
 
-    SetTextFont(parseInt(font));
+    SetTextFont(Number(font));
     SetTextScale(scale, scale);
     SetTextColour(color.R, color.G, color.B, color.A);
     SetTextCentre(centered);
