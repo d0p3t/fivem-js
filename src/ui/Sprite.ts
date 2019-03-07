@@ -4,17 +4,17 @@ import Size from '../utils/Size';
 import { Screen } from './Screen';
 
 export default class Sprite {
-  public TextureName: string;
+  public textureName: string;
   public pos: Point;
   public size: Size;
   public heading: number;
   public color: Color;
   public visible: boolean;
-  private _textureDict: string;
+  private textureDict: string;
 
   constructor(textureDict, textureName, pos, size, heading = 0, color = new Color(255, 255, 255, 255)) {
-    this.TextureDict = textureDict;
-    this.TextureName = textureName;
+    this.textureDict = textureDict;
+    this.textureName = textureName;
     this.pos = pos;
     this.size = size;
     this.heading = heading;
@@ -22,8 +22,8 @@ export default class Sprite {
     this.visible = true;
   }
 
-  LoadTextureDictionary() {
-    RequestStreamedTextureDict(this._textureDict, true);
+  public LoadTextureDictionary(): void {
+    RequestStreamedTextureDict(this.textureDict, true);
     const interval = setInterval(() => {
       if (this.IsTextureDictionaryLoaded) {
         clearInterval(interval);
@@ -31,21 +31,23 @@ export default class Sprite {
     }, 0);
   }
 
-  set TextureDict(v) {
-    this._textureDict = v;
-    if (!this.IsTextureDictionaryLoaded) this.LoadTextureDictionary();
+  public set TextureDict(v) {
+    this.textureDict = v;
+    if (!this.IsTextureDictionaryLoaded) {
+      this.LoadTextureDictionary();
+    }
   }
-  get TextureDict(): string {
-    return this._textureDict;
-  }
-
-  get IsTextureDictionaryLoaded() {
-    return HasStreamedTextureDictLoaded(this._textureDict);
+  public get TextureDict(): string {
+    return this.textureDict;
   }
 
-  Draw(textureDictionary?, textureName?, pos?, size?, heading?, color?, loadTexture?) {
+  public get IsTextureDictionaryLoaded(): number {
+    return HasStreamedTextureDictLoaded(this.textureDict);
+  }
+
+  public Draw(textureDictionary?, textureName?, pos?, size?, heading?, color?, loadTexture?): void {
     textureDictionary = textureDictionary || this.TextureDict;
-    textureName = textureName || this.TextureName;
+    textureName = textureName || this.textureName;
     pos = pos || this.pos;
     size = size || this.size;
     heading = heading || this.heading;
@@ -53,7 +55,9 @@ export default class Sprite {
     loadTexture = loadTexture || true;
 
     if (loadTexture) {
-      if (!HasStreamedTextureDictLoaded(textureDictionary)) RequestStreamedTextureDict(textureDictionary, true);
+      if (!HasStreamedTextureDictLoaded(textureDictionary)) {
+        RequestStreamedTextureDict(textureDictionary, true);
+      }
     }
 
     const screenw = Screen.Width;

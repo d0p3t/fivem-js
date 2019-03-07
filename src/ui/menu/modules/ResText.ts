@@ -1,8 +1,8 @@
 import Color from '../../../utils/Color';
 import Point from '../../../utils/Point';
 import Size from '../../../utils/Size';
-import Text from '../../Text';
 import { Screen } from '../../Screen';
+import Text from '../../Text';
 
 export enum Alignment {
   Left,
@@ -11,6 +11,14 @@ export enum Alignment {
 }
 
 export default class ResText extends Text {
+  public static AddLongString(str: string) {
+    const strLen = 99;
+    for (let i = 0; i < str.length; i += strLen) {
+      const substr = str.substr(i, Math.min(strLen, str.length - i));
+      AddTextComponentSubstringPlayerName(substr);
+    }
+  }
+
   public TextAlignment: Alignment = Alignment.Left;
   public DropShadow: boolean;
   public Outline: boolean;
@@ -18,18 +26,20 @@ export default class ResText extends Text {
 
   constructor(caption, pos, scale, color?, font?, justify?) {
     super(caption, pos, scale, color || new Color(255, 255, 255, 255), font || 0, false);
-    if (justify) this.TextAlignment = justify;
+    if (justify) {
+      this.TextAlignment = justify;
+    }
   }
 
-  public Draw(): void;
-  public Draw(offset: Size): void;
+  public Draw(offset?: Size): void;
   public Draw(caption, pos, scale, color, font, arg2): void;
-
-  Draw(arg1?, pos?, scale?, color?, font?, arg2?, dropShadow?, outline?, wordWrap?) {
+  public Draw(arg1?, pos?, scale?, color?, font?, arg2?, dropShadow?, outline?, wordWrap?) {
     let caption = arg1;
     let centered = arg2;
     let textAlignment = arg2;
-    if (!arg1) arg1 = new Size(0, 0);
+    if (!arg1) {
+      arg1 = new Size(0, 0);
+    }
     if (arg1 && !pos) {
       textAlignment = this.TextAlignment;
       caption = this.caption;
@@ -37,7 +47,7 @@ export default class ResText extends Text {
       scale = this.scale;
       color = this.color;
       font = this.font;
-      if (centered == true || centered == false) {
+      if (centered === true || centered === false) {
         centered = this.centered;
       } else {
         centered = undefined;
@@ -57,16 +67,18 @@ export default class ResText extends Text {
     const x = this.pos.X / width;
     const y = this.pos.Y / height;
 
-    SetTextFont(parseInt(font));
+    SetTextFont(Number(font));
     SetTextScale(1.0, scale);
     SetTextColour(color.R, color.G, color.B, color.A);
 
     if (centered !== undefined) {
       SetTextCentre(centered);
     } else {
-      if (dropShadow) SetTextDropshadow(2, 0, 0, 0, 0);
+      if (dropShadow) {
+        SetTextDropshadow(2, 0, 0, 0, 0);
+      }
 
-      if (outline) console.warn('not working!');
+      // if (outline) console.warn('not working!');
 
       switch (textAlignment) {
         case Alignment.Centered:
@@ -87,13 +99,5 @@ export default class ResText extends Text {
     SetTextEntry('STRING');
     ResText.AddLongString(caption);
     DrawText(x, y);
-  }
-
-  public static AddLongString(str: string) {
-    const strLen = 99;
-    for (var i = 0; i < str.length; i += strLen) {
-      const substr = str.substr(i, Math.min(strLen, str.length - i));
-      AddTextComponentSubstringPlayerName(substr);
-    }
   }
 }

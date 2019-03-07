@@ -9,12 +9,14 @@ export default class Container extends Rectangle {
     this.Items = [];
   }
 
-  addItem(item) {
+  public addItem(item): void {
     this.Items.push(item);
   }
 
-  Draw(offset?) {
-    if (!this.enabled) return;
+  public Draw(offset?: Size): void {
+    if (!this.enabled) {
+      return;
+    }
     offset = offset || new Size();
     const screenw = Screen.Width;
     const screenh = Screen.Width;
@@ -29,6 +31,8 @@ export default class Container extends Rectangle {
 
     DrawRect(x, y, w, h, this.color.r, this.color.g, this.color.b, this.color.a);
 
-    for (var item of this.Items) item.Draw(new Size(this.pos.X + offset.Width, this.pos.Y + offset.Height));
+    for (const item of this.Items) {
+      item.Draw(new Size(this.pos.X + offset.Width, this.pos.Y + offset.Height));
+    }
   }
 }

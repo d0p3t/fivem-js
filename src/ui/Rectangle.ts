@@ -15,8 +15,10 @@ export default class Rectangle extends IElement {
     this.color = color;
   }
 
-  Draw(pos, size, color) {
-    if (!pos) pos = new Size(0, 0);
+  public Draw(pos, size, color): void {
+    if (!pos) {
+      pos = new Size(0, 0);
+    }
     if (!size && !color) {
       pos = new Point(this.pos.X + pos.Width, this.pos.Y + pos.Height);
       size = this.size;

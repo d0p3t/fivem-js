@@ -1,6 +1,6 @@
-import * as Math from './Math';
-import { Screen } from '../ui/Screen';
 import ResText from '../ui/menu/modules/ResText';
+import { Screen } from '../ui/Screen';
+import * as Math from './Math';
 
 export function StringToArray(inputString: string) {
   const stringsNeeded: number = inputString.length % 99 === 0 ? inputString.length / 99 : inputString.length / 99 + 1;

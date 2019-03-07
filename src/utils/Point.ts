@@ -1,14 +1,6 @@
 export default class Point {
-  public X: number = 0;
-  public Y: number = 0;
-  constructor(x: number, y: number) {
-    this.X = x;
-    this.Y = y;
-  }
-
-  static Parse(point: number[]): Point;
-  static Parse(point: { X: number; Y: number }): Point;
-  static Parse(arg): Point {
+  public static Parse(point: number[] | { X: number; Y: number }): Point;
+  public static Parse(arg): Point {
     if (typeof arg === 'object') {
       if (arg.length) {
         // Array
@@ -24,5 +16,12 @@ export default class Point {
       }
     }
     return new Point(0, 0);
+  }
+
+  public X: number = 0;
+  public Y: number = 0;
+  constructor(x: number, y: number) {
+    this.X = x;
+    this.Y = y;
   }
 }
