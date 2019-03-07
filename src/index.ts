@@ -19,6 +19,18 @@ export * from './ui/LoadingPrompt';
 export * from './ui/Notification';
 export * from './ui/Scaleform';
 export * from './ui/Screen';
+export * from './ui/interfaces/IElement';
+export * from './ui/Text';
+export * from './ui/Sprite';
+export * from './ui/menu/Menu';
+export * from './ui/menu/items/UIMenuCheckboxItem';
+export * from './ui/menu/items/UIMenuItem';
+export * from './ui/menu/items/UIMenuListItem';
+export * from './ui/menu/items/UIMenuSliderItem';
+export * from './ui/menu/modules/ItemsCollection';
+export * from './ui/menu/modules/ListItem';
+export * from './ui/menu/modules/ResRectangle';
+export * from './ui/menu/modules/ResText';
 
 // Uncategorized
 export * from './Audio';
@@ -37,6 +49,11 @@ export * from './utils/Math';
 export * from './utils/PointF';
 export * from './utils/String';
 export * from './utils/Vector3';
+export * from './utils/LiteEvent';
+export * from './utils/Point';
+export * from './utils/LiteEvent';
+export * from './utils/Size';
+export * from './utils/UUIDV4';
 
 // Enums
 export * from './enums/AudioFlag';
