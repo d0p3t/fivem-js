@@ -1,9 +1,9 @@
-import Color from '../utils/Color';
-import Point from '../utils/Point';
-import Size from '../utils/Size';
+import { Color } from '../utils/Color';
+import { Point } from '../utils/Point';
+import { Size } from '../utils/Size';
 import { Screen } from './Screen';
 
-export default class Sprite {
+export class Sprite {
   public textureName: string;
   public pos: Point;
   public size: Size;
@@ -22,13 +22,20 @@ export default class Sprite {
     this.visible = true;
   }
 
-  public LoadTextureDictionary(): void {
-    RequestStreamedTextureDict(this.textureDict, true);
-    const interval = setInterval(() => {
-      if (this.IsTextureDictionaryLoaded) {
-        clearInterval(interval);
-      }
-    }, 0);
+  public LoadTextureDictionary(): Promise<void> {
+    return new Promise(resolve => {
+      RequestStreamedTextureDict(this.textureDict, true);
+      console.log('gonna load');
+      const interval = setInterval(() => {
+        if (this.IsTextureDictionaryLoaded) {
+          console.log('yuppp loaded');
+          resolve();
+          clearInterval(interval);
+        } else {
+          console.log('nooope');
+        }
+      }, 0);
+    });
   }
 
   public set TextureDict(v) {
@@ -45,7 +52,7 @@ export default class Sprite {
     return HasStreamedTextureDictLoaded(this.textureDict);
   }
 
-  public Draw(textureDictionary?, textureName?, pos?, size?, heading?, color?, loadTexture?): void {
+  public async Draw(textureDictionary?, textureName?, pos?, size?, heading?, color?, loadTexture?): Promise<void> {
     textureDictionary = textureDictionary || this.TextureDict;
     textureName = textureName || this.textureName;
     pos = pos || this.pos;

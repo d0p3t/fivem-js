@@ -3,7 +3,7 @@ export interface ILiteEvent {
   off(handler: { (...args: any[]) }): void;
 }
 
-export default class LiteEvent implements ILiteEvent {
+export class LiteEvent implements ILiteEvent {
   private handlers: Array<{ (...args: any[]) }> = [];
 
   public on(handler: { (...args: any[]) }): void {

@@ -1,9 +1,9 @@
-import Point from '../../../utils/Point';
-import Size from '../../../utils/Size';
-import Rectangle from '../../Rectangle';
+import { Point } from '../../../utils/Point';
+import { Size } from '../../../utils/Size';
+import { Rectangle } from '../../Rectangle';
 import { Screen } from '../../Screen';
 
-export default class ResRectangle extends Rectangle {
+export class ResRectangle extends Rectangle {
   constructor(pos, size, color) {
     super(pos, size, color);
   }
