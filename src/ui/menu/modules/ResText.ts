@@ -57,11 +57,8 @@ export class ResText extends Text {
       }
     }
 
-    const screenw = Screen.Width;
-    const screenh = Screen.Height;
-
     const height = 1080.0;
-    const ratio = screenw / screenh;
+    const ratio = Screen.AspectRatio;
     const width = height * ratio;
 
     const x = this.pos.X / width;

@@ -354,10 +354,8 @@ export class Menu {
   // }
 
   public GetScreenResolutionMantainRatio(): Size {
-    const screenw = Screen.Width;
-    const screenh = Screen.Height;
     const height = 1080.0;
-    const ratio = screenw / screenh;
+    const ratio = Screen.AspectRatio;
     const width = height * ratio;
 
     return new Size(width, height);
