@@ -18,10 +18,8 @@ export default class Container extends Rectangle {
       return;
     }
     offset = offset || new Size();
-    const screenw = Screen.Width;
-    const screenh = Screen.Width;
     const height = 1080.0;
-    const ratio = screenw / screenh;
+    const ratio = Screen.AspectRatio;
     const width = height * ratio;
 
     const w = this.size.Width / width;

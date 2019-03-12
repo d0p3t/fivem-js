@@ -20,10 +20,8 @@ export default class ResRectangle extends Rectangle {
       color = this.color;
     }
 
-    const screenw = Screen.Width;
-    const screenh = Screen.Height;
     const height = 1080.0;
-    const ratio = screenw / screenh;
+    const ratio = Screen.AspectRatio;
     const width = height * ratio;
 
     const w = size.Width / width;

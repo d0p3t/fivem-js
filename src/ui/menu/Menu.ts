@@ -355,7 +355,7 @@ export default class Menu {
 
   public GetScreenResolutionMantainRatio(): Size {
     const height = 1080.0;
-    const ratio = GetScreenAspectRatio(true);
+    const ratio = Screen.AspectRatio;
     const width = height * ratio;
 
     return new Size(width, height);
