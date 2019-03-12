@@ -13,7 +13,7 @@ export abstract class Screen {
   }
 
   public static get AspectRatio(): number {
-    return GetScreenAspectRatio(false);
+    return GetAspectRatio(false);
   }
 
   public static get ScaledWidth(): number {
