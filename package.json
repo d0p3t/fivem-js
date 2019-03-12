@@ -15,7 +15,7 @@
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
     "typedoc": "typedoc",
-    "docs": "npm run typedoc -- --options typedoc.json --exclude ./lib"
+    "docs": "npm run typedoc -- --options typedoc.json --exclude ./lib --excludePrivate --excludeProtected"
   },
   "repository": {
     "type": "git",
