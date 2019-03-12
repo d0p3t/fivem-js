@@ -1,9 +1,9 @@
-import Color from '../utils/Color';
-import Point from '../utils/Point';
-import Size from '../utils/Size';
-import IElement from './interfaces/IElement';
+import { Color } from '../utils/Color';
+import { Point } from '../utils/Point';
+import { Size } from '../utils/Size';
+import { IElement } from './interfaces/IElement';
 
-export default class Rectangle extends IElement {
+export class Rectangle extends IElement {
   public pos: Point;
   public size: Size;
   public color: Color;

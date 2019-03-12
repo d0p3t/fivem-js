@@ -1,6 +1,6 @@
-import ListItem from '../modules/ListItem';
+import { ListItem } from '../modules/ListItem';
 
-export default class ItemsCollection {
+export class ItemsCollection {
   private items: any[];
 
   constructor(items: any[]) {

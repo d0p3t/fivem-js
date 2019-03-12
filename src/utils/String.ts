@@ -1,4 +1,4 @@
-import ResText from '../ui/menu/modules/ResText';
+import { ResText } from '../ui/menu/modules/ResText';
 import { Screen } from '../ui/Screen';
 import * as Math from './Math';
 

@@ -1,9 +1,9 @@
-import Color from '../utils/Color';
-import Point from '../utils/Point';
-import IElement from './interfaces/IElement';
-import ResText from './menu/modules/ResText';
+import { Color } from '../utils/Color';
+import { Point } from '../utils/Point';
+import { IElement } from './interfaces/IElement';
+import { ResText } from './menu/modules/ResText';
 
-export default class Text extends IElement {
+export class Text extends IElement {
   public caption: string;
   public pos: Point;
   public scale: number;

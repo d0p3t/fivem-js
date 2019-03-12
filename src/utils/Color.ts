@@ -1,4 +1,4 @@
-export default class Color {
+export class Color {
   public static Empty = new Color(0, 0, 0, 0);
   public static Transparent = new Color(0, 0, 0, 0);
   public static Black = new Color(255, 0, 0, 0);

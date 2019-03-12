@@ -1,9 +1,7 @@
 {
-    "extends": [
-        "tslint:recommended",
-        "tslint-config-prettier"
-    ],
-    "rules": {
-        "no-bitwise": false
-    }
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "rules": {
+    "no-bitwise": false,
+    "no-console": false
+  }
 }

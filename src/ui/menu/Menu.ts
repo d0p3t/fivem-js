@@ -1,30 +1,30 @@
 import { Audio } from '../../Audio';
 import Font from '../../enums/Font';
 import { Control, Game } from '../../Game';
-import Color from '../../utils/Color';
-import LiteEvent from '../../utils/LiteEvent';
-import Point from '../../utils/Point';
-import Size from '../../utils/Size';
+import { Color } from '../../utils/Color';
+import { LiteEvent } from '../../utils/LiteEvent';
+import { Point } from '../../utils/Point';
+import { Size } from '../../utils/Size';
 import { MeasureString } from '../../utils/String';
-import UUIDV4 from '../../utils/uuidv4';
-import Container from '../Container';
+import { UUIDV4 } from '../../utils/uuidv4';
+import { Container } from '../Container';
 import { Screen } from '../Screen';
-import Sprite from '../Sprite';
-import UIMenuCheckboxItem from './items/UIMenuCheckboxItem';
-import UIMenuItem from './items/UIMenuItem';
-import UIMenuListItem from './items/UIMenuListItem';
-import UIMenuSliderItem from './items/UIMenuSliderItem';
-import ResRectangle from './modules/ResRectangle';
-import ResText, { Alignment } from './modules/ResText';
+import { Sprite } from '../Sprite';
+import { UIMenuCheckboxItem } from './items/UIMenuCheckboxItem';
+import { UIMenuItem } from './items/UIMenuItem';
+import { UIMenuListItem } from './items/UIMenuListItem';
+import { UIMenuSliderItem } from './items/UIMenuSliderItem';
+import { ResRectangle } from './modules/ResRectangle';
+import { ResText, Alignment } from './modules/ResText';
 
-export default class Menu {
+export class Menu {
   public readonly Id: string = UUIDV4();
 
   public ParentMenu: Menu;
   public ParentItem: UIMenuItem;
   public Children: Map<string, Menu>;
   public WidthOffset: number = 0;
-  public Visible: boolean = true;
+  public Visible: boolean = false;
   public MouseControlsEnabled: boolean = false;
 
   public AUDIO_LIBRARY: string = 'HUD_FRONTEND_DEFAULT_SOUNDSET';
@@ -93,7 +93,7 @@ export default class Menu {
   private readonly counterText: ResText;
   private readonly background: Sprite;
 
-  constructor(title, subtitle, offset, spriteLibrary, spriteName) {
+  constructor(title, subtitle, offset, spriteLibrary?, spriteName?) {
     if (!(offset instanceof Point)) {
       offset = Point.Parse(offset);
     }
@@ -194,9 +194,9 @@ export default class Menu {
       new Size(290, 25),
     );
 
-    setTick(() => {
+    setInterval(() => {
       this.render();
-    });
+    }, 0);
     // on('render', this.render.bind(this)); // or setImmediate
     // console.log(`Created Menu! ${this.title}`);
   }
@@ -691,23 +691,23 @@ export default class Menu {
     return output;
   }
 
-  private render() {
+  private async render() {
     if (!this.Visible) {
       return;
     }
 
     if (this.justOpened) {
       if (this.logo != null && !this.logo.IsTextureDictionaryLoaded) {
-        this.logo.LoadTextureDictionary();
+        await this.logo.LoadTextureDictionary();
       }
       if (!this.background.IsTextureDictionaryLoaded) {
-        this.background.LoadTextureDictionary();
+        await this.background.LoadTextureDictionary();
       }
       if (!this.descriptionRectangle.IsTextureDictionaryLoaded) {
-        this.descriptionRectangle.LoadTextureDictionary();
+        await this.descriptionRectangle.LoadTextureDictionary();
       }
       if (!this.upAndDownSprite.IsTextureDictionaryLoaded) {
-        this.upAndDownSprite.LoadTextureDictionary();
+        await this.upAndDownSprite.LoadTextureDictionary();
       }
     }
     this.mainMenu.Draw();

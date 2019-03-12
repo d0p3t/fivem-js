@@ -1,12 +1,12 @@
-import BadgeStyle from '../../../enums/BadgeStyle';
-import Color from '../../../utils/Color';
-import Point from '../../../utils/Point';
-import Size from '../../../utils/Size';
-import Sprite from '../../Sprite';
-import ResRectangle from '../modules/ResRectangle';
-import UIMenuItem from './UIMenuItem';
+import { BadgeStyle } from '../../../enums/BadgeStyle';
+import { Color } from '../../../utils/Color';
+import { Point } from '../../../utils/Point';
+import { Size } from '../../../utils/Size';
+import { Sprite } from '../../Sprite';
+import { ResRectangle } from '../modules/ResRectangle';
+import { UIMenuItem } from './UIMenuItem';
 
-export default class UIMenuSliderItem extends UIMenuItem {
+export class UIMenuSliderItem extends UIMenuItem {
   private arrowLeft: Sprite;
   private arrowRight: Sprite;
 
