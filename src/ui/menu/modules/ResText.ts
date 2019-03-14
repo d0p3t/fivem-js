@@ -1,3 +1,4 @@
+import Font from '../../../enums/Font';
 import { Color } from '../../../utils/Color';
 import { Point } from '../../../utils/Point';
 import { Size } from '../../../utils/Size';
@@ -66,7 +67,7 @@ export class ResText extends Text {
 
     SetTextFont(Number(font));
     SetTextScale(1.0, scale);
-    SetTextColour(color.R, color.G, color.B, color.A);
+    SetTextColour(color.r, color.g, color.b, color.a);
 
     if (centered !== undefined) {
       SetTextCentre(centered);

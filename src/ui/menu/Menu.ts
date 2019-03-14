@@ -15,7 +15,7 @@ import { UIMenuItem } from './items/UIMenuItem';
 import { UIMenuListItem } from './items/UIMenuListItem';
 import { UIMenuSliderItem } from './items/UIMenuSliderItem';
 import { ResRectangle } from './modules/ResRectangle';
-import { ResText, Alignment } from './modules/ResText';
+import { Alignment, ResText } from './modules/ResText';
 
 export class Menu {
   public readonly Id: string = UUIDV4();
@@ -126,7 +126,7 @@ export class Menu {
 
     if (this.subtitle !== '') {
       this.mainMenu.addItem(
-        new ResRectangle(new Point(0 + this.offset.X, 107 + this.offset.Y), new Size(431, 37), new Color(0, 0, 0, 255)),
+        new ResRectangle(new Point(0 + this.offset.X, 107 + this.offset.Y), new Size(431, 37), new Color(255, 0, 0, 0)),
       );
       this.mainMenu.addItem(
         (this.subtitleResText = new ResText(
@@ -162,13 +162,13 @@ export class Menu {
     this.extraRectangleUp = new ResRectangle(
       new Point(0 + this.offset.X, 144 + 38 * (this.MaxItemsOnScreen + 1) + this.offset.Y - 37 + this.extraOffset),
       new Size(431, 18),
-      new Color(0, 0, 0, 200),
+      new Color(200, 0, 0, 0),
     );
 
     this.extraRectangleDown = new ResRectangle(
       new Point(0 + this.offset.X, 144 + 18 + 38 * (this.MaxItemsOnScreen + 1) + this.offset.Y - 37 + this.extraOffset),
       new Size(431, 18),
-      new Color(0, 0, 0, 200),
+      new Color(200, 0, 0, 0),
     );
 
     this.descriptionBar = new ResRectangle(new Point(this.offset.X, 123), new Size(431, 4), Color.Black);
@@ -194,9 +194,9 @@ export class Menu {
       new Size(290, 25),
     );
 
-    setInterval(() => {
+    setTick(() => {
       this.render();
-    }, 0);
+    });
     // on('render', this.render.bind(this)); // or setImmediate
     // console.log(`Created Menu! ${this.title}`);
   }
@@ -354,9 +354,8 @@ export class Menu {
   // }
 
   public GetScreenResolutionMantainRatio(): Size {
-    const height = 1080.0;
-    const ratio = Screen.AspectRatio;
-    const width = height * ratio;
+    const height = Screen.Height;
+    const width = Screen.ScaledWidth;
 
     return new Size(width, height);
   }
@@ -503,8 +502,7 @@ export class Menu {
     if (this.MenuItems.length === 0) {
       return;
     }
-    if (Game.IsControlPressed(0, Control.PhoneUp) && this.lastUpDownNavigation + 120 < Date.now()) {
-      // isControlJustPressed
+    if (Game.IsControlPressed(0, Control.PhoneUp) && this.lastUpDownNavigation + 200 < Date.now()) {
       // Up
       this.lastUpDownNavigation = Date.now();
       if (this.MenuItems.length > this.MaxItemsOnScreen + 1) {
@@ -512,10 +510,7 @@ export class Menu {
       } else {
         this.GoUp();
       }
-    } else if (Game.IsControlPressed(0, Control.PhoneUp)) {
-      this.lastUpDownNavigation = 0;
-    } else if (Game.IsControlPressed(0, Control.PhoneDown) && this.lastUpDownNavigation + 120 < Date.now()) {
-      // isControlJustPressed
+    } else if (Game.IsControlPressed(0, Control.PhoneDown) && this.lastUpDownNavigation + 200 < Date.now()) {
       // Down
       this.lastUpDownNavigation = Date.now();
       if (this.MenuItems.length > this.MaxItemsOnScreen + 1) {
@@ -523,21 +518,15 @@ export class Menu {
       } else {
         this.GoDown();
       }
-    } else if (Game.IsControlPressed(0, Control.PhoneDown)) {
-      this.lastUpDownNavigation = 0;
-    } else if (Game.IsControlPressed(0, Control.PhoneLeft) && this.lastLeftRightNavigation + 100 < Date.now()) {
+    } else if (Game.IsControlPressed(0, Control.PhoneLeft) && this.lastLeftRightNavigation + 200 < Date.now()) {
       // Left
       this.lastLeftRightNavigation = Date.now();
       this.GoLeft();
-    } else if (Game.IsControlPressed(0, Control.PhoneLeft)) {
-      this.lastLeftRightNavigation = 0;
-    } else if (Game.IsControlPressed(0, Control.PhoneRight) && this.lastLeftRightNavigation + 100 < Date.now()) {
+    } else if (Game.IsControlPressed(0, Control.PhoneRight) && this.lastLeftRightNavigation + 200 < Date.now()) {
       // Right
       this.lastLeftRightNavigation = Date.now();
       this.GoRight();
-    } else if (Game.IsControlPressed(0, Control.PhoneRight)) {
-      this.lastLeftRightNavigation = 0;
-    } else if (Game.IsControlPressed(0, Control.FrontendAccept)) {
+    } else if (Game.IsControlJustPressed(0, Control.FrontendAccept)) {
       // Select
       this.SelectItem();
     }
@@ -689,23 +678,23 @@ export class Menu {
     return output;
   }
 
-  private async render() {
+  private render() {
     if (!this.Visible) {
       return;
     }
 
     if (this.justOpened) {
       if (this.logo != null && !this.logo.IsTextureDictionaryLoaded) {
-        await this.logo.LoadTextureDictionary();
+        this.logo.LoadTextureDictionary();
       }
       if (!this.background.IsTextureDictionaryLoaded) {
-        await this.background.LoadTextureDictionary();
+        this.background.LoadTextureDictionary();
       }
       if (!this.descriptionRectangle.IsTextureDictionaryLoaded) {
-        await this.descriptionRectangle.LoadTextureDictionary();
+        this.descriptionRectangle.LoadTextureDictionary();
       }
       if (!this.upAndDownSprite.IsTextureDictionaryLoaded) {
-        await this.upAndDownSprite.LoadTextureDictionary();
+        this.upAndDownSprite.LoadTextureDictionary();
       }
     }
     this.mainMenu.Draw();

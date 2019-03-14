@@ -21,8 +21,7 @@ export function MeasureStringWidthNoConvert(input: string) {
 }
 
 export function MeasureString(str: string) {
-  const height = 1080.0;
-  const ratio = Screen.AspectRatio;
-  const width = height * ratio;
+  const height = Screen.Height;
+  const width = Screen.ScaledWidth;
   return this.MeasureStringWidthNoConvert(str) * width;
 }

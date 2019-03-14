@@ -2,12 +2,13 @@ import { Color } from '../utils/Color';
 import { Point } from '../utils/Point';
 import { Size } from '../utils/Size';
 import { IElement } from './interfaces/IElement';
+import { Screen } from './Screen';
 
 export class Rectangle extends IElement {
   public pos: Point;
   public size: Size;
   public color: Color;
-  constructor(pos, size, color) {
+  constructor(pos, size, color: Color) {
     super();
     this.enabled = true;
     this.pos = pos;
@@ -15,7 +16,7 @@ export class Rectangle extends IElement {
     this.color = color;
   }
 
-  public Draw(pos, size, color): void {
+  public Draw(pos, size, color: Color): void {
     if (!pos) {
       pos = new Size(0, 0);
     }
@@ -24,11 +25,14 @@ export class Rectangle extends IElement {
       size = this.size;
       color = this.color;
     }
-    const w = size.Width / 1280.0;
-    const h = size.Height / 720.0;
-    const x = pos.X / 1280.0 + w * 0.5;
-    const y = pos.Y / 720.0 + h * 0.5;
+    const height = Screen.Height;
+    const width = Screen.ScaledWidth;
 
-    DrawRect(x, y, w, h, color.R, color.G, color.B, color.A);
+    const w = size.Width / width;
+    const h = size.Height / height;
+    const x = pos.X / width;
+    const y = pos.Y / height;
+
+    DrawRect(x, y, w, h, color.r, color.g, color.b, color.a);
   }
 }

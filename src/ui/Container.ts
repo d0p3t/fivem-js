@@ -19,9 +19,8 @@ export class Container extends Rectangle {
       return;
     }
     offset = offset || new Size();
-    const height = 1080.0;
-    const ratio = Screen.AspectRatio;
-    const width = height * ratio;
+    const height = Screen.Height;
+    const width = Screen.ScaledWidth;
 
     const w = this.size.Width / width;
     const h = this.size.Height / height;

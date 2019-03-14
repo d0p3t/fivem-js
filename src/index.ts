@@ -12,16 +12,18 @@ export * from './models/Vehicle';
 export * from './Model';
 
 // UI Classes
+export * from './ui/Container';
 export * from './ui/Effects';
 export * from './ui/Fading';
 export * from './ui/Hud';
 export * from './ui/LoadingPrompt';
 export * from './ui/Notification';
+export * from './ui/Rectangle';
 export * from './ui/Scaleform';
 export * from './ui/Screen';
-export * from './ui/interfaces/IElement';
 export * from './ui/Text';
 export * from './ui/Sprite';
+export * from './ui/interfaces/IElement';
 export * from './ui/menu/Menu';
 export * from './ui/menu/items/UIMenuCheckboxItem';
 export * from './ui/menu/items/UIMenuItem';

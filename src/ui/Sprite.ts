@@ -22,20 +22,17 @@ export class Sprite {
     this.visible = true;
   }
 
-  public LoadTextureDictionary(): Promise<void> {
-    return new Promise(resolve => {
-      RequestStreamedTextureDict(this.textureDict, true);
-      console.log('gonna load');
-      const interval = setInterval(() => {
-        if (this.IsTextureDictionaryLoaded) {
-          console.log('yuppp loaded');
-          resolve();
-          clearInterval(interval);
-        } else {
-          console.log('nooope');
-        }
-      }, 0);
-    });
+  public LoadTextureDictionary(): void {
+    RequestStreamedTextureDict(this.textureDict, true);
+    console.log('gonna load');
+    const interval = setInterval(() => {
+      if (this.IsTextureDictionaryLoaded) {
+        console.log('yuppp loaded');
+        clearInterval(interval);
+      } else {
+        console.log('nooope');
+      }
+    }, 0);
   }
 
   public set TextureDict(v) {
@@ -48,11 +45,19 @@ export class Sprite {
     return this.textureDict;
   }
 
-  public get IsTextureDictionaryLoaded(): number {
-    return HasStreamedTextureDictLoaded(this.textureDict);
+  public get IsTextureDictionaryLoaded(): boolean {
+    return !!HasStreamedTextureDictLoaded(this.textureDict);
   }
 
-  public async Draw(textureDictionary?, textureName?, pos?, size?, heading?, color?, loadTexture?): Promise<void> {
+  public Draw(
+    textureDictionary?: string,
+    textureName?: string,
+    pos?: Point,
+    size?: Size,
+    heading?: number,
+    color?: Color,
+    loadTexture?: boolean,
+  ): void {
     textureDictionary = textureDictionary || this.TextureDict;
     textureName = textureName || this.textureName;
     pos = pos || this.pos;
@@ -63,18 +68,17 @@ export class Sprite {
 
     if (loadTexture) {
       if (!HasStreamedTextureDictLoaded(textureDictionary)) {
-        RequestStreamedTextureDict(textureDictionary, true);
+        RequestStreamedTextureDict(textureDictionary, false);
       }
     }
-    const height = 1080.0;
-    const ratio = Screen.AspectRatio;
-    const width = height * ratio;
+    const height = Screen.Height;
+    const width = Screen.ScaledWidth;
 
     const w = this.size.Width / width;
     const h = this.size.Height / height;
     const x = this.pos.X / width + w * 0.5;
     const y = this.pos.Y / height + h * 0.5;
 
-    DrawSprite(textureDictionary, textureName, x, y, w, h, heading, color.R, color.G, color.B, color.A);
+    DrawSprite(textureDictionary, textureName, x, y, w, h, heading, color.r, color.g, color.b, color.a);
   }
 }
