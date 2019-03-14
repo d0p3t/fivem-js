@@ -6,7 +6,7 @@ import { LiteEvent } from '../../utils/LiteEvent';
 import { Point } from '../../utils/Point';
 import { Size } from '../../utils/Size';
 import { MeasureString } from '../../utils/String';
-import { UUIDV4 } from '../../utils/uuidv4';
+import { UUIDV4 } from '../../utils/UUIDV4';
 import { Container } from '../Container';
 import { Screen } from '../Screen';
 import { Sprite } from '../Sprite';
