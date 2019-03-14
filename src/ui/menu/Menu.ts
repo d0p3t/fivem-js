@@ -15,7 +15,7 @@ import { UIMenuItem } from './items/UIMenuItem';
 import { UIMenuListItem } from './items/UIMenuListItem';
 import { UIMenuSliderItem } from './items/UIMenuSliderItem';
 import { ResRectangle } from './modules/ResRectangle';
-import { ResText, Alignment } from './modules/ResText';
+import { Alignment, ResText } from './modules/ResText';
 
 export class Menu {
   public readonly Id: string = UUIDV4();

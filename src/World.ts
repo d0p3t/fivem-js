@@ -259,22 +259,18 @@ export enum ExplosionType {
 }
 
 export abstract class World {
-  public static CreatePed(model: Model, position: Vector3, heading: number = 0): Promise<Ped> {
-    return new Promise(async resolve => {
-      if (!model.IsPed || !(await model.Request(1000))) {
-        return null;
-      }
-      resolve(new Ped(CreatePed(26, model.Hash, position.x, position.y, position.z, heading, true, false)));
-    });
+  public static async CreatePed(model: Model, position: Vector3, heading: number = 0): Promise<Ped> {
+    if (!model.IsPed || !(await model.Request(1000))) {
+      return null;
+    }
+    return new Ped(CreatePed(26, model.Hash, position.x, position.y, position.z, heading, true, false));
   }
 
-  public static CreateVehicle(model: Model, position: Vector3, heading: number = 0): Promise<Vehicle> {
-    return new Promise(async resolve => {
-      if (!model.IsVehicle || !(await model.Request(1000))) {
-        return null;
-      }
-      resolve(new Vehicle(CreateVehicle(model.Hash, position.x, position.y, position.z, heading, true, false)));
-    });
+  public static async CreateVehicle(model: Model, position: Vector3, heading: number = 0): Promise<Vehicle> {
+    if (!model.IsVehicle || !(await model.Request(1000))) {
+      return null;
+    }
+    return new Vehicle(CreateVehicle(model.Hash, position.x, position.y, position.z, heading, true, false));
   }
 
   public static DrawMarker(

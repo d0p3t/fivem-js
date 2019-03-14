@@ -6,7 +6,10 @@
     "outDir": "./lib",                        /* Redirect output structure to the directory. */
     "types": ["@citizenfx/client"]
   },
-  "include": ["src"],
+  "include": [
+    "src",
+    "node_modules/@citizenfx/client/natives_universal.d.ts"
+  ],
   "exclude": [
     "node_modules",
     "**/__tests__/*"

@@ -7,7 +7,7 @@ import { UUIDV4 } from '../../../utils/UUIDV4';
 import { Sprite } from '../../Sprite';
 import { Menu } from '../Menu';
 import { ResRectangle } from '../modules/ResRectangle';
-import { ResText, Alignment } from '../modules/ResText';
+import { Alignment, ResText } from '../modules/ResText';
 
 export class UIMenuItem {
   public static readonly DefaultBackColor: Color = Color.Empty;
