@@ -8,7 +8,7 @@ import { MeasureString } from '../../../utils/String';
 import { Sprite } from '../../Sprite';
 import { ItemsCollection } from '../modules/ItemsCollection';
 import { ListItem } from '../modules/ListItem';
-import { ResText, Alignment } from '../modules/ResText';
+import { Alignment, ResText } from '../modules/ResText';
 import { UIMenuItem } from './UIMenuItem';
 
 export class UIMenuListItem extends UIMenuItem {
