@@ -24,13 +24,9 @@ export class Sprite {
 
   public LoadTextureDictionary(): void {
     RequestStreamedTextureDict(this.textureDict, true);
-    console.log('gonna load');
     const interval = setInterval(() => {
       if (this.IsTextureDictionaryLoaded) {
-        console.log('yuppp loaded');
         clearInterval(interval);
-      } else {
-        console.log('nooope');
       }
     }, 0);
   }

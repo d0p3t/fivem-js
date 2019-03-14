@@ -197,8 +197,6 @@ export class Menu {
     setTick(() => {
       this.render();
     });
-    // on('render', this.render.bind(this)); // or setImmediate
-    // console.log(`Created Menu! ${this.title}`);
   }
 
   public SetMenuWidthOffset(widthOffset: number) {
