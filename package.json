@@ -45,10 +45,10 @@
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.18.0",
     "typedoc": "^0.14.2",
+    "typedoc-fivemjs-theme": "^0.2.7",
     "typescript": "^3.3.3"
   },
   "dependencies": {
-    "@citizenfx/client": "^1.0.1043-1",
-    "typedoc-fivemjs-theme": "^0.2.7"
+    "@citizenfx/client": "^1.0.1043-1"
   }
 }
