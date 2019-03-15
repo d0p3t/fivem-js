@@ -1,7 +1,7 @@
 {
   "mode": "file",
   "out": "docs",
-  "theme": "node_modules/typedoc-canvo-theme/bin/default",
+  "theme": "node_modules/typedoc-fivemjs-theme/bin/default",
   "readme": "none",
   "ignoreCompilerErrors": "true",
   "experimentalDecorators": "true",
