@@ -4,6 +4,9 @@ import { Vehicle } from './models/Vehicle';
 import Color from './utils/Color';
 import { Vector3 } from './utils/Vector3';
 
+/**
+ * List of Zones. Useful for using world zone related natives.
+ */
 export enum ZoneID {
   AIRP,
   ALAMO,
@@ -96,6 +99,9 @@ export enum ZoneID {
   ZQ_UAR,
 }
 
+/**
+ * List of weather types. Used for manipulating weather.
+ */
 export enum Weather {
   Unknown = -1,
   ExtraSunny,
@@ -115,6 +121,9 @@ export enum Weather {
   Halloween,
 }
 
+/**
+ * Same list as Weather enum, but as hashes.
+ */
 export enum WeatherTypeHash {
   Unknown = -1,
   ExtraSunny = -1750463879,
@@ -134,6 +143,9 @@ export enum WeatherTypeHash {
   Halloween = -921030142,
 }
 
+/**
+ * List of cloud hats. Used to change cloud patterns
+ */
 export enum CloudHat {
   Unknown = 1,
   Altostratus,
@@ -158,6 +170,9 @@ export enum CloudHat {
   Wispy,
 }
 
+/**
+ * List of possible entity intersections. Used for raycasting.
+ */
 export enum IntersectOptions {
   Everything = -1,
   Map = 1,
@@ -171,6 +186,11 @@ export enum IntersectOptions {
   Unk4 = 512,
 }
 
+/**
+ * List of markers. Markers are 3D visual objects in the world.
+ *
+ * See native [DRAW_MARKER](https://runtime.fivem.net/doc/natives/#_0x28477EC23D892089) for pictures.
+ */
 export enum MarkerType {
   UpsideDownCone,
   VerticalCylinder,
@@ -216,6 +236,9 @@ export enum MarkerType {
   SawbladeSymbol,
 }
 
+/**
+ * List of explosion sources.
+ */
 export enum ExplosionType {
   Grenade,
   GrenadeL,
@@ -258,7 +281,19 @@ export enum ExplosionType {
   Valkyrie,
 }
 
+/**
+ * Class with common world manipulations.
+ *
+ * This class includes methods for creating entities and common world rendering.
+ */
 export abstract class World {
+  /**
+   * Create a ped at a desired location.
+   *
+   * @param model Ped model to be spawned.
+   * @param position World position (coordinates) of Ped spawn.
+   * @param heading Heading of Ped when spawning.
+   */
   public static CreatePed(model: Model, position: Vector3, heading: number = 0): Promise<Ped> {
     return new Promise(async resolve => {
       if (!model.IsPed || !(await model.Request(1000))) {
@@ -268,6 +303,13 @@ export abstract class World {
     });
   }
 
+  /**
+   * Create a vehicle at a desired location.
+   *
+   * @param model Vehicle model to be spawned.
+   * @param position World position (coordinates) of Vehicle spawn.
+   * @param heading Heading of Vehicle when spawning.
+   */
   public static CreateVehicle(model: Model, position: Vector3, heading: number = 0): Promise<Vehicle> {
     return new Promise(async resolve => {
       if (!model.IsVehicle || !(await model.Request(1000))) {
@@ -277,6 +319,22 @@ export abstract class World {
     });
   }
 
+  /**
+   * Draw a marker at a desired location.
+   *
+   * @param type Type of marker.
+   * @param position Location of marker.
+   * @param direction Direction facing.
+   * @param rotation World rotation.
+   * @param scale Size of marker.
+   * @param color Color of marker.
+   * @param bobUpAndDown Animated movement along marker's own X axis.
+   * @param faceCamera Rendering marker facing rendering camera.
+   * @param rotateY Rotate along Y axis.
+   * @param textureDict Custom texture dictionary for custom marker.
+   * @param textureName Custom texture name for custom marker.
+   * @param drawOnEntity Render the marker on an entity.
+   */
   public static DrawMarker(
     type: MarkerType,
     position: Vector3,
