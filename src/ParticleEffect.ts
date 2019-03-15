@@ -1,6 +1,6 @@
 import { InvertAxis } from './enums/InvertAxis';
 import ParticleEffectAsset from './ParticleEffectAsset';
-import Color from './utils/Color';
+import { Color } from './utils/Color';
 import { Vector3 } from './utils/Vector3';
 
 // TODO: Lots of Matrix stuff through memory access

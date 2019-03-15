@@ -1,7 +1,7 @@
 import { Model } from './Model';
 import { Ped } from './models/Ped';
 import { Vehicle } from './models/Vehicle';
-import Color from './utils/Color';
+import { Color } from './utils/Color';
 import { Vector3 } from './utils/Vector3';
 
 /**
