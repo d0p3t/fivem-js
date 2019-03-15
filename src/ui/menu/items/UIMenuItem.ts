@@ -1,15 +1,15 @@
-import BadgeStyle from '../../../enums/BadgeStyle';
+import { BadgeStyle } from '../../../enums/BadgeStyle';
 import Font from '../../../enums/Font';
-import Color from '../../../utils/Color';
-import Point from '../../../utils/Point';
-import Size from '../../../utils/Size';
-import UUIDV4 from '../../../utils/UUIDV4';
-import Sprite from '../../Sprite';
-import Menu from '../Menu';
-import ResRectangle from '../modules/ResRectangle';
-import ResText, { Alignment } from '../modules/ResText';
+import { Color } from '../../../utils/Color';
+import { Point } from '../../../utils/Point';
+import { Size } from '../../../utils/Size';
+import { UUIDV4 } from '../../../utils/UUIDV4';
+import { Sprite } from '../../Sprite';
+import { Menu } from '../Menu';
+import { ResRectangle } from '../modules/ResRectangle';
+import { Alignment, ResText } from '../modules/ResText';
 
-export default class UIMenuItem {
+export class UIMenuItem {
   public static readonly DefaultBackColor: Color = Color.Empty;
   public static readonly DefaultHighlightedBackColor: Color = Color.White;
   public static readonly DefaultForeColor: Color = Color.WhiteSmoke;
@@ -93,7 +93,7 @@ export default class UIMenuItem {
     this.selectedSprite.size = new Size(431 + this.Parent.WidthOffset, 38);
 
     if (this.Hovered && !this.Selected) {
-      this.rectangle.color = new Color(255, 255, 255, 20);
+      this.rectangle.color = new Color(20, 255, 255, 255);
       this.rectangle.Draw();
     }
 

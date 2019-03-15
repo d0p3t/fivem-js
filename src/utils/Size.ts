@@ -1,4 +1,4 @@
-export default class Size {
+export class Size {
   public Width: number;
   public Height: number;
   constructor(w: number = 0, h: number = 0) {

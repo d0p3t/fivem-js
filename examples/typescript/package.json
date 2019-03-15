@@ -1,16 +1,17 @@
 {
-  "name": "fivem-js-example-javascript",
+  "name": "fivem-js-example-typescript",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "wc": "webpack --config client.config.js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fivem-js": "^1.1.0"
+    "fivem-js": "^1.1.1",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.3333"
   },
   "devDependencies": {
     "webpack": "^4.29.6",

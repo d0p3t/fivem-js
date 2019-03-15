@@ -1,30 +1,30 @@
 import { Audio } from '../../Audio';
 import Font from '../../enums/Font';
 import { Control, Game } from '../../Game';
-import Color from '../../utils/Color';
-import LiteEvent from '../../utils/LiteEvent';
-import Point from '../../utils/Point';
-import Size from '../../utils/Size';
+import { Color } from '../../utils/Color';
+import { LiteEvent } from '../../utils/LiteEvent';
+import { Point } from '../../utils/Point';
+import { Size } from '../../utils/Size';
 import { MeasureString } from '../../utils/String';
-import UUIDV4 from '../../utils/uuidv4';
-import Container from '../Container';
+import { UUIDV4 } from '../../utils/UUIDV4';
+import { Container } from '../Container';
 import { Screen } from '../Screen';
-import Sprite from '../Sprite';
-import UIMenuCheckboxItem from './items/UIMenuCheckboxItem';
-import UIMenuItem from './items/UIMenuItem';
-import UIMenuListItem from './items/UIMenuListItem';
-import UIMenuSliderItem from './items/UIMenuSliderItem';
-import ResRectangle from './modules/ResRectangle';
-import ResText, { Alignment } from './modules/ResText';
+import { Sprite } from '../Sprite';
+import { UIMenuCheckboxItem } from './items/UIMenuCheckboxItem';
+import { UIMenuItem } from './items/UIMenuItem';
+import { UIMenuListItem } from './items/UIMenuListItem';
+import { UIMenuSliderItem } from './items/UIMenuSliderItem';
+import { ResRectangle } from './modules/ResRectangle';
+import { Alignment, ResText } from './modules/ResText';
 
-export default class Menu {
+export class Menu {
   public readonly Id: string = UUIDV4();
 
   public ParentMenu: Menu;
   public ParentItem: UIMenuItem;
   public Children: Map<string, Menu>;
   public WidthOffset: number = 0;
-  public Visible: boolean = true;
+  public Visible: boolean = false;
   public MouseControlsEnabled: boolean = false;
 
   public AUDIO_LIBRARY: string = 'HUD_FRONTEND_DEFAULT_SOUNDSET';
@@ -93,7 +93,7 @@ export default class Menu {
   private readonly counterText: ResText;
   private readonly background: Sprite;
 
-  constructor(title, subtitle, offset, spriteLibrary, spriteName) {
+  constructor(title, subtitle, offset, spriteLibrary?, spriteName?) {
     if (!(offset instanceof Point)) {
       offset = Point.Parse(offset);
     }
@@ -126,7 +126,7 @@ export default class Menu {
 
     if (this.subtitle !== '') {
       this.mainMenu.addItem(
-        new ResRectangle(new Point(0 + this.offset.X, 107 + this.offset.Y), new Size(431, 37), new Color(0, 0, 0, 255)),
+        new ResRectangle(new Point(0 + this.offset.X, 107 + this.offset.Y), new Size(431, 37), new Color(255, 0, 0, 0)),
       );
       this.mainMenu.addItem(
         (this.subtitleResText = new ResText(
@@ -162,13 +162,13 @@ export default class Menu {
     this.extraRectangleUp = new ResRectangle(
       new Point(0 + this.offset.X, 144 + 38 * (this.MaxItemsOnScreen + 1) + this.offset.Y - 37 + this.extraOffset),
       new Size(431, 18),
-      new Color(0, 0, 0, 200),
+      new Color(200, 0, 0, 0),
     );
 
     this.extraRectangleDown = new ResRectangle(
       new Point(0 + this.offset.X, 144 + 18 + 38 * (this.MaxItemsOnScreen + 1) + this.offset.Y - 37 + this.extraOffset),
       new Size(431, 18),
-      new Color(0, 0, 0, 200),
+      new Color(200, 0, 0, 0),
     );
 
     this.descriptionBar = new ResRectangle(new Point(this.offset.X, 123), new Size(431, 4), Color.Black);
@@ -197,8 +197,6 @@ export default class Menu {
     setTick(() => {
       this.render();
     });
-    // on('render', this.render.bind(this)); // or setImmediate
-    // console.log(`Created Menu! ${this.title}`);
   }
 
   public SetMenuWidthOffset(widthOffset: number) {
@@ -354,9 +352,8 @@ export default class Menu {
   // }
 
   public GetScreenResolutionMantainRatio(): Size {
-    const height = 1080.0;
-    const ratio = Screen.AspectRatio;
-    const width = height * ratio;
+    const height = Screen.Height;
+    const width = Screen.ScaledWidth;
 
     return new Size(width, height);
   }
@@ -503,8 +500,7 @@ export default class Menu {
     if (this.MenuItems.length === 0) {
       return;
     }
-    if (Game.IsControlPressed(0, Control.PhoneUp) && this.lastUpDownNavigation + 120 < Date.now()) {
-      // isControlJustPressed
+    if (Game.IsControlPressed(0, Control.PhoneUp) && this.lastUpDownNavigation + 200 < Date.now()) {
       // Up
       this.lastUpDownNavigation = Date.now();
       if (this.MenuItems.length > this.MaxItemsOnScreen + 1) {
@@ -512,10 +508,7 @@ export default class Menu {
       } else {
         this.GoUp();
       }
-    } else if (Game.IsControlPressed(0, Control.PhoneUp)) {
-      this.lastUpDownNavigation = 0;
-    } else if (Game.IsControlPressed(0, Control.PhoneDown) && this.lastUpDownNavigation + 120 < Date.now()) {
-      // isControlJustPressed
+    } else if (Game.IsControlPressed(0, Control.PhoneDown) && this.lastUpDownNavigation + 200 < Date.now()) {
       // Down
       this.lastUpDownNavigation = Date.now();
       if (this.MenuItems.length > this.MaxItemsOnScreen + 1) {
@@ -523,21 +516,15 @@ export default class Menu {
       } else {
         this.GoDown();
       }
-    } else if (Game.IsControlPressed(0, Control.PhoneDown)) {
-      this.lastUpDownNavigation = 0;
-    } else if (Game.IsControlPressed(0, Control.PhoneLeft) && this.lastLeftRightNavigation + 100 < Date.now()) {
+    } else if (Game.IsControlPressed(0, Control.PhoneLeft) && this.lastLeftRightNavigation + 200 < Date.now()) {
       // Left
       this.lastLeftRightNavigation = Date.now();
       this.GoLeft();
-    } else if (Game.IsControlPressed(0, Control.PhoneLeft)) {
-      this.lastLeftRightNavigation = 0;
-    } else if (Game.IsControlPressed(0, Control.PhoneRight) && this.lastLeftRightNavigation + 100 < Date.now()) {
+    } else if (Game.IsControlPressed(0, Control.PhoneRight) && this.lastLeftRightNavigation + 200 < Date.now()) {
       // Right
       this.lastLeftRightNavigation = Date.now();
       this.GoRight();
-    } else if (Game.IsControlPressed(0, Control.PhoneRight)) {
-      this.lastLeftRightNavigation = 0;
-    } else if (Game.IsControlPressed(0, Control.FrontendAccept)) {
+    } else if (Game.IsControlJustPressed(0, Control.FrontendAccept)) {
       // Select
       this.SelectItem();
     }

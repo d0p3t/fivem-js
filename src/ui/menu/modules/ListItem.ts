@@ -1,6 +1,6 @@
-import UUIDV4 from '../../../utils/UUIDV4';
+import { UUIDV4 } from '../../../utils/UUIDV4';
 
-export default class ListItem {
+export class ListItem {
   public readonly Id: string = UUIDV4();
 
   public DisplayText: string;

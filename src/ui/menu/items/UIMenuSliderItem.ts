@@ -1,12 +1,12 @@
-import BadgeStyle from '../../../enums/BadgeStyle';
-import Color from '../../../utils/Color';
-import Point from '../../../utils/Point';
-import Size from '../../../utils/Size';
-import Sprite from '../../Sprite';
-import ResRectangle from '../modules/ResRectangle';
-import UIMenuItem from './UIMenuItem';
+import { BadgeStyle } from '../../../enums/BadgeStyle';
+import { Color } from '../../../utils/Color';
+import { Point } from '../../../utils/Point';
+import { Size } from '../../../utils/Size';
+import { Sprite } from '../../Sprite';
+import { ResRectangle } from '../modules/ResRectangle';
+import { UIMenuItem } from './UIMenuItem';
 
-export default class UIMenuSliderItem extends UIMenuItem {
+export class UIMenuSliderItem extends UIMenuItem {
   private arrowLeft: Sprite;
   private arrowRight: Sprite;
 
@@ -31,8 +31,8 @@ export default class UIMenuSliderItem extends UIMenuItem {
     this.items = items;
     this.arrowLeft = new Sprite('commonmenutu', 'arrowleft', new Point(0, 105 + y), new Size(15, 15));
     this.arrowRight = new Sprite('commonmenutu', 'arrowright', new Point(0, 105 + y), new Size(15, 15));
-    this.rectangleBackground = new ResRectangle(new Point(0, 0), new Size(150, 9), new Color(4, 32, 57, 255));
-    this.rectangleSlider = new ResRectangle(new Point(0, 0), new Size(75, 9), new Color(57, 116, 200, 255));
+    this.rectangleBackground = new ResRectangle(new Point(0, 0), new Size(150, 9), new Color(255, 4, 32, 57));
+    this.rectangleSlider = new ResRectangle(new Point(0, 0), new Size(75, 9), new Color(255, 57, 116, 200));
     if (divider) {
       this.rectangleDivider = new ResRectangle(new Point(0, 0), new Size(2.5, 20), Color.WhiteSmoke);
     } else {
@@ -76,14 +76,13 @@ export default class UIMenuSliderItem extends UIMenuItem {
     if (this.Selected) {
       this.arrowLeft.Draw();
       this.arrowRight.Draw();
-    } else {
-      this.rectangleBackground.Draw();
-      this.rectangleSlider.Draw();
-      this.rectangleDivider.Draw();
     }
+    this.rectangleBackground.Draw();
+    this.rectangleSlider.Draw();
+    this.rectangleDivider.Draw();
   }
 
-  // public SetRightBadge(badge: BadgeStyle) {}
+  public SetRightBadge(badge: BadgeStyle) {}
 
-  // public SetRightLabel(text: string) {}
+  public SetRightLabel(text: string) {}
 }

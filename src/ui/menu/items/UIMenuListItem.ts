@@ -1,17 +1,17 @@
-import BadgeStyle from '../../../enums/BadgeStyle';
+import { BadgeStyle } from '../../../enums/BadgeStyle';
 import Font from '../../../enums/Font';
-import Color from '../../../utils/Color';
-import LiteEvent from '../../../utils/LiteEvent';
-import Point from '../../../utils/Point';
-import Size from '../../../utils/Size';
+import { Color } from '../../../utils/Color';
+import { LiteEvent } from '../../../utils/LiteEvent';
+import { Point } from '../../../utils/Point';
+import { Size } from '../../../utils/Size';
 import { MeasureString } from '../../../utils/String';
-import Sprite from '../../Sprite';
-import ItemsCollection from '../modules/ItemsCollection';
-import ListItem from '../modules/ListItem';
-import ResText, { Alignment } from '../modules/ResText';
-import UIMenuItem from './UIMenuItem';
+import { Sprite } from '../../Sprite';
+import { ItemsCollection } from '../modules/ItemsCollection';
+import { ListItem } from '../modules/ListItem';
+import { Alignment, ResText } from '../modules/ResText';
+import { UIMenuItem } from './UIMenuItem';
 
-export default class UIMenuListItem extends UIMenuItem {
+export class UIMenuListItem extends UIMenuItem {
   public ScrollingEnabled: boolean = true;
   public HoldTimeBeforeScroll: number = 200;
 

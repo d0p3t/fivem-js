@@ -1,7 +1,8 @@
-import Size from '../utils/Size';
-import Rectangle from './Rectangle';
+import { Size } from '../utils/Size';
+import { Rectangle } from './Rectangle';
 import { Screen } from './Screen';
-export default class Container extends Rectangle {
+
+export class Container extends Rectangle {
   public Items: any[];
 
   constructor(pos, size, color) {
@@ -18,9 +19,8 @@ export default class Container extends Rectangle {
       return;
     }
     offset = offset || new Size();
-    const height = 1080.0;
-    const ratio = Screen.AspectRatio;
-    const width = height * ratio;
+    const height = Screen.Height;
+    const width = Screen.ScaledWidth;
 
     const w = this.size.Width / width;
     const h = this.size.Height / height;

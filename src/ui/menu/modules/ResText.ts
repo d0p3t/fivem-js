@@ -1,8 +1,9 @@
-import Color from '../../../utils/Color';
-import Point from '../../../utils/Point';
-import Size from '../../../utils/Size';
+import Font from '../../../enums/Font';
+import { Color } from '../../../utils/Color';
+import { Point } from '../../../utils/Point';
+import { Size } from '../../../utils/Size';
 import { Screen } from '../../Screen';
-import Text from '../../Text';
+import { Text } from '../../Text';
 
 export enum Alignment {
   Left,
@@ -10,7 +11,7 @@ export enum Alignment {
   Right,
 }
 
-export default class ResText extends Text {
+export class ResText extends Text {
   public static AddLongString(str: string) {
     const strLen = 99;
     for (let i = 0; i < str.length; i += strLen) {
@@ -66,7 +67,7 @@ export default class ResText extends Text {
 
     SetTextFont(Number(font));
     SetTextScale(1.0, scale);
-    SetTextColour(color.R, color.G, color.B, color.A);
+    SetTextColour(color.r, color.g, color.b, color.a);
 
     if (centered !== undefined) {
       SetTextCentre(centered);

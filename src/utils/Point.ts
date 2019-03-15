@@ -1,4 +1,4 @@
-export default class Point {
+export class Point {
   public static Parse(point: number[] | { X: number; Y: number }): Point;
   public static Parse(arg): Point {
     if (typeof arg === 'object') {
