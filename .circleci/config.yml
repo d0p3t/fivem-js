@@ -1,24 +1,23 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/tmp
     docker:
-      - image: circleci/node:9
+      - image: circleci/node:7.10
+    working_directory: ~/repo
+
     steps:
-      - restore_cache:
-        keys:
-          - fivem-js-cache-{{ .Branch }}
       - checkout
-      - run:
-        name: Install dependencies
-        command: npm install
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+
+      - run: npm install
       - save_cache:
-        key: fivem-js-cache-{{ .Branch }}
-        paths:
-          - node_modules
-      - run:
-        name: Check for linting errors
-        command: npm run lint
-      - run:
-        name: Building project
-        command: npm run build
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      # run tests!
+      - run: npm run lint
+      - run: npm run build
