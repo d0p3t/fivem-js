@@ -1,4 +1,4 @@
-import { muls, normalize, Vector3 } from './utils/Vector3';
+import { Vector3 } from './utils/Vector3';
 
 export abstract class GameplayCamera {
   public static get Position(): Vector3 {
@@ -12,8 +12,8 @@ export abstract class GameplayCamera {
   }
 
   public static get ForwardVector(): Vector3 {
-    const rotation = muls(this.Rotation, Math.PI / 180);
-    const normalized = normalize(
+    const rotation = Vector3.Multiply(this.Rotation, Math.PI / 180);
+    const normalized = Vector3.Normalize(
       new Vector3(
         -Math.sin(rotation.z) * Math.abs(Math.cos(rotation.x)),
         Math.cos(rotation.z) * Math.abs(Math.cos(rotation.x)),

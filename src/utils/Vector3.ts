@@ -6,129 +6,93 @@ export interface IVec3 {
 }
 
 export class Vector3 implements IVec3 {
+  public static Create(v1: IVec3): Vector3 {
+    return new Vector3(v1.x, v1.y, v1.z);
+  }
+
+  public static Clone(v1: IVec3): Vector3 {
+    return new Vector3(v1.x, v1.y, v1.z);
+  }
+
+  public static Add(v1: IVec3, v2: IVec3): Vector3 {
+    return new Vector3(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
+  }
+
+  public static Subtract(v1: IVec3, v2: IVec3): Vector3 {
+    return new Vector3(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
+  }
+
+  public static Multiply(v1: IVec3, v2: IVec3 | number): Vector3 {
+    if (typeof v2 === 'number') {
+      return new Vector3(v1.x * v2, v1.y * v2, v1.z * v2);
+    }
+    return new Vector3(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
+  }
+
+  public static Divide(v1: IVec3, v2: IVec3 | number): Vector3 {
+    if (typeof v2 === 'number') {
+      return new Vector3(v1.x / v2, v1.y / v2, v1.z / v2);
+    }
+    return new Vector3(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z);
+  }
+
+  public static DotProduct(v1: IVec3, v2: IVec3): number {
+    return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
+  }
+
+  public static CrossProduct(v1: IVec3, v2: IVec3): Vector3 {
+    return new Vector3(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.z * v2.z, v1.x * v2.y - v1.z * v2.x);
+  }
+
+  public static Normalize(v: Vector3): Vector3 {
+    const d: number = v.DistanceSquared(v);
+    return new Vector3(v.x / d, v.y / d, v.z / d);
+  }
+
   constructor(public x: number, public y: number, public z: number) {}
+
   public clone(): Vector3 {
-    return createVector(this);
+    return new Vector3(this.x, this.y, this.z);
   }
-  public distance(): number {
-    return distance(this);
+
+  public DistanceSquared(v: IVec3): number {
+    return Math.sqrt(this.x * v.x + this.y * v.y + this.z + v.z);
   }
-  public normalize(): IVec3 {
-    return normalize(this);
+
+  public Normalize(v: IVec3): Vector3 {
+    const d: number = this.DistanceSquared(v);
+    return new Vector3(v.x / d, v.y / d, v.z / d);
   }
-  public cross(v: IVec3): IVec3 {
-    return cross(this, v);
+
+  public CrossProduct(v: IVec3): Vector3 {
+    return new Vector3(this.y * v.z - this.z * v.y, this.z * v.x - this.z * v.z, this.x * this.y - this.z * v.x);
   }
-  public add(v1: IVec3): IVec3 {
-    return additional(this, v1);
+
+  public Add(v: IVec3): IVec3 {
+    return new Vector3(this.x + v.x, this.y + v.y, this.z + v.z);
   }
-  public sub(v1: IVec3): IVec3 {
-    return subtract(this, v1);
+
+  public Subtract(v: IVec3): Vector3 {
+    return new Vector3(this.x - v.x, this.y - v.y, this.z - v.z);
   }
-  public mul(v1: IVec3): IVec3 {
-    return multiplication(this, v1);
+
+  public Multiply(v: IVec3 | number): Vector3 {
+    if (typeof v === 'number') {
+      return new Vector3(this.x * v, this.y * v, this.z * v);
+    }
+    return new Vector3(this.x * v.x, this.y * v.y, this.z * v.z);
   }
-  public div(v1: IVec3): IVec3 {
-    return division(this, v1);
+
+  public Divide(v: IVec3): IVec3 {
+    if (typeof v === 'number') {
+      return new Vector3(this.x / v, this.y / v, this.z / v);
+    }
+    return new Vector3(this.x / v.x, this.y / v.y, this.z / v.z);
   }
-  public muls(s: number): IVec3 {
-    return muls(this, s);
+
+  public Replace(v: IVec3): void {
+    this.x = v.x;
+    this.y = v.y;
+    this.z = v.z;
   }
-  public divs(s: number): IVec3 {
-    return divs(this, s);
-  }
-  public update(v1: IVec3): void {
-    this.x = v1.x;
-    this.y = v1.y;
-    this.z = v1.z;
-  }
-}
-
-export function createVector(v1: IVec3): Vector3 {
-  return new Vector3(v1.x, v1.y, v1.z);
-}
-
-export function clone(v1: IVec3): IVec3 {
-  return {
-    x: v1.x,
-    y: v1.y,
-    z: v1.z,
-  };
-}
-
-export function additional(v1: IVec3, v2: IVec3): IVec3 {
-  return {
-    x: v1.x + v2.x,
-    y: v1.y + v2.y,
-    z: v1.z + v2.z,
-  };
-}
-
-export function subtract(v1: IVec3, v2: IVec3): IVec3 {
-  return {
-    x: v1.x - v2.x,
-    y: v1.y - v2.y,
-    z: v1.z - v2.z,
-  };
-}
-
-export function multiplication(v1: IVec3, v2: IVec3): IVec3 {
-  return {
-    x: v1.x * v2.x,
-    y: v1.y * v2.y,
-    z: v1.z * v2.z,
-  };
-}
-
-export function division(v1: IVec3, v2: IVec3): IVec3 {
-  return {
-    x: v1.x / v2.x,
-    y: v1.y / v2.y,
-    z: v1.z / v2.z,
-  };
-}
-
-export function muls(v1: IVec3, s: number): IVec3 {
-  return {
-    x: v1.x * s,
-    y: v1.y * s,
-    z: v1.z * s,
-  };
-}
-
-export function divs(v1: IVec3, s: number): IVec3 {
-  return {
-    x: v1.x / s,
-    y: v1.y / s,
-    z: v1.z / s,
-  };
-}
-
-export function dot(v1: IVec3, v2: IVec3): number {
-  return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
-}
-
-export function cross(v1: IVec3, v2: IVec3): IVec3 {
-  return {
-    x: v1.y * v2.z - v1.z * v2.y,
-    y: v1.z * v2.x - v1.z * v2.z,
-    z: v1.x * v2.y - v1.z * v2.x,
-  };
-}
-
-export function distance(v1: IVec3): number {
-  return Math.sqrt(_distance(v1));
-}
-
-export function _distance(v1: IVec3): number {
-  return v1.x * v1.x + v1.y * v1.y + v1.z + v1.z;
-}
-
-export function normalize(v1: IVec3): IVec3 {
-  const d: number = distance(v1);
-  return {
-    x: v1.x / d,
-    y: v1.y / d,
-    z: v1.z / d,
-  };
 }
