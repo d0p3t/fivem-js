@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 import { Vector3 } from './utils/Vector3';
+=======
+import Vector3 from './utils/Vector3';
+>>>>>>> development
 
+/**
+ * The current rendering gameplay camera
+ */
 export abstract class GameplayCamera {
   public static get Position(): Vector3 {
     const coords = GetGameplayCamCoords();
@@ -23,15 +30,11 @@ export abstract class GameplayCamera {
     return new Vector3(normalized.x, normalized.y, normalized.z);
   }
 
-  // public static GetOffsetPosition(offset: Vector3) : Vector3 {
-  //     return
-  // }
-
-  public get RelativePitch(): number {
+  public static get RelativePitch(): number {
     return GetGameplayCamRelativePitch();
   }
 
-  public set RelativePitch(pitch: number) {
+  public static set RelativePitch(pitch: number) {
     SetGameplayCamRelativePitch(pitch, 1);
   }
 
