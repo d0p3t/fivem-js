@@ -1,9 +1,12 @@
+import IntersectOptions from './enums/IntersectOptions';
 import MarkerType from './enums/MarkerType';
 import { Model } from './Model';
+import { Entity } from './models/Entity';
 import { Ped } from './models/Ped';
 import { Vehicle } from './models/Vehicle';
+import { RaycastResult } from './Raycast';
 import { Color } from './utils/Color';
-import { Vector3 } from './utils/Vector3';
+import { additional, muls, Vector3 } from './utils/Vector3';
 
 /**
  * Class with common world manipulations.
@@ -98,6 +101,30 @@ export abstract class World {
       textureDict,
       textureName,
       drawOnEntity,
+    );
+  }
+
+  public static Raycast(
+    source: Vector3,
+    direction: Vector3,
+    maxDistance: number,
+    options: IntersectOptions,
+    ignoreEntity: Entity,
+  ): RaycastResult {
+    const target = additional(source, muls(direction, maxDistance));
+
+    return new RaycastResult(
+      StartShapeTestRay(
+        source.x,
+        source.y,
+        source.z,
+        target.x,
+        target.y,
+        target.z,
+        Number(options),
+        ignoreEntity.Handle,
+        7,
+      ),
     );
   }
 }
