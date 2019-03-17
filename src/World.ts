@@ -17,6 +17,11 @@ export abstract class World {
   /**
    * Create a ped at a desired location.
    *
+   * @example
+   * ```typescript
+   * const model = new Model(PedHash.Abigail);
+   * const myPed = await World.CreatePed(model, new Vector3(1425, 511, 50), 100)
+   * ```
    * @param model Ped model to be spawned.
    * @param position World position (coordinates) of Ped spawn.
    * @param heading Heading of Ped when spawning.
