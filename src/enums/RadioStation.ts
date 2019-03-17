@@ -1,4 +1,4 @@
-export enum RadioStation {
+enum RadioStation {
   LosSantosRockRadio,
   NonStopPopFM,
   RadioLosSantos,
@@ -20,3 +20,5 @@ export enum RadioStation {
   TheLab,
   RadioOff = 255,
 }
+
+export default RadioStation;

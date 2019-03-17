@@ -1,4 +1,7 @@
-import { DrivingStyle, HelmetType, RagdollType, SpeechModifier } from './../hashes/PedHash';
+import { DrivingStyle } from './../enums/Driving';
+import HelmetType from './../enums/HelmetType';
+import RagdollType from './../enums/RagdollType';
+import SpeechModifier from './../enums/SpeechModifier';
 import { VehicleSeat } from './../hashes/VehicleHash';
 import { WeaponHash } from './../hashes/WeaponHash';
 import { Vector3 } from './../utils/Vector3';

@@ -1,4 +1,4 @@
-export enum CameraShake {
+enum CameraShake {
   Hand,
   SmallExplosion,
   MediumExplosion,
@@ -11,3 +11,5 @@ export enum CameraShake {
   FamilyDrugTrip,
   DeathFail,
 }
+
+export default CameraShake;

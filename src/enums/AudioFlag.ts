@@ -1,4 +1,4 @@
-export enum AudioFlag {
+enum AudioFlag {
   ActivateSwitchWheelAudio,
   AllowCutsceneOverScreenFade,
   AllowForceRadioAfterRetune,
@@ -35,3 +35,5 @@ export enum AudioFlag {
   WantedMusicDisabled,
   WantedMusicOnMission,
 }
+
+export default AudioFlag;

@@ -1,4 +1,4 @@
-export enum ScreenEffect {
+enum ScreenEffect {
   SwitchHudIn,
   SwitchHudOut,
   FocusIn,
@@ -81,3 +81,5 @@ export enum ScreenEffect {
   Rampage,
   DontTazemeBro,
 }
+
+export default ScreenEffect;

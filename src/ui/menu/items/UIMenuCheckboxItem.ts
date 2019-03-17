@@ -1,4 +1,4 @@
-import { BadgeStyle } from '../../../enums/BadgeStyle';
+import BadgeStyle from '../../../enums/BadgeStyle';
 import { Color } from '../../../utils/Color';
 import { LiteEvent } from '../../../utils/LiteEvent';
 import { Point } from '../../../utils/Point';

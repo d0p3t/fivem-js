@@ -1,4 +1,4 @@
-import { AudioFlag } from './enums/AudioFlag';
+import AudioFlag from './enums/AudioFlag';
 import { Entity } from './models/Entity';
 import { Vector3 } from './utils/Vector3';
 

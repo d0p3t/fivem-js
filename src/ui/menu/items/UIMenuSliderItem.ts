@@ -1,4 +1,4 @@
-import { BadgeStyle } from '../../../enums/BadgeStyle';
+import BadgeStyle from '../../../enums/BadgeStyle';
 import { Color } from '../../../utils/Color';
 import { Point } from '../../../utils/Point';
 import { Size } from '../../../utils/Size';
