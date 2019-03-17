@@ -73,6 +73,7 @@ export class Model {
       const interval = setInterval(() => {
         if (this.IsLoaded || GetGameTimer() - start >= timeout) {
           clearInterval(interval);
+          this.MarkAsNoLongerNeeded();
           resolve(this.IsLoaded);
         }
       }, 0);
