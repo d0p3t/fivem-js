@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { Vector3 } from './utils/Vector3';
-=======
-import Vector3 from './utils/Vector3';
->>>>>>> development
 
 /**
  * The current rendering gameplay camera
