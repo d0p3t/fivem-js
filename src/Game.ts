@@ -422,19 +422,12 @@ export abstract class Game {
   public static EntityFromHandle(handle: number): Ped | Vehicle | Prop | undefined {
     switch (GetEntityType(handle)) {
       case 1:
-        console.log('its a ped!');
         return new Ped(handle);
       case 2:
-        console.log('its a vehicle!');
-
         return new Vehicle(handle);
       case 3:
-        console.log('its a prop!');
-
         return new Prop(handle);
     }
-    console.log('its nothing :(');
-
     return null;
   }
 
