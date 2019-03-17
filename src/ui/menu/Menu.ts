@@ -1,6 +1,7 @@
 import { Audio } from '../../Audio';
+import { Control } from '../../enums/Control';
 import Font from '../../enums/Font';
-import { Control, Game } from '../../Game';
+import { Game } from '../../Game';
 import { Color } from '../../utils/Color';
 import { LiteEvent } from '../../utils/LiteEvent';
 import { Point } from '../../utils/Point';

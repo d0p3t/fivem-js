@@ -19,6 +19,7 @@ export * from './enums/BadgeStyle';
 export * from './enums/Bone';
 export * from './enums/CameraShake';
 export * from './enums/CloudHat';
+export * from './enums/Control';
 export * from './enums/CursorSprite';
 export * from './enums/Driving';
 export * from './enums/ExplosionType';
