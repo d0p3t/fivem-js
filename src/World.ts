@@ -6,7 +6,7 @@ import { Ped } from './models/Ped';
 import { Vehicle } from './models/Vehicle';
 import { RaycastResult } from './Raycast';
 import { Color } from './utils/Color';
-import { additional, muls, Vector3 } from './utils/Vector3';
+import Vector3 from './utils/Vector3';
 
 /**
  * Class with common world manipulations.
@@ -116,7 +116,7 @@ export abstract class World {
     options: IntersectOptions,
     ignoreEntity: Entity,
   ): RaycastResult {
-    const target = additional(source, muls(direction, maxDistance));
+    const target = Vector3.Add(source, Vector3.Multiply(direction, maxDistance));
 
     return new RaycastResult(
       StartShapeTestRay(

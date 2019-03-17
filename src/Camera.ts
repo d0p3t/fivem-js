@@ -1,6 +1,6 @@
 import CameraShake from './enums/CameraShake';
 import { Entity } from './models/Entity';
-import { muls, normalize, Vector3 } from './utils/Vector3';
+import Vector3 from './utils/Vector3';
 
 export class Camera {
   private readonly shakeNames: string[] = [
@@ -56,11 +56,11 @@ export class Camera {
   // }
 
   public set Direction(direction: Vector3) {
-    const dir = direction.normalize();
+    const dir = direction.Normalize(direction);
 
     const vec1 = new Vector3(dir.x, dir.y, 0);
-    const vec2 = new Vector3(dir.z, vec1.distance(), 0);
-    const vec3 = vec2.normalize();
+    const vec2 = new Vector3(dir.z, vec1.DistanceSquared(vec1), 0);
+    const vec3 = vec2.Normalize(vec2);
 
     this.Rotation = new Vector3(
       Math.atan2(vec3.x, vec3.y) * 57.295779513082323,
@@ -74,8 +74,8 @@ export class Camera {
   //   }
 
   public get ForwardVector(): Vector3 {
-    const rotation = muls(this.Rotation, Math.PI / 180);
-    const normalized = normalize(
+    const rotation = Vector3.Multiply(this.Rotation, Math.PI / 180);
+    const normalized = Vector3.Normalize(
       new Vector3(
         -Math.sin(rotation.z) * Math.abs(Math.cos(rotation.x)),
         Math.cos(rotation.z) * Math.abs(Math.cos(rotation.x)),
