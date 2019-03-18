@@ -1,4 +1,4 @@
-import AudioFlag from './enums/AudioFlag';
+import { AudioFlag } from './enums/AudioFlag';
 import { Entity } from './models/Entity';
 import { Vector3 } from './utils/Vector3';
 
@@ -36,6 +36,18 @@ export abstract class Audio {
     } else {
       SetAudioFlag(this.audioFlags[Number(flag)], toggle);
     }
+  }
+
+  public static PlaySound(soundFile: string, soundSet: string): void {
+    this.ReleaseSound(this.PlaySoundFrontEnd(soundFile, soundSet));
+  }
+
+  public static PlayMusic(musicFile: string): void {
+    TriggerMusicEvent(musicFile);
+  }
+
+  public static StopMusic(musicFile: string): void {
+    CancelMusicEvent(musicFile);
   }
 
   private static readonly audioFlags: string[] = [
