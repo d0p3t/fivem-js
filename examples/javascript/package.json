@@ -3,17 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "wc": "webpack --config client.config.js"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "fivem-js": "^1.1.0"
-  },
-  "devDependencies": {
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3"
   }
 }
