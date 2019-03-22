@@ -1,10 +1,4 @@
 ## fivem-js Typescript Example
 
-This example compiles a Typescript webpack project that you can use in your FiveM server. It allows a player to spawn an Adder vehicle at their current location and sets the player into the vehicle.
-
----
-
-### Usage
-
-`npm install` - Install required node modules.
-`npm run wc` - This will compile an `index.js` file into the `dist/` folder that you can use on your FiveM server.
+This example compiles a Typescript webpack project that you can use in your FiveM server. It allows a player to spawn an Adder vehicle at their current location and sets the player into the vehicle.  
+Thanks to the [`yarn` and `webpack` resources](https://github.com/citizenfx/cfx-server-data/tree/master/resources/%5Bsystem%5D/%5Bbuilders%5D), dependencies will be installed and the project will be automagically compiled on resource start.
