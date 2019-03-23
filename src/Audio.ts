@@ -1,5 +1,5 @@
 import { AudioFlag } from './enums';
-import { Entity } from './models/Entity';
+import { Entity } from './models';
 import { Vector3 } from './utils';
 
 export abstract class Audio {

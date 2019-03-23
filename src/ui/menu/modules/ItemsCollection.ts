@@ -1,4 +1,4 @@
-import { ListItem } from '../modules/ListItem';
+import { ListItem } from '../modules';
 
 export class ItemsCollection {
   private items: any[];

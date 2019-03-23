@@ -1,8 +1,5 @@
-import { Color } from '../../../utils/Color';
-import { Point } from '../../../utils/Point';
-import { Size } from '../../../utils/Size';
-import { Rectangle } from '../../Rectangle';
-import { Screen } from '../../Screen';
+import { Rectangle, Screen } from '../../';
+import { Color, Point, Size } from '../../../utils';
 
 export class ResRectangle extends Rectangle {
   constructor(pos, size, color) {

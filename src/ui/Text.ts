@@ -1,8 +1,7 @@
-import { Color } from '../utils/Color';
-import { Point } from '../utils/Point';
-import { IElement } from './interfaces/IElement';
-import { ResText } from './menu/modules/ResText';
-import { Screen } from './Screen';
+import { Color, Point } from '../utils';
+import { IElement } from './interfaces';
+import { ResText } from './menu/modules';
+import { Screen } from './';
 
 export class Text extends IElement {
   public caption: string;

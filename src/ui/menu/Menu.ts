@@ -3,12 +3,8 @@ import { Audio } from '../../';
 import { Control, Font } from '../../enums';
 import { Game } from '../../Game';
 import { Color, LiteEvent, MeasureString, Point, Size, UUIDV4 } from '../../utils';
-import { UIMenuCheckboxItem } from './items';
-import { UIMenuItem } from './items';
-import { UIMenuListItem } from './items';
-import { UIMenuSliderItem } from './items';
-import { ResRectangle } from './modules';
-import { Alignment, ResText } from './modules';
+import { UIMenuCheckboxItem, UIMenuItem, UIMenuListItem, UIMenuSliderItem } from './items';
+import { Alignment, ResRectangle, ResText } from './modules';
 
 export class Menu {
   public readonly Id: string = UUIDV4();

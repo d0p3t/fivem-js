@@ -1,9 +1,7 @@
+import { Model } from './';
 import { MarkerType } from './enums';
-import { Model } from './Model';
-import { Ped } from './models/Ped';
-import { Vehicle } from './models/Vehicle';
-import { Color } from './utils';
-import { Vector3 } from './utils';
+import { Ped, Vehicle } from './models';
+import { Color, Vector3 } from './utils';
 
 /**
  * Class with common world manipulations.

@@ -1,4 +1,4 @@
-import { CheckpointIcon } from './hashes/CheckpointIconHash';
+import { CheckpointIcon } from './hashes';
 import { Vector3 } from './utils';
 
 export class Checkpoint {

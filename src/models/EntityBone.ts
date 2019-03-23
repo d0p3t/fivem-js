@@ -1,5 +1,5 @@
-import { Vector3 } from '../utils/Vector3';
-import { Entity } from './Entity';
+import { Vector3 } from '../utils';
+import { Entity } from './';
 
 export class EntityBone {
   public get Index(): number {

@@ -1,6 +1,5 @@
 import { Control } from './enums';
-import { Ped } from './models/Ped';
-import { Player } from './models/Player';
+import { Ped, Player } from './models';
 
 export abstract class Game {
   public static GenerateHash(input: string): number {

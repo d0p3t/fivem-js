@@ -1,5 +1,5 @@
-import { MaterialHash } from './hashes/MaterialHash';
-import { Entity } from './models/Entity';
+import { MaterialHash } from './hashes';
+import { Entity } from './models';
 import { Vector3 } from './utils';
 
 export class RaycastResult {

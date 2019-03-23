@@ -1,4 +1,4 @@
-import { UUIDV4 } from '../../../utils/UUIDV4';
+import { UUIDV4 } from '../../../utils';
 
 export class ListItem {
   public readonly Id: string = UUIDV4();

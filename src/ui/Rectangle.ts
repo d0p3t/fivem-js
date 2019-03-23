@@ -1,8 +1,6 @@
-import { Color } from '../utils/Color';
-import { Point } from '../utils/Point';
-import { Size } from '../utils/Size';
-import { IElement } from './interfaces/IElement';
-import { Screen } from './Screen';
+import { Color, Point, Size } from '../utils';
+import { Screen } from './';
+import { IElement } from './interfaces';
 
 export class Rectangle extends IElement {
   public pos: Point;
