@@ -46,16 +46,10 @@ export * from './Raycast';
 export * from './RelationshipGroup';
 
 // Utils
-export * from './utils/Color';
-export * from './utils/Math';
-export * from './utils/PointF';
-export * from './utils/String';
-export * from './utils/Vector3';
-export * from './utils/LiteEvent';
-export * from './utils/Point';
-export * from './utils/LiteEvent';
-export * from './utils/Size';
-export * from './utils/UUIDV4';
+export { ILiteEvent, subtract, normalize, multiplication, muls, IVec3, additional, _distance, clone, createVector, cross,
+distance, division, divs, dot, IPointF, MeasureStringWidthNoConvert,
+MeasureString, Vector3, Clamp, Color, LiteEvent, Point, PointF, Size,
+StringToArray, UUIDV4 } from './utils';
 
 // Enums
 export { CloudHat, WeatherTypeHash, Weather, MarkerType, IntersectOptions, ExplosionType, Bone, AudioFlag, BadgeStyle, CameraShake,

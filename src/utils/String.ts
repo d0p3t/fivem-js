@@ -1,5 +1,5 @@
-import { ResText } from '../ui/menu/modules/ResText';
-import { Screen } from '../ui/Screen';
+import { ResText } from '..';
+import { Screen } from '..';
 import * as Math from './Math';
 
 export function StringToArray(inputString: string) {

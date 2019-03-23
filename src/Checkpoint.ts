@@ -1,5 +1,5 @@
 import { CheckpointIcon } from './hashes/CheckpointIconHash';
-import { Vector3 } from './utils/Vector3';
+import { Vector3 } from './utils';
 
 export class Checkpoint {
   private handle: number;
