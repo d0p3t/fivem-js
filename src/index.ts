@@ -41,7 +41,6 @@ RadioStation, Relationship, RopeType, ScreenEffect,
 ZoneID } from './enums';
 
 // Hashes
-export * from './hashes/PedHash';
-export * from './hashes/VehicleHash';
-export * from './hashes/WeaponHash';
-export * from './hashes/MaterialHash';
+export { VehicleWeaponHash, AmmoType, VehicleWindowTint, VehicleRoofState, VehicleNeonLight, VehicleLockStatus, VehicleLandingGearState, VehicleColor, VehicleClass, LicensePlateType,
+LicensePlateStyle, CargobobHook, VehicleSeat, VehicleDrivingFlags, SpeechModifier, RagdollType, ParachuteState, ParachuteLandingType, HelmetType, Gender, DrivingStyle, CheckpointCustomIconStyle,
+CheckpointIcon, MaterialHash, PedHash, VehicleHash, WeaponHash } from './hashes';
