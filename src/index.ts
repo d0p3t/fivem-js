@@ -1,6 +1,6 @@
 // Main Classes
-export * from './Game';
-export * from './World';
+export { Game } from './Game';
+export { World } from './World';
 
 // Uncategorized
 export * from './Audio';
