@@ -1,26 +1,20 @@
 // Main Classes
 export { Game } from './Game';
 export { World } from './World';
-
-// Uncategorized
-export * from './Audio';
-export * from './Blip';
-export * from './Camera';
-export * from './Checkpoint';
-export * from './GameplayCamera';
-export * from './ParticleEffect';
-export * from './ParticleEffectAsset';
-export * from './Raycast';
-export * from './RelationshipGroup';
+export { Model} from './Model';
+export { Audio} from './Audio';
+export { Blip} from './Blip';
+export { Camera } from './Camera';
+export { Checkpoint } from './Checkpoint';
+export { GameplayCamera } from './GameplayCamera';
+export { ParticleEffect } from './ParticleEffect';
+export { ParticleEffectAsset } from './ParticleEffectAsset';
+export { RaycastResult } from './Raycast';
+export { RelationshipGroup } from './RelationshipGroup';
 
 // Entity Classes
-export * from './models/Entity';
-export * from './models/EntityBone';
-export * from './models/Ped';
-export * from './models/Player';
-export * from './models/Prop';
-export * from './models/Vehicle';
-export * from './Model';
+export { Entity, EntityBone, Ped, Player, Prop, Vehicle } from './models';
+
 
 // UI Classes
 export { UIMenuCheckboxItem, Menu, ListItem, ResRectangle, ItemsCollection, Alignment, ResText,
