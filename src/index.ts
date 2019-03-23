@@ -29,7 +29,7 @@ MeasureString, Vector3, Clamp, Color, LiteEvent, Point, PointF, Size,
 StringToArray, UUIDV4 } from './utils';
 
 // Enums
-export { CloudHat, WeatherTypeHash, Weather, MarkerType, IntersectOptions, ExplosionType, Bone, AudioFlag, BadgeStyle, CameraShake,
+export { CloudHat, WeatherTypeHash, Weather, MarkerType, IntersectOptions, ExplosionType, Bone, AudioFlag, BadgeStyle, CameraShake, Control,
 CursorSprite, Font, HudComponent, InvertAxis, InvertAxisFlags, LoadingSpinnerType,
 RadioStation, Relationship, RopeType, ScreenEffect,
 ZoneID } from './enums';
