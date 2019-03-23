@@ -58,7 +58,10 @@ export * from './utils/Size';
 export * from './utils/UUIDV4';
 
 // Enums
-
+export { CloudHat, WeatherTypeHash, Weather, MarkerType, IntersectOptions, ExplosionType, Bone, AudioFlag, BadgeStyle, CameraShake,
+CursorSprite, Font, HudComponent, InvertAxis, InvertAxisFlags, LoadingSpinnerType,
+RadioStation, Relationship, RopeType, ScreenEffect,
+ZoneID } from './enums';
 
 // Hashes
 export * from './hashes/PedHash';
