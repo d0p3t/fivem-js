@@ -1,5 +1,5 @@
+import { ParticleEffectAsset } from './';
 import { InvertAxis } from './enums';
-import ParticleEffectAsset from './ParticleEffectAsset';
 import { Color } from './utils';
 import { Vector3 } from './utils';
 
