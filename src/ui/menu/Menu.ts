@@ -1,21 +1,14 @@
-import { Audio } from '../../Audio';
-import Font from '../../enums/Font';
-import { Control, Game } from '../../Game';
-import { Color } from '../../utils/Color';
-import { LiteEvent } from '../../utils/LiteEvent';
-import { Point } from '../../utils/Point';
-import { Size } from '../../utils/Size';
-import { MeasureString } from '../../utils/String';
-import { UUIDV4 } from '../../utils/UUIDV4';
-import { Container } from '../Container';
-import { Screen } from '../Screen';
-import { Sprite } from '../Sprite';
-import { UIMenuCheckboxItem } from './items/UIMenuCheckboxItem';
-import { UIMenuItem } from './items/UIMenuItem';
-import { UIMenuListItem } from './items/UIMenuListItem';
-import { UIMenuSliderItem } from './items/UIMenuSliderItem';
-import { ResRectangle } from './modules/ResRectangle';
-import { Alignment, ResText } from './modules/ResText';
+import { Container, Screen, Sprite } from '../';
+import { Audio } from '../../';
+import { Control, Font } from '../../enums';
+import { Game } from '../../Game';
+import { Color, LiteEvent, MeasureString, Point, Size, UUIDV4 } from '../../utils';
+import { UIMenuCheckboxItem } from './items';
+import { UIMenuItem } from './items';
+import { UIMenuListItem } from './items';
+import { UIMenuSliderItem } from './items';
+import { ResRectangle } from './modules';
+import { Alignment, ResText } from './modules';
 
 export class Menu {
   public readonly Id: string = UUIDV4();

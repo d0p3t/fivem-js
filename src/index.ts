@@ -2,38 +2,6 @@
 export * from './Game';
 export * from './World';
 
-// Entity Classes
-export * from './models/Entity';
-export * from './models/EntityBone';
-export * from './models/Ped';
-export * from './models/Player';
-export * from './models/Prop';
-export * from './models/Vehicle';
-export * from './Model';
-
-// UI Classes
-export * from './ui/Container';
-export * from './ui/Effects';
-export * from './ui/Fading';
-export * from './ui/Hud';
-export * from './ui/LoadingPrompt';
-export * from './ui/Notification';
-export * from './ui/Rectangle';
-export * from './ui/Scaleform';
-export * from './ui/Screen';
-export * from './ui/Text';
-export * from './ui/Sprite';
-export * from './ui/interfaces/IElement';
-export * from './ui/menu/Menu';
-export * from './ui/menu/items/UIMenuCheckboxItem';
-export * from './ui/menu/items/UIMenuItem';
-export * from './ui/menu/items/UIMenuListItem';
-export * from './ui/menu/items/UIMenuSliderItem';
-export * from './ui/menu/modules/ItemsCollection';
-export * from './ui/menu/modules/ListItem';
-export * from './ui/menu/modules/ResRectangle';
-export * from './ui/menu/modules/ResText';
-
 // Uncategorized
 export * from './Audio';
 export * from './Blip';
@@ -44,6 +12,21 @@ export * from './ParticleEffect';
 export * from './ParticleEffectAsset';
 export * from './Raycast';
 export * from './RelationshipGroup';
+
+// Entity Classes
+export * from './models/Entity';
+export * from './models/EntityBone';
+export * from './models/Ped';
+export * from './models/Player';
+export * from './models/Prop';
+export * from './models/Vehicle';
+export * from './Model';
+
+// UI Classes
+export { UIMenuCheckboxItem, Menu, ListItem, ResRectangle, ItemsCollection, Alignment, ResText,
+UIMenuItem, UIMenuListItem, UIMenuSliderItem, Container, Effects, Fading,
+Hud, IElement, LoadingPrompt, Notification, Rectangle,
+Scaleform, Screen, Sprite, Text } from './ui';
 
 // Utils
 export { ILiteEvent, subtract, normalize, multiplication, muls, IVec3, additional, _distance, clone, createVector, cross,
