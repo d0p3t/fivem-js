@@ -1,7 +1,7 @@
 import { Color, Point } from '../utils';
+import { Screen } from './';
 import { IElement } from './interfaces';
 import { ResText } from './menu/modules';
-import { Screen } from './';
 
 export class Text extends IElement {
   public caption: string;
