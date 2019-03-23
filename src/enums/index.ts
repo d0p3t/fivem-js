@@ -1,3 +1,5 @@
+export { CloudHat, ExplosionType, IntersectOptions, MarkerType, Weather, WeatherTypeHash, ZoneID} from './world';
+export { Control } from './Control';
 export { AudioFlag } from './AudioFlag';
 export { BadgeStyle } from './BadgeStyle';
 export { Bone } from './Bone';
@@ -10,3 +12,4 @@ export { RadioStation } from './RadioStation';
 export { Relationship } from './Relationship';
 export { RopeType } from './RopeType';
 export { ScreenEffect } from './ScreenEffect';
+export { InvertAxis, InvertAxisFlags } from './InvertAxis';
