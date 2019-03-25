@@ -1,4 +1,4 @@
-import { Vector3 } from './utils/Vector3';
+import { Vector3 } from './utils';
 
 export abstract class GameplayCamera {
   public static get Position(): Vector3 {

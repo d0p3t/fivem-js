@@ -1,77 +1,40 @@
 // Main Classes
-export * from './Game';
-export * from './World';
+export { Game } from './Game';
+export { World } from './World';
+export { Model} from './Model';
+export { Audio} from './Audio';
+export { Blip} from './Blip';
+export { Camera } from './Camera';
+export { Checkpoint } from './Checkpoint';
+export { GameplayCamera } from './GameplayCamera';
+export { ParticleEffect } from './ParticleEffect';
+export { ParticleEffectAsset } from './ParticleEffectAsset';
+export { RaycastResult } from './Raycast';
+export { RelationshipGroup } from './RelationshipGroup';
 
 // Entity Classes
-export * from './models/Entity';
-export * from './models/EntityBone';
-export * from './models/Ped';
-export * from './models/Player';
-export * from './models/Prop';
-export * from './models/Vehicle';
-export * from './Model';
+export { Entity, EntityBone, Ped, Player, Prop, Vehicle } from './models';
+
 
 // UI Classes
-export * from './ui/Container';
-export * from './ui/Effects';
-export * from './ui/Fading';
-export * from './ui/Hud';
-export * from './ui/LoadingPrompt';
-export * from './ui/Notification';
-export * from './ui/Rectangle';
-export * from './ui/Scaleform';
-export * from './ui/Screen';
-export * from './ui/Text';
-export * from './ui/Sprite';
-export * from './ui/interfaces/IElement';
-export * from './ui/menu/Menu';
-export * from './ui/menu/items/UIMenuCheckboxItem';
-export * from './ui/menu/items/UIMenuItem';
-export * from './ui/menu/items/UIMenuListItem';
-export * from './ui/menu/items/UIMenuSliderItem';
-export * from './ui/menu/modules/ItemsCollection';
-export * from './ui/menu/modules/ListItem';
-export * from './ui/menu/modules/ResRectangle';
-export * from './ui/menu/modules/ResText';
-
-// Uncategorized
-export * from './Audio';
-export * from './Blip';
-export * from './Camera';
-export * from './Checkpoint';
-export * from './GameplayCamera';
-export * from './ParticleEffect';
-export * from './ParticleEffectAsset';
-export * from './Raycast';
-export * from './RelationshipGroup';
+export { UIMenuCheckboxItem, Menu, ListItem, ResRectangle, ItemsCollection, Alignment, ResText,
+UIMenuItem, UIMenuListItem, UIMenuSliderItem, Container, Effects, Fading,
+Hud, IElement, LoadingPrompt, Notification, Rectangle,
+Scaleform, Screen, Sprite, Text } from './ui';
 
 // Utils
-export * from './utils/Color';
-export * from './utils/Math';
-export * from './utils/PointF';
-export * from './utils/String';
-export * from './utils/Vector3';
-export * from './utils/LiteEvent';
-export * from './utils/Point';
-export * from './utils/LiteEvent';
-export * from './utils/Size';
-export * from './utils/UUIDV4';
+export { ILiteEvent, subtract, normalize, multiplication, muls, IVec3, additional, _distance, clone, createVector, cross,
+distance, division, divs, dot, IPointF, MeasureStringWidthNoConvert,
+MeasureString, Vector3, Clamp, Color, LiteEvent, Point, PointF, Size,
+StringToArray, UUIDV4 } from './utils';
 
 // Enums
-export * from './enums/AudioFlag';
-export * from './enums/Bone';
-export * from './enums/CameraShake';
-export * from './enums/CursorSprite';
-export * from './enums/Font';
-export * from './enums/Hud';
-export * from './enums/LoadingSpinnerType';
-export * from './enums/RadioStation';
-export * from './enums/Relationship';
-export * from './enums/RopeType';
-export * from './enums/ScreenEffect';
+export { CloudHat, WeatherTypeHash, Weather, MarkerType, IntersectOptions, ExplosionType, Bone, AudioFlag, BadgeStyle, CameraShake, Control,
+CursorSprite, Font, HudComponent, InvertAxis, InvertAxisFlags, LoadingSpinnerType,
+RadioStation, Relationship, RopeType, ScreenEffect,
+ZoneID } from './enums';
 
 // Hashes
-export * from './hashes/PedHash';
-export * from './hashes/VehicleHash';
-export * from './hashes/WeaponHash';
-export * from './hashes/MaterialHash';
+export { VehicleWeaponHash, AmmoType, VehicleWindowTint, VehicleRoofState, VehicleNeonLight, VehicleLockStatus, VehicleLandingGearState, VehicleColor, VehicleClass, LicensePlateType,
+LicensePlateStyle, CargobobHook, VehicleSeat, VehicleDrivingFlags, SpeechModifier, RagdollType, ParachuteState, ParachuteLandingType, HelmetType, Gender, DrivingStyle, CheckpointCustomIconStyle,
+CheckpointIcon, MaterialHash, PedHash, VehicleHash, WeaponHash } from './hashes';

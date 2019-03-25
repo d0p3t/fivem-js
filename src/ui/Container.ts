@@ -1,6 +1,6 @@
-import { Size } from '../utils/Size';
-import { Rectangle } from './Rectangle';
-import { Screen } from './Screen';
+import { Size } from '../utils';
+import { Rectangle } from './';
+import { Screen } from './';
 
 export class Container extends Rectangle {
   public Items: any[];

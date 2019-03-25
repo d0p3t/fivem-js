@@ -1,4 +1,4 @@
-import { Vector3 } from './utils/Vector3';
+import { Vector3 } from './utils';
 
 export class Blip {
   protected handle: number;

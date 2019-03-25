@@ -1,10 +1,7 @@
-import { BadgeStyle } from '../../../enums/BadgeStyle';
-import { Color } from '../../../utils/Color';
-import { LiteEvent } from '../../../utils/LiteEvent';
-import { Point } from '../../../utils/Point';
-import { Size } from '../../../utils/Size';
-import { Sprite } from '../../Sprite';
-import { UIMenuItem } from './UIMenuItem';
+import { Sprite } from '../../';
+import { BadgeStyle } from '../../../enums';
+import { Color, LiteEvent, Point, Size } from '../../../utils';
+import { UIMenuItem } from './';
 
 export class UIMenuCheckboxItem extends UIMenuItem {
   public Checked: boolean = false;

@@ -1,9 +1,7 @@
-import { DrivingStyle, HelmetType, RagdollType, SpeechModifier } from './../hashes/PedHash';
-import { VehicleSeat } from './../hashes/VehicleHash';
-import { WeaponHash } from './../hashes/WeaponHash';
-import { Vector3 } from './../utils/Vector3';
-import { Entity } from './Entity';
-import { Vehicle } from './Vehicle';
+import { Vector3 } from '../';
+import { DrivingStyle, HelmetType, RagdollType, SpeechModifier, VehicleSeat, WeaponHash } from '../hashes';
+import { Entity } from './';
+import { Vehicle } from './';
 
 export class Ped extends Entity {
   public static Exists(ped: Ped): boolean {

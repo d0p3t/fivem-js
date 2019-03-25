@@ -1,7 +1,5 @@
-import { PointF } from './../utils/PointF';
-import * as String from './../utils/String';
-import { Vector3 } from './../utils/Vector3';
-import { Notification } from './Notification';
+import { PointF, StringToArray, Vector3 } from '../utils';
+import { Notification } from './';
 
 export abstract class Screen {
   public static get Width(): number {
@@ -21,7 +19,7 @@ export abstract class Screen {
   }
 
   public static ShowSubtitle(message: string, duration: number = 2500) {
-    const strings: string[] = String.StringToArray(message);
+    const strings: string[] = StringToArray(message);
 
     BeginTextCommandPrint('CELL_EMAIL_BCON');
 
@@ -33,7 +31,7 @@ export abstract class Screen {
   }
 
   public static DisplayHelpTextThisFrame(message: string) {
-    const strings: string[] = String.StringToArray(message);
+    const strings: string[] = StringToArray(message);
 
     BeginTextCommandDisplayHelp('CELL_EMAIL_BCON');
 
@@ -45,7 +43,7 @@ export abstract class Screen {
   }
 
   public static ShowNotification(message: string, blinking = false): Notification {
-    const strings: string[] = String.StringToArray(message);
+    const strings: string[] = StringToArray(message);
 
     SetNotificationTextEntry('CELL_EMAIL_BCON');
 

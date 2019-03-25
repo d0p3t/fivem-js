@@ -1,6 +1,6 @@
 import { Game } from '../Game';
-import { Vector3 } from '../utils/Vector3';
-import { EntityBoneCollection } from './EntityBoneCollection';
+import { Vector3 } from '../utils';
+import { EntityBoneCollection } from './';
 
 export class Entity {
   protected handle: number;

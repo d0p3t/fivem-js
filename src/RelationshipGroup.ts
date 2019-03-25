@@ -1,4 +1,4 @@
-import { Relationship } from './enums/Relationship';
+import { Relationship } from './enums';
 
 /**
  * Class to create and manage a relationship group. Useful to manage behavior between Peds.
