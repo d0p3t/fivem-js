@@ -1,10 +1,8 @@
-import BadgeStyle from '../../../enums/BadgeStyle';
-import { Color } from '../../../utils/Color';
-import { Point } from '../../../utils/Point';
-import { Size } from '../../../utils/Size';
-import { Sprite } from '../../Sprite';
-import { ResRectangle } from '../modules/ResRectangle';
-import { UIMenuItem } from './UIMenuItem';
+import { Sprite } from '../../';
+import { BadgeStyle } from '../../../enums';
+import { Color, Point, Size } from '../../../utils/';
+import { ResRectangle } from '../modules/';
+import { UIMenuItem } from './';
 
 export class UIMenuSliderItem extends UIMenuItem {
   private arrowLeft: Sprite;

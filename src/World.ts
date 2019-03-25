@@ -1,16 +1,9 @@
+import { Model } from './';
 import { Camera } from './Camera';
-import CloudHat from './enums/CloudHat';
-import IntersectOptions from './enums/IntersectOptions';
-import MarkerType from './enums/MarkerType';
-import Weather from './enums/Weather';
-import { Model } from './Model';
-import { Entity } from './models/Entity';
-import { Ped } from './models/Ped';
-import { Vehicle } from './models/Vehicle';
+import { MarkerType } from './enums';
 import { RaycastResult } from './Raycast';
-import { Color } from './utils/Color';
-import { Clamp } from './utils/Math';
-import { Vector3 } from './utils/Vector3';
+import { Ped, Vehicle } from './models';
+import { Color, Vector3 } from './utils';
 
 /**
  * Class with common world manipulations.
@@ -199,13 +192,11 @@ export abstract class World {
    * @param position World position (coordinates) of Ped spawn.
    * @param heading Heading of Ped when spawning.
    */
-  public static CreatePed(model: Model, position: Vector3, heading: number = 0): Promise<Ped> {
-    return new Promise(async resolve => {
-      if (!model.IsPed || !(await model.Request(1000))) {
-        return null;
-      }
-      resolve(new Ped(CreatePed(26, model.Hash, position.x, position.y, position.z, heading, true, false)));
-    });
+  public static async CreatePed(model: Model, position: Vector3, heading: number = 0): Promise<Ped> {
+    if (!model.IsPed || !(await model.Request(1000))) {
+      return null;
+    }
+    return new Ped(CreatePed(26, model.Hash, position.x, position.y, position.z, heading, true, false));
   }
 
   /**
@@ -215,13 +206,11 @@ export abstract class World {
    * @param position World position (coordinates) of Vehicle spawn.
    * @param heading Heading of Vehicle when spawning.
    */
-  public static CreateVehicle(model: Model, position: Vector3, heading: number = 0): Promise<Vehicle> {
-    return new Promise(async resolve => {
-      if (!model.IsVehicle || !(await model.Request(1000))) {
-        return null;
-      }
-      resolve(new Vehicle(CreateVehicle(model.Hash, position.x, position.y, position.z, heading, true, false)));
-    });
+  public static async CreateVehicle(model: Model, position: Vector3, heading: number = 0): Promise<Vehicle> {
+    if (!model.IsVehicle || !(await model.Request(1000))) {
+      return null;
+    }
+    return new Vehicle(CreateVehicle(model.Hash, position.x, position.y, position.z, heading, true, false));
   }
 
   /**

@@ -1,9 +1,6 @@
-import Font from '../../../enums/Font';
-import { Color } from '../../../utils/Color';
-import { Point } from '../../../utils/Point';
-import { Size } from '../../../utils/Size';
-import { Screen } from '../../Screen';
-import { Text } from '../../Text';
+import { Screen, Text } from '../../';
+import { Font } from '../../../enums';
+import { Color, Point, Size } from '../../../utils';
 
 export enum Alignment {
   Left,

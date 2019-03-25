@@ -1,10 +1,5 @@
-import { Control } from './enums/Control';
-import { InputMode } from './enums/InputMode';
-import { Language } from './enums/Language';
-import { Ped } from './models/Ped';
-import { Player } from './models/Player';
-import { Prop } from './models/Prop';
-import { Vehicle } from './models/Vehicle';
+import { Control } from './enums';
+import { Ped, Player } from './models';
 
 export abstract class Game {
   /**

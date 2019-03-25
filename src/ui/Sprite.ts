@@ -1,7 +1,5 @@
-import { Color } from '../utils/Color';
-import { Point } from '../utils/Point';
-import { Size } from '../utils/Size';
-import { Screen } from './Screen';
+import { Color, Point, Size } from '../utils';
+import { Screen } from './';
 
 export class Sprite {
   public textureName: string;

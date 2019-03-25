@@ -1,5 +1,4 @@
-import CursorSprite from './../enums/CursorSprite';
-import HudComponent from './../enums/HudComponent';
+import { CursorSprite, HudComponent } from '../enums';
 
 export abstract class Hud {
   public static IsComponentActive(component: HudComponent): boolean {

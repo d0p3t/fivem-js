@@ -1,7 +1,7 @@
-import { InvertAxis } from './enums/InvertAxis';
-import ParticleEffectAsset from './ParticleEffectAsset';
-import { Color } from './utils/Color';
-import { Vector3 } from './utils/Vector3';
+import { ParticleEffectAsset } from './';
+import { InvertAxis } from './enums';
+import { Color } from './utils';
+import { Vector3 } from './utils';
 
 // TODO: Lots of Matrix stuff through memory access
 export abstract class ParticleEffect {

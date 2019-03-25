@@ -1,7 +1,7 @@
 import { Game } from './Game';
-import { MaterialHash } from './hashes/MaterialHash';
-import { Entity } from './models/Entity';
-import { Vector3 } from './utils/Vector3';
+import { MaterialHash } from './hashes';
+import { Entity } from './models';
+import { Vector3 } from './utils';
 
 export class RaycastResult {
   public get HitEntity(): Entity {

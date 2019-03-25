@@ -1,4 +1,4 @@
-var Cfx = require('fivem-js');
+import * as Cfx from 'fivem-js';
 
 RegisterCommand(
   'adder',

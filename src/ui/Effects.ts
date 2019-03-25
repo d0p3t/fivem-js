@@ -1,4 +1,4 @@
-import ScreenEffect from './../enums/ScreenEffect';
+import { ScreenEffect } from '../enums';
 
 export abstract class Effects {
   public static Start(effectName: ScreenEffect, duration: number = 0, looped: boolean = false): void {

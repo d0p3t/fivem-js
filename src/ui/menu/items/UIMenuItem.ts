@@ -1,13 +1,8 @@
-import BadgeStyle from '../../../enums/BadgeStyle';
-import Font from '../../../enums/Font';
-import { Color } from '../../../utils/Color';
-import { Point } from '../../../utils/Point';
-import { Size } from '../../../utils/Size';
-import { UUIDV4 } from '../../../utils/UUIDV4';
-import { Sprite } from '../../Sprite';
-import { Menu } from '../Menu';
-import { ResRectangle } from '../modules/ResRectangle';
-import { Alignment, ResText } from '../modules/ResText';
+import { Menu } from '../';
+import { Sprite } from '../../';
+import { BadgeStyle, Font } from '../../../enums';
+import { Color, Point, Size, UUIDV4 } from '../../../utils';
+import { Alignment, ResRectangle, ResText } from '../modules/';
 
 export class UIMenuItem {
   public static readonly DefaultBackColor: Color = Color.Empty;

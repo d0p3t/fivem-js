@@ -1,15 +1,8 @@
-import BadgeStyle from '../../../enums/BadgeStyle';
-import Font from '../../../enums/Font';
-import { Color } from '../../../utils/Color';
-import { LiteEvent } from '../../../utils/LiteEvent';
-import { Point } from '../../../utils/Point';
-import { Size } from '../../../utils/Size';
-import { MeasureString } from '../../../utils/String';
-import { Sprite } from '../../Sprite';
-import { ItemsCollection } from '../modules/ItemsCollection';
-import { ListItem } from '../modules/ListItem';
-import { Alignment, ResText } from '../modules/ResText';
-import { UIMenuItem } from './UIMenuItem';
+import { Sprite } from '../../';
+import { BadgeStyle, Font } from '../../../enums';
+import { Color, LiteEvent, MeasureString, Point, Size } from '../../../utils';
+import { Alignment, ItemsCollection, ListItem, ResText } from '../modules/';
+import { UIMenuItem } from './';
 
 export class UIMenuListItem extends UIMenuItem {
   public ScrollingEnabled: boolean = true;

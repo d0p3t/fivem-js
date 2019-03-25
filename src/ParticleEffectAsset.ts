@@ -1,8 +1,8 @@
-import InvertAxisFlags, { InvertAxis } from './enums/InvertAxis';
-import { Entity } from './models/Entity';
-import { Vector3 } from './utils/Vector3';
+import { InvertAxis, InvertAxisFlags } from './enums';
+import { Entity } from './models/';
+import { Vector3 } from './utils';
 
-export default class ParticleEffectAsset {
+export class ParticleEffectAsset {
   public get Asset(): string {
     return this.assetName;
   }

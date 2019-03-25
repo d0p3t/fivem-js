@@ -3413,6 +3413,11 @@ typedoc-default-themes@^0.5.0:
   resolved "https://registry.yarnpkg.com/typedoc-default-themes/-/typedoc-default-themes-0.5.0.tgz#6dc2433e78ed8bea8e887a3acde2f31785bd6227"
   integrity sha1-bcJDPnjti+qOiHo6zeLzF4W9Yic=
 
+typedoc-fivemjs-theme@^0.2.7:
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/typedoc-fivemjs-theme/-/typedoc-fivemjs-theme-0.2.7.tgz#27e360329be82f5b81362c4c85024e226ffa076a"
+  integrity sha512-niqboboKoiHEgFvuakf21oyBRETGCccgqNCj3X7QbGrZtK+WtPVHTte75FNzmNDQJ8jl036I21w0OAiPNdTGXQ==
+
 typedoc@^0.14.2:
   version "0.14.2"
   resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.14.2.tgz#769f457f4f9e4bdb8b5f3b177c86b6a31d8c3dc3"

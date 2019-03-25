@@ -1,4 +1,4 @@
-import LoadingSpinnerType from './../enums/LoadingSpinnerType';
+import { LoadingSpinnerType } from '../enums';
 
 export abstract class LoadingPrompt {
   public static Show(
