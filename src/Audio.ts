@@ -38,6 +38,18 @@ export abstract class Audio {
     }
   }
 
+  public static PlaySound(soundFile: string, soundSet: string): void {
+    this.ReleaseSound(this.PlaySoundFrontEnd(soundFile, soundSet));
+  }
+
+  public static PlayMusic(musicFile: string): void {
+    TriggerMusicEvent(musicFile);
+  }
+
+  public static StopMusic(musicFile: string): void {
+    CancelMusicEvent(musicFile);
+  }
+
   private static readonly audioFlags: string[] = [
     'ActivateSwitchWheelAudio',
     'AllowCutsceneOverScreenFade',

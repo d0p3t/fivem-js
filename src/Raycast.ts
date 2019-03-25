@@ -1,10 +1,11 @@
+import { Game } from './Game';
 import { MaterialHash } from './hashes';
 import { Entity } from './models';
 import { Vector3 } from './utils';
 
 export class RaycastResult {
   public get HitEntity(): Entity {
-    return new Entity(this.entityHandleArg);
+    return this.entityHandleArg;
   }
 
   public get HitPosition(): Vector3 {
@@ -20,36 +21,40 @@ export class RaycastResult {
   }
 
   public get DidHitEntity(): boolean {
-    return this.entityHandleArg !== 0;
+    return this.entityHandleArg.Handle !== 0;
   }
 
   public get Material(): MaterialHash {
-    return MaterialHash[this.materialArg.toString()];
+    return this.materialArg;
   }
 
   public get Result(): number {
-    const results = GetShapeTestResultEx(this.handle);
-    this.hitSomethingArg = !!results[1];
-    this.hitPositionArg = new Vector3(results[2][0], results[2][1], results[2][2]);
-    this.surfaceNormalArg = new Vector3(results[3][0], results[3][1], results[3][2]);
-    this.materialArg = results[4];
-    this.entityHandleArg = results[5];
-    return results[0]; // Not sure about this
+    return this.result;
   }
 
   private handle: number;
   private hitPositionArg: Vector3;
   private hitSomethingArg: boolean;
-  private entityHandleArg: number;
+  private entityHandleArg: Entity;
   private surfaceNormalArg: Vector3;
-  private materialArg: number;
+  private materialArg: MaterialHash;
+  private result: number;
 
   constructor(handle: number) {
     this.handle = handle;
     this.hitPositionArg = new Vector3(0, 0, 0);
     this.hitSomethingArg = false;
-    this.entityHandleArg = 0;
+    this.entityHandleArg = null;
     this.surfaceNormalArg = new Vector3(0, 0, 0);
     this.materialArg = 0;
+
+    const results = GetShapeTestResultEx(this.handle);
+    this.hitSomethingArg = !!results[1];
+    this.hitPositionArg = new Vector3(results[2][0], results[2][1], results[2][2]);
+    this.surfaceNormalArg = new Vector3(results[3][0], results[3][1], results[3][2]);
+    this.materialArg = results[4];
+    this.entityHandleArg = Game.EntityFromHandle(results[5]);
+
+    this.result = results[0];
   }
 }

@@ -56,11 +56,11 @@ export class Camera {
   // }
 
   public set Direction(direction: Vector3) {
-    const dir = direction.normalize();
+    const dir = direction.Normalize(direction);
 
     const vec1 = new Vector3(dir.x, dir.y, 0);
-    const vec2 = new Vector3(dir.z, vec1.distance(), 0);
-    const vec3 = vec2.normalize();
+    const vec2 = new Vector3(dir.z, vec1.DistanceSquared(vec1), 0);
+    const vec3 = vec2.Normalize(vec2);
 
     this.Rotation = new Vector3(
       Math.atan2(vec3.x, vec3.y) * 57.295779513082323,
@@ -73,9 +73,17 @@ export class Camera {
   //       return Matrix.Up;
   //   }
 
-  //   public get ForwardVector() : Vector3 {
-  //       return Matrix.Forward;
-  //   }
+  public get ForwardVector(): Vector3 {
+    const rotation = Vector3.Multiply(this.Rotation, Math.PI / 180);
+    const normalized = Vector3.Normalize(
+      new Vector3(
+        -Math.sin(rotation.z) * Math.abs(Math.cos(rotation.x)),
+        Math.cos(rotation.z) * Math.abs(Math.cos(rotation.x)),
+        Math.sin(rotation.x),
+      ),
+    );
+    return new Vector3(normalized.x, normalized.y, normalized.z);
+  }
 
   //   public get RightVector() : Vector3 {
   //       return Matrix.Right;

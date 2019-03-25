@@ -1,5 +1,8 @@
 import { Vector3 } from './utils';
 
+/**
+ * The current rendering gameplay camera
+ */
 export abstract class GameplayCamera {
   public static get Position(): Vector3 {
     const coords = GetGameplayCamCoords();
@@ -11,15 +14,23 @@ export abstract class GameplayCamera {
     return new Vector3(rot[0], rot[1], rot[2]);
   }
 
-  // public static GetOffsetPosition(offset: Vector3) : Vector3 {
-  //     return
-  // }
+  public static get ForwardVector(): Vector3 {
+    const rotation = Vector3.Multiply(this.Rotation, Math.PI / 180);
+    const normalized = Vector3.Normalize(
+      new Vector3(
+        -Math.sin(rotation.z) * Math.abs(Math.cos(rotation.x)),
+        Math.cos(rotation.z) * Math.abs(Math.cos(rotation.x)),
+        Math.sin(rotation.x),
+      ),
+    );
+    return new Vector3(normalized.x, normalized.y, normalized.z);
+  }
 
-  public get RelativePitch(): number {
+  public static get RelativePitch(): number {
     return GetGameplayCamRelativePitch();
   }
 
-  public set RelativePitch(pitch: number) {
+  public static set RelativePitch(pitch: number) {
     SetGameplayCamRelativePitch(pitch, 1);
   }
 

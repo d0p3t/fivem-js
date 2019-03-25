@@ -1,10 +1,10 @@
 import { Container, Screen, Sprite } from '../';
 import { Audio } from '../../';
-import { Control, Font } from '../../enums';
+import { Alignment, Control, Font } from '../../enums';
 import { Game } from '../../Game';
 import { Color, LiteEvent, MeasureString, Point, Size, UUIDV4 } from '../../utils';
 import { UIMenuCheckboxItem, UIMenuItem, UIMenuListItem, UIMenuSliderItem } from './items';
-import { Alignment, ResRectangle, ResText } from './modules';
+import { ResRectangle, ResText } from './modules';
 
 export class Menu {
   public readonly Id: string = UUIDV4();

@@ -1,7 +1,7 @@
 import { Sprite } from '../../';
-import { BadgeStyle, Font } from '../../../enums';
+import { Alignment, BadgeStyle, Font } from '../../../enums';
 import { Color, LiteEvent, MeasureString, Point, Size } from '../../../utils';
-import { Alignment, ItemsCollection, ListItem, ResText } from '../modules/';
+import { ItemsCollection, ListItem, ResText } from '../modules/';
 import { UIMenuItem } from './';
 
 export class UIMenuListItem extends UIMenuItem {

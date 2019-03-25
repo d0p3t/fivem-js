@@ -1,5 +1,6 @@
 import { Vector3 } from '../';
-import { DrivingStyle, HelmetType, RagdollType, SpeechModifier, VehicleSeat, WeaponHash } from '../hashes';
+import { DrivingStyle, HelmetType, RagdollType, SpeechModifier, VehicleSeat } from '../enums';
+import { WeaponHash } from '../hashes';
 import { Entity } from './';
 import { Vehicle } from './';
 
