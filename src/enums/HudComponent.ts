@@ -1,4 +1,4 @@
-enum HudComponent {
+export enum HudComponent {
   WantedStars = 1,
   WeaponIcon,
   Cash,
@@ -51,5 +51,3 @@ enum HudComponent {
   ReplayLeftBar,
   ReplayTimer,
 }
-
-export default HudComponent;

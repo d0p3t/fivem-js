@@ -1,7 +1,7 @@
 /**
  * List of Zones. Useful for using world zone related natives.
  */
-enum ZoneID {
+export enum ZoneID {
   AIRP,
   ALAMO,
   ALTA,
@@ -92,5 +92,3 @@ enum ZoneID {
   ZP_ORT,
   ZQ_UAR,
 }
-
-export default ZoneID;

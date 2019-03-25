@@ -1,7 +1,7 @@
 /**
  * List of cloud hats. Used to change cloud patterns
  */
-enum CloudHat {
+export enum CloudHat {
   Unknown = 1,
   Altostratus,
   Cirrus,
@@ -24,5 +24,3 @@ enum CloudHat {
   Shower,
   Wispy,
 }
-
-export default CloudHat;

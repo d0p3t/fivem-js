@@ -3,7 +3,7 @@
  *
  * See native [DRAW_MARKER](https://runtime.fivem.net/doc/natives/#_0x28477EC23D892089) for pictures.
  */
-enum MarkerType {
+export enum MarkerType {
   UpsideDownCone,
   VerticalCylinder,
   ThickChevronUp,
@@ -47,5 +47,3 @@ enum MarkerType {
   ParachuteSymbol,
   SawbladeSymbol,
 }
-
-export default MarkerType;

@@ -1,12 +1,6 @@
 import { Screen, Text } from '../../';
-import { Font } from '../../../enums';
+import { Alignment, Font } from '../../../enums';
 import { Color, Point, Size } from '../../../utils';
-
-export enum Alignment {
-  Left,
-  Centered,
-  Right,
-}
 
 export class ResText extends Text {
   public static AddLongString(str: string) {

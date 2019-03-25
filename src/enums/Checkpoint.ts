@@ -48,3 +48,19 @@ export enum CheckpointIcon {
   Cyclinder2,
   Cyclinder3,
 }
+
+export enum CheckpointCustomIconStyle {
+  Number,
+  SingleArrow,
+  DoubleArrow,
+  TripleArrow,
+  Ring,
+  CycleArrow,
+  Ring2,
+  RingPointer,
+  SegmentedRing,
+  Sphere,
+  Dollar,
+  QuintupleLines,
+  BeastIcon,
+}

@@ -1,4 +1,4 @@
-enum Bone {
+export enum Bone {
   SKEL_ROOT,
   SKEL_Pelvis = 11816,
   SKEL_L_Thigh = 58271,
@@ -98,5 +98,3 @@ enum Bone {
   RB_Neck_1 = 35731,
   IK_Root = 56604,
 }
-
-export default Bone;

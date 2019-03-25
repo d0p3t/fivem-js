@@ -1,5 +1,5 @@
 import { ResText, Screen } from '..';
-import { Clamp} from './Math';
+import { Clamp } from './Math';
 
 export function StringToArray(inputString: string) {
   const stringsNeeded: number = inputString.length % 99 === 0 ? inputString.length / 99 : inputString.length / 99 + 1;

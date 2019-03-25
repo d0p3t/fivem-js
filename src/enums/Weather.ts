@@ -1,7 +1,7 @@
 /**
  * List of weather types. Used for manipulating weather.
  */
-enum Weather {
+export enum Weather {
   Unknown = -1,
   ExtraSunny,
   Clear,
@@ -19,5 +19,3 @@ enum Weather {
   Christmas,
   Halloween,
 }
-
-export default Weather;

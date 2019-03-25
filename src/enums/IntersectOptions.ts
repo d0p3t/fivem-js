@@ -1,7 +1,7 @@
 /**
  * List of possible entity intersections. Used for raycasting.
  */
-enum IntersectOptions {
+export enum IntersectOptions {
   Everything = -1,
   Map = 1,
   MissionEntities,
@@ -13,5 +13,3 @@ enum IntersectOptions {
   Vegetation = 256,
   Unk4 = 512,
 }
-
-export default IntersectOptions;

@@ -1,7 +1,7 @@
 /**
  * Same list as Weather enum, but as hashes.
  */
-enum WeatherTypeHash {
+export enum WeatherTypeHash {
   Unknown = -1,
   ExtraSunny = -1750463879,
   Clear = 916995460,
@@ -19,5 +19,3 @@ enum WeatherTypeHash {
   Christmas = -1429616491,
   Halloween = -921030142,
 }
-
-export default WeatherTypeHash;

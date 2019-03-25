@@ -1,9 +1,9 @@
-import { Model } from './';
+import { Entity, Model } from './';
 import { Camera } from './Camera';
-import { MarkerType } from './enums';
-import { RaycastResult } from './Raycast';
+import { CloudHat, IntersectOptions, MarkerType, Weather } from './enums';
 import { Ped, Vehicle } from './models';
-import { Color, Vector3 } from './utils';
+import { RaycastResult } from './Raycast';
+import { Clamp, Color, Vector3 } from './utils';
 
 /**
  * Class with common world manipulations.

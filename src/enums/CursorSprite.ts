@@ -1,4 +1,4 @@
-enum CursorSprite {
+export enum CursorSprite {
   Normal = 1,
   LightArrow,
   OpenHand,
@@ -12,5 +12,3 @@ enum CursorSprite {
   NormalWithPlus,
   NormalWithMinus,
 }
-
-export default CursorSprite;

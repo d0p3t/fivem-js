@@ -1,4 +1,4 @@
-enum BadgeStyle {
+export enum BadgeStyle {
   None,
   BronzeMedal,
   GoldMedal,
@@ -23,5 +23,3 @@ enum BadgeStyle {
   Lock,
   Tick,
 }
-
-export default BadgeStyle;

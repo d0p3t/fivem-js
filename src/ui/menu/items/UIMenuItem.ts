@@ -1,8 +1,8 @@
 import { Menu } from '../';
 import { Sprite } from '../../';
-import { BadgeStyle, Font } from '../../../enums';
+import { Alignment, BadgeStyle, Font } from '../../../enums';
 import { Color, Point, Size, UUIDV4 } from '../../../utils';
-import { Alignment, ResRectangle, ResText } from '../modules/';
+import { ResRectangle, ResText } from '../modules/';
 
 export class UIMenuItem {
   public static readonly DefaultBackColor: Color = Color.Empty;

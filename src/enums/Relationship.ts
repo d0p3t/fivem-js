@@ -1,4 +1,4 @@
-enum Relationship {
+export enum Relationship {
   Hate = 5,
   Dislike = 4,
   Neutral = 3,
@@ -7,5 +7,3 @@ enum Relationship {
   Companion = 0,
   Pedestrians = 255,
 }
-
-export default Relationship;

@@ -1,7 +1,7 @@
 /**
  * List of explosion sources.
  */
-enum ExplosionType {
+export enum ExplosionType {
   Grenade,
   GrenadeL,
   StickyBomb,
@@ -42,5 +42,3 @@ enum ExplosionType {
   ProxMine,
   Valkyrie,
 }
-
-export default ExplosionType;

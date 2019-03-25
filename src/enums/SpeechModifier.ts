@@ -1,4 +1,4 @@
-enum SpeechModifier {
+export enum SpeechModifier {
   Standard = 0,
   AllowRepeat = 1,
   Beat = 2,
@@ -37,5 +37,3 @@ enum SpeechModifier {
   ShoutedClear = 35,
   ShoutedCritical = 36,
 }
-
-export default SpeechModifier;
