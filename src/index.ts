@@ -13,7 +13,7 @@ export { RelationshipGroup } from './RelationshipGroup';
 
 // Lets export all from folders
 export * from './models';
-export * from './ui';
 export * from './utils';
 export * from './enums';
 export * from './hashes';
+export * from './ui';
