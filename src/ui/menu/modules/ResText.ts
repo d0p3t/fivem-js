@@ -3,14 +3,6 @@ import { Alignment, Font } from '../../../enums';
 import { Color, Point, Size } from '../../../utils';
 
 export class ResText extends Text {
-  public static AddLongString(str: string) {
-    const strLen = 99;
-    for (let i = 0; i < str.length; i += strLen) {
-      const substr = str.substr(i, Math.min(strLen, str.length - i));
-      AddTextComponentSubstringPlayerName(substr);
-    }
-  }
-
   public TextAlignment: Alignment = Alignment.Left;
   public DropShadow: boolean;
   public Outline: boolean;
@@ -86,7 +78,7 @@ export class ResText extends Text {
     }
 
     SetTextEntry('STRING');
-    ResText.AddLongString(caption);
+    Text.AddLongString(caption);
     DrawText(x, y);
   }
 }

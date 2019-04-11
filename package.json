@@ -1,6 +1,6 @@
 {
   "name": "fivem-js",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Javascript/Typescript wrapper for the FiveM natives",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

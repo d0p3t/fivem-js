@@ -4,6 +4,14 @@ import { IElement } from './interfaces';
 import { ResText } from './menu/modules';
 
 export class Text extends IElement {
+  public static AddLongString(str: string) {
+    const strLen = 99;
+    for (let i = 0; i < str.length; i += strLen) {
+      const substr = str.substr(i, Math.min(strLen, str.length - i));
+      AddTextComponentSubstringPlayerName(substr);
+    }
+  }
+  
   public caption: string;
   public pos: Point;
   public scale: number;
@@ -36,7 +44,7 @@ export class Text extends IElement {
     SetTextColour(color.r, color.g, color.b, color.a);
     SetTextCentre(centered);
     SetTextEntry('STRING');
-    ResText.AddLongString(caption);
+    Text.AddLongString(caption);
     DrawText(x, y);
   }
 }
