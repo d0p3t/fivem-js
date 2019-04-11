@@ -10,15 +10,6 @@ export class Text extends IElement {
   public color: Color;
   public font: number;
   public centered: boolean;
-  
-  public static AddLongString(str: string) {
-    const strLen = 99;
-    for (let i = 0; i < str.length; i += strLen) {
-      const substr = str.substr(i, Math.min(strLen, str.length - i));
-      AddTextComponentSubstringPlayerName(substr);
-    }
-  }
-
   constructor(caption, pos, scale, color, font, centered) {
     super();
     this.caption = caption;
@@ -27,6 +18,14 @@ export class Text extends IElement {
     this.color = color || Color.Black;
     this.font = font || 0;
     this.centered = centered || false;
+  }
+
+  public static AddLongString(str: string) {
+    const strLen = 99;
+    for (let i = 0; i < str.length; i += strLen) {
+      const substr = str.substr(i, Math.min(strLen, str.length - i));
+      AddTextComponentSubstringPlayerName(substr);
+    }
   }
 
   public Draw(caption, pos?, scale?, color?: Color, font?, centered?): void {
