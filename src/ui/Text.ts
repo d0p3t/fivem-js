@@ -11,7 +11,7 @@ export class Text extends IElement {
       AddTextComponentSubstringPlayerName(substr);
     }
   }
-  
+
   public caption: string;
   public pos: Point;
   public scale: number;
