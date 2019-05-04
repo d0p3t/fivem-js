@@ -9,9 +9,7 @@ const activeTimerBars: Timerbar[] = [];
 
 export class Timerbar {
   private sprite: Sprite = null;
-  private title: string = '';
   private text: string = '';
-  private useProgressBar: boolean = false;
   private usePlayerStyle: boolean = false;
   private isVisible: boolean = false;
   private pbarValue: number = 0.0;
@@ -19,16 +17,7 @@ export class Timerbar {
   private pbarBgColor: any = [155, 155, 155, 255];
   private pbarFgColor: any = [255, 255, 255, 255];
 
-  constructor(title: string, useProgressBar: boolean = false) {
-    this.title = title;
-    this.useProgressBar = useProgressBar;
-    this.text = '';
-    this.pbarValue = 0.0;
-    this.textColor = [240, 240, 240, 255];
-    this.pbarBgColor = [155, 155, 155, 255];
-    this.pbarFgColor = [255, 255, 255, 255];
-    this.usePlayerStyle = false;
-
+  constructor(private title: string = '', private useProgressBar: boolean = false) {
     const safeZone = GetSafeZoneSize();
     const safeZoneX = (1.0 - safeZone) * 0.5;
     const safeZoneY = (1.0 - safeZone) * 0.5;
@@ -148,7 +137,7 @@ export class Timerbar {
     return this.sprite;
   }
 
-  public static drawText (text, position, options) {
+  public static drawText(text, position, options): void {
     options = {
       ...{
         align: 1,
@@ -237,9 +226,9 @@ setTick(() => {
     });
 
     if (timerbar.UseProgressBar) {
-      const pbarX = 0.918 - safeZoneX + 0.047;
-      const pbarY = drawY + 0.0015;
-      const width = 0.0616 * timerbar.Progress;
+      const pbarX: number = 0.918 - safeZoneX + 0.047;
+      const pbarY: number = drawY + 0.0015;
+      const width: number = 0.0616 * timerbar.Progress;
 
       DrawRect(
         pbarX,
