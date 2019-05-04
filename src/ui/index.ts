@@ -11,3 +11,4 @@ export { Scaleform } from './Scaleform';
 export { Screen } from './Screen';
 export { Text } from './Text';
 export { Sprite } from './Sprite';
+export { Timerbar } from './Timerbar';

@@ -21,7 +21,7 @@ export { Entity, EntityBone, Ped, Player, Prop, Vehicle } from './models';
 export { UIMenuCheckboxItem, Menu, ListItem, ResRectangle, ItemsCollection, Alignment, ResText,
 UIMenuItem, UIMenuListItem, UIMenuSliderItem, Container, Effects, Fading,
 Hud, IElement, LoadingPrompt, Notification, Rectangle,
-Scaleform, Screen, Sprite, Text } from './ui';
+Scaleform, Screen, Sprite, Text, Timerbar } from './ui';
 
 // Utils
 export { ILiteEvent, subtract, normalize, multiplication, muls, IVec3, additional, _distance, clone, createVector, cross,
