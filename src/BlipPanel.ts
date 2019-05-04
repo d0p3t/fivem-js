@@ -206,7 +206,6 @@ export class BlipPanel {
 
   private setTick() {
     setTick(() => {
-      Wait(0);
       let currentBlip = null;
       if (N_0x3bab9a4e4f2ff5c7()) {
         const blip = DisableBlipNameForVar();
