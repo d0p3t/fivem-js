@@ -11,6 +11,7 @@ export { ParticleEffect } from './ParticleEffect';
 export { ParticleEffectAsset } from './ParticleEffectAsset';
 export { RaycastResult } from './Raycast';
 export { RelationshipGroup } from './RelationshipGroup';
+export { BlipPanel } from './BlipPanel';
 
 // Entity Classes
 export { Entity, EntityBone, Ped, Player, Prop, Vehicle } from './models';
