@@ -44,22 +44,14 @@ export class Sprite {
   }
 
   public Draw(
-    textureDictionary?: string,
-    textureName?: string,
-    pos?: Point,
-    size?: Size,
-    heading?: number,
-    color?: Color,
-    loadTexture?: boolean,
+    textureDictionary: string = this.textureDict,
+    textureName: string = this.textureName,
+    pos: Point = this.pos,
+    size: Size =this.size,
+    heading: number = this.heading,
+    color: Color = this.color,
+    loadTexture: boolean = true,
   ): void {
-    textureDictionary = textureDictionary || this.TextureDict;
-    textureName = textureName || this.textureName;
-    pos = pos || this.pos;
-    size = size || this.size;
-    heading = heading || this.heading;
-    color = color || this.color;
-    loadTexture = loadTexture || true;
-
     if (loadTexture) {
       if (!HasStreamedTextureDictLoaded(textureDictionary)) {
         RequestStreamedTextureDict(textureDictionary, false);
