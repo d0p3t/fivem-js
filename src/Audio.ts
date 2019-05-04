@@ -3,18 +3,18 @@ import { Entity } from './models';
 import { Vector3 } from './utils';
 
 export abstract class Audio {
-  public static PlaySoundAt(position: Vector3, sound: string, set?: string): number {
-    PlaySoundFromCoord(-1, sound, position.x, position.y, position.z, set ? set : null, false, 0, false);
+  public static PlaySoundAt(position: Vector3, sound: string, set: string = null): number {
+    PlaySoundFromCoord(-1, sound, position.x, position.y, position.z, set, false, 0, false);
     return GetSoundId();
   }
 
-  public static PlaySoundFromEntity(entity: Entity, sound: string, set?: string): number {
-    PlaySoundFromEntity(-1, sound, entity.Handle, set ? set : null, false, 0);
+  public static PlaySoundFromEntity(entity: Entity, sound: string, set: string = null): number {
+    PlaySoundFromEntity(-1, sound, entity.Handle, set, false, 0);
     return GetSoundId();
   }
 
-  public static PlaySoundFrontEnd(sound: string, set?: string): number {
-    PlaySoundFrontend(-1, sound, set ? set : null, false);
+  public static PlaySoundFrontEnd(sound: string, set: string = null): number {
+    PlaySoundFrontend(-1, sound, set, false);
     return GetSoundId();
   }
 
