@@ -17,6 +17,61 @@ export class Timerbar {
   private pbarBgColor: any = [155, 155, 155, 255];
   private pbarFgColor: any = [255, 255, 255, 255];
 
+  public static drawText(text, position, options): void {
+    options = {
+      ...{
+        align: 1,
+        color: [255, 255, 255, 255],
+        font: 4,
+        outline: true,
+        scale: 0.3,
+        shadow: true,
+      },
+      ...options,
+    };
+
+    const font = options.font;
+    const scale = options.scale;
+    const outline = options.outline;
+    const shadow = options.shadow;
+    const color = options.color;
+    const wordWrap = options.wordWrap;
+    const align = options.align;
+
+    SetTextEntry('CELL_EMAIL_BCON');
+    for (let i = 0; i < text.length; i += 99) {
+      const subStringText = text.substr(i, Math.min(99, text.length - i));
+      AddTextComponentSubstringPlayerName(subStringText);
+    }
+
+    SetTextFont(font);
+    SetTextScale(scale, scale);
+    SetTextColour(color[0], color[1], color[2], color[3]);
+
+    if (shadow) {
+      SetTextDropShadow();
+    }
+
+    if (outline) {
+      SetTextOutline();
+    }
+
+    switch (align) {
+      case 1: {
+        SetTextCentre(true);
+        break;
+      }
+
+      case 2: {
+        SetTextRightJustify(true);
+        SetTextWrap(0.0, position[0] || 0);
+        break;
+      }
+    }
+
+    DrawText(position[0] || 0, position[1] || 0);
+  };
+
   constructor(private title: string = '', private useProgressBar: boolean = false) {
     const safeZone = GetSafeZoneSize();
     const safeZoneX = (1.0 - safeZone) * 0.5;
@@ -136,61 +191,6 @@ export class Timerbar {
   public get Sprite(): Sprite {
     return this.sprite;
   }
-
-  public static drawText(text, position, options): void {
-    options = {
-      ...{
-        align: 1,
-        color: [255, 255, 255, 255],
-        font: 4,
-        outline: true,
-        scale: 0.3,
-        shadow: true,
-      },
-      ...options,
-    };
-
-    const font = options.font;
-    const scale = options.scale;
-    const outline = options.outline;
-    const shadow = options.shadow;
-    const color = options.color;
-    const wordWrap = options.wordWrap;
-    const align = options.align;
-
-    SetTextEntry('CELL_EMAIL_BCON');
-    for (let i = 0; i < text.length; i += 99) {
-      const subStringText = text.substr(i, Math.min(99, text.length - i));
-      AddTextComponentSubstringPlayerName(subStringText);
-    }
-
-    SetTextFont(font);
-    SetTextScale(scale, scale);
-    SetTextColour(color[0], color[1], color[2], color[3]);
-
-    if (shadow) {
-      SetTextDropShadow();
-    }
-
-    if (outline) {
-      SetTextOutline();
-    }
-
-    switch (align) {
-      case 1: {
-        SetTextCentre(true);
-        break;
-      }
-
-      case 2: {
-        SetTextRightJustify(true);
-        SetTextWrap(0.0, position[0] || 0);
-        break;
-      }
-    }
-
-    DrawText(position[0] || 0, position[1] || 0);
-  };
 }
 
 setTick(() => {
