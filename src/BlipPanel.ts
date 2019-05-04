@@ -164,7 +164,7 @@ export class BlipPanel {
 
   private _label(text) {
     const lbl = `LBL${this.labels}`;
-    AddTextEntry(lbl, text); // TODO: https://you-have-a.bigno.se/1698279.png
+    AddTextEntry(lbl, text);
     this.labels = this.labels + 1;
     return lbl;
   }
