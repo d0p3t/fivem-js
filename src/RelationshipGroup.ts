@@ -15,10 +15,10 @@ export class RelationshipGroup {
    * @param name Name of the relationship group.
    * @param groupHash Optional custom group hash (default: 0).
    */
-  constructor(name: string, groupHash?: number) {
-    AddRelationshipGroup(name, groupHash ? groupHash : 0);
+  constructor(name: string, groupHash: number = 0) {
+    AddRelationshipGroup(name, groupHash);
 
-    this.hash = groupHash ? groupHash : 0;
+    this.hash = groupHash;
   }
 
   /**
