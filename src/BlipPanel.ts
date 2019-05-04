@@ -1,4 +1,4 @@
-interface IBlip {
+interface IBlipPanel {
   dict: string,
   info: Info,
   money: string,
@@ -11,7 +11,7 @@ interface IBlip {
 type Info = Array<[number, string, string] | [number, string, string, number, number, boolean]>;
 
 export class BlipPanel {
-  private data: IBlip[];
+  private data: IBlipPanel[];
   private display: number;
   private labels: number;
   private entries: number;
@@ -47,34 +47,34 @@ export class BlipPanel {
   }
 
   public setBlipInfoTitle(title: string = '', rockstarVerified: boolean = false): this {
-    const data: IBlip = this.data[this.blip];
+    const data: IBlipPanel = this.data[this.blip];
     data.title = title;
     data.rockstarVerified = rockstarVerified;
     return this;
   }
 
   public setBlipInfoImage(dict: string = '', tex: string = ''): this {
-    const data: IBlip = this.data[this.blip];
+    const data: IBlipPanel = this.data[this.blip];
     data.dict = dict;
     data.tex = tex;
     return this;
   }
 
   public setBlipInfoEconomy(rp: string = '', money: string = ''): this {
-    const data: IBlip = this.data[this.blip];
+    const data: IBlipPanel = this.data[this.blip];
     data.money = money;
     data.rp = rp;
     return this;
   }
 
   public setBlipInfo(info: Info): this {
-    const data: IBlip = this.data[this.blip];
+    const data: IBlipPanel = this.data[this.blip];
     data.info = info;
     return this;
   }
 
   public addBlipInfoText(leftText: string = '', rightText: string = ''): this {
-    const data: IBlip = this.data[this.blip];
+    const data: IBlipPanel = this.data[this.blip];
     if (rightText) {
       data.info.push([1, leftText, rightText])
     } else {
@@ -84,13 +84,13 @@ export class BlipPanel {
   }
 
   public addBlipInfoName(leftText: string = '', rightText: string = ''): this {
-    const data: IBlip = this.data[this.blip];
+    const data: IBlipPanel = this.data[this.blip];
     data.info.push([4, leftText, rightText]);
     return this;
   }
 
   public addBlipInfoIcon(leftText: string = '', rightText: string = '', iconId: number = 0, iconColor: number = 0, checked: boolean = false): this {
-    const data: IBlip = this.data[this.blip];
+    const data: IBlipPanel = this.data[this.blip];
     data.info.push([2, leftText, rightText, iconId, iconColor, checked]);
     return this
   }
@@ -215,7 +215,7 @@ export class BlipPanel {
             if (currentBlip !== blip) {
               currentBlip = blip;
               if (this.data[blip]) {
-                const data: IBlip = this.data[blip];
+                const data: IBlipPanel = this.data[blip];
                 N_0xec9264727eec0f28();
                 this.clearDisplay();
                 this.setTitle(data.title, data.rockstarVerified, data.rp, data.money, data.dict, data.tex);
