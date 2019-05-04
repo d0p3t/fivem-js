@@ -7,61 +7,6 @@ import { Sprite } from './Sprite';
 
 const activeTimerBars: Timerbar[] = [];
 
-const drawText = (text, position, options) => {
-  options = {
-    ...{
-      align: 1,
-      color: [255, 255, 255, 255],
-      font: 4,
-      outline: true,
-      scale: 0.3,
-      shadow: true,
-    },
-    ...options,
-  };
-
-  const font = options.font;
-  const scale = options.scale;
-  const outline = options.outline;
-  const shadow = options.shadow;
-  const color = options.color;
-  const wordWrap = options.wordWrap;
-  const align = options.align;
-
-  SetTextEntry('CELL_EMAIL_BCON');
-  for (let i = 0; i < text.length; i += 99) {
-    const subStringText = text.substr(i, Math.min(99, text.length - i));
-    AddTextComponentSubstringPlayerName(subStringText);
-  }
-
-  SetTextFont(font);
-  SetTextScale(scale, scale);
-  SetTextColour(color[0], color[1], color[2], color[3]);
-
-  if (shadow) {
-    SetTextDropShadow();
-  }
-
-  if (outline) {
-    SetTextOutline();
-  }
-
-  switch (align) {
-    case 1: {
-      SetTextCentre(true);
-      break;
-    }
-
-    case 2: {
-      SetTextRightJustify(true);
-      SetTextWrap(0.0, position[0] || 0);
-      break;
-    }
-  }
-
-  DrawText(position[0] || 0, position[1] || 0);
-};
-
 export class Timerbar {
   private sprite: Sprite = null;
   private title: string = '';
@@ -202,6 +147,61 @@ export class Timerbar {
   public get Sprite(): Sprite {
     return this.sprite;
   }
+
+  public static drawText (text, position, options) {
+    options = {
+      ...{
+        align: 1,
+        color: [255, 255, 255, 255],
+        font: 4,
+        outline: true,
+        scale: 0.3,
+        shadow: true,
+      },
+      ...options,
+    };
+
+    const font = options.font;
+    const scale = options.scale;
+    const outline = options.outline;
+    const shadow = options.shadow;
+    const color = options.color;
+    const wordWrap = options.wordWrap;
+    const align = options.align;
+
+    SetTextEntry('CELL_EMAIL_BCON');
+    for (let i = 0; i < text.length; i += 99) {
+      const subStringText = text.substr(i, Math.min(99, text.length - i));
+      AddTextComponentSubstringPlayerName(subStringText);
+    }
+
+    SetTextFont(font);
+    SetTextScale(scale, scale);
+    SetTextColour(color[0], color[1], color[2], color[3]);
+
+    if (shadow) {
+      SetTextDropShadow();
+    }
+
+    if (outline) {
+      SetTextOutline();
+    }
+
+    switch (align) {
+      case 1: {
+        SetTextCentre(true);
+        break;
+      }
+
+      case 2: {
+        SetTextRightJustify(true);
+        SetTextWrap(0.0, position[0] || 0);
+        break;
+      }
+    }
+
+    DrawText(position[0] || 0, position[1] || 0);
+  };
 }
 
 setTick(() => {
@@ -227,7 +227,7 @@ setTick(() => {
     // timerbar.Sprite.Draw();
     DrawSprite('timerbars', 'all_black_bg', 0.918 - safeZoneX, drawY, 0.165, 0.035, 0.0, 255, 255, 255, 160);
 
-    drawText(timerbar.Title, [0.918 - safeZoneX + 0.012, drawY - 0.009 - (timerbar.PlayerStyle ? 0.00625 : 0)], {
+    Timerbar.drawText(timerbar.Title, [0.918 - safeZoneX + 0.012, drawY - 0.009 - (timerbar.PlayerStyle ? 0.00625 : 0)], {
       align: 2,
       color: timerbar.TextColor,
       font: timerbar.PlayerStyle ? 4 : 0,
@@ -263,7 +263,7 @@ setTick(() => {
         timerbar.ProgressbarFgColor[3],
       );
     } else {
-      drawText(timerbar.Text, [0.918 - safeZoneX + 0.0785, drawY + -0.0165], {
+      Timerbar.drawText(timerbar.Text, [0.918 - safeZoneX + 0.0785, drawY + -0.0165], {
         align: 2,
         color: timerbar.TextColor,
         font: 0,
