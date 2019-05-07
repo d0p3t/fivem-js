@@ -1,4 +1,4 @@
-export interface InvertAxis {
+export interface IInvertAxis {
   flags: InvertAxisFlags;
 }
 

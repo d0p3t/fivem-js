@@ -1,5 +1,5 @@
 import { ParticleEffectAsset } from './';
-import { InvertAxis } from './enums';
+import { IInvertAxis } from './enums';
 import { Color } from './utils';
 import { Vector3 } from './utils';
 
@@ -12,7 +12,7 @@ export abstract class ParticleEffect {
   protected color: Color;
   protected scale: number;
   protected range: number;
-  protected invertAxis: InvertAxis;
+  protected invertAxis: IInvertAxis;
   private handle: number;
 
   constructor(asset: ParticleEffectAsset, effectName: string) {
@@ -59,11 +59,11 @@ export abstract class ParticleEffect {
     SetParticleFxLoopedRange(this.Handle, range);
   }
 
-  public get InvertAxis(): InvertAxis {
+  public get InvertAxis(): IInvertAxis {
     return this.invertAxis;
   }
 
-  public set InvertAxis(invertAxis: InvertAxis) {
+  public set InvertAxis(invertAxis: IInvertAxis) {
     this.invertAxis = invertAxis;
     if (this.IsActive) {
       this.Stop();

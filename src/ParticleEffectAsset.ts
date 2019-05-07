@@ -1,4 +1,4 @@
-import { InvertAxis, InvertAxisFlags } from './enums';
+import { IInvertAxis, InvertAxisFlags } from './enums';
 import { Entity } from './models/';
 import { Vector3 } from './utils';
 
@@ -26,7 +26,7 @@ export class ParticleEffectAsset {
     pos: Vector3,
     rot: Vector3 = new Vector3(0, 0, 0),
     scale: number = 1.0,
-    invertAxis: InvertAxis = { flags: InvertAxisFlags.None },
+    invertAxis: IInvertAxis = { flags: InvertAxisFlags.None },
   ): boolean {
     if (!this.SetNextCall()) {
       return false;
@@ -57,7 +57,7 @@ export class ParticleEffectAsset {
     off: Vector3 = new Vector3(0, 0, 0),
     rot: Vector3 = new Vector3(0, 0, 0),
     scale: number = 1.0,
-    invertAxis: InvertAxis = { flags: InvertAxisFlags.None },
+    invertAxis: IInvertAxis = { flags: InvertAxisFlags.None },
   ): boolean {
     if (!this.SetNextCall()) {
       return false;
