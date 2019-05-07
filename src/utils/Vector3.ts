@@ -6,15 +6,21 @@ export interface IVec3 {
 }
 
 export class Vector3 implements IVec3 {
-  public static Create(v1: IVec3): Vector3 {
+  public static Create(v1: number | IVec3): Vector3 {
+    if (typeof v1 === 'number') {
+      return new Vector3(v1, v1, v1);
+    }
     return new Vector3(v1.x, v1.y, v1.z);
   }
 
   public static Clone(v1: IVec3): Vector3 {
-    return new Vector3(v1.x, v1.y, v1.z);
+    return Vector3.Create(v1);
   }
 
-  public static Add(v1: IVec3, v2: IVec3): Vector3 {
+  public static Add(v1: IVec3, v2: number | IVec3): Vector3 {
+    if (typeof v2 === 'number') {
+      return new Vector3(v1.x + v2, v1.y + v2, v1.z + v2);
+    }
     return new Vector3(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
   }
 
@@ -45,8 +51,7 @@ export class Vector3 implements IVec3 {
   }
 
   public static Normalize(v: Vector3): Vector3 {
-    const d: number = v.DistanceSquared(v);
-    return new Vector3(v.x / d, v.y / d, v.z / d);
+    return Vector3.Divide(v, v.Length);
   }
 
   constructor(public x: number, public y: number, public z: number) {}
@@ -56,13 +61,13 @@ export class Vector3 implements IVec3 {
   }
 
   /**
-   * The product of the Euclidean magnitudes of this and another Vector3. Returns the same value as DotProduct(this, v);
+   * The product of the Euclidean magnitudes of this and another Vector3.
    *
    * @param v Vector3 to find Euclidean magnitude between.
    * @returns Euclidean magnitude with another vector.
    */
   public DistanceSquared(v: IVec3): number {
-    const w = this.Subtract(v);
+    const w: Vector3 = this.Subtract(v);
     return Vector3.DotProduct(w, w);
   }
 
@@ -76,40 +81,37 @@ export class Vector3 implements IVec3 {
     return Math.sqrt(this.DistanceSquared(v));
   }
 
-  public Normalize(v: IVec3): Vector3 {
-    const d: number = this.DistanceSquared(v);
-    return new Vector3(v.x / d, v.y / d, v.z / d);
+  public get Normalized(): Vector3 {
+    return Vector3.Normalize(this);
   }
 
   public CrossProduct(v: IVec3): Vector3 {
-    return new Vector3(this.y * v.z - this.z * v.y, this.z * v.x - this.z * v.z, this.x * this.y - this.z * v.x);
+    return Vector3.CrossProduct(this, v);
   }
 
-  public Add(v: IVec3): IVec3 {
-    return new Vector3(this.x + v.x, this.y + v.y, this.z + v.z);
+  public Add(v: number | IVec3): IVec3 {
+    return Vector3.Add(this, v);
   }
 
   public Subtract(v: IVec3): Vector3 {
-    return new Vector3(this.x - v.x, this.y - v.y, this.z - v.z);
+    return Vector3.Subtract(this, v);
   }
 
-  public Multiply(v: IVec3 | number): Vector3 {
-    if (typeof v === 'number') {
-      return new Vector3(this.x * v, this.y * v, this.z * v);
-    }
-    return new Vector3(this.x * v.x, this.y * v.y, this.z * v.z);
+  public Multiply(v: number | IVec3): Vector3 {
+    return Vector3.Multiply(this, v);
   }
 
-  public Divide(v: IVec3): IVec3 {
-    if (typeof v === 'number') {
-      return new Vector3(this.x / v, this.y / v, this.z / v);
-    }
-    return new Vector3(this.x / v.x, this.y / v.y, this.z / v.z);
+  public Divide(v: number | IVec3): IVec3 {
+    return Vector3.Divide(this, v);
   }
 
   public Replace(v: IVec3): void {
     this.x = v.x;
     this.y = v.y;
     this.z = v.z;
+  }
+
+  public get Length() : number {
+    return this.DistanceSquared(this);
   }
 }

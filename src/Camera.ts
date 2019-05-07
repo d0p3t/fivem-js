@@ -56,11 +56,11 @@ export class Camera {
   // }
 
   public set Direction(direction: Vector3) {
-    const dir = direction.Normalize(direction);
+    const dir = direction.Normalized;
 
     const vec1 = new Vector3(dir.x, dir.y, 0);
     const vec2 = new Vector3(dir.z, vec1.DistanceSquared(vec1), 0);
-    const vec3 = vec2.Normalize(vec2);
+    const vec3 = vec2.Normalized;
 
     this.Rotation = new Vector3(
       Math.atan2(vec3.x, vec3.y) * 57.295779513082323,
