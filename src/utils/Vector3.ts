@@ -51,8 +51,7 @@ export class Vector3 implements IVec3 {
   }
 
   public static Normalize(v: Vector3): Vector3 {
-    const d: number = v.DistanceSquared(v);
-    return Vector3.Divide(v, d);
+    return Vector3.Divide(v, v.Length);
   }
 
   constructor(public x: number, public y: number, public z: number) {}
