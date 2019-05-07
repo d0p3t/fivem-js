@@ -55,8 +55,25 @@ export class Vector3 implements IVec3 {
     return new Vector3(this.x, this.y, this.z);
   }
 
+  /**
+   * The product of the Euclidean magnitudes of this and another Vector3. Returns the same value as DotProduct(this, v);
+   *
+   * @param v Vector3 to find Euclidean magnitude between.
+   * @returns Euclidean magnitude with another vector.
+   */
   public DistanceSquared(v: IVec3): number {
-    return Math.sqrt(this.x * v.x + this.y * v.y + this.z + v.z);
+    const w = this.Subtract(v);
+    return Vector3.DotProduct(w, w);
+  }
+
+  /**
+   * The distance between two Vectors.
+   *
+   * @param v Vector3 to find distance between.
+   * @returns Distance between this and another vector.
+   */
+  public Distance(v: IVec3): number {
+    return Math.sqrt(this.DistanceSquared(v));
   }
 
   public Normalize(v: IVec3): Vector3 {
