@@ -62,7 +62,8 @@ export class Vector3 implements IVec3 {
    * @returns Euclidean magnitude with another vector.
    */
   public DistanceSquared(v: IVec3): number {
-    return this.x * v.x + this.y * v.y + this.z * v.z;
+    const w = this.Subtract(v);
+    return Vector3.DotProduct(w, w);
   }
 
   /**
