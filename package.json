@@ -40,6 +40,7 @@
   "devDependencies": {
     "prettier": "^1.17.0",
     "tslint": "^5.16.0",
+    "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
     "typedoc": "^0.14.2",
     "typedoc-fivemjs-theme": "^0.2.7",
