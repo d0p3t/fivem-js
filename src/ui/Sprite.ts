@@ -10,7 +10,14 @@ export class Sprite {
   public visible: boolean;
   private textureDict: string;
 
-  constructor(textureDict, textureName, pos, size, heading = 0, color = new Color(255, 255, 255, 255)) {
+  constructor(
+    textureDict,
+    textureName,
+    pos,
+    size,
+    heading = 0,
+    color = new Color(255, 255, 255, 255),
+  ) {
     this.textureDict = textureDict;
     this.textureName = textureName;
     this.pos = pos;
@@ -20,19 +27,20 @@ export class Sprite {
     this.visible = true;
   }
 
-  public LoadTextureDictionary(): void {
+  public loadTextureDictionary(): void {
     RequestStreamedTextureDict(this.textureDict, true);
     const interval = setInterval(() => {
       if (this.IsTextureDictionaryLoaded) {
         clearInterval(interval);
       }
+      // tslint:disable-next-line: align
     }, 0);
   }
 
   public set TextureDict(v) {
     this.textureDict = v;
     if (!this.IsTextureDictionaryLoaded) {
-      this.LoadTextureDictionary();
+      this.loadTextureDictionary();
     }
   }
   public get TextureDict(): string {
@@ -43,7 +51,7 @@ export class Sprite {
     return !!HasStreamedTextureDictLoaded(this.textureDict);
   }
 
-  public Draw(
+  public draw(
     textureDictionary?: string,
     textureName?: string,
     pos?: Point,
@@ -68,11 +76,23 @@ export class Sprite {
     const height = Screen.Height;
     const width = Screen.ScaledWidth;
 
-    const w = this.size.Width / width;
-    const h = this.size.Height / height;
+    const w = this.size.width / width;
+    const h = this.size.height / height;
     const x = this.pos.X / width + w * 0.5;
     const y = this.pos.Y / height + h * 0.5;
 
-    DrawSprite(textureDictionary, textureName, x, y, w, h, heading, color.r, color.g, color.b, color.a);
+    DrawSprite(
+      textureDictionary,
+      textureName,
+      x,
+      y,
+      w,
+      h,
+      heading,
+      color.r,
+      color.g,
+      color.b,
+      color.a,
+    );
   }
 }

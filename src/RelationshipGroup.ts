@@ -36,7 +36,7 @@ export class RelationshipGroup {
    * @param targetGroup The other relationship group.
    * @returns The relationship
    */
-  public GetRelationshipBetweenGroups(targetGroup: RelationshipGroup): Relationship {
+  public getRelationshipBetweenGroups(targetGroup: RelationshipGroup): Relationship {
     return GetRelationshipBetweenGroups(this.Hash, targetGroup.Hash);
   }
 
@@ -45,9 +45,9 @@ export class RelationshipGroup {
    *
    * @param targetGroup The other relationship group.
    * @param relationship The desired relationship.
-   * @param biDirectionally Whether the target group should have the same relationship towards this relationship group.
+   * @param biDirectionally If target group should have same relationship towards this.
    */
-  public SetRelationshipBetweenGroups(
+  public setRelationshipBetweenGroups(
     targetGroup: RelationshipGroup,
     relationship: Relationship,
     biDirectionally: boolean = false,
@@ -66,7 +66,7 @@ export class RelationshipGroup {
    * @param relationship The desired relationship to clear.
    * @param biDirectionally Whether the target group should also clear the relationship.
    */
-  public ClearRelationshipBetweenGroups(
+  public clearRelationshipBetweenGroups(
     targetGroup: RelationshipGroup,
     relationship: Relationship,
     biDirectionally: boolean = false,
@@ -81,7 +81,7 @@ export class RelationshipGroup {
   /**
    * Remove this relationship group from the game. This will not delete this object.
    */
-  public Remove(): void {
+  public remove(): void {
     RemoveRelationshipGroup(this.Hash);
   }
 }

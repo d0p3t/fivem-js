@@ -3,34 +3,44 @@ import { Entity } from './models';
 import { Vector3 } from './utils';
 
 export abstract class Audio {
-  public static PlaySoundAt(position: Vector3, sound: string, set?: string): number {
-    PlaySoundFromCoord(-1, sound, position.x, position.y, position.z, set ? set : null, false, 0, false);
+  public static playSoundAt(position: Vector3, sound: string, set?: string): number {
+    PlaySoundFromCoord(
+      -1,
+      sound,
+      position.x,
+      position.y,
+      position.z,
+      set ? set : null,
+      false,
+      0,
+      false,
+    );
     return GetSoundId();
   }
 
-  public static PlaySoundFromEntity(entity: Entity, sound: string, set?: string): number {
+  public static playSoundFromEntity(entity: Entity, sound: string, set?: string): number {
     PlaySoundFromEntity(-1, sound, entity.Handle, set ? set : null, false, 0);
     return GetSoundId();
   }
 
-  public static PlaySoundFrontEnd(sound: string, set?: string): number {
+  public static playSoundFrontEnd(sound: string, set?: string): number {
     PlaySoundFrontend(-1, sound, set ? set : null, false);
     return GetSoundId();
   }
 
-  public static StopSound(soundId: number): void {
+  public static stopSound(soundId: number): void {
     StopSound(soundId);
   }
 
-  public static ReleaseSound(soundId: number): void {
+  public static releaseSound(soundId: number): void {
     ReleaseSoundId(soundId);
   }
 
-  public static HasSoundFinished(soundId: number): boolean {
+  public static hasSoundFinished(soundId: number): boolean {
     return !!HasSoundFinished(soundId);
   }
 
-  public static SetAudioFlag(flag: string | AudioFlag, toggle: boolean): void {
+  public static setAudioFlag(flag: string | AudioFlag, toggle: boolean): void {
     if (typeof flag === 'string') {
       SetAudioFlag(flag, toggle);
     } else {
@@ -38,15 +48,15 @@ export abstract class Audio {
     }
   }
 
-  public static PlaySound(soundFile: string, soundSet: string): void {
-    this.ReleaseSound(this.PlaySoundFrontEnd(soundFile, soundSet));
+  public static playSound(soundFile: string, soundSet: string): void {
+    this.releaseSound(this.playSoundFrontEnd(soundFile, soundSet));
   }
 
-  public static PlayMusic(musicFile: string): void {
+  public static playMusic(musicFile: string): void {
     TriggerMusicEvent(musicFile);
   }
 
-  public static StopMusic(musicFile: string): void {
+  public static stopMusic(musicFile: string): void {
     CancelMusicEvent(musicFile);
   }
 

@@ -1,13 +1,13 @@
-import { UUIDV4 } from '../../../utils';
+import { uuidv4 } from '../../../utils';
 
 export class ListItem {
-  public readonly Id: string = UUIDV4();
+  public readonly id: string = uuidv4();
 
-  public DisplayText: string;
-  public Data: any;
+  public displayText: string;
+  public data: any;
 
   constructor(text: string = '', data: any = null) {
-    this.DisplayText = text;
-    this.Data = data;
+    this.displayText = text;
+    this.data = data;
   }
 }

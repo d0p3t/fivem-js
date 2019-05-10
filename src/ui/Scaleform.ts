@@ -21,15 +21,15 @@ export class Scaleform {
     return !!HasScaleformMovieLoaded(this.handle);
   }
 
-  public Dispose(): void {
+  public dispose(): void {
     if (this.IsLoaded) {
       SetScaleformMovieAsNoLongerNeeded(this.handle);
     }
   }
 
-  public CallFunction(name: string, args: any[]): void {
+  public callFunction(name: string, args: any[]): void {
     BeginScaleformMovieMethod(this.handle, name);
-    args.forEach(arg => {
+    args.forEach((arg) => {
       switch (typeof arg) {
         case 'number':
           PushScaleformMovieFunctionParameterInt(arg);
@@ -41,26 +41,41 @@ export class Scaleform {
           PushScaleformMovieFunctionParameterBool(arg);
           break;
         default:
-          throw new Error(`Unknown argument type [${typeof arg}] passed to scaleform with handle [${this.handle}]`);
+          throw new Error(
+            `Unknown argument type [${typeof arg}] passed to scaleform with handle [${
+              this.handle
+            }]`,
+          );
       }
     });
     EndScaleformMovieMethod();
   }
 
-  public Render2D(): void {
+  public render2D(): void {
     DrawScaleformMovieFullscreen(this.handle, 255, 255, 255, 255, 0);
   }
 
-  public Render2DScreenSpace(location: PointF, size: PointF): void {
+  public render2DScreenSpace(location: PointF, size: PointF): void {
     const x = location.x; /* UI.Screen.Width*/
     const y = location.y; /* UI.Screen.Height*/
     const width = size.x; /* UI.Screen.Width*/
     const height = size.y; /* UI.Screen.Height*/
 
-    DrawScaleformMovie(this.handle, x + width / 2, y + height / 2, width, height, 255, 255, 255, 255, 0);
+    DrawScaleformMovie(
+      this.handle,
+      x + width / 2,
+      y + height / 2,
+      width,
+      height,
+      255,
+      255,
+      255,
+      255,
+      0,
+    );
   }
 
-  public Render3D(position: Vector3, rotation: Vector3, scale: Vector3): void {
+  public render3D(position: Vector3, rotation: Vector3, scale: Vector3): void {
     DrawScaleformMovie_3dNonAdditive(
       this.handle,
       position.x,
@@ -79,7 +94,7 @@ export class Scaleform {
     );
   }
 
-  public Render3DAdditive(position: Vector3, rotation: Vector3, scale: Vector3): void {
+  public render3DAdditive(position: Vector3, rotation: Vector3, scale: Vector3): void {
     DrawScaleformMovie_3d(
       this.handle,
       position.x,

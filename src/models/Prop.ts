@@ -1,15 +1,15 @@
 import { Entity } from './Entity';
 
 export class Prop extends Entity {
-  public static Exists(prop: Prop): boolean {
-    return typeof prop !== 'undefined' && prop.Exists();
+  public static exists(prop: Prop): boolean {
+    return typeof prop !== 'undefined' && prop.exists();
   }
 
   constructor(handle: number) {
     super(handle);
   }
 
-  public Exists(): boolean {
-    return super.Exists() && GetEntityType(this.handle) === 3;
+  public exists(): boolean {
+    return super.exists() && GetEntityType(this.handle) === 3;
   }
 }

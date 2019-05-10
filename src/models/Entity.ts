@@ -30,12 +30,12 @@ export class Entity {
     SetEntityMaxHealth(this.handle, amount + 100);
   }
 
-  public IsDead(): boolean {
+  public isDead(): boolean {
     return IsEntityDead(this.handle) ? true : false;
   }
 
-  public IsAlive(): boolean {
-    return !this.IsDead();
+  public isAlive(): boolean {
+    return !this.isDead();
   }
 
   public get Position(): Vector3 {
@@ -74,11 +74,11 @@ export class Entity {
     return this.bones;
   }
 
-  public Exists(): boolean {
+  public exists(): boolean {
     return DoesEntityExist(this.handle) ? true : false;
   }
 
-  public Delete(): void {
+  public delete(): void {
     if (this.handle !== Game.PlayerPed.Handle) {
       SetEntityAsMissionEntity(this.handle, false, true);
       DeleteEntity(this.handle);

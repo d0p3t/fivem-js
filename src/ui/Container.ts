@@ -1,20 +1,19 @@
 import { Size } from '../utils';
-import { Rectangle } from './';
-import { Screen } from './';
+import { Rectangle, Screen } from './';
 
 export class Container extends Rectangle {
-  public Items: any[];
+  public items: any[];
 
   constructor(pos, size, color) {
     super(pos, size, color);
-    this.Items = [];
+    this.items = [];
   }
 
   public addItem(item): void {
-    this.Items.push(item);
+    this.items.push(item);
   }
 
-  public Draw(offset?: Size): void {
+  public draw(offset?: Size): void {
     if (!this.enabled) {
       return;
     }
@@ -22,15 +21,15 @@ export class Container extends Rectangle {
     const height = Screen.Height;
     const width = Screen.ScaledWidth;
 
-    const w = this.size.Width / width;
-    const h = this.size.Height / height;
-    const x = (this.pos.X + offset.Width) / width + w * 0.5;
-    const y = (this.pos.Y + offset.Height) / height + h * 0.5;
+    const w = this.size.width / width;
+    const h = this.size.height / height;
+    const x = (this.pos.X + offset.width) / width + w * 0.5;
+    const y = (this.pos.Y + offset.height) / height + h * 0.5;
 
     DrawRect(x, y, w, h, this.color.r, this.color.g, this.color.b, this.color.a);
 
-    for (const item of this.Items) {
-      item.Draw(new Size(this.pos.X + offset.Width, this.pos.Y + offset.Height));
+    for (const item of this.items) {
+      item.Draw(new Size(this.pos.X + offset.width, this.pos.Y + offset.height));
     }
   }
 }

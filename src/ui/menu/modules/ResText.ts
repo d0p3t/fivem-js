@@ -3,21 +3,21 @@ import { Alignment, Font } from '../../../enums';
 import { Color, Point, Size } from '../../../utils';
 
 export class ResText extends Text {
-  public TextAlignment: Alignment = Alignment.Left;
-  public DropShadow: boolean;
-  public Outline: boolean;
-  public WordWrap: Size;
+  public textAlignment: Alignment = Alignment.Left;
+  public dropShadow: boolean;
+  public outline: boolean;
+  public wordWrap: Size;
 
   constructor(caption, pos, scale, color?, font?, justify?) {
     super(caption, pos, scale, color || new Color(255, 255, 255, 255), font || 0, false);
     if (justify) {
-      this.TextAlignment = justify;
+      this.textAlignment = justify;
     }
   }
 
-  public Draw(offset?: Size): void;
-  public Draw(caption, pos, scale, color, font, arg2): void;
-  public Draw(arg1?, pos?, scale?, color?, font?, arg2?, dropShadow?, outline?, wordWrap?) {
+  public draw(offset?: Size): void;
+  public draw(caption, pos, scale, color, font, arg2): void;
+  public draw(arg1?, pos?, scale?, color?, font?, arg2?, dropShadow?, outline?, wordWrap?) {
     let caption = arg1;
     let centered = arg2;
     let textAlignment = arg2;
@@ -25,7 +25,7 @@ export class ResText extends Text {
       arg1 = new Size(0, 0);
     }
     if (arg1 && !pos) {
-      textAlignment = this.TextAlignment;
+      textAlignment = this.textAlignment;
       caption = this.caption;
       pos = new Point(this.pos.X + arg1.Width, this.pos.Y + arg1.Height);
       scale = this.scale;
@@ -35,9 +35,9 @@ export class ResText extends Text {
         centered = this.centered;
       } else {
         centered = undefined;
-        dropShadow = this.DropShadow;
-        outline = this.Outline;
-        wordWrap = this.WordWrap;
+        dropShadow = this.dropShadow;
+        outline = this.outline;
+        wordWrap = this.wordWrap;
       }
     }
 
@@ -78,7 +78,7 @@ export class ResText extends Text {
     }
 
     SetTextEntry('STRING');
-    Text.AddLongString(caption);
+    Text.addLongString(caption);
     DrawText(x, y);
   }
 }

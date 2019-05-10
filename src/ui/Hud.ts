@@ -1,19 +1,19 @@
 import { CursorSprite, HudComponent } from '../enums';
 
 export abstract class Hud {
-  public static IsComponentActive(component: HudComponent): boolean {
+  public static isComponentActive(component: HudComponent): boolean {
     return !!IsHudComponentActive(Number(component));
   }
 
-  public static ShowComponentThisFrame(component: HudComponent): void {
+  public static showComponentThisFrame(component: HudComponent): void {
     ShowHudComponentThisFrame(Number(component));
   }
 
-  public static HideComponentThisFrame(component: HudComponent): void {
+  public static hideComponentThisFrame(component: HudComponent): void {
     HideHudComponentThisFrame(Number(component));
   }
 
-  public static ShowCursorThisFrame(): void {
+  public static showCursorThisFrame(): void {
     ShowCursorThisFrame();
   }
 
