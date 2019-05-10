@@ -16,7 +16,7 @@ export class Model {
    */
   constructor(hash: number | string) {
     if (typeof hash === 'string') {
-      this.hash = Game.GenerateHash(hash);
+      this.hash = Game.generateHash(hash);
     } else {
       this.hash = hash;
     }

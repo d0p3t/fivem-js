@@ -261,13 +261,13 @@ export class Menu {
   }
 
   public open() {
-    Audio.PlaySoundFrontEnd(this.AUDIO_BACK, this.AUDIO_LIBRARY);
+    Audio.playSoundFrontEnd(this.AUDIO_BACK, this.AUDIO_LIBRARY);
     this.visible = true;
     this.justOpened = true;
     this.menuOpen.emit();
   }
   public close() {
-    Audio.PlaySoundFrontEnd(this.AUDIO_BACK, this.AUDIO_LIBRARY);
+    Audio.playSoundFrontEnd(this.AUDIO_BACK, this.AUDIO_LIBRARY);
     this.visible = false;
     this.refreshIndex();
     this.menuClose.emit();
@@ -291,12 +291,12 @@ export class Menu {
         return;
       }
       it.Index -= 1;
-      Audio.PlaySoundFrontEnd(this.AUDIO_LEFTRIGHT, this.AUDIO_LIBRARY);
+      Audio.playSoundFrontEnd(this.AUDIO_LEFTRIGHT, this.AUDIO_LIBRARY);
       this.listChange.emit(it, it.Index);
     } else if (this.menuItems[this.CurrentSelection] instanceof UIMenuSliderItem) {
       const it = this.menuItems[this.CurrentSelection] as UIMenuSliderItem;
       it.Index = it.Index - 1;
-      Audio.PlaySoundFrontEnd(this.AUDIO_LEFTRIGHT, this.AUDIO_LIBRARY);
+      Audio.playSoundFrontEnd(this.AUDIO_LEFTRIGHT, this.AUDIO_LIBRARY);
       this.sliderChange.emit(it, it.Index, it.indexToItem(it.Index));
       // it.sliderChangedTrigger(it.Index);
     }
@@ -315,12 +315,12 @@ export class Menu {
         return;
       }
       it.Index += 1;
-      Audio.PlaySoundFrontEnd(this.AUDIO_LEFTRIGHT, this.AUDIO_LIBRARY);
+      Audio.playSoundFrontEnd(this.AUDIO_LEFTRIGHT, this.AUDIO_LIBRARY);
       this.listChange.emit(it, it.Index);
     } else if (this.menuItems[this.CurrentSelection] instanceof UIMenuSliderItem) {
       const it = this.menuItems[this.CurrentSelection] as UIMenuSliderItem;
       it.Index += 1;
-      Audio.PlaySoundFrontEnd(this.AUDIO_LEFTRIGHT, this.AUDIO_LIBRARY);
+      Audio.playSoundFrontEnd(this.AUDIO_LEFTRIGHT, this.AUDIO_LIBRARY);
       this.sliderChange.emit(it, it.Index, it.indexToItem(it.Index));
       // it.sliderChangedTrigger(it.Index);
     }
@@ -328,16 +328,16 @@ export class Menu {
 
   public selectItem() {
     if (!this.menuItems[this.CurrentSelection].enabled) {
-      Audio.PlaySoundFrontEnd(this.AUDIO_ERROR, this.AUDIO_LIBRARY);
+      Audio.playSoundFrontEnd(this.AUDIO_ERROR, this.AUDIO_LIBRARY);
       return;
     }
     const it = this.menuItems[this.CurrentSelection] as UIMenuCheckboxItem;
     if (this.menuItems[this.CurrentSelection] instanceof UIMenuCheckboxItem) {
       it.checked = !it.checked;
-      Audio.PlaySoundFrontEnd(this.AUDIO_SELECT, this.AUDIO_LIBRARY);
+      Audio.playSoundFrontEnd(this.AUDIO_SELECT, this.AUDIO_LIBRARY);
       this.checkboxChange.emit(it, it.checked);
     } else {
-      Audio.PlaySoundFrontEnd(this.AUDIO_SELECT, this.AUDIO_LIBRARY);
+      Audio.playSoundFrontEnd(this.AUDIO_SELECT, this.AUDIO_LIBRARY);
       this.itemSelect.emit(it, this.CurrentSelection);
       if (this.children.has(it.id)) {
         const subMenu = this.children.get(it.id);
@@ -367,14 +367,14 @@ export class Menu {
       return;
     }
 
-    if (Game.IsControlJustReleased(0, Control.PhoneCancel)) {
+    if (Game.isControlJustReleased(0, Control.PhoneCancel)) {
       // Back
       this.goBack();
     }
     if (this.menuItems.length === 0) {
       return;
     }
-    if (Game.IsControlPressed(0, Control.PhoneUp) && this.lastUpDownNavigation + 200 < Date.now()) {
+    if (Game.isControlPressed(0, Control.PhoneUp) && this.lastUpDownNavigation + 200 < Date.now()) {
       // Up
       this.lastUpDownNavigation = Date.now();
       if (this.menuItems.length > this.maxItemsOnScreen + 1) {
@@ -383,7 +383,7 @@ export class Menu {
         this.goUp();
       }
     } else if (
-      Game.IsControlPressed(0, Control.PhoneDown) &&
+      Game.isControlPressed(0, Control.PhoneDown) &&
       this.lastUpDownNavigation + 200 < Date.now()
     ) {
       // Down
@@ -394,20 +394,20 @@ export class Menu {
         this.goDown();
       }
     } else if (
-      Game.IsControlPressed(0, Control.PhoneLeft) &&
+      Game.isControlPressed(0, Control.PhoneLeft) &&
       this.lastLeftRightNavigation + 200 < Date.now()
     ) {
       // Left
       this.lastLeftRightNavigation = Date.now();
       this.goLeft();
     } else if (
-      Game.IsControlPressed(0, Control.PhoneRight) &&
+      Game.isControlPressed(0, Control.PhoneRight) &&
       this.lastLeftRightNavigation + 200 < Date.now()
     ) {
       // Right
       this.lastLeftRightNavigation = Date.now();
       this.goRight();
-    } else if (Game.IsControlJustPressed(0, Control.FrontendAccept)) {
+    } else if (Game.isControlJustPressed(0, Control.FrontendAccept)) {
       // Select
       this.selectItem();
     }
@@ -437,7 +437,7 @@ export class Menu {
       this.activeItem -= 1;
       this.menuItems[this.activeItem % this.menuItems.length].selected = true;
     }
-    Audio.PlaySoundFrontEnd(this.AUDIO_UPDOWN, this.AUDIO_LIBRARY);
+    Audio.playSoundFrontEnd(this.AUDIO_UPDOWN, this.AUDIO_LIBRARY);
     this.indexChange.emit(this.CurrentSelection);
   }
 
@@ -448,7 +448,7 @@ export class Menu {
     this.menuItems[this.activeItem % this.menuItems.length].selected = false;
     this.activeItem -= 1;
     this.menuItems[this.activeItem % this.menuItems.length].selected = true;
-    Audio.PlaySoundFrontEnd(this.AUDIO_UPDOWN, this.AUDIO_LIBRARY);
+    Audio.playSoundFrontEnd(this.AUDIO_UPDOWN, this.AUDIO_LIBRARY);
     this.indexChange.emit(this.CurrentSelection);
   }
 
@@ -475,7 +475,7 @@ export class Menu {
       this.activeItem += 1;
       this.menuItems[this.activeItem % this.menuItems.length].selected = true;
     }
-    Audio.PlaySoundFrontEnd(this.AUDIO_UPDOWN, this.AUDIO_LIBRARY);
+    Audio.playSoundFrontEnd(this.AUDIO_UPDOWN, this.AUDIO_LIBRARY);
     this.indexChange.emit(this.CurrentSelection);
   }
 
@@ -486,12 +486,12 @@ export class Menu {
     this.menuItems[this.activeItem % this.menuItems.length].selected = false;
     this.activeItem += 1;
     this.menuItems[this.activeItem % this.menuItems.length].selected = true;
-    Audio.PlaySoundFrontEnd(this.AUDIO_UPDOWN, this.AUDIO_LIBRARY);
+    Audio.playSoundFrontEnd(this.AUDIO_UPDOWN, this.AUDIO_LIBRARY);
     this.indexChange.emit(this.CurrentSelection);
   }
 
   public goBack() {
-    Audio.PlaySoundFrontEnd(this.AUDIO_BACK, this.AUDIO_LIBRARY);
+    Audio.playSoundFrontEnd(this.AUDIO_BACK, this.AUDIO_LIBRARY);
     this.visible = false;
     if (this.parentMenu != null) {
       this.parentMenu.visible = true;
