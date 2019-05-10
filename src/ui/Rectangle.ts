@@ -14,7 +14,7 @@ export class Rectangle extends IElement {
     this.color = color;
   }
 
-  public Draw(pos, size, color: Color): void {
+  public draw(pos, size, color: Color): void {
     if (!pos) {
       pos = new Size(0, 0);
     }

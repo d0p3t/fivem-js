@@ -1,19 +1,19 @@
 import { Sprite } from '../../';
 import { Alignment, BadgeStyle, Font } from '../../../enums';
-import { Color, LiteEvent, MeasureString, Point, Size } from '../../../utils';
+import { Color, LiteEvent, measureString, Point, Size } from '../../../utils';
 import { ItemsCollection, ListItem, ResText } from '../modules/';
 import { UIMenuItem } from './';
 
 export class UIMenuListItem extends UIMenuItem {
-  public ScrollingEnabled: boolean = true;
-  public HoldTimeBeforeScroll: number = 200;
+  public scrollingEnabled: boolean = true;
+  public holdTimeBeforeScroll: number = 200;
 
   protected itemText: ResText;
   protected arrowLeft: Sprite;
   protected arrowRight: Sprite;
   protected index: number = 0;
 
-  private readonly OnListChanged = new LiteEvent();
+  private readonly onListChanged = new LiteEvent();
 
   private holdTime: number;
   private currOffset: number = 0;
@@ -30,7 +30,8 @@ export class UIMenuListItem extends UIMenuItem {
   }
 
   set SelectedItem(v: ListItem) {
-    const idx = this.Collection.findIndex(li => li.Id === v.Id);
+    // tslint:disable-next-line: ter-arrow-parens
+    const idx = this.Collection.findIndex((li) => li.id === v.id);
     if (idx > 0) {
       this.Index = idx;
     } else {
@@ -45,13 +46,13 @@ export class UIMenuListItem extends UIMenuItem {
   get SelectedValue() {
     return this.SelectedItem == null
       ? null
-      : this.SelectedItem.Data == null
-      ? this.SelectedItem.DisplayText
-      : this.SelectedItem.Data;
+      : this.SelectedItem.data == null
+      ? this.SelectedItem.displayText
+      : this.SelectedItem.data;
   }
 
   public get ListChanged() {
-    return this.OnListChanged.expose();
+    return this.onListChanged.expose();
   }
 
   get Index() {
@@ -74,8 +75,9 @@ export class UIMenuListItem extends UIMenuItem {
 
     this.index = 100000 - (100000 % this.Collection.length) + value;
 
-    const caption = this.Collection.length >= this.Index ? this.Collection[this.Index].DisplayText : ' ';
-    this.currOffset = MeasureString(caption);
+    const caption =
+      this.Collection.length >= this.Index ? this.Collection[this.Index].displayText : ' ';
+    this.currOffset = measureString(caption);
   }
 
   constructor(
@@ -88,9 +90,26 @@ export class UIMenuListItem extends UIMenuItem {
     const y = 0;
     this.Collection = collection.getListItems();
     this.Index = startIndex;
-    this.arrowLeft = new Sprite('commonmenu', 'arrowleft', new Point(110, 105 + y), new Size(30, 30));
-    this.arrowRight = new Sprite('commonmenu', 'arrowright', new Point(280, 105 + y), new Size(30, 30));
-    this.itemText = new ResText('', new Point(290, y + 104), 0.35, Color.White, Font.ChaletLondon, Alignment.Right);
+    this.arrowLeft = new Sprite(
+      'commonmenu',
+      'arrowleft',
+      new Point(110, 105 + y),
+      new Size(30, 30),
+    );
+    this.arrowRight = new Sprite(
+      'commonmenu',
+      'arrowright',
+      new Point(280, 105 + y),
+      new Size(30, 30),
+    );
+    this.itemText = new ResText(
+      '',
+      new Point(290, y + 104),
+      0.35,
+      Color.white,
+      Font.ChaletLondon,
+      Alignment.Right,
+    );
   }
 
   public setCollection(collection: ItemsCollection) {
@@ -114,54 +133,73 @@ export class UIMenuListItem extends UIMenuItem {
     }
   }
 
-  public SetVerticalPosition(y: number) {
-    this.arrowLeft.pos = new Point(300 + this.Offset.X + this.Parent.WidthOffset, 147 + y + this.Offset.Y);
-    this.arrowRight.pos = new Point(400 + this.Offset.X + this.Parent.WidthOffset, 147 + y + this.Offset.Y);
-    this.itemText.pos = new Point(300 + this.Offset.X + this.Parent.WidthOffset, y + 147 + this.Offset.Y);
-    super.SetVerticalPosition(y);
+  public setVerticalPosition(y: number) {
+    this.arrowLeft.pos = new Point(
+      300 + this.offset.X + this.parent.widthOffset,
+      147 + y + this.offset.Y,
+    );
+    this.arrowRight.pos = new Point(
+      400 + this.offset.X + this.parent.widthOffset,
+      147 + y + this.offset.Y,
+    );
+    this.itemText.pos = new Point(
+      300 + this.offset.X + this.parent.widthOffset,
+      y + 147 + this.offset.Y,
+    );
+    super.setVerticalPosition(y);
   }
 
-  public SetRightLabel(text: string) {
+  public setRightLabel(text: string) {
     return this;
   }
 
-  public SetRightBadge(badge: BadgeStyle) {
+  public setRightBadge(badge: BadgeStyle) {
     return this;
   }
 
-  public Draw() {
-    super.Draw();
-    const caption = this.Collection.length >= this.Index ? this.Collection[this.Index].DisplayText : ' ';
+  public draw() {
+    super.draw();
+    const caption =
+      this.Collection.length >= this.Index ? this.Collection[this.Index].displayText : ' ';
     const offset = this.currOffset;
 
-    this.itemText.color = this.Enabled
-      ? this.Selected
-        ? this.HighlightedForeColor
-        : this.ForeColor
+    this.itemText.color = this.enabled
+      ? this.selected
+        ? this.highlightedForeColor
+        : this.foreColor
       : new Color(255, 163, 159, 148);
 
     this.itemText.caption = caption;
 
-    this.arrowLeft.color = this.Enabled
-      ? this.Selected
-        ? this.HighlightedForeColor
-        : this.ForeColor
+    this.arrowLeft.color = this.enabled
+      ? this.selected
+        ? this.highlightedForeColor
+        : this.foreColor
       : new Color(255, 163, 159, 148);
-    this.arrowRight.color = this.Enabled
-      ? this.Selected
-        ? this.HighlightedForeColor
-        : this.ForeColor
+    this.arrowRight.color = this.enabled
+      ? this.selected
+        ? this.highlightedForeColor
+        : this.foreColor
       : new Color(255, 163, 159, 148);
 
-    this.arrowLeft.pos = new Point(375 - offset + this.Offset.X + this.Parent.WidthOffset, this.arrowLeft.pos.Y);
+    this.arrowLeft.pos = new Point(
+      375 - offset + this.offset.X + this.parent.widthOffset,
+      this.arrowLeft.pos.Y,
+    );
 
-    if (this.Selected) {
-      this.arrowLeft.Draw();
-      this.arrowRight.Draw();
-      this.itemText.pos = new Point(405 + this.Offset.X + this.Parent.WidthOffset, this.itemText.pos.Y);
+    if (this.selected) {
+      this.arrowLeft.draw();
+      this.arrowRight.draw();
+      this.itemText.pos = new Point(
+        405 + this.offset.X + this.parent.widthOffset,
+        this.itemText.pos.Y,
+      );
     } else {
-      this.itemText.pos = new Point(420 + this.Offset.X + this.Parent.WidthOffset, this.itemText.pos.Y);
+      this.itemText.pos = new Point(
+        420 + this.offset.X + this.parent.widthOffset,
+        this.itemText.pos.Y,
+      );
     }
-    this.itemText.Draw();
+    this.itemText.draw();
   }
 }

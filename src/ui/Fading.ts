@@ -15,11 +15,11 @@ export abstract class Fading {
     return !!IsScreenFadingOut();
   }
 
-  public static FadeIn(duration: number): void {
+  public static fadeIn(duration: number): void {
     DoScreenFadeIn(duration);
   }
 
-  public static FadeOut(duration: number): void {
+  public static fadeOut(duration: number): void {
     DoScreenFadeOut(duration);
   }
 }

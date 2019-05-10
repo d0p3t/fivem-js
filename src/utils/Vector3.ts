@@ -114,7 +114,7 @@ export class Vector3 implements IVec3 {
     this.z = v.z;
   }
 
-  public get Length() : number {
+  public get Length(): number {
     return this.distanceSquared(this);
   }
 }

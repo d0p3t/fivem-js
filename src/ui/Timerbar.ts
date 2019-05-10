@@ -96,7 +96,7 @@ export class Timerbar {
       new Color(160, 255, 255, 255),
     );
     if (!this.sprite.IsTextureDictionaryLoaded) {
-      this.sprite.LoadTextureDictionary();
+      this.sprite.loadTextureDictionary();
     }
 
     this.isVisible = true;
@@ -213,28 +213,43 @@ setTick(() => {
   const safeZoneX = (1.0 - safeZone) * 0.5;
   const safeZoneY = (1.0 - safeZone) * 0.5;
 
-  Hud.HideComponentThisFrame(HudComponent.AreaName);
-  Hud.HideComponentThisFrame(HudComponent.StreetName);
+  Hud.hideComponentThisFrame(HudComponent.AreaName);
+  Hud.hideComponentThisFrame(HudComponent.StreetName);
 
   let loadingPromptOffset = 0;
   if (LoadingPrompt.IsActive) {
     loadingPromptOffset = 0.035 + 0.035 * 0.038 * 2;
   }
 
-  activeTimerBars.forEach(timerbar => {
-    const drawY = 0.984 - loadingPromptOffset - safeZoneY - activeTimerBars.indexOf(timerbar) * 0.038;
-    // timerbar.Sprite.pos = new Point(Screen.ScaledWidth * 0.918 - safeZoneX, Screen.Height * drawY);
-    // timerbar.Sprite.Draw();
-    DrawSprite('timerbars', 'all_black_bg', 0.918 - safeZoneX, drawY, 0.165, 0.035, 0.0, 255, 255, 255, 160);
+  activeTimerBars.forEach((timerbar) => {
+    const drawY =
+      0.984 - loadingPromptOffset - safeZoneY - activeTimerBars.indexOf(timerbar) * 0.038;
+    DrawSprite(
+      'timerbars',
+      'all_black_bg',
+      0.918 - safeZoneX,
+      drawY,
+      0.165,
+      0.035,
+      0.0,
+      255,
+      255,
+      255,
+      160,
+    );
 
-    drawText(timerbar.Title, [0.918 - safeZoneX + 0.012, drawY - 0.009 - (timerbar.PlayerStyle ? 0.00625 : 0)], {
-      align: 2,
-      color: timerbar.TextColor,
-      font: timerbar.PlayerStyle ? 4 : 0,
-      outline: false,
-      scale: timerbar.PlayerStyle ? 0.465 : 0.3,
-      shadow: timerbar.PlayerStyle,
-    });
+    drawText(
+      timerbar.Title,
+      [0.918 - safeZoneX + 0.012, drawY - 0.009 - (timerbar.PlayerStyle ? 0.00625 : 0)],
+      {
+        align: 2,
+        color: timerbar.TextColor,
+        font: timerbar.PlayerStyle ? 4 : 0,
+        outline: false,
+        scale: timerbar.PlayerStyle ? 0.465 : 0.3,
+        shadow: timerbar.PlayerStyle,
+      },
+    );
 
     if (timerbar.UseProgressBar) {
       const pbarX = 0.918 - safeZoneX + 0.047;

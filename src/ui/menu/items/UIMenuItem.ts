@@ -1,34 +1,34 @@
 import { Menu } from '../';
 import { Sprite } from '../../';
 import { Alignment, BadgeStyle, Font } from '../../../enums';
-import { Color, Point, Size, UUIDV4 } from '../../../utils';
+import { Color, Point, Size, uuidv4 } from '../../../utils';
 import { ResRectangle, ResText } from '../modules/';
 
 export class UIMenuItem {
-  public static readonly DefaultBackColor: Color = Color.Empty;
-  public static readonly DefaultHighlightedBackColor: Color = Color.White;
-  public static readonly DefaultForeColor: Color = Color.WhiteSmoke;
-  public static readonly DefaultHighlightedForeColor: Color = Color.Black;
+  public static readonly defaultBackColor: Color = Color.empty;
+  public static readonly defaultHighlightedBackColor: Color = Color.white;
+  public static readonly defaultForeColor: Color = Color.whiteSmoke;
+  public static readonly defaultHighlightedForeColor: Color = Color.black;
 
-  public readonly Id: string = UUIDV4();
+  public readonly id: string = uuidv4();
 
-  public BackColor: Color = UIMenuItem.DefaultBackColor;
-  public HighlightedBackColor: Color = UIMenuItem.DefaultHighlightedBackColor;
+  public backColor: Color = UIMenuItem.defaultBackColor;
+  public highlightedBackColor: Color = UIMenuItem.defaultHighlightedBackColor;
 
-  public ForeColor: Color = UIMenuItem.DefaultForeColor;
-  public HighlightedForeColor: Color = UIMenuItem.DefaultHighlightedForeColor;
+  public foreColor: Color = UIMenuItem.defaultForeColor;
+  public highlightedForeColor: Color = UIMenuItem.defaultHighlightedForeColor;
 
-  public Enabled: boolean;
-  public Selected: boolean;
-  public Hovered: boolean;
-  public Description: string;
+  public enabled: boolean;
+  public selected: boolean;
+  public hovered: boolean;
+  public description: string;
 
-  public Offset: Point;
-  public Parent: Menu;
+  public offset: Point;
+  public parent: Menu;
 
-  public RightLabel: string = '';
-  public LeftBadge: BadgeStyle = BadgeStyle.None;
-  public RightBadge: BadgeStyle = BadgeStyle.None;
+  public rightLabel: string = '';
+  public leftBadge: BadgeStyle = BadgeStyle.None;
+  public rightBadge: BadgeStyle = BadgeStyle.None;
 
   protected rectangle: ResRectangle;
   protected text: ResText;
@@ -49,28 +49,40 @@ export class UIMenuItem {
   }
 
   constructor(text, description = '') {
-    this.Enabled = true;
+    this.enabled = true;
 
     this.rectangle = new ResRectangle(new Point(0, 0), new Size(431, 38), new Color(150, 0, 0, 0));
-    this.text = new ResText(text, new Point(8, 0), 0.33, Color.WhiteSmoke, Font.ChaletLondon, Alignment.Left);
-    this.Description = description;
-    this.selectedSprite = new Sprite('commonmenu', 'gradient_nav', new Point(0, 0), new Size(431, 38));
+    this.text = new ResText(
+      text,
+      new Point(8, 0),
+      0.33,
+      Color.whiteSmoke,
+      Font.ChaletLondon,
+      Alignment.Left,
+    );
+    this.description = description;
+    this.selectedSprite = new Sprite(
+      'commonmenu',
+      'gradient_nav',
+      new Point(0, 0),
+      new Size(431, 38),
+    );
 
     this.badgeLeft = new Sprite('commonmenu', '', new Point(0, 0), new Size(40, 40));
     this.badgeRight = new Sprite('commonmenu', '', new Point(0, 0), new Size(40, 40));
 
-    this.labelText = new ResText('', new Point(0, 0), 0.35, Color.White, 0, Alignment.Right);
+    this.labelText = new ResText('', new Point(0, 0), 0.35, Color.white, 0, Alignment.Right);
   }
 
-  public SetVerticalPosition(y: number) {
-    this.rectangle.pos = new Point(this.Offset.X, y + 144 + this.Offset.Y);
-    this.selectedSprite.pos = new Point(0 + this.Offset.X, y + 144 + this.Offset.Y);
-    this.text.pos = new Point(8 + this.Offset.X, y + 147 + this.Offset.Y);
+  public setVerticalPosition(y: number) {
+    this.rectangle.pos = new Point(this.offset.X, y + 144 + this.offset.Y);
+    this.selectedSprite.pos = new Point(0 + this.offset.X, y + 144 + this.offset.Y);
+    this.text.pos = new Point(8 + this.offset.X, y + 147 + this.offset.Y);
 
-    this.badgeLeft.pos = new Point(0 + this.Offset.X, y + 142 + this.Offset.Y);
-    this.badgeRight.pos = new Point(385 + this.Offset.X, y + 142 + this.Offset.Y);
+    this.badgeLeft.pos = new Point(0 + this.offset.X, y + 142 + this.offset.Y);
+    this.badgeRight.pos = new Point(385 + this.offset.X, y + 142 + this.offset.Y);
 
-    this.labelText.pos = new Point(420 + this.Offset.X, y + 148 + this.Offset.Y);
+    this.labelText.pos = new Point(420 + this.offset.X, y + 148 + this.offset.Y);
   }
 
   public addEvent(event: string, ...args: any[]): void {
@@ -83,84 +95,90 @@ export class UIMenuItem {
     }
   }
 
-  public Draw(): void {
-    this.rectangle.size = new Size(431 + this.Parent.WidthOffset, 38);
-    this.selectedSprite.size = new Size(431 + this.Parent.WidthOffset, 38);
+  public draw(): void {
+    this.rectangle.size = new Size(431 + this.parent.widthOffset, 38);
+    this.selectedSprite.size = new Size(431 + this.parent.widthOffset, 38);
 
-    if (this.Hovered && !this.Selected) {
+    if (this.hovered && !this.selected) {
       this.rectangle.color = new Color(20, 255, 255, 255);
-      this.rectangle.Draw();
+      this.rectangle.draw();
     }
 
-    this.selectedSprite.color = this.Selected ? this.HighlightedBackColor : this.BackColor;
-    this.selectedSprite.Draw();
+    this.selectedSprite.color = this.selected ? this.highlightedBackColor : this.backColor;
+    this.selectedSprite.draw();
 
-    this.text.color = this.Enabled
-      ? this.Selected
-        ? this.HighlightedForeColor
-        : this.ForeColor
+    this.text.color = this.enabled
+      ? this.selected
+        ? this.highlightedForeColor
+        : this.foreColor
       : new Color(255, 163, 159, 148);
 
-    if (this.LeftBadge !== BadgeStyle.None) {
-      this.text.pos = new Point(35 + this.Offset.X, this.text.pos.Y);
-      this.badgeLeft.TextureDict = this.BadgeToSpriteLib(this.LeftBadge);
-      this.badgeLeft.textureName = this.BadgeToSpriteName(this.LeftBadge, this.Selected);
-      this.badgeLeft.color = this.IsBagdeWhiteSprite(this.LeftBadge)
-        ? this.Enabled
-          ? this.Selected
-            ? this.HighlightedForeColor
-            : this.ForeColor
+    if (this.leftBadge !== BadgeStyle.None) {
+      this.text.pos = new Point(35 + this.offset.X, this.text.pos.Y);
+      this.badgeLeft.TextureDict = this.badgeToSpriteLib(this.leftBadge);
+      this.badgeLeft.textureName = this.badgeToSpriteName(this.leftBadge, this.selected);
+      this.badgeLeft.color = this.isBagdeWhiteSprite(this.leftBadge)
+        ? this.enabled
+          ? this.selected
+            ? this.highlightedForeColor
+            : this.foreColor
           : new Color(255, 163, 159, 148)
-        : Color.White;
-      this.badgeLeft.Draw();
+        : Color.white;
+      this.badgeLeft.draw();
     } else {
-      this.text.pos = new Point(8 + this.Offset.X, this.text.pos.Y);
+      this.text.pos = new Point(8 + this.offset.X, this.text.pos.Y);
     }
 
-    if (this.RightBadge !== BadgeStyle.None) {
-      this.badgeRight.pos = new Point(385 + this.Offset.X + this.Parent.WidthOffset, this.badgeRight.pos.Y);
-      this.badgeRight.TextureDict = this.BadgeToSpriteLib(this.RightBadge);
-      this.badgeRight.textureName = this.BadgeToSpriteName(this.RightBadge, this.Selected);
-      this.badgeRight.color = this.IsBagdeWhiteSprite(this.RightBadge)
-        ? this.Enabled
-          ? this.Selected
-            ? this.HighlightedForeColor
-            : this.ForeColor
+    if (this.rightBadge !== BadgeStyle.None) {
+      this.badgeRight.pos = new Point(
+        385 + this.offset.X + this.parent.widthOffset,
+        this.badgeRight.pos.Y,
+      );
+      this.badgeRight.TextureDict = this.badgeToSpriteLib(this.rightBadge);
+      this.badgeRight.textureName = this.badgeToSpriteName(this.rightBadge, this.selected);
+      this.badgeRight.color = this.isBagdeWhiteSprite(this.rightBadge)
+        ? this.enabled
+          ? this.selected
+            ? this.highlightedForeColor
+            : this.foreColor
           : new Color(255, 163, 159, 148)
-        : Color.White;
-      this.badgeRight.Draw();
+        : Color.white;
+      this.badgeRight.draw();
     }
 
-    if (this.RightLabel && this.RightLabel !== '') {
-      this.labelText.pos = new Point(420 + this.Offset.X + this.Parent.WidthOffset, this.labelText.pos.Y);
-      this.labelText.caption = this.RightLabel;
-      this.labelText.color = this.text.color = this.Enabled
-        ? this.Selected
-          ? this.HighlightedForeColor
-          : this.ForeColor
+    if (this.rightLabel && this.rightLabel !== '') {
+      this.labelText.pos = new Point(
+        420 + this.offset.X + this.parent.widthOffset,
+        this.labelText.pos.Y,
+      );
+      this.labelText.caption = this.rightLabel;
+      this.labelText.color = this.text.color = this.enabled
+        ? this.selected
+          ? this.highlightedForeColor
+          : this.foreColor
         : new Color(255, 163, 159, 148);
-      this.labelText.Draw();
+      this.labelText.draw();
     }
-    this.text.Draw();
+    this.text.draw();
   }
 
-  public SetLeftBadge(badge: BadgeStyle): void {
-    this.LeftBadge = badge;
+  public setLeftBadge(badge: BadgeStyle): void {
+    this.leftBadge = badge;
   }
 
-  public SetRightBadge(badge: BadgeStyle): void {
-    this.RightBadge = badge;
+  public setRightBadge(badge: BadgeStyle): void {
+    this.rightBadge = badge;
   }
 
-  public SetRightLabel(text: string): void {
-    this.RightLabel = text;
+  public setRightLabel(text: string): void {
+    this.rightLabel = text;
   }
 
-  public BadgeToSpriteLib(badge: BadgeStyle): string {
+  public badgeToSpriteLib(badge: BadgeStyle): string {
     return 'commonmenu';
   }
 
-  public BadgeToSpriteName(badge: BadgeStyle, selected: boolean): string {
+  public badgeToSpriteName(badge: BadgeStyle, selected: boolean): string {
     switch (badge) {
       case BadgeStyle.None:
         return '';
@@ -213,7 +231,7 @@ export class UIMenuItem {
     }
   }
 
-  public IsBagdeWhiteSprite(badge: BadgeStyle): boolean {
+  public isBagdeWhiteSprite(badge: BadgeStyle): boolean {
     switch (badge) {
       case BadgeStyle.Lock:
       case BadgeStyle.Tick:
@@ -224,7 +242,7 @@ export class UIMenuItem {
     }
   }
 
-  public BadgeToColor(badge: BadgeStyle, selected: boolean): Color {
+  public badgeToColor(badge: BadgeStyle, selected: boolean): Color {
     switch (badge) {
       case BadgeStyle.Lock:
       case BadgeStyle.Tick:

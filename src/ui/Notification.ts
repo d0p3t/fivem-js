@@ -5,7 +5,7 @@ export class Notification {
     this.handle = handle;
   }
 
-  public Hide(): void {
+  public hide(): void {
     RemoveNotification(this.handle);
   }
 }

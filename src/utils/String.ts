@@ -7,9 +7,9 @@ export function stringToArray(input: string) {
     stringsNeeded = Math.ceil(input.length % 99 === 0 ? input.length / 99 : input.length / 99 + 1);
   }
 
-// tslint:disable-next-line: prefer-array-literal
+  // tslint:disable-next-line: prefer-array-literal
   const outputString: string[] = new Array(stringsNeeded);
-  for (const i = 0; i < stringsNeeded; i + 1) {
+  for (let i = 0; i < stringsNeeded; i += 1) {
     outputString[i] = input.substring(i * 99, clamp(input.substring(i * 99).length, 0, 99));
   }
   return outputString;
@@ -17,7 +17,7 @@ export function stringToArray(input: string) {
 
 export function measureStringWidthNoConvert(input: string) {
   SetTextEntryForWidth('STRING');
-  ResText.AddLongString(input);
+  ResText.addLongString(input);
   SetTextFont(0);
   SetTextScale(0.35, 0.35);
   return GetTextScreenWidth(false);

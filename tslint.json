@@ -3,6 +3,7 @@
   "rules": {
     "no-bitwise": false,
     "no-console": false,
-    "no-empty": [true, "allow-empty-functions"]
+    "no-empty": [true, "allow-empty-functions"],
+    "no-parameter-reassignment": false
   }
 }
