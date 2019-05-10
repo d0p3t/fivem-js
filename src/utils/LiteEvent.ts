@@ -4,6 +4,7 @@ export interface ILiteEvent {
 }
 
 export class LiteEvent implements ILiteEvent {
+// tslint:disable-next-line: prefer-array-literal
   private handlers: Array<{ (...args: any[]) }> = [];
 
   public on(handler: { (...args: any[]) }): void {

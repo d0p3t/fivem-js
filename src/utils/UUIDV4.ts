@@ -1,4 +1,4 @@
-export function UUIDV4(): string {
+export function uuidv4(): string {
   let uuid = '';
   for (let ii = 0; ii < 32; ii += 1) {
     switch (ii) {
