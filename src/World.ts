@@ -3,7 +3,7 @@ import { Camera } from './Camera';
 import { CloudHat, IntersectOptions, MarkerType, Weather } from './enums';
 import { Ped, Vehicle } from './models';
 import { RaycastResult } from './Raycast';
-import { Clamp, Color, Vector3 } from './utils';
+import { clamp, Color, Vector3 } from './utils';
 
 /**
  * Class with common world manipulations.
@@ -57,7 +57,9 @@ export abstract class World {
     }
 
     SetCloudHatTransition(
-      this.CloudHatDict.has(this.currentCloudHat) ? this.CloudHatDict.get(this.currentCloudHat) : '',
+      this.cloudHatDict.has(this.currentCloudHat)
+        ? this.cloudHatDict.get(this.currentCloudHat)
+        : '',
       3,
     );
   }
@@ -67,7 +69,7 @@ export abstract class World {
   }
 
   public static set CloudHatOpacity(value: number) {
-    SetCloudHatOpacity(Clamp(value, 0, 1));
+    SetCloudHatOpacity(clamp(value, 0, 1));
   }
 
   public static get Weather(): Weather {
@@ -109,10 +111,11 @@ export abstract class World {
 
   public static set Weather(value: Weather) {
     if (value !== Weather.Unknown) {
-      const weather = this.WeatherDict[value];
+      const weather = this.weatherDict[value];
       SetWeatherTypeOverTime(weather, 1);
       setTimeout(() => {
         SetWeatherTypeNow(weather);
+        // tslint:disable-next-line: align
       }, 100);
     }
   }
@@ -156,7 +159,7 @@ export abstract class World {
 
   public static set NextWeather(value: Weather) {
     if (value !== Weather.Unknown) {
-      const weather = this.WeatherDict[value];
+      const weather = this.weatherDict[value];
       SetWeatherTypeOverTime(weather, 0);
     }
   }
@@ -166,7 +169,7 @@ export abstract class World {
    */
   public static get WeatherTransition(): [string | Weather, string | Weather, number] {
     const transition = GetWeatherTypeTransition();
-    return [this.WeatherDict[transition[0]], this.WeatherDict[transition[1]], transition[2]];
+    return [this.weatherDict[transition[0]], this.weatherDict[transition[1]], transition[2]];
   }
 
   /**
@@ -176,13 +179,13 @@ export abstract class World {
     SetWeatherTypeTransition(transition[0], transition[1], transition[2]);
   }
 
-  public static TransitionToWeather(weather: Weather, duration: number): void {
+  public static transitionToWeather(weather: Weather, duration: number): void {
     if (weather !== Weather.Unknown) {
-      SetWeatherTypeOverTime(this.WeatherDict[weather], duration);
+      SetWeatherTypeOverTime(this.weatherDict[weather], duration);
     }
   }
 
-  public static DestroyAllCameras(): void {
+  public static destroyAllCameras(): void {
     DestroyAllCams(false);
   }
   /**
@@ -192,11 +195,17 @@ export abstract class World {
    * @param position World position (coordinates) of Ped spawn.
    * @param heading Heading of Ped when spawning.
    */
-  public static async CreatePed(model: Model, position: Vector3, heading: number = 0): Promise<Ped> {
-    if (!model.IsPed || !(await model.Request(1000))) {
+  public static async createPed(
+    model: Model,
+    position: Vector3,
+    heading: number = 0,
+  ): Promise<Ped> {
+    if (!model.IsPed || !(await model.request(1000))) {
       return null;
     }
-    return new Ped(CreatePed(26, model.Hash, position.x, position.y, position.z, heading, true, false));
+    return new Ped(
+      CreatePed(26, model.Hash, position.x, position.y, position.z, heading, true, false),
+    );
   }
 
   /**
@@ -206,11 +215,17 @@ export abstract class World {
    * @param position World position (coordinates) of Vehicle spawn.
    * @param heading Heading of Vehicle when spawning.
    */
-  public static async CreateVehicle(model: Model, position: Vector3, heading: number = 0): Promise<Vehicle> {
-    if (!model.IsVehicle || !(await model.Request(1000))) {
+  public static async createVehicle(
+    model: Model,
+    position: Vector3,
+    heading: number = 0,
+  ): Promise<Vehicle> {
+    if (!model.IsVehicle || !(await model.request(1000))) {
       return null;
     }
-    return new Vehicle(CreateVehicle(model.Hash, position.x, position.y, position.z, heading, true, false));
+    return new Vehicle(
+      CreateVehicle(model.Hash, position.x, position.y, position.z, heading, true, false),
+    );
   }
 
   /**
@@ -229,7 +244,7 @@ export abstract class World {
    * @param textureName Custom texture name for custom marker.
    * @param drawOnEntity Render the marker on an entity.
    */
-  public static DrawMarker(
+  public static drawMarker(
     type: MarkerType,
     position: Vector3,
     direction: Vector3,
@@ -271,14 +286,14 @@ export abstract class World {
     );
   }
 
-  public static Raycast(
+  public static raycast(
     source: Vector3,
     direction: Vector3,
     maxDistance: number,
     options: IntersectOptions,
     ignoreEntity: Entity,
   ): RaycastResult {
-    const target = Vector3.Add(source, Vector3.Multiply(direction, maxDistance));
+    const target = Vector3.add(source, Vector3.multiply(direction, maxDistance));
 
     return new RaycastResult(
       StartShapeTestRay(
@@ -297,7 +312,7 @@ export abstract class World {
 
   private static currentCloudHat: CloudHat = CloudHat.Clear;
 
-  private static CloudHatDict: Map<CloudHat, string> = new Map<CloudHat, string>([
+  private static cloudHatDict: Map<CloudHat, string> = new Map<CloudHat, string>([
     [CloudHat.Unknown, 'Unknown'],
     [CloudHat.Altostratus, 'altostratus'],
     [CloudHat.Cirrus, 'Cirrus'],
@@ -321,7 +336,7 @@ export abstract class World {
     [CloudHat.Wispy, 'Wispy'],
   ]);
 
-  private static WeatherDict: string[] = [
+  private static weatherDict: string[] = [
     'EXTRASUNNY',
     'CLEAR',
     'CLOUDS',

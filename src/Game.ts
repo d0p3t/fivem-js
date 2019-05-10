@@ -7,7 +7,7 @@ export abstract class Game {
    *
    * @param input The input string to calculate the hash
    */
-  public static GenerateHash(input: string): number {
+  public static generateHash(input: string): number {
     if (typeof input === 'undefined') {
       return 0;
     }
@@ -75,10 +75,10 @@ export abstract class Game {
     return GetConvarInt('sv_maxclients', 0); // not replicated
   }
 
-  public static *PlayerList(): IterableIterator<Player> {
+  public static *playerList(): IterableIterator<Player> {
     const players: Player[] = [];
 
-    for (let i = 0; i < this.MaxPlayers; i++) {
+    for (let i = 0; i < this.MaxPlayers; i += 1) {
       if (NetworkIsPlayerActive(i)) {
         yield new Player(i);
       }
@@ -163,27 +163,27 @@ export abstract class Game {
     return IsInputDisabled(2) ? InputMode.MouseAndKeyboard : InputMode.GamePad;
   }
 
-  public static IsControlPressed(index: number, control: Control): boolean {
+  public static isControlPressed(index: number, control: Control): boolean {
     return !!IsControlPressed(index, Number(control));
   }
 
-  public static IsControlJustPressed(index: number, control: Control): boolean {
+  public static isControlJustPressed(index: number, control: Control): boolean {
     return !!IsControlJustPressed(index, Number(control));
   }
 
-  public static IsDisabledControlJustPressed(index: number, control: Control): boolean {
+  public static isDisabledControlJustPressed(index: number, control: Control): boolean {
     return !!IsDisabledControlJustPressed(index, Number(control));
   }
 
-  public static IsControlReleased(index: number, control: Control): boolean {
+  public static isControlReleased(index: number, control: Control): boolean {
     return !!IsControlReleased(index, Number(control));
   }
 
-  public static IsControlJustReleased(index: number, control: Control): boolean {
+  public static isControlJustReleased(index: number, control: Control): boolean {
     return !!IsControlJustReleased(index, Number(control));
   }
 
-  public static EntityFromHandle(handle: number): Ped | Vehicle | Prop | undefined {
+  public static entityFromHandle(handle: number): Ped | Vehicle | Prop | undefined {
     switch (GetEntityType(handle)) {
       case 1:
         return new Ped(handle);

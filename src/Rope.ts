@@ -51,14 +51,14 @@ export class Rope {
    *
    * @param reset Whether to reset the length to it's original length or 1.
    */
-  public ResetLength(reset: boolean): void {
+  public resetLength(reset: boolean): void {
     RopeResetLength(this.handle, reset ? 1 : this.Length);
   }
 
   /**
    * Activates world physics on the rope object.
    */
-  public ActivatePhysics(): void {
+  public activatePhysics(): void {
     ActivatePhysics(this.handle);
   }
 
@@ -68,7 +68,7 @@ export class Rope {
    * @param entity Entity to attach the rope to.
    * @param position Location where the rope is to be attached.
    */
-  public AttachEntity(entity: Entity, position: Vector3): void {
+  public attachEntity(entity: Entity, position: Vector3): void {
     AttachRopeToEntity(this.handle, entity.Handle, position.x, position.y, position.z, false);
   }
 
@@ -81,7 +81,7 @@ export class Rope {
    * @param positionTwo Where on the second entity to attach the rope to.
    * @param length The desired length of the rope between the two entities.
    */
-  public AttachEntities(
+  public attachEntities(
     entityOne: Entity,
     positionOne: Vector3,
     entityTwo: Entity,
@@ -111,7 +111,7 @@ export class Rope {
    *
    * @param entity Entity to detach the rope from.
    */
-  public DetachEntity(entity: Entity): void {
+  public detachEntity(entity: Entity): void {
     DetachRopeFromEntity(this.handle, entity.Handle);
   }
 
@@ -121,7 +121,7 @@ export class Rope {
    * @param vertex Vertex to pin.
    * @param position Location to pin the vertex to.
    */
-  public PinVertex(vertex: number, position: Vector3): void {
+  public pinVertex(vertex: number, position: Vector3): void {
     PinRopeVertex(this.handle, vertex, position.x, position.y, position.z);
   }
 
@@ -130,7 +130,7 @@ export class Rope {
    *
    * @param vertex Vertex to unpin.
    */
-  public UnpinVertex(vertex: number): void {
+  public unpinVertex(vertex: number): void {
     UnpinRopeVertex(this.handle, vertex);
   }
 
@@ -140,7 +140,7 @@ export class Rope {
    * @param vertex Vertex to get location from.
    * @returns The vector location of the vertex.
    */
-  public GetVertexCoord(vertex: number): Vector3 {
+  public getVertexCoord(vertex: number): Vector3 {
     const coords = GetRopeVertexCoord(this.handle, vertex);
     return new Vector3(coords[0], coords[1], coords[2]);
   }
@@ -148,7 +148,7 @@ export class Rope {
   /**
    * Delete the rope from the world. This does not delete the rope object.
    */
-  public Delete(): void {
+  public delete(): void {
     DeleteRope(this.handle);
   }
 
@@ -157,7 +157,7 @@ export class Rope {
    *
    * @returns Whether the rope exists or not.
    */
-  public Exists(): boolean {
+  public exists(): boolean {
     return !!DoesRopeExist(this.handle);
   }
 }
