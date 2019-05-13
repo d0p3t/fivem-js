@@ -1,9 +1,11 @@
 import { Entity, Model } from './';
+import { Blip } from './Blip';
 import { Camera } from './Camera';
 import { CloudHat, IntersectOptions, MarkerType, Weather } from './enums';
+import { VehicleHash } from './hashes';
 import { Ped, Vehicle } from './models';
 import { RaycastResult } from './Raycast';
-import { clamp, Color, Vector3 } from './utils';
+import { clamp, Color, getRandomInt, Vector3 } from './utils';
 
 /**
  * Class with common world manipulations.
@@ -188,6 +190,38 @@ export abstract class World {
   public static destroyAllCameras(): void {
     DestroyAllCams(false);
   }
+
+  /**
+   * Creates a blip at a given position and optionally radius.
+   *
+   * @param position World coordinate of blip.
+   * @param radius (Optional) Radius of where blip should be shown.
+   * @returns A Blip object.
+   */
+  public static createBlip(position: Vector3, radius?: number): Blip {
+    if (radius !== null) {
+      return new Blip(AddBlipForRadius(position.x, position.y, position.z, radius));
+    }
+    return new Blip(AddBlipForCoord(position.x, position.y, position.z));
+  }
+
+  public static createCamera(position: Vector3, rotation: Vector3, fieldOfView: number): Camera {
+    return new Camera(
+      CreateCamWithParams(
+        'DEFAULT_SCRIPTED_CAMERA',
+        position.x,
+        position.y,
+        position.z,
+        rotation.x,
+        rotation.y,
+        rotation.z,
+        fieldOfView,
+        true,
+        2,
+      ),
+    );
+  }
+
   /**
    * Create a ped at a desired location.
    *
@@ -208,18 +242,48 @@ export abstract class World {
     );
   }
 
+  public static createRandomPed(position: Vector3): Ped {
+    return new Ped(CreateRandomPed(position.x, position.y, position.z));
+  }
+
   /**
    * Create a vehicle at a desired location.
    *
    * @param model Vehicle model to be spawned.
    * @param position World position (coordinates) of Vehicle spawn.
    * @param heading Heading of Vehicle when spawning.
+   * @returns Vehicle object.
    */
   public static async createVehicle(
     model: Model,
     position: Vector3,
     heading: number = 0,
   ): Promise<Vehicle> {
+    if (!model.IsVehicle || !(await model.request(1000))) {
+      return null;
+    }
+    return new Vehicle(
+      CreateVehicle(model.Hash, position.x, position.y, position.z, heading, true, false),
+    );
+  }
+
+  /**
+   * Create a random vehicle at a desired location.
+   *
+   * @param position World position (coordinates) of Vehicle spawn.
+   * @param heading Heading of Vehicle when spawning.
+   * @returns Vehicle object.
+   */
+  public static async createRandomVehicle(
+    position: Vector3,
+    heading: number = 0,
+  ): Promise<Vehicle> {
+    const vehicleCount: number = Object.keys(VehicleHash).length / 2; // check
+    const randomIndex: number = getRandomInt(0, vehicleCount);
+    const randomVehicleName: string = VehicleHash[randomIndex];
+    const modelHash: number = GetHashKey(randomVehicleName);
+    const model = new Model(modelHash);
+
     if (!model.IsVehicle || !(await model.request(1000))) {
       return null;
     }
@@ -283,6 +347,89 @@ export abstract class World {
       textureDict,
       textureName,
       drawOnEntity,
+    );
+  }
+
+  public static drawLightWithRange(pos: Vector3, color: Color, range: number, intensity: number) {
+    DrawLightWithRange(pos.x, pos.y, pos.z, color.r, color.g, color.b, range, intensity);
+  }
+
+  public static drawSpotLight(
+    pos: Vector3,
+    dir: Vector3,
+    color: Color,
+    distance: number,
+    brightness: number,
+    roundness: number,
+    radius: number,
+    fadeOut: number,
+  ) {
+    DrawSpotLight(
+      pos.x,
+      pos.y,
+      pos.z,
+      dir.x,
+      dir.y,
+      dir.z,
+      color.r,
+      color.g,
+      color.b,
+      distance,
+      brightness,
+      roundness,
+      radius,
+      fadeOut,
+    );
+  }
+
+  public static drawSpotLightWithShadow(
+    pos: Vector3,
+    dir: Vector3,
+    color: Color,
+    distance: number,
+    brightness: number,
+    roundness: number,
+    radius: number,
+    fadeOut: number,
+  ) {
+    DrawSpotLightWithShadow(
+      pos.x,
+      pos.y,
+      pos.z,
+      dir.x,
+      dir.y,
+      dir.z,
+      color.r,
+      color.g,
+      color.b,
+      distance,
+      brightness,
+      roundness,
+      radius,
+      fadeOut,
+      0,
+    );
+  }
+
+  public static drawLine(start: Vector3, end: Vector3, color: Color) {
+    DrawLine(start.x, start.y, start.z, end.x, end.y, end.z, color.r, color.g, color.b, color.a);
+  }
+
+  public static drawPoly(vertexA: Vector3, vertexB: Vector3, vertexC: Vector3, color: Color) {
+    DrawPoly(
+      vertexA.x,
+      vertexA.y,
+      vertexA.z,
+      vertexB.x,
+      vertexB.y,
+      vertexB.z,
+      vertexC.x,
+      vertexC.y,
+      vertexC.z,
+      color.r,
+      color.g,
+      color.b,
+      color.a,
     );
   }
 

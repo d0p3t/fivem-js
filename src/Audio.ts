@@ -53,12 +53,25 @@ export abstract class Audio {
   }
 
   public static playMusic(musicFile: string): void {
+    if (this.cachedMusicFile !== null) {
+      CancelMusicEvent(musicFile);
+    }
+    this.cachedMusicFile = musicFile;
     TriggerMusicEvent(musicFile);
   }
 
-  public static stopMusic(musicFile: string): void {
-    CancelMusicEvent(musicFile);
+  public static stopMusic(musicFile?: string): void {
+    if (musicFile === null) {
+      if (this.cachedMusicFile !== null) {
+        CancelMusicEvent(this.cachedMusicFile);
+        this.cachedMusicFile = null;
+      }
+    } else {
+      CancelMusicEvent(musicFile);
+    }
   }
+
+  protected static cachedMusicFile: string;
 
   private static readonly audioFlags: string[] = [
     'ActivateSwitchWheelAudio',

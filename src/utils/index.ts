@@ -5,5 +5,5 @@ export { PointF, IPointF } from './PointF';
 export { uuidv4 } from './UUIDV4';
 export { Point } from './Point';
 export { Color } from './Color';
-export { clamp } from './Math';
+export { clamp, getRandomInt } from './Math';
 export { Size } from './Size';
