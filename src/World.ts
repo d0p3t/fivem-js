@@ -286,6 +286,89 @@ export abstract class World {
     );
   }
 
+  public static drawLightWithRange(pos: Vector3, color: Color, range: number, intensity: number) {
+    DrawLightWithRange(pos.x, pos.y, pos.z, color.r, color.g, color.b, range, intensity);
+  }
+
+  public static drawSpotLight(
+    pos: Vector3,
+    dir: Vector3,
+    color: Color,
+    distance: number,
+    brightness: number,
+    roundness: number,
+    radius: number,
+    fadeOut: number,
+  ) {
+    DrawSpotLight(
+      pos.x,
+      pos.y,
+      pos.z,
+      dir.x,
+      dir.y,
+      dir.z,
+      color.r,
+      color.g,
+      color.b,
+      distance,
+      brightness,
+      roundness,
+      radius,
+      fadeOut,
+    );
+  }
+
+  public static drawSpotLightWithShadow(
+    pos: Vector3,
+    dir: Vector3,
+    color: Color,
+    distance: number,
+    brightness: number,
+    roundness: number,
+    radius: number,
+    fadeOut: number,
+  ) {
+    DrawSpotLightWithShadow(
+      pos.x,
+      pos.y,
+      pos.z,
+      dir.x,
+      dir.y,
+      dir.z,
+      color.r,
+      color.g,
+      color.b,
+      distance,
+      brightness,
+      roundness,
+      radius,
+      fadeOut,
+      0,
+    );
+  }
+
+  public static drawLine(start: Vector3, end: Vector3, color: Color) {
+    DrawLine(start.x, start.y, start.z, end.x, end.y, end.z, color.r, color.g, color.b, color.a);
+  }
+
+  public static drawPoly(vertexA: Vector3, vertexB: Vector3, vertexC: Vector3, color: Color) {
+    DrawPoly(
+      vertexA.x,
+      vertexA.y,
+      vertexA.z,
+      vertexB.x,
+      vertexB.y,
+      vertexB.z,
+      vertexC.x,
+      vertexC.y,
+      vertexC.z,
+      color.r,
+      color.g,
+      color.b,
+      color.a,
+    );
+  }
+
   public static raycast(
     source: Vector3,
     direction: Vector3,
