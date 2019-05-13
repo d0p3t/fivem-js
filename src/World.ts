@@ -192,7 +192,8 @@ export abstract class World {
   }
 
   /**
-   * 
+   * Creates a blip at a given position and optionally radius.
+   *
    * @param position World coordinate of blip.
    * @param radius (Optional) Radius of where blip should be shown.
    * @returns A Blip object.
