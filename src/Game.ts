@@ -1,5 +1,6 @@
 import { Control, InputMode, Language } from './enums';
 import { Ped, Player, Prop, Vehicle } from './models';
+import { Audio } from './Audio';
 
 export abstract class Game {
   /**
@@ -195,5 +196,17 @@ export abstract class Game {
     return null;
   }
 
+  public static playSound(soundFile: string, soundSet: string): void {
+    Audio.playSound(soundFile, soundSet);
+  }
+
+  public static playMusic(musicFile?: string) : void {
+    Audio.playMusic(musicFile);
+  }
+
+  public static stopMusic(musicFile?: string ) : void {
+    Audio.stopMusic(musicFile);
+  }
+  
   protected static cachedPlayer: Player;
 }
