@@ -1,7 +1,7 @@
 /**
  * List of markers. Markers are 3D visual objects in the world.
  *
- * See native [DRAW_MARKER](https://runtime.fivem.net/doc/natives/#_0x28477EC23D892089) for pictures.
+ * See native [DRAW_MARKER](https://docs.fivem.net/game-references/markers/) for pictures.
  */
 export enum MarkerType {
   UpsideDownCone,

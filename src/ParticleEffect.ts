@@ -1,7 +1,6 @@
 import { ParticleEffectAsset } from './';
-import { InvertAxis } from './enums';
-import { Color } from './utils';
-import { Vector3 } from './utils';
+import { IInvertAxis } from './enums';
+import { Color, Vector3 } from './utils';
 
 // TODO: Lots of Matrix stuff through memory access
 export abstract class ParticleEffect {
@@ -12,7 +11,7 @@ export abstract class ParticleEffect {
   protected color: Color;
   protected scale: number;
   protected range: number;
-  protected invertAxis: InvertAxis;
+  protected invertAxis: IInvertAxis;
   private handle: number;
 
   constructor(asset: ParticleEffectAsset, effectName: string) {
@@ -29,9 +28,9 @@ export abstract class ParticleEffect {
     return this.Handle !== -1 && !!DoesParticleFxLoopedExist(this.Handle);
   }
 
-  public abstract Start(): boolean;
+  public abstract start(): boolean;
 
-  public Stop(): void {
+  public stop(): void {
     if (this.IsActive) {
       RemoveParticleFx(this.Handle, false);
     }
@@ -46,7 +45,15 @@ export abstract class ParticleEffect {
     this.rotation = rotation;
     if (this.IsActive) {
       const off = this.offset; // TODO Matrix stuff to access from memory
-      SetParticleFxLoopedOffsets(this.Handle, off.x, off.y, off.z, rotation.x, rotation.y, rotation.z);
+      SetParticleFxLoopedOffsets(
+        this.Handle,
+        off.x,
+        off.y,
+        off.z,
+        rotation.x,
+        rotation.y,
+        rotation.z,
+      );
     }
   }
 
@@ -59,19 +66,19 @@ export abstract class ParticleEffect {
     SetParticleFxLoopedRange(this.Handle, range);
   }
 
-  public get InvertAxis(): InvertAxis {
+  public get InvertAxis(): IInvertAxis {
     return this.invertAxis;
   }
 
-  public set InvertAxis(invertAxis: InvertAxis) {
+  public set InvertAxis(invertAxis: IInvertAxis) {
     this.invertAxis = invertAxis;
     if (this.IsActive) {
-      this.Stop();
-      this.Start();
+      this.stop();
+      this.start();
     }
   }
 
-  public SetParameter(parameterName: string, value: number): void {
+  public setParameter(parameterName: string, value: number): void {
     if (this.IsActive) {
       SetParticleFxLoopedEvolution(this.Handle, parameterName, value, false);
     }
@@ -85,7 +92,7 @@ export abstract class ParticleEffect {
     return this.effectName;
   }
 
-  public ToString(): string {
+  public toString(): string {
     return `${this.AssetName}\\${this.EffectName}`;
   }
 }

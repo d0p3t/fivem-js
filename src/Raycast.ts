@@ -53,7 +53,7 @@ export class RaycastResult {
     this.hitPositionArg = new Vector3(results[2][0], results[2][1], results[2][2]);
     this.surfaceNormalArg = new Vector3(results[3][0], results[3][1], results[3][2]);
     this.materialArg = results[4];
-    this.entityHandleArg = Game.EntityFromHandle(results[5]);
+    this.entityHandleArg = Game.entityFromHandle(results[5]);
 
     this.result = results[0];
   }

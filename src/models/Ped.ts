@@ -1,12 +1,11 @@
 import { Vector3 } from '../';
 import { DrivingStyle, HelmetType, RagdollType, SpeechModifier, VehicleSeat } from '../enums';
 import { WeaponHash } from '../hashes';
-import { Entity } from './';
-import { Vehicle } from './';
+import { Entity, Vehicle } from './';
 
 export class Ped extends Entity {
-  public static Exists(ped: Ped): boolean {
-    return typeof ped !== 'undefined' && ped.Exists();
+  public static exists(ped: Ped): boolean {
+    return typeof ped !== 'undefined' && ped.exists();
   }
 
   private readonly speechModifierNames: string[] = [
@@ -55,48 +54,48 @@ export class Ped extends Entity {
 
   public get CurrentVehicle(): Vehicle {
     const veh = new Vehicle(GetVehiclePedIsIn(this.handle, false));
-    return veh.Exists() ? veh : null;
+    return veh.exists() ? veh : null;
   }
 
   public get LastVehicle(): Vehicle {
     const veh = new Vehicle(GetVehiclePedIsIn(this.handle, true));
-    return veh.Exists() ? veh : null;
+    return veh.exists() ? veh : null;
   }
 
   public get VehicleTryingToEnter(): Vehicle {
     const veh = new Vehicle(GetVehiclePedIsTryingToEnter(this.handle));
-    return veh.Exists() ? veh : null;
+    return veh.exists() ? veh : null;
   }
 
   public set DrivingStyle(style: DrivingStyle) {
     SetDriveTaskDrivingStyle(this.handle, Number(style));
   }
 
-  public IsInAnyVehicle(): boolean {
+  public isInAnyVehicle(): boolean {
     return !!IsPedInAnyVehicle(this.handle, false);
   }
 
-  public IsInVehicle(vehicle: Vehicle): boolean {
+  public isInVehicle(vehicle: Vehicle): boolean {
     return !!IsPedInVehicle(this.handle, vehicle.Handle, false);
   }
 
-  public IsSittingInAnyVehicle(): boolean {
+  public isSittingInAnyVehicle(): boolean {
     return !!IsPedSittingInAnyVehicle(this.handle);
   }
 
-  public IsSittingInVehicle(vehicle: Vehicle): boolean {
+  public isSittingInVehicle(vehicle: Vehicle): boolean {
     return !!IsPedSittingInVehicle(this.handle, vehicle.Handle);
   }
 
-  public SetIntoVehicle(vehicle: Vehicle, seat: VehicleSeat): void {
+  public setIntoVehicle(vehicle: Vehicle, seat: VehicleSeat): void {
     SetPedIntoVehicle(this.handle, vehicle.Handle, Number(seat));
   }
 
-  public Kill(): void {
+  public kill(): void {
     super.Health = -1;
   }
 
-  public Resurrect(): void {
+  public resurrect(): void {
     const maxHealth: number = super.Health;
     const isCollisionEnabled: boolean = super.IsCollisionEnabled;
 
@@ -107,10 +106,10 @@ export class Ped extends Entity {
     ClearPedTasksImmediately(this.handle);
   }
 
-  public ResetVisibleDamage(): void {
+  public resetVisibleDamage(): void {
     ResetPedVisibleDamage(this.handle);
   }
-  public ClearBloodDamage(): void {
+  public clearBloodDamage(): void {
     ClearPedBloodDamage(this.handle);
   }
 
@@ -124,11 +123,11 @@ export class Ped extends Entity {
     SetPedNeverLeavesGroup(this.handle, value);
   }
 
-  public LeaveGroup(): void {
+  public leaveGroup(): void {
     RemovePedFromGroup(this.handle);
   }
 
-  public PlayAmbientSpeed(
+  public playAmbientSpeed(
     speechName: string,
     voiceName: string = '',
     modifier: SpeechModifier = SpeechModifier.Standard,
@@ -150,29 +149,29 @@ export class Ped extends Entity {
     }
   }
 
-  public ApplyDamage(damageAmount: number): void {
+  public applyDamage(damageAmount: number): void {
     ApplyDamageToPed(this.handle, damageAmount, true);
   }
 
-  public HasBeenDamagedBy(weapon: WeaponHash): boolean {
+  public hasBeenDamagedBy(weapon: WeaponHash): boolean {
     return !!HasPedBeenDamagedByWeapon(this.handle, Number(weapon), 0);
   }
 
-  public HasBeenDamagedByAnyWeapon(): boolean {
+  public hasBeenDamagedByAnyWeapon(): boolean {
     return !!HasPedBeenDamagedByWeapon(this.handle, 0, 2);
   }
 
-  public HasBeenDamagedByAnyMeleeWeapon(): boolean {
+  public hasBeenDamagedByAnyMeleeWeapon(): boolean {
     return !!HasPedBeenDamagedByWeapon(this.handle, 0, 1);
   }
 
-  public ClearLastWeaponDamage(): void {
+  public clearLastWeaponDamage(): void {
     ClearPedLastWeaponDamage(this.handle);
   }
 
   // TODO: Add Bones / PedBoneCollection
 
-  public GetLastWeaponImpactPosition(): Vector3 {
+  public getLastWeaponImpactPosition(): Vector3 {
     const position = GetPedLastWeaponImpactCoord(this.handle);
 
     return new Vector3(position[0], position[1][0], position[1][1]); // Does this work?
@@ -186,44 +185,48 @@ export class Ped extends Entity {
     SetPedCanRagdoll(this.handle, value);
   }
 
-  public Ragdoll(duration: number = -1, ragdollType: RagdollType = RagdollType.Normal): void {
+  public ragdoll(duration: number = -1, ragdollType: RagdollType = RagdollType.Normal): void {
     this.CanRagdoll = true;
     SetPedToRagdoll(this.handle, duration, duration, Number(ragdollType), false, false, false);
   }
 
-  public CancelRagdoll(): void {
+  public cancelRagdoll(): void {
     SetPedToRagdoll(this.handle, 1, 1, 1, false, false, false);
   }
 
-  public GiveHelmet(canBeRemovedByPed: boolean, helmetType: HelmetType, textureIndex: number): void {
+  public giveHelmet(
+    canBeRemovedByPed: boolean,
+    helmetType: HelmetType,
+    textureIndex: number,
+  ): void {
     GivePedHelmet(this.handle, !canBeRemovedByPed, Number(helmetType), textureIndex);
   }
 
-  public RemoveHelmet(instantly: boolean): void {
+  public removeHelmet(instantly: boolean): void {
     RemovePedHelmet(this.handle, instantly);
   }
 
-  public OpenParachute(): void {
+  public openParachute(): void {
     ForcePedToOpenParachute(this.handle);
   }
 
-  public GetConfigFlag(flagId: number): boolean {
+  public getConfigFlag(flagId: number): boolean {
     return !!GetPedConfigFlag(this.handle, flagId, true);
   }
 
-  public SetConfigFlag(flagId: number, value: boolean): void {
+  public setConfigFlag(flagId: number, value: boolean): void {
     SetPedConfigFlag(this.handle, flagId, value);
   }
 
-  public ResetConfigFlag(flagId: number): void {
+  public resetConfigFlag(flagId: number): void {
     SetPedResetFlag(this.handle, flagId, true);
   }
 
-  public Clone(heading: number): Ped {
+  public clone(heading: number): Ped {
     return new Ped(ClonePed(this.handle, heading, false, false));
   }
 
-  public Exists(): boolean {
-    return super.Exists() && GetEntityType(this.handle) === 1;
+  public exists(): boolean {
+    return super.exists() && GetEntityType(this.handle) === 1;
   }
 }

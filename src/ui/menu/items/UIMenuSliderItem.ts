@@ -23,64 +23,113 @@ export class UIMenuSliderItem extends UIMenuItem {
     this.index = 100000000 - (100000000 % this.items.length) + value;
   }
 
-  constructor(text: string, items: any[], index: number, description: string = '', divider: boolean = false) {
+  constructor(
+    text: string,
+    items: any[],
+    index: number,
+    description: string = '',
+    divider: boolean = false,
+  ) {
     super(text, description);
     const y: number = 0;
     this.items = items;
-    this.arrowLeft = new Sprite('commonmenutu', 'arrowleft', new Point(0, 105 + y), new Size(15, 15));
-    this.arrowRight = new Sprite('commonmenutu', 'arrowright', new Point(0, 105 + y), new Size(15, 15));
-    this.rectangleBackground = new ResRectangle(new Point(0, 0), new Size(150, 9), new Color(255, 4, 32, 57));
-    this.rectangleSlider = new ResRectangle(new Point(0, 0), new Size(75, 9), new Color(255, 57, 116, 200));
+    this.arrowLeft = new Sprite(
+      'commonmenutu',
+      'arrowleft',
+      new Point(0, 105 + y),
+      new Size(15, 15),
+    );
+    this.arrowRight = new Sprite(
+      'commonmenutu',
+      'arrowright',
+      new Point(0, 105 + y),
+      new Size(15, 15),
+    );
+    this.rectangleBackground = new ResRectangle(
+      new Point(0, 0),
+      new Size(150, 9),
+      new Color(255, 4, 32, 57),
+    );
+    this.rectangleSlider = new ResRectangle(
+      new Point(0, 0),
+      new Size(75, 9),
+      new Color(255, 57, 116, 200),
+    );
     if (divider) {
-      this.rectangleDivider = new ResRectangle(new Point(0, 0), new Size(2.5, 20), Color.WhiteSmoke);
+      this.rectangleDivider = new ResRectangle(
+        new Point(0, 0),
+        new Size(2.5, 20),
+        Color.whiteSmoke,
+      );
     } else {
-      this.rectangleDivider = new ResRectangle(new Point(0, 0), new Size(2.5, 20), Color.Transparent);
+      this.rectangleDivider = new ResRectangle(
+        new Point(0, 0),
+        new Size(2.5, 20),
+        Color.transparent,
+      );
     }
     this.Index = index;
   }
 
-  public SetVerticalPosition(y: number) {
-    this.rectangleBackground.pos = new Point(250 + this.Offset.X + this.Parent.WidthOffset, y + 158.5 + this.Offset.Y);
-    this.rectangleSlider.pos = new Point(250 + this.Offset.X + this.Parent.WidthOffset, y + 158.5 + this.Offset.Y);
-    this.rectangleDivider.pos = new Point(323.5 + this.Offset.X + this.Parent.WidthOffset, y + 153 + this.Offset.Y);
-    this.arrowLeft.pos = new Point(235 + this.Offset.X + this.Parent.WidthOffset, 155.5 + y + this.Offset.Y);
-    this.arrowRight.pos = new Point(400 + this.Offset.X + this.Parent.WidthOffset, 155.5 + y + this.Offset.Y);
+  public setVerticalPosition(y: number) {
+    this.rectangleBackground.pos = new Point(
+      250 + this.offset.X + this.parent.widthOffset,
+      y + 158.5 + this.offset.Y,
+    );
+    this.rectangleSlider.pos = new Point(
+      250 + this.offset.X + this.parent.widthOffset,
+      y + 158.5 + this.offset.Y,
+    );
+    this.rectangleDivider.pos = new Point(
+      323.5 + this.offset.X + this.parent.widthOffset,
+      y + 153 + this.offset.Y,
+    );
+    this.arrowLeft.pos = new Point(
+      235 + this.offset.X + this.parent.widthOffset,
+      155.5 + y + this.offset.Y,
+    );
+    this.arrowRight.pos = new Point(
+      400 + this.offset.X + this.parent.widthOffset,
+      155.5 + y + this.offset.Y,
+    );
 
-    super.SetVerticalPosition(y);
+    super.setVerticalPosition(y);
   }
 
-  public IndexToItem(index: number) {
+  public indexToItem(index: number) {
     return this.items[index];
   }
 
-  public Draw() {
-    super.Draw();
-    this.arrowLeft.color = this.Enabled
-      ? this.Selected
-        ? Color.Black
-        : Color.WhiteSmoke
+  public draw() {
+    super.draw();
+    this.arrowLeft.color = this.enabled
+      ? this.selected
+        ? Color.black
+        : Color.whiteSmoke
       : new Color(255, 163, 159, 148);
-    this.arrowRight.color = this.Enabled
-      ? this.Selected
-        ? Color.Black
-        : Color.WhiteSmoke
+    this.arrowRight.color = this.enabled
+      ? this.selected
+        ? Color.black
+        : Color.whiteSmoke
       : new Color(255, 163, 159, 148);
     const offset =
-      ((this.rectangleBackground.size.Width - this.rectangleSlider.size.Width) / (this.items.length - 1)) * this.Index;
+      ((this.rectangleBackground.size.width - this.rectangleSlider.size.width) /
+        (this.items.length - 1)) *
+      this.Index;
     this.rectangleSlider.pos = new Point(
-      250 + this.Offset.X + offset + +this.Parent.WidthOffset,
+      250 + this.offset.X + offset + +this.parent.widthOffset,
       this.rectangleSlider.pos.Y,
     );
-    if (this.Selected) {
-      this.arrowLeft.Draw();
-      this.arrowRight.Draw();
+    if (this.selected) {
+      this.arrowLeft.draw();
+      this.arrowRight.draw();
     }
-    this.rectangleBackground.Draw();
-    this.rectangleSlider.Draw();
-    this.rectangleDivider.Draw();
+    this.rectangleBackground.draw();
+    this.rectangleSlider.draw();
+    this.rectangleDivider.draw();
   }
 
-  public SetRightBadge(badge: BadgeStyle) {}
+  public setRightBadge(badge: BadgeStyle) {}
 
-  public SetRightLabel(text: string) {}
+  public setRightLabel(text: string) {}
 }

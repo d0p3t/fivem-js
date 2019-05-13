@@ -1,4 +1,4 @@
-import { InvertAxis, InvertAxisFlags } from './enums';
+import { IInvertAxis, InvertAxisFlags } from './enums';
 import { Entity } from './models/';
 import { Vector3 } from './utils';
 
@@ -21,14 +21,14 @@ export class ParticleEffectAsset {
     return !!HasNamedPtfxAssetLoaded(this.assetName);
   }
 
-  public StartNonLoopedAtCoord(
+  public startNonLoopedAtCoord(
     effectName: string,
     pos: Vector3,
     rot: Vector3 = new Vector3(0, 0, 0),
     scale: number = 1.0,
-    invertAxis: InvertAxis = { flags: InvertAxisFlags.None },
+    invertAxis: IInvertAxis = { flags: InvertAxisFlags.None },
   ): boolean {
-    if (!this.SetNextCall()) {
+    if (!this.setNextCall()) {
       return false;
     }
     const invertAxisFlags = invertAxis.flags;
@@ -51,15 +51,15 @@ export class ParticleEffectAsset {
     );
   }
 
-  public StartNonLoopedOnEntity(
+  public startNonLoopedOnEntity(
     effectName: string,
     entity: Entity,
     off: Vector3 = new Vector3(0, 0, 0),
     rot: Vector3 = new Vector3(0, 0, 0),
     scale: number = 1.0,
-    invertAxis: InvertAxis = { flags: InvertAxisFlags.None },
+    invertAxis: IInvertAxis = { flags: InvertAxisFlags.None },
   ): boolean {
-    if (!this.SetNextCall()) {
+    if (!this.setNextCall()) {
       return false;
     }
     const invertAxisFlags = invertAxis.flags;
@@ -80,8 +80,8 @@ export class ParticleEffectAsset {
     );
   }
 
-  public Request(timeout: number): Promise<boolean> {
-    return new Promise(resolve => {
+  public request(timeout: number): Promise<boolean> {
+    return new Promise((resolve) => {
       if (!this.IsLoaded) {
         RequestNamedPtfxAsset(this.assetName);
         const start = GetGameTimer();
@@ -90,6 +90,7 @@ export class ParticleEffectAsset {
             clearInterval(interval);
             resolve(this.IsLoaded);
           }
+          // tslint:disable-next-line: align
         }, 0);
       } else {
         resolve(this.IsLoaded);
@@ -97,15 +98,15 @@ export class ParticleEffectAsset {
     });
   }
 
-  public MarkAsNoLongerNeeded(): void {
+  public markAsNoLongerNeeded(): void {
     RemoveNamedPtfxAsset(this.assetName);
   }
 
-  public ToString(): string {
+  public toString(): string {
     return this.assetName;
   }
 
-  private SetNextCall(): boolean {
+  private setNextCall(): boolean {
     if (!this.IsLoaded) {
       RequestNamedPtfxAsset(this.assetName);
     } else {

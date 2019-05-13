@@ -15,8 +15,8 @@ export abstract class GameplayCamera {
   }
 
   public static get ForwardVector(): Vector3 {
-    const rotation = Vector3.Multiply(this.Rotation, Math.PI / 180);
-    const normalized = Vector3.Normalize(
+    const rotation = Vector3.multiply(this.Rotation, Math.PI / 180);
+    const normalized = Vector3.normalize(
       new Vector3(
         -Math.sin(rotation.z) * Math.abs(Math.cos(rotation.x)),
         Math.cos(rotation.z) * Math.abs(Math.cos(rotation.x)),

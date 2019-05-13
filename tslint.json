@@ -1,8 +1,9 @@
 {
-  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "extends": ["tslint:recommended", "tslint-config-prettier", "tslint-config-airbnb"],
   "rules": {
     "no-bitwise": false,
     "no-console": false,
-    "no-empty": [true, "allow-empty-functions"]
+    "no-empty": [true, "allow-empty-functions"],
+    "no-parameter-reassignment": false
   }
 }

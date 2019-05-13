@@ -56,11 +56,11 @@ export class Camera {
   // }
 
   public set Direction(direction: Vector3) {
-    const dir = direction.Normalize(direction);
+    const dir = direction.normalize;
 
     const vec1 = new Vector3(dir.x, dir.y, 0);
-    const vec2 = new Vector3(dir.z, vec1.DistanceSquared(vec1), 0);
-    const vec3 = vec2.Normalize(vec2);
+    const vec2 = new Vector3(dir.z, vec1.distanceSquared(vec1), 0);
+    const vec3 = vec2.normalize;
 
     this.Rotation = new Vector3(
       Math.atan2(vec3.x, vec3.y) * 57.295779513082323,
@@ -74,8 +74,8 @@ export class Camera {
   //   }
 
   public get ForwardVector(): Vector3 {
-    const rotation = Vector3.Multiply(this.Rotation, Math.PI / 180);
-    const normalized = Vector3.Normalize(
+    const rotation = Vector3.multiply(this.Rotation, Math.PI / 180);
+    const normalized = Vector3.normalize(
       new Vector3(
         -Math.sin(rotation.z) * Math.abs(Math.cos(rotation.x)),
         Math.cos(rotation.z) * Math.abs(Math.cos(rotation.x)),
@@ -140,11 +140,11 @@ export class Camera {
     SetCamMotionBlurStrength(this.handle, strength);
   }
 
-  public Shake(shakeType: CameraShake, amplitude: number): void {
+  public shake(shakeType: CameraShake, amplitude: number): void {
     ShakeCam(this.handle, this.shakeNames[Number(shakeType)], amplitude);
   }
 
-  public StopShaking(): void {
+  public stopShaking(): void {
     StopCamShaking(this.handle, true);
   }
 
@@ -156,39 +156,50 @@ export class Camera {
     SetCamShakeAmplitude(this.handle, amplitude);
   }
 
-  public PointAt(entity: Entity, offset: Vector3 = new Vector3(0, 0, 0)): void {
+  public pointAt(entity: Entity, offset: Vector3 = new Vector3(0, 0, 0)): void {
     PointCamAtEntity(this.handle, entity.Handle, offset.x, offset.y, offset.z, true);
   }
 
   // PointAt PedBone
   // PointAt Vector3
 
-  public StopPointing(): void {
+  public stopPointing(): void {
     StopCamPointing(this.handle);
   }
 
-  public InterpTo(to: Camera, duration: number, easePosition: boolean, easeRotation: boolean): void {
-    SetCamActiveWithInterp(to.handle, this.handle, duration, Number(easePosition), Number(easeRotation));
+  public interpTo(
+    to: Camera,
+    duration: number,
+    easePosition: boolean,
+    easeRotation: boolean,
+  ): void {
+    SetCamActiveWithInterp(
+      to.handle,
+      this.handle,
+      duration,
+      Number(easePosition),
+      Number(easeRotation),
+    );
   }
 
   public get IsInterpolating(): boolean {
     return !!IsCamInterpolating(this.handle);
   }
 
-  public AttachTo(entity: Entity, offset: Vector3): void {
+  public attachTo(entity: Entity, offset: Vector3): void {
     AttachCamToEntity(this.handle, entity.Handle, offset.x, offset.y, offset.z, true);
   }
   // AttachTo PedBone
 
-  public Detach(): void {
+  public detach(): void {
     DetachCam(this.handle);
   }
 
-  public Delete(): void {
+  public delete(): void {
     DestroyCam(this.handle, false);
   }
 
-  public Exists(): boolean {
+  public exists(): boolean {
     return !!DoesCamExist(this.handle);
   }
 }

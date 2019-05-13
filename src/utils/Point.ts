@@ -1,21 +1,22 @@
 export class Point {
-  public static Parse(point: number[] | { X: number; Y: number }): Point;
-  public static Parse(arg): Point {
+  public static parse(point: number[] | { X: number; Y: number }): Point;
+  public static parse(arg): Point {
+    let point = new Point(0, 0);
     if (typeof arg === 'object') {
       if (arg.length) {
         // Array
-        return new Point(arg[0], arg[1]);
+        point = new Point(arg[0], arg[1]);
       } else if (arg.X && arg.Y) {
         // Object
-        return new Point(arg.X, arg.Y);
+        point = new Point(arg.X, arg.Y);
       }
     } else if (typeof arg === 'string') {
       if (arg.indexOf(',') !== -1) {
         const arr = arg.split(',');
-        return new Point(parseFloat(arr[0]), parseFloat(arr[1]));
+        point = new Point(parseFloat(arr[0]), parseFloat(arr[1]));
       }
     }
-    return new Point(0, 0);
+    return point;
   }
 
   public X: number = 0;

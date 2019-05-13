@@ -1,8 +1,8 @@
 export class Size {
-  public Width: number;
-  public Height: number;
+  public width: number;
+  public height: number;
   constructor(w: number = 0, h: number = 0) {
-    this.Width = w;
-    this.Height = h;
+    this.width = w;
+    this.height = h;
   }
 }

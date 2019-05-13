@@ -1,12 +1,12 @@
 import { LoadingSpinnerType } from '../enums';
 
 export abstract class LoadingPrompt {
-  public static Show(
+  public static show(
     loadingText: string = null,
     spinnerType: LoadingSpinnerType = LoadingSpinnerType.RegularClockwise,
   ) {
     if (this.IsActive) {
-      this.Hide();
+      this.hide();
     }
 
     if (loadingText === null) {
@@ -19,7 +19,7 @@ export abstract class LoadingPrompt {
     EndTextCommandBusyString(Number(spinnerType));
   }
 
-  public static Hide(): void {
+  public static hide(): void {
     if (this.IsActive) {
       RemoveLoadingPrompt();
     }

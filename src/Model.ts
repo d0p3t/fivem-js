@@ -16,7 +16,7 @@ export class Model {
    */
   constructor(hash: number | string) {
     if (typeof hash === 'string') {
-      this.hash = Game.GenerateHash(hash);
+      this.hash = Game.generateHash(hash);
     } else {
       this.hash = hash;
     }
@@ -63,8 +63,8 @@ export class Model {
    *
    * @param timeout Maximum allowed time for model to load.
    */
-  public Request(timeout: number): Promise<boolean> {
-    return new Promise(resolve => {
+  public request(timeout: number): Promise<boolean> {
+    return new Promise((resolve) => {
       if (!IsModelInCdimage(this.hash) && !IsModelValid(this.hash) && !IsWeaponValid(this.hash)) {
         resolve(false);
       }
@@ -73,9 +73,10 @@ export class Model {
       const interval = setInterval(() => {
         if (this.IsLoaded || GetGameTimer() - start >= timeout) {
           clearInterval(interval);
-          this.MarkAsNoLongerNeeded();
+          this.markAsNoLongerNeeded();
           resolve(this.IsLoaded);
         }
+        // tslint:disable-next-line: align
       }, 0);
     });
   }
@@ -83,7 +84,7 @@ export class Model {
   /**
    * Sets the model as no longer needed allowing the game engine to free memory.
    */
-  public MarkAsNoLongerNeeded(): void {
+  public markAsNoLongerNeeded(): void {
     SetModelAsNoLongerNeeded(this.hash);
   }
 }

@@ -16,7 +16,7 @@ export class EntityBone {
   }
 
   public get IsValid(): boolean {
-    return this.owner.Exists() && this.index !== -1;
+    return this.owner.exists() && this.index !== -1;
   }
 
   protected readonly owner: Entity;
