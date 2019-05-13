@@ -191,6 +191,12 @@ export abstract class World {
     DestroyAllCams(false);
   }
 
+  /**
+   * 
+   * @param position World coordinate of blip.
+   * @param radius (Optional) Radius of where blip should be shown.
+   * @returns A Blip object.
+   */
   public static createBlip(position: Vector3, radius?: number): Blip {
     if (radius !== null) {
       return new Blip(AddBlipForRadius(position.x, position.y, position.z, radius));
