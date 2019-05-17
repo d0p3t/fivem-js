@@ -15,6 +15,7 @@ export class UIMenuListItem extends UIMenuItem {
 
   private readonly onListChanged = new LiteEvent();
 
+  private arrowOnlyOnSelected: boolean;
   private holdTime: number;
   private currOffset: number = 0;
   private collection: ListItem[] = [];
@@ -85,9 +86,11 @@ export class UIMenuListItem extends UIMenuItem {
     description: string = '',
     collection: ItemsCollection = new ItemsCollection([]),
     startIndex: number = 0,
+    arrowOnlyOnSelected: boolean = true,
   ) {
     super(text, description);
     const y = 0;
+    this.arrowOnlyOnSelected = arrowOnlyOnSelected;
     this.Collection = collection.getListItems();
     this.Index = startIndex;
     this.arrowLeft = new Sprite(
@@ -186,17 +189,25 @@ export class UIMenuListItem extends UIMenuItem {
       375 - offset + this.offset.X + this.parent.widthOffset,
       this.arrowLeft.pos.Y,
     );
-
-    if (this.selected) {
+    if (this.arrowOnlyOnSelected) {
+      if (this.selected) {
+        this.arrowLeft.draw();
+        this.arrowRight.draw();
+        this.itemText.pos = new Point(
+          405 + this.offset.X + this.parent.widthOffset,
+          this.itemText.pos.Y,
+        );
+      } else {
+        this.itemText.pos = new Point(
+          420 + this.offset.X + this.parent.widthOffset,
+          this.itemText.pos.Y,
+        );
+      }
+    } else {
       this.arrowLeft.draw();
       this.arrowRight.draw();
       this.itemText.pos = new Point(
         405 + this.offset.X + this.parent.widthOffset,
-        this.itemText.pos.Y,
-      );
-    } else {
-      this.itemText.pos = new Point(
-        420 + this.offset.X + this.parent.widthOffset,
         this.itemText.pos.Y,
       );
     }
