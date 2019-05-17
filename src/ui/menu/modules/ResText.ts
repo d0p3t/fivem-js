@@ -41,9 +41,8 @@ export class ResText extends Text {
       }
     }
 
-    const height = 1080.0;
-    const ratio = Screen.AspectRatio;
-    const width = height * ratio;
+    const height = Screen.Height;
+    const width = Screen.ScaledWidth;
 
     const x = this.pos.X / width;
     const y = this.pos.Y / height;
@@ -59,7 +58,9 @@ export class ResText extends Text {
         SetTextDropshadow(2, 0, 0, 0, 0);
       }
 
-      // if (outline) console.warn('not working!');
+      if (outline) {
+        SetTextOutline();
+      }
 
       switch (textAlignment) {
         case Alignment.Centered:
