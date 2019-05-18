@@ -7,6 +7,7 @@ import { UIMenuItem } from './';
 export class UIMenuSliderItem extends UIMenuItem {
   private arrowLeft: Sprite;
   private arrowRight: Sprite;
+  private arrowOnlyOnSelected: boolean;
 
   private rectangleBackground: ResRectangle;
   private rectangleSlider: ResRectangle;
@@ -29,9 +30,11 @@ export class UIMenuSliderItem extends UIMenuItem {
     index: number,
     description: string = '',
     divider: boolean = false,
+    arrowOnlyOnSelected = false,
   ) {
     super(text, description);
     const y: number = 0;
+    this.arrowOnlyOnSelected = arrowOnlyOnSelected;
     this.items = items;
     this.arrowLeft = new Sprite(
       'commonmenutu',
@@ -120,10 +123,17 @@ export class UIMenuSliderItem extends UIMenuItem {
       250 + this.offset.X + offset + +this.parent.widthOffset,
       this.rectangleSlider.pos.Y,
     );
-    if (this.selected) {
+
+    if (this.arrowOnlyOnSelected) {
+      if (this.selected) {
+        this.arrowLeft.draw();
+        this.arrowRight.draw();
+      }
+    } else {
       this.arrowLeft.draw();
       this.arrowRight.draw();
     }
+
     this.rectangleBackground.draw();
     this.rectangleSlider.draw();
     this.rectangleDivider.draw();

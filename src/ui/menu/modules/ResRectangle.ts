@@ -13,7 +13,7 @@ export class ResRectangle extends Rectangle {
       pos = new Size();
     }
     if (pos && !size && !color) {
-      pos = new Point(this.pos.X + pos.Width, this.pos.Y + pos.Height);
+      pos = new Point(this.pos.X + pos.width, this.pos.Y + pos.height);
       size = this.size;
       color = this.color;
     }
@@ -21,8 +21,8 @@ export class ResRectangle extends Rectangle {
     const height = Screen.Height;
     const width = Screen.ScaledWidth;
 
-    const w = size.Width / width;
-    const h = size.Height / height;
+    const w = size.width / width;
+    const h = size.height / height;
     const x = pos.X / width + w * 0.5;
     const y = pos.Y / height + h * 0.5;
 

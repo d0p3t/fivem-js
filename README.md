@@ -32,8 +32,8 @@ import * as Cfx from 'fivem-js';
 RegisterCommand(
   'adder',
   async (source: number, args: string[]) => {
-    const vehicle = await Cfx.World.CreateVehicle(new Cfx.Model('adder'), new Cfx.Vector3(1, 2, 3), 4);
-    Cfx.Game.PlayerPed.SetIntoVehicle(vehicle, Cfx.VehicleSeat.Driver);
+    const vehicle = await Cfx.World.createVehicle(new Cfx.Model('adder'), new Cfx.Vector3(1, 2, 3), 4);
+    Cfx.Game.PlayerPed.setIntoVehicle(vehicle, Cfx.VehicleSeat.Driver);
   },
   false,
 );
@@ -56,8 +56,8 @@ const Cfx = require('fivem-js');
 RegisterCommand(
   'adder',
   async (source, args) => {
-    const vehicle = await Cfx.World.CreateVehicle(new Cfx.Model('adder'), new Cfx.Vector3(1, 2, 3), 4);
-    Cfx.Game.PlayerPed.SetIntoVehicle(vehicle, Cfx.VehicleSeat.Driver);
+    const vehicle = await Cfx.World.createVehicle(new Cfx.Model('adder'), new Cfx.Vector3(1, 2, 3), 4);
+    Cfx.Game.PlayerPed.setIntoVehicle(vehicle, Cfx.VehicleSeat.Driver);
   },
   false,
 );

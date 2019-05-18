@@ -18,16 +18,25 @@ export class Rectangle extends IElement {
     if (!pos) {
       pos = new Size(0, 0);
     }
+    let w2 = 0;
+    let y2 = 0;
+    if (pos instanceof Point) {
+      w2 = pos.X;
+      y2 = pos.Y;
+    } else {
+      w2 = pos.width;
+      y2 = pos.height;
+    }
     if (!size && !color) {
-      pos = new Point(this.pos.X + pos.Width, this.pos.Y + pos.Height);
+      pos = new Point(this.pos.X + w2, this.pos.Y + y2);
       size = this.size;
       color = this.color;
     }
     const height = Screen.Height;
     const width = Screen.ScaledWidth;
 
-    const w = size.Width / width;
-    const h = size.Height / height;
+    const w = size.width / width;
+    const h = size.height / height;
     const x = pos.X / width;
     const y = pos.Y / height;
 

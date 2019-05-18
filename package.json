@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "jest --config jestconfig.json",
     "build": "tsc",
+    "builddev": "npm run build && copy.bat",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
     "prepare": "npm run build",

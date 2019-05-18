@@ -29,7 +29,7 @@ export class Container extends Rectangle {
     DrawRect(x, y, w, h, this.color.r, this.color.g, this.color.b, this.color.a);
 
     for (const item of this.items) {
-      item.Draw(new Size(this.pos.X + offset.width, this.pos.Y + offset.height));
+      item.draw(new Size(this.pos.X + offset.width, this.pos.Y + offset.height));
     }
   }
 }
