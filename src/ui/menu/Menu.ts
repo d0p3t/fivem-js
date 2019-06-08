@@ -74,6 +74,7 @@ export class Menu {
   private readonly upAndDownSprite: Sprite;
   private readonly titleResText: ResText;
   private readonly subtitleResText: ResText;
+  private readonly subtitleResRectangle: ResRectangle;
   private readonly extraRectangleUp: ResRectangle;
   private readonly extraRectangleDown: ResRectangle;
   private readonly descriptionBar: ResRectangle;
@@ -82,7 +83,7 @@ export class Menu {
   private readonly counterText: ResText;
   private readonly background: Sprite;
 
-  constructor(title, subtitle, offset, spriteLibrary?, spriteName?) {
+  constructor(title, subtitle, offset = new Point(15, 15), spriteLibrary?, spriteName?) {
     if (!(offset instanceof Point)) {
       offset = Point.parse(offset);
     }
@@ -115,11 +116,11 @@ export class Menu {
 
     if (this.subtitle !== '') {
       this.mainMenu.addItem(
-        new ResRectangle(
+        (this.subtitleResRectangle = new ResRectangle(
           new Point(0 + this.offset.X, 107 + this.offset.Y),
           new Size(431, 37),
           new Color(255, 0, 0, 0),
-        ),
+        )),
       );
       this.mainMenu.addItem(
         (this.subtitleResText = new ResText(
@@ -223,6 +224,23 @@ export class Menu {
     }
   }
 
+  public addNewSubMenu(text: string, description?: string, offset?: Point, spriteLibrary?: string, spriteName?: string): Menu {
+    let menu = new Menu(this.title, text, offset || this.offset, spriteLibrary || this.spriteLibrary, spriteName || this.spriteName)
+    menu.setMenuwidthOffset(this.widthOffset);
+    let item = new UIMenuItem(text, description);
+    this.addItem(item);
+    this.bindMenuToItem(menu, item);
+    return menu;
+  }
+
+  public addSubMenu(subMenuToAdd: Menu, itemText: string, itemDescription?: string, inheritWidthOffset: boolean = true): Menu {
+    if (inheritWidthOffset) subMenuToAdd.setMenuwidthOffset(this.widthOffset);
+    let item = new UIMenuItem(itemText, itemDescription);
+    this.addItem(item);
+    this.bindMenuToItem(subMenuToAdd, item);
+    return subMenuToAdd;
+  }
+
   public addItem(item: UIMenuItem) {
     if (this.justOpened) {
       this.justOpened = false;
@@ -273,9 +291,38 @@ export class Menu {
     this.menuClose.emit();
   }
 
+  public set Title(text: string) {
+    this.title = text;
+    this.titleResText.caption = text;
+  }
+
+  public get Title() {
+    return this.title;
+  }
+
   public set Subtitle(text: string) {
     this.subtitle = text;
     this.subtitleResText.caption = text;
+  }
+
+  public get Subtitle() {
+    return this.subtitle;
+  }
+
+  public set SubtitleForeColor(color: Color) {
+    this.subtitleResText.color = color;
+  }
+
+  public get SubtitleForeColor() {
+    return this.subtitleResText.color;
+  }
+  
+  public set SubtitleBackColor(color: Color) {
+    this.subtitleResRectangle.color = color;
+  }
+
+  public get SubtitleBackColor() {
+    return this.subtitleResRectangle.color;
   }
 
   public goLeft() {
