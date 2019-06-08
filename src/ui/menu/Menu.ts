@@ -228,10 +228,10 @@ export class Menu {
     let menu;
     if (inherit) {
       menu = new Menu(this.title, text, this.offset, this.spriteLibrary, this.spriteName);
+      menu.setMenuwidthOffset(this.widthOffset);
     } else {
       menu = new Menu(this.title, text);
     }
-    menu.setMenuwidthOffset(this.widthOffset);
     const item = new UIMenuItem(text, description);
     this.addItem(item);
     this.bindMenuToItem(menu, item);
