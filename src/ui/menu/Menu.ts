@@ -224,18 +224,23 @@ export class Menu {
     }
   }
 
-  public addNewSubMenu(text: string, description?: string, offset?: Point, spriteLibrary?: string, spriteName?: string): Menu {
-    let menu = new Menu(this.title, text, offset || this.offset, spriteLibrary || this.spriteLibrary, spriteName || this.spriteName)
+  public addNewSubMenu(text: string, description?: string, inherit = true): Menu {
+    let menu;
+    if (inherit) {
+      menu = new Menu(this.title, text, this.offset, this.spriteLibrary, this.spriteName);
+    } else {
+      menu = new Menu(this.title, text);
+    }
     menu.setMenuwidthOffset(this.widthOffset);
-    let item = new UIMenuItem(text, description);
+    const item = new UIMenuItem(text, description);
     this.addItem(item);
     this.bindMenuToItem(menu, item);
     return menu;
   }
 
-  public addSubMenu(subMenuToAdd: Menu, itemText: string, itemDescription?: string, inheritWidthOffset: boolean = true): Menu {
-    if (inheritWidthOffset) subMenuToAdd.setMenuwidthOffset(this.widthOffset);
-    let item = new UIMenuItem(itemText, itemDescription);
+  public addSubMenu(subMenuToAdd: Menu, text: string, description?: string, inherit = true): Menu {
+    if (inherit) subMenuToAdd.setMenuwidthOffset(this.widthOffset);
+    const item = new UIMenuItem(text, description);
     this.addItem(item);
     this.bindMenuToItem(subMenuToAdd, item);
     return subMenuToAdd;
@@ -316,7 +321,7 @@ export class Menu {
   public get SubtitleForeColor() {
     return this.subtitleResText.color;
   }
-  
+
   public set SubtitleBackColor(color: Color) {
     this.subtitleResRectangle.color = color;
   }
