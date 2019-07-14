@@ -13,10 +13,16 @@ import { clamp, Color, getRandomInt, Vector3 } from './utils';
  * This class includes methods for creating entities and common world rendering.
  */
 export abstract class World {
+  /**
+   * Get the current camera that's rendering.
+   */
   public static get RenderingCamera(): Camera {
     return new Camera(GetRenderingCam());
   }
 
+  /**
+   * Set the rendering camera. World.RenderingCamera = null to reset.
+   */
   public static set RenderingCamera(value: Camera) {
     if (value === null) {
       RenderScriptCams(false, false, 3000, true, false);
@@ -26,6 +32,9 @@ export abstract class World {
     }
   }
 
+  /**
+   * Get the current date in the world.
+   */
   public static get CurrentDate(): Date {
     const year = GetClockYear();
     const month = GetClockMonth();
@@ -37,19 +46,31 @@ export abstract class World {
     return new Date(year, month, day, hour, minutes, seconds);
   }
 
+  /**
+   * Set the current date of the world.
+   */
   public static set CurrentDate(date: Date) {
     SetClockDate(date.getDate(), date.getMonth(), date.getFullYear());
     SetClockTime(date.getHours(), date.getMinutes(), date.getSeconds());
   }
 
+  /**
+   * Disables all emissive textures, street/building/vehicle lights. "EMP" effect.
+   */
   public static set Blackout(value: boolean) {
     SetBlackout(value);
   }
 
+  /**
+   * Get the current cloud hat.
+   */
   public static get CloudHat(): CloudHat {
     return this.currentCloudHat;
   }
 
+  /**
+   * Set the current cloud hat.
+   */
   public static set CloudHat(value: CloudHat) {
     this.currentCloudHat = value;
     if (this.currentCloudHat === CloudHat.Unknown) {
@@ -66,14 +87,23 @@ export abstract class World {
     );
   }
 
+  /**
+   * Get the opacity of current cloud hat. Value is between 0-1.
+   */
   public static get CloudHatOpacity(): number {
     return GetCloudHatOpacity();
   }
 
+  /**
+   * Set opacity of current cloud hat between 0-1.
+   */
   public static set CloudHatOpacity(value: number) {
     SetCloudHatOpacity(clamp(value, 0, 1));
   }
 
+  /**
+   * Get the current weather type.
+   */
   public static get Weather(): Weather {
     switch (GetPrevWeatherTypeHashName()) {
       case -1750463879:
@@ -111,6 +141,9 @@ export abstract class World {
     }
   }
 
+  /**
+   * Set the current weather.
+   */
   public static set Weather(value: Weather) {
     if (value !== Weather.Unknown) {
       const weather = this.weatherDict[value];
@@ -122,6 +155,9 @@ export abstract class World {
     }
   }
 
+  /**
+   * Get the next weather type.
+   */
   public static get NextWeather(): Weather {
     switch (GetNextWeatherTypeHashName()) {
       case -1750463879:
@@ -159,6 +195,9 @@ export abstract class World {
     }
   }
 
+  /**
+   * Set weather type instantly. Similar to World.transitionToWeather with duration 0.
+   */
   public static set NextWeather(value: Weather) {
     if (value !== Weather.Unknown) {
       const weather = this.weatherDict[value];
@@ -181,12 +220,21 @@ export abstract class World {
     SetWeatherTypeTransition(transition[0], transition[1], transition[2]);
   }
 
+  /**
+   * Transition to different weather type within a certain time.
+   *
+   * @param weather Weather type to change to.
+   * @param duration Time for full weather change (in milliseconds);
+   */
   public static transitionToWeather(weather: Weather, duration: number): void {
     if (weather !== Weather.Unknown) {
       SetWeatherTypeOverTime(this.weatherDict[weather], duration);
     }
   }
 
+  /**
+   * Destroys all existing cameras and sets your rendering camera back to GameplayCam.
+   */
   public static destroyAllCameras(): void {
     DestroyAllCams(false);
   }
@@ -196,7 +244,7 @@ export abstract class World {
    *
    * @param position World coordinate of blip.
    * @param radius (Optional) Radius of where blip should be shown.
-   * @returns A Blip object.
+   * @returns Blip object.
    */
   public static createBlip(position: Vector3, radius?: number): Blip {
     if (radius !== null) {
@@ -205,6 +253,14 @@ export abstract class World {
     return new Blip(AddBlipForCoord(position.x, position.y, position.z));
   }
 
+  /**
+   * Creates a camera using 'DEFAULT_SCRIPTED_CAMERA'.
+   *
+   * @param position World coordinate where the camera should render.
+   * @param rotation Rotation of camera relative to world.
+   * @param fieldOfView Field of view angle of camera.
+   * @returns Camera object.
+   */
   public static createCamera(position: Vector3, rotation: Vector3, fieldOfView: number): Camera {
     return new Camera(
       CreateCamWithParams(
@@ -228,6 +284,7 @@ export abstract class World {
    * @param model Ped model to be spawned.
    * @param position World position (coordinates) of Ped spawn.
    * @param heading Heading of Ped when spawning.
+   * @returns Ped object.
    */
   public static async createPed(
     model: Model,
@@ -242,6 +299,12 @@ export abstract class World {
     );
   }
 
+  /**
+   * Creates a ped with a random model.
+   *
+   * @param position World coordinate of Ped spawn.
+   * @returns Ped object.
+   */
   public static createRandomPed(position: Vector3): Ped {
     return new Ped(CreateRandomPed(position.x, position.y, position.z));
   }
@@ -350,10 +413,30 @@ export abstract class World {
     );
   }
 
+  /**
+   * Creates a light in the world with a certain length (range).
+   *
+   * @param pos World coordinate where to draw the light.
+   * @param color RGB colors of the light.
+   * @param range How far to draw the light.
+   * @param intensity Intensity of the light ("alpha").
+   */
   public static drawLightWithRange(pos: Vector3, color: Color, range: number, intensity: number) {
     DrawLightWithRange(pos.x, pos.y, pos.z, color.r, color.g, color.b, range, intensity);
   }
 
+  /**
+   * Creates a light in the world. More configurable than World.drawLightWithRange.
+   *
+   * @param pos World coordinate of spotlight.
+   * @param dir Direction to face spotlight.
+   * @param color RGB colors of spotlight.
+   * @param distance The maximum distance the spotlight can reach.
+   * @param brightness Brightness of the spotlight.
+   * @param roundness "Smoothness" of the edge of the spotlight.
+   * @param radius Radius size of spotlight.
+   * @param fadeOut Falloff size of the spotlight's edge.
+   */
   public static drawSpotLight(
     pos: Vector3,
     dir: Vector3,
@@ -382,6 +465,18 @@ export abstract class World {
     );
   }
 
+  /**
+   * Creates a light in the world. Same as World.drawSpotlight, but also draws shadows.
+   *
+   * @param pos World coordinate of spotlight.
+   * @param dir Direction to face spotlight.
+   * @param color RGB colors of spotlight.
+   * @param distance The maximum distance the spotlight can reach.
+   * @param brightness Brightness of the spotlight.
+   * @param roundness "Smoothness" of the edge of the spotlight.
+   * @param radius Radius size of spotlight.
+   * @param fadeOut Falloff size of the spotlight's edge.
+   */
   public static drawSpotLightWithShadow(
     pos: Vector3,
     dir: Vector3,
@@ -411,10 +506,25 @@ export abstract class World {
     );
   }
 
+  /**
+   * Draws a line in the world. It's not possible to change thickness.
+   *
+   * @param start World coordinate of start position of line.
+   * @param end World coordinate of end position of line.
+   * @param color RGB color of line.
+   */
   public static drawLine(start: Vector3, end: Vector3, color: Color) {
     DrawLine(start.x, start.y, start.z, end.x, end.y, end.z, color.r, color.g, color.b, color.a);
   }
 
+  /**
+   * Draw polygon in the world.
+   *
+   * @param vertexA World coordinate of first point.
+   * @param vertexB World coordinate of second point.
+   * @param vertexC World coordinate of third point.
+   * @param color RGB color of polygon.
+   */
   public static drawPoly(vertexA: Vector3, vertexB: Vector3, vertexC: Vector3, color: Color) {
     DrawPoly(
       vertexA.x,
@@ -433,6 +543,16 @@ export abstract class World {
     );
   }
 
+  /**
+   * Cast ("shoot") a ray in a certain direction to detect entities in the way.
+   *
+   * @param source Starting position of raycast.
+   * @param direction Direction to cast a ray to.
+   * @param maxDistance Max distance to cast the ray.
+   * @param options Possible entity types to detect.
+   * @param ignoreEntity An entity to ignore (usually player's Ped).
+   * @returns RaycastResult object.
+   */
   public static raycast(
     source: Vector3,
     direction: Vector3,
