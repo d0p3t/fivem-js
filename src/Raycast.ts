@@ -3,31 +3,55 @@ import { MaterialHash } from './hashes';
 import { Entity } from './models';
 import { Vector3 } from './utils';
 
+/**
+ * Class that represents the result of a raycast.
+ */
 export class RaycastResult {
+  /**
+   * Return the entity that was hit.
+   */
   public get HitEntity(): Entity {
     return this.entityHandleArg;
   }
 
+  /**
+   * Get the position of the entity that was hit.
+   */
   public get HitPosition(): Vector3 {
     return this.hitPositionArg;
   }
 
+  /**
+   * Return the vector perpendicular to the tangent plane.
+   */
   public get SurfaceNormal(): Vector3 {
     return this.surfaceNormalArg;
   }
 
+  /**
+   * Whether we hit anything.
+   */
   public get DidHit(): boolean {
     return this.hitSomethingArg;
   }
 
+  /**
+   * Whether the entity hit exists.
+   */
   public get DidHitEntity(): boolean {
     return this.entityHandleArg.Handle !== 0;
   }
 
+  /**
+   * Material type that was hit.
+   */
   public get Material(): MaterialHash {
     return this.materialArg;
   }
 
+  /**
+   * Raycast result's handle.
+   */
   public get Result(): number {
     return this.result;
   }
@@ -40,6 +64,11 @@ export class RaycastResult {
   private materialArg: MaterialHash;
   private result: number;
 
+  /**
+   * Create a RaycastResult object that gets the results from a StartShapeTestRay()
+   *
+   * @param handle The handle returned from StartShapeTestRay()
+   */
   constructor(handle: number) {
     this.handle = handle;
     this.hitPositionArg = new Vector3(0, 0, 0);
