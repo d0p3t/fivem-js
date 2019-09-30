@@ -1,15 +1,17 @@
 {
   "name": "fivem-js-example-typescript",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fivem-js": "^1.1.1"
+    "@citizenfx/client": "^1.0.1383-1",
+    "@types/node": "^12.0.12",
+    "fivem-js": "^1.3.0"
   },
   "devDependencies": {
-    "ts-loader": "^5.3.3",
+    "ts-loader": "^6.0.4",
     "typescript": "^3.3.3333"
   }
 }
