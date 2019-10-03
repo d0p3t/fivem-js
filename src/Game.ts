@@ -80,23 +80,14 @@ export abstract class Game {
   }
 
   /**
-   * Get the max players allowed on the server (Not working since Convar isn't replicated).
-   */
-  public static get MaxPlayers(): number {
-    return GetConvarInt('sv_maxclients', 0); // not replicated
-  }
-
-  /**
    * Get an iterable list of players currently on server.
    * @returns Iterable list of Player objects.
    */
   public static *playerList(): IterableIterator<Player> {
     const players: Player[] = [];
 
-    for (let i = 0; i < this.MaxPlayers; i += 1) {
-      if (NetworkIsPlayerActive(i)) {
-        yield new Player(i);
-      }
+    for (let i = 0; i < GetActivePlayers(); i += 1) {
+      yield new Player(i);
     }
   }
 
