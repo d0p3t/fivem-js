@@ -178,6 +178,14 @@ export class Ped extends Entity {
     GiveWeaponToPed(this.handle, weapon, ammoCount, isHidden, equipNow);
   }
 
+  public removeWeapon(weapon: WeaponHash): void {
+    RemoveWeaponFromPed(this.handle, weapon);
+  }
+
+  public removeAllWeapons(): void {
+    RemoveAllPedWeapons(this.handle, true);
+  }
+
   // TODO: Add Bones / PedBoneCollection
 
   public getLastWeaponImpactPosition(): Vector3 {
