@@ -2,7 +2,13 @@ import { IInvertAxis, InvertAxisFlags } from './enums';
 import { Entity } from './models/';
 import { Vector3 } from './utils';
 
+/**
+ * UNFINISHED! Class that represents a particle effect asset.
+ */
 export class ParticleEffectAsset {
+  /**
+   * Returns the name of the asset. Same as AssetName.
+   */
   public get Asset(): string {
     return this.assetName;
   }
@@ -13,14 +19,30 @@ export class ParticleEffectAsset {
     this.assetName = assetName;
   }
 
+  /**
+   * Get the name of the particle effect.
+   */
   public get AssetName(): string {
     return this.assetName;
   }
 
+  /**
+   * Get whether the particle effect has loaded into game memory.
+   */
   public get IsLoaded(): boolean {
     return !!HasNamedPtfxAssetLoaded(this.assetName);
   }
 
+  /**
+   * Start a particle effect at a world position.
+   *
+   * @param effectName Name of effect.
+   * @param entity Entity to use effect on.
+   * @param off Offset from entity position.
+   * @param rot Rotation from entity position.
+   * @param scale Size of the effect.
+   * @param invertAxis Which axis to invert (default none).
+   */
   public startNonLoopedAtCoord(
     effectName: string,
     pos: Vector3,
@@ -51,6 +73,16 @@ export class ParticleEffectAsset {
     );
   }
 
+  /**
+   * Start a particle effect on an entity
+   *
+   * @param effectName Name of effect.
+   * @param entity Entity to use effect on.
+   * @param off Offset from entity position.
+   * @param rot Rotation from entity position.
+   * @param scale Size of the effect.
+   * @param invertAxis Which axis to invert (default none).
+   */
   public startNonLoopedOnEntity(
     effectName: string,
     entity: Entity,
@@ -80,6 +112,11 @@ export class ParticleEffectAsset {
     );
   }
 
+  /**
+   * Load a particle effect into the game memory.
+   *
+   * @param timeout Max time to load Particle Effect
+   */
   public request(timeout: number): Promise<boolean> {
     return new Promise((resolve) => {
       if (!this.IsLoaded) {
@@ -98,6 +135,9 @@ export class ParticleEffectAsset {
     });
   }
 
+  /**
+   * Allow game engine to safely unload particle effect model from memory.
+   */
   public markAsNoLongerNeeded(): void {
     RemoveNamedPtfxAsset(this.assetName);
   }
