@@ -44,9 +44,7 @@ Functionality of this wrapper is **based on the FiveM C# wrapper** - [link](http
 - UI elements such as `scaleforms` and loading `prompts`
 - Audio, Blips, Cameras and more...
 
-In other words, whatever the FiveM C# wrapper can do, this package can as well.
-
-_Note: Not all features are currently available. They will be added as development continues as well as additional language specific features._
+In other words, whatever the FiveM C# wrapper can do, this package can as well and more!
 
 ## Simple Usage
 
