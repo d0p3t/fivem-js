@@ -1,8 +1,9 @@
 {
   "mode": "file",
   "out": "docs",
+  "name": "fivem-js - Javascript/Typescript wrapper",
   "theme": "node_modules/typedoc-fivemjs-theme/bin/default",
-  "readme": "none",
+  "readme": "README.md",
   "ignoreCompilerErrors": "true",
   "experimentalDecorators": "true",
   "emitDecoratorMetadata": "true",
