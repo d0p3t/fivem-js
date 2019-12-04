@@ -1,3 +1,4 @@
+import { Alignment, Font } from '../enums';
 import { Color, Point } from '../utils';
 import { Screen } from './';
 import { IElement } from './interfaces';
@@ -15,36 +16,60 @@ export class Text extends IElement {
   public pos: Point;
   public scale: number;
   public color: Color;
-  public font: number;
-  public centered: boolean;
-  constructor(caption, pos, scale, color, font, centered) {
+  public font: Font;
+  public alignment: Alignment;
+
+  /**
+   *
+   * @param caption Text to display
+   * @param pos Position of text relative to alignment. In pixels.
+   * @param scale Size of text. Default 1.0
+   * @param color Color of text. Default black.
+   * @param font Font of text. Default Chalet London.
+   * @param alignment Alignment of text. Default Left.
+   */
+  constructor(
+    caption: string,
+    pos: Point,
+    scale: number = 1,
+    color: Color = Color.black,
+    font: Font = Font.ChaletLondon,
+    alignment: Alignment = Alignment.Left,
+  ) {
     super();
     this.caption = caption;
     this.pos = pos;
     this.scale = scale;
-    this.color = color || Color.black;
-    this.font = font || 0;
-    this.centered = centered || false;
+    this.color = color;
+    this.font = font;
+    this.alignment = alignment;
   }
 
-  public draw(caption, pos?, scale?, color?: Color, font?, centered?): void {
-    if (caption && !pos && !scale && !color && !font && !centered) {
-      pos = new Point(this.pos.X + caption.Width, this.pos.Y + caption.Height);
-      scale = this.scale;
-      color = this.color;
-      font = this.font;
-      centered = this.centered;
-    }
-    const x = pos.X / Screen.ScaledWidth;
-    const y = pos.Y / Screen.Height;
+  public draw(): void {
+    const x = this.pos.X / Screen.ScaledWidth;
+    const y = this.pos.Y / Screen.Height;
 
-    SetTextFont(Number(font));
-    SetTextScale(scale, scale);
-    SetTextColour(color.r, color.g, color.b, color.a);
-    SetTextCentre(centered);
-    SetTextEntry('STRING');
-    Text.addLongString(caption);
-    DrawText(x, y);
+    BeginTextCommandDisplayText('STRING');
+    SetTextFont(Number(this.font));
+    SetTextScale(this.scale, this.scale);
+    SetTextColour(this.color.r, this.color.g, this.color.b, this.color.a);
+
+    switch (this.alignment) {
+      case Alignment.Centered:
+        SetScriptGfxAlign(67, 84);
+        break;
+      case Alignment.Right:
+        SetTextJustification(2);
+        SetTextWrap(0, GetSafeZoneSize() - x);
+        break;
+      default:
+        SetScriptGfxAlign(76, 84);
+        break;
+    }
+
+    Text.addLongString(this.caption);
+    EndTextCommandDisplayText(x, y);
+    ResetScriptGfxAlign();
   }
 }
 

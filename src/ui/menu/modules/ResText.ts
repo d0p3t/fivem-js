@@ -9,7 +9,7 @@ export class ResText extends Text {
   public wordWrap: Size;
 
   constructor(caption, pos, scale, color?, font?, justify?) {
-    super(caption, pos, scale, color || new Color(255, 255, 255, 255), font || 0, false);
+    super(caption, pos, scale, color || new Color(255, 255, 255, 255), font || 0, Alignment.Left);
     if (justify) {
       this.textAlignment = justify;
     }
@@ -32,7 +32,7 @@ export class ResText extends Text {
       color = this.color;
       font = this.font;
       if (centered === true || centered === false) {
-        centered = this.centered;
+        centered = this.alignment === Alignment.Centered;
       } else {
         centered = undefined;
         dropShadow = this.dropShadow;
