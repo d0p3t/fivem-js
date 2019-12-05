@@ -1,5 +1,5 @@
 import { CameraShake } from './enums';
-import { Entity } from './models';
+import { Entity, PedBone } from './models';
 import { Vector3 } from './utils';
 
 export class Camera {
@@ -51,9 +51,12 @@ export class Camera {
 
   // public get Matrix() : Matrix {}
 
-  // public get Direction() : Vector3 {
-  //     return ForwardVector;
-  // }
+  /**
+   * Gets the direction the camera is facing. Same as ForwardVector
+   */
+  public get Direction(): Vector3 {
+    return this.ForwardVector;
+  }
 
   public set Direction(direction: Vector3) {
     const dir = direction.normalize;
@@ -156,12 +159,23 @@ export class Camera {
     SetCamShakeAmplitude(this.handle, amplitude);
   }
 
-  public pointAt(entity: Entity, offset: Vector3 = new Vector3(0, 0, 0)): void {
-    PointCamAtEntity(this.handle, entity.Handle, offset.x, offset.y, offset.z, true);
+  public pointAt(target: Entity | PedBone | Vector3, offset: Vector3 = new Vector3(0, 0, 0)): void {
+    if (target instanceof Entity) {
+      PointCamAtEntity(this.handle, target.Handle, offset.x, offset.y, offset.z, true);
+    } else if (target instanceof PedBone) {
+      PointCamAtPedBone(
+        this.handle,
+        target.Owner.Handle,
+        target.Index,
+        offset.x,
+        offset.y,
+        offset.z,
+        true,
+      );
+    } else {
+      PointCamAtCoord(this.handle, target.x, target.y, target.z);
+    }
   }
-
-  // PointAt PedBone
-  // PointAt Vector3
 
   public stopPointing(): void {
     StopCamPointing(this.handle);
@@ -186,10 +200,21 @@ export class Camera {
     return !!IsCamInterpolating(this.handle);
   }
 
-  public attachTo(entity: Entity, offset: Vector3): void {
-    AttachCamToEntity(this.handle, entity.Handle, offset.x, offset.y, offset.z, true);
+  public attachTo(object: Entity | PedBone, offset: Vector3) {
+    if (object instanceof Entity) {
+      AttachCamToEntity(this.handle, object.Handle, offset.x, offset.y, offset.z, true);
+    } else if (object instanceof PedBone) {
+      AttachCamToPedBone(
+        this.handle,
+        object.Owner.Handle,
+        object.Index,
+        offset.x,
+        offset.y,
+        offset.z,
+        true,
+      );
+    }
   }
-  // AttachTo PedBone
 
   public detach(): void {
     DetachCam(this.handle);

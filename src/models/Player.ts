@@ -1,4 +1,4 @@
-import { Ped } from './Ped';
+import { Ped } from './';
 
 export class Player {
   public get Handle(): number {

@@ -1,8 +1,21 @@
 import { Game } from '../Game';
 import { Vector3 } from '../utils';
-import { EntityBoneCollection } from './';
+import { EntityBoneCollection, Ped, Prop, Vehicle } from './';
 
 export class Entity {
+  public static fromHandle(handle: number): Ped | Vehicle | Prop {
+    switch (GetEntityType(handle)) {
+      case 1:
+        return new Ped(handle);
+      case 2:
+        return new Vehicle(handle);
+      case 3:
+        return new Prop(handle);
+    }
+
+    return null;
+  }
+
   protected handle: number;
   protected bones: EntityBoneCollection;
 

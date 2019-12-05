@@ -1,4 +1,4 @@
-import { Entity } from './Entity';
+import { Entity } from './';
 
 export class Vehicle extends Entity {
   public static exists(vehicle: Vehicle): boolean {
