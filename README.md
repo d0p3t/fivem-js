@@ -46,9 +46,12 @@ Functionality of this wrapper is **based on the FiveM C# wrapper** - [link](http
 
 In other words, whatever the FiveM C# wrapper can do, this package can as well and more!
 
-## Download
+## Download & Install
+
+`npm i fivem-js`
 
 https://www.npmjs.com/package/fivem-js
+
 
 ## Simple Usage
 
