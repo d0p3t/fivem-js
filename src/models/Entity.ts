@@ -21,6 +21,10 @@ export class Entity {
     return null;
   }
 
+  public static fromNetworkId(networkId: number): Ped | Vehicle | Prop {
+    return this.fromHandle(NetworkGetEntityFromNetworkId(networkId));
+  }
+
   protected handle: number;
   protected bones: EntityBoneCollection;
 
@@ -30,6 +34,10 @@ export class Entity {
 
   public get Handle(): number {
     return this.handle;
+  }
+
+  public get NetworkId(): number {
+    return NetworkGetNetworkIdFromEntity(this.handle);
   }
 
   public get Health(): number {
@@ -311,6 +319,10 @@ export class Entity {
     );
   }
 
+  public removeAllParticleEffects() {
+    RemoveParticleFxFromEntity(this.handle);
+  }
+
   public exists(): boolean {
     return DoesEntityExist(this.handle) ? true : false;
   }
@@ -320,5 +332,10 @@ export class Entity {
       SetEntityAsMissionEntity(this.handle, false, true);
       DeleteEntity(this.handle);
     }
+  }
+
+  public markAsNoLongerNeeded() {
+    SetEntityAsMissionEntity(this.Handle, false, true);
+    SetEntityAsNoLongerNeeded(this.Handle);
   }
 }
