@@ -10,6 +10,7 @@ export { CursorSprite } from './CursorSprite';
 export { DrivingStyle, VehicleDrivingFlags } from './Driving';
 export { ExplosionType } from './ExplosionType';
 export { Font } from './Font';
+export { ForceType } from './ForceType';
 export { Gender } from './Gender';
 export { HelmetType } from './HelmetType';
 export { HudColor } from './HudColor';

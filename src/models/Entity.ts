@@ -1,4 +1,5 @@
 import { Blip } from '../Blip';
+import { ForceType } from '../enums';
 import { Game } from '../Game';
 import { WeaponHash } from '../hashes';
 import { Model } from '../Model';
@@ -262,6 +263,52 @@ export class Entity {
 
   public getEntityAttachedTo(): Entity {
     return Entity.fromHandle(GetEntityAttachedTo(this.handle));
+  }
+
+  public applyForce(
+    direction: Vector3,
+    rotation: Vector3,
+    forceType: ForceType = ForceType.MaxForceRot2,
+  ) {
+    ApplyForceToEntity(
+      this.handle,
+      Number(forceType),
+      direction.x,
+      direction.y,
+      direction.z,
+      rotation.x,
+      rotation.y,
+      rotation.z,
+      0,
+      false,
+      true,
+      true,
+      false,
+      true,
+    );
+  }
+
+  public applyForceRelative(
+    direction: Vector3,
+    rotation: Vector3,
+    forceType: ForceType = ForceType.MaxForceRot2,
+  ) {
+    ApplyForceToEntity(
+      this.handle,
+      Number(forceType),
+      direction.x,
+      direction.y,
+      direction.z,
+      rotation.x,
+      rotation.y,
+      rotation.z,
+      0,
+      true,
+      true,
+      true,
+      false,
+      true,
+    );
   }
 
   public exists(): boolean {
