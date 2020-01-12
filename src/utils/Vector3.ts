@@ -57,7 +57,7 @@ export class Vector3 implements IVec3 {
     return Vector3.divide(v, v.Length);
   }
 
-  constructor(public x: number, public y: number, public z: number) {}
+  constructor(public x: number, public y: number, public z: number) { }
 
   public clone(): Vector3 {
     return new Vector3(this.x, this.y, this.z);
@@ -90,6 +90,10 @@ export class Vector3 implements IVec3 {
 
   public crossProduct(v: IVec3): Vector3 {
     return Vector3.crossProduct(this, v);
+  }
+
+  public dotProduct(v: IVec3): number {
+    return Vector3.dotProduct(this, v);
   }
 
   public add(v: number | IVec3): IVec3 {

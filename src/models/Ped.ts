@@ -179,7 +179,7 @@ export class Ped extends Entity {
     ApplyDamageToPed(this.handle, damageAmount, true);
   }
 
-  public hasBeenDamagedBy(weapon: WeaponHash): boolean {
+  public hasBeenDamagedByWeapon(weapon: WeaponHash): boolean {
     return !!HasPedBeenDamagedByWeapon(this.handle, Number(weapon), 0);
   }
 
