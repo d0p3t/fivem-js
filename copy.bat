@@ -1,1 +1,1 @@
-xcopy "C:\Users\Remco Troost\Documents\Projects\fivem-js\lib" "D:\fivemserver\server-data-tests\resources\ts-tests\node_modules\fivem-js\lib" /E /Y /D
+xcopy "%~dp0\lib" "D:\fivemserver\server-data-tests\resources\ts-tests\node_modules\fivem-js\lib" /E /Y /D
