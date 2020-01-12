@@ -57,7 +57,7 @@ export class Vector3 implements IVec3 {
     return Vector3.divide(v, v.Length);
   }
 
-  constructor(public x: number, public y: number, public z: number) { }
+  constructor(public x: number, public y: number, public z: number) {}
 
   public clone(): Vector3 {
     return new Vector3(this.x, this.y, this.z);

@@ -1,9 +1,9 @@
 import { Blip } from '../Blip';
 import { Game } from '../Game';
 import { WeaponHash } from '../hashes';
+import { Model } from '../Model';
 import { Vector3 } from '../utils';
 import { EntityBoneCollection, Ped, Prop, Vehicle } from './';
-import { Model } from '../Model';
 import { EntityBone } from './EntityBone';
 
 export class Entity {
