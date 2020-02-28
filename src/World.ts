@@ -584,7 +584,7 @@ export abstract class World {
     const handle: number = FindFirstPed(entityHandle);
     let ped: Ped = Entity.fromHandle(entityHandle) as Ped;
 
-    if ((ped !== null || ped !== undefined) && ped.exists()) {
+    if (ped !== undefined && ped !== null && ped.exists()) {
       peds.push(ped);
     }
 
@@ -592,7 +592,7 @@ export abstract class World {
 
     while (!!FindNextPed(handle, entityHandle)) {
       ped = Entity.fromHandle(entityHandle) as Ped;
-      if ((ped !== null || ped !== undefined) && ped.exists()) {
+      if (ped !== undefined && ped !== null && ped.exists()) {
         peds.push(ped);
       }
 
