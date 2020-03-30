@@ -577,6 +577,33 @@ export abstract class World {
     );
   }
 
+  public static getAllPeds(): Ped[] {
+    const peds: Ped[] = [];
+
+    let entityHandle: number = -1;
+    const handle: number = FindFirstPed(entityHandle);
+    let ped: Ped = Entity.fromHandle(entityHandle) as Ped;
+
+    if (ped !== undefined && ped !== null && ped.exists()) {
+      peds.push(ped);
+    }
+
+    entityHandle = -1;
+
+    while (!!FindNextPed(handle, entityHandle)) {
+      ped = Entity.fromHandle(entityHandle) as Ped;
+      if (ped !== undefined && ped !== null && ped.exists()) {
+        peds.push(ped);
+      }
+
+      entityHandle = -1;
+    }
+
+    EndFindPed(handle);
+
+    return peds;
+  }
+
   private static currentCloudHat: CloudHat = CloudHat.Clear;
 
   private static cloudHatDict: Map<CloudHat, string> = new Map<CloudHat, string>([

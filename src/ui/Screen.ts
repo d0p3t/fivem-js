@@ -1,4 +1,6 @@
-import { PointF, stringToArray, Vector3 } from '../utils';
+import { Audio } from '../Audio';
+import { HudColor, NotificationType } from '../enums';
+import { Color, PointF, stringToArray, Vector3 } from '../utils';
 import { Notification } from './';
 
 export abstract class Screen {
@@ -52,6 +54,43 @@ export abstract class Screen {
     });
 
     return new Notification(DrawNotification(blinking, true));
+  }
+
+  public static showAdvancedNotification(
+    message: string,
+    title: string,
+    subtitle: string,
+    iconSet: string,
+    icon: string,
+    bgColor: HudColor = HudColor.NONE,
+    flashColor: Color = Color.empty,
+    blinking: boolean = false,
+    type: NotificationType = NotificationType.Default,
+    showInBrief: boolean = true,
+    sound: boolean = true,
+  ) {
+    const strings: string[] = stringToArray(message);
+
+    SetNotificationTextEntry('CELL_EMAIL_BCON');
+
+    strings.forEach((element) => {
+      AddTextComponentSubstringPlayerName(element);
+    });
+
+    if (bgColor !== HudColor.NONE) {
+      SetNotificationBackgroundColor(Number(bgColor));
+    }
+
+    if (flashColor !== Color.empty && blinking) {
+      SetNotificationFlashColor(flashColor.r, flashColor.g, flashColor.b, flashColor.a);
+    }
+
+    SetNotificationMessage(iconSet, icon, true, Number(type), title, subtitle);
+    DrawNotification(blinking, showInBrief);
+
+    if (sound) {
+      Audio.playSoundFrontEnd('DELETE', 'HUD_DEATHMATCH_SOUNDSET');
+    }
   }
 
   public static worldToScreen(position: Vector3, scaleWidth: boolean = false) {

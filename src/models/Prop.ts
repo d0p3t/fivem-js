@@ -1,4 +1,4 @@
-import { Entity } from './Entity';
+import { Entity } from './';
 
 export class Prop extends Entity {
   public static exists(prop: Prop): boolean {

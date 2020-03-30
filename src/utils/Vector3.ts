@@ -92,6 +92,10 @@ export class Vector3 implements IVec3 {
     return Vector3.crossProduct(this, v);
   }
 
+  public dotProduct(v: IVec3): number {
+    return Vector3.dotProduct(this, v);
+  }
+
   public add(v: number | IVec3): IVec3 {
     return Vector3.add(this, v);
   }

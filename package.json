@@ -38,15 +38,15 @@
     "lib/**/*"
   ],
   "devDependencies": {
-    "prettier": "^1.17.0",
-    "tslint": "^5.16.0",
+    "prettier": "^1.19.1",
+    "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
-    "typedoc": "^0.15.0",
+    "typedoc": "^0.15.8",
     "typedoc-fivemjs-theme": "^0.2.7",
-    "typescript": "^3.4.5"
+    "typescript": "^3.7.4"
   },
   "dependencies": {
-    "@citizenfx/client": "^1.0.1626-1"
+    "@citizenfx/client": "^1.0.1986-1"
   }
 }

@@ -1,12 +1,14 @@
 import { Vector3 } from '../';
 import { DrivingStyle, HelmetType, RagdollType, SpeechModifier, VehicleSeat } from '../enums';
 import { WeaponHash } from '../hashes';
-import { Entity, Vehicle } from './';
+import { Entity, PedBoneCollection, Vehicle } from './';
 
 export class Ped extends Entity {
   public static exists(ped: Ped): boolean {
     return typeof ped !== 'undefined' && ped.exists();
   }
+
+  private pedBones: PedBoneCollection;
 
   private readonly speechModifierNames: string[] = [
     'SPEECH_PARAMS_STANDARD',
@@ -91,6 +93,30 @@ export class Ped extends Entity {
     SetPedIntoVehicle(this.handle, vehicle.Handle, Number(seat));
   }
 
+  public isHeadtrackkking(entity: Entity): boolean {
+    return !!IsPedHeadtrackingEntity(this.handle, entity.Handle);
+  }
+
+  public isInCombatAgainst(target: Ped): boolean {
+    return !!IsPedInCombat(this.handle, target.Handle);
+  }
+
+  public getJacker(): Ped {
+    return new Ped(GetPedsJacker(this.handle));
+  }
+
+  public getJackTarget(): Ped {
+    return new Ped(GetJackTarget(this.handle));
+  }
+
+  public getMeleeTarget(): Ped {
+    return new Ped(GetMeleeTargetForPed(this.handle));
+  }
+
+  public getKiller(): Entity {
+    return Entity.fromHandle(GetPedSourceOfDeath(this.handle));
+  }
+
   public kill(): void {
     super.Health = -1;
   }
@@ -153,7 +179,7 @@ export class Ped extends Entity {
     ApplyDamageToPed(this.handle, damageAmount, true);
   }
 
-  public hasBeenDamagedBy(weapon: WeaponHash): boolean {
+  public hasBeenDamagedByWeapon(weapon: WeaponHash): boolean {
     return !!HasPedBeenDamagedByWeapon(this.handle, Number(weapon), 0);
   }
 
@@ -167,6 +193,14 @@ export class Ped extends Entity {
 
   public clearLastWeaponDamage(): void {
     ClearPedLastWeaponDamage(this.handle);
+  }
+
+  public get Bones(): PedBoneCollection {
+    if (this.pedBones === null) {
+      this.pedBones = new PedBoneCollection(this);
+    }
+
+    return this.pedBones;
   }
 
   public giveWeapon(
@@ -185,8 +219,6 @@ export class Ped extends Entity {
   public removeAllWeapons(): void {
     RemoveAllPedWeapons(this.handle, true);
   }
-
-  // TODO: Add Bones / PedBoneCollection
 
   public getLastWeaponImpactPosition(): Vector3 {
     const position = GetPedLastWeaponImpactCoord(this.handle);
@@ -243,7 +275,11 @@ export class Ped extends Entity {
     return new Ped(ClonePed(this.handle, heading, false, false));
   }
 
-  public exists(): boolean {
-    return super.exists() && GetEntityType(this.handle) === 1;
+  public exists(ped: Ped = null) {
+    if (ped === null) {
+      return super.exists() && GetEntityType(this.handle) === 1;
+    }
+
+    return ped.exists();
   }
 }
