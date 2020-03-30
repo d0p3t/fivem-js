@@ -25,7 +25,7 @@ export abstract class Screen {
 
     BeginTextCommandPrint('CELL_EMAIL_BCON');
 
-    strings.forEach((element) => {
+    strings.forEach(element => {
       AddTextComponentSubstringPlayerName(element);
     });
 
@@ -37,7 +37,7 @@ export abstract class Screen {
 
     BeginTextCommandDisplayHelp('CELL_EMAIL_BCON');
 
-    strings.forEach((element) => {
+    strings.forEach(element => {
       AddTextComponentSubstringPlayerName(element);
     });
 
@@ -49,7 +49,7 @@ export abstract class Screen {
 
     SetNotificationTextEntry('CELL_EMAIL_BCON');
 
-    strings.forEach((element) => {
+    strings.forEach(element => {
       AddTextComponentSubstringPlayerName(element);
     });
 
@@ -73,7 +73,7 @@ export abstract class Screen {
 
     SetNotificationTextEntry('CELL_EMAIL_BCON');
 
-    strings.forEach((element) => {
+    strings.forEach(element => {
       AddTextComponentSubstringPlayerName(element);
     });
 

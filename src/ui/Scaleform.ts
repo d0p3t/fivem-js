@@ -35,7 +35,7 @@ export class Scaleform {
 
   public callFunction(name: string, args: any[]): void {
     BeginScaleformMovieMethod(this.handle, name);
-    args.forEach((arg) => {
+    args.forEach(arg => {
       switch (typeof arg) {
         case 'number':
           PushScaleformMovieFunctionParameterInt(arg);
@@ -74,7 +74,7 @@ export class Scaleform {
   }
 
   public render2D(): Promise<void> {
-    return new Promise(async (resolve) => {
+    return new Promise(async resolve => {
       if (this.IsLoaded) {
         DrawScaleformMovieFullscreen(this.handle, 255, 255, 255, 255, 0);
       } else {
@@ -85,7 +85,7 @@ export class Scaleform {
   }
 
   public render2DScreenSpace(location: PointF, size: PointF): Promise<void> {
-    return new Promise(async (resolve) => {
+    return new Promise(async resolve => {
       if (this.IsLoaded) {
         const x = location.x; /* UI.Screen.Width*/
         const y = location.y; /* UI.Screen.Height*/
@@ -112,7 +112,7 @@ export class Scaleform {
   }
 
   public render3D(position: Vector3, rotation: Vector3, scale: Vector3): Promise<void> {
-    return new Promise(async (resolve) => {
+    return new Promise(async resolve => {
       if (this.IsLoaded) {
         DrawScaleformMovie_3dNonAdditive(
           this.handle,
@@ -138,7 +138,7 @@ export class Scaleform {
   }
 
   public render3DAdditive(position: Vector3, rotation: Vector3, scale: Vector3): Promise<void> {
-    return new Promise(async (resolve) => {
+    return new Promise(async resolve => {
       if (this.IsLoaded) {
         DrawScaleformMovie_3d(
           this.handle,
@@ -164,7 +164,7 @@ export class Scaleform {
   }
 
   private load(): Promise<boolean> {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       if (!this.IsLoaded) {
         const start = GetGameTimer();
         const interval = setInterval(() => {

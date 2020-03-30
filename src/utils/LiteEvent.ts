@@ -4,20 +4,18 @@ export interface ILiteEvent {
 }
 
 export class LiteEvent implements ILiteEvent {
-  // tslint:disable-next-line: prefer-array-literal
-  private handlers: Array<{ (...args: any[]) }> = [];
+  private handlers: { (...args: any[]) }[] = [];
 
   public on(handler: { (...args: any[]) }): void {
     this.handlers.push(handler);
   }
 
   public off(handler: { (...args: any[]) }): void {
-    // tslint:disable-next-line: ter-arrow-parens
-    this.handlers = this.handlers.filter((h) => h !== handler);
+    this.handlers = this.handlers.filter(h => h !== handler);
   }
 
   public emit(...args: any[]) {
-    this.handlers.slice(0).forEach((h) => {
+    this.handlers.slice(0).forEach(h => {
       h(...args);
     });
   }

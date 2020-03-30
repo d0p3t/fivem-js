@@ -23,8 +23,7 @@ export class Menu {
   public AUDIO_BACK: string = 'BACK';
   public AUDIO_ERROR: string = 'ERROR';
 
-  // tslint:disable-next-line: prefer-array-literal
-  public menuItems: Array<UIMenuItem | UIMenuListItem | UIMenuSliderItem | UIMenuCheckboxItem> = [];
+  public menuItems: (UIMenuItem | UIMenuListItem | UIMenuSliderItem | UIMenuCheckboxItem)[] = [];
 
   public get CurrentSelection() {
     return this.activeItem % this.menuItems.length;

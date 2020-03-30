@@ -44,7 +44,7 @@ export abstract class Fading {
    * @param duration Time to fade in
    */
   public static fadeIn(duration: number): Promise<void> {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       DoScreenFadeIn(duration);
 
       const interval = setInterval(() => {
@@ -63,7 +63,7 @@ export abstract class Fading {
    * @param duration Time to fade out
    */
   public static fadeOut(duration: number): Promise<void> {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       DoScreenFadeOut(duration);
 
       const interval = setInterval(() => {

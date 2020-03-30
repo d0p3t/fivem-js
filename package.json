@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "builddev": "npm run build && copy.bat",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
@@ -38,15 +38,15 @@
     "lib/**/*"
   ],
   "devDependencies": {
-    "prettier": "^1.19.1",
-    "tslint": "^5.20.1",
+    "prettier": "^2.0.2",
+    "tslint": "^6.1.0",
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
-    "typedoc": "^0.15.8",
+    "typedoc": "^0.17.3",
     "typedoc-fivemjs-theme": "^0.2.7",
-    "typescript": "^3.7.4"
+    "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@citizenfx/client": "^1.0.1986-1"
+    "@citizenfx/client": "^1.0.2312-1"
   }
 }

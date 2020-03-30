@@ -4,6 +4,7 @@
     "no-bitwise": false,
     "no-console": false,
     "no-empty": [true, "allow-empty-functions"],
-    "no-parameter-reassignment": false
+    "no-parameter-reassignment": false,
+    "ter-arrow-parens": [true, "as-needed"]
   }
 }

@@ -64,7 +64,7 @@ export class Model {
    * @param timeout Maximum allowed time for model to load.
    */
   public request(timeout: number): Promise<boolean> {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       if (!IsModelInCdimage(this.hash) && !IsModelValid(this.hash) && !IsWeaponValid(this.hash)) {
         resolve(false);
       }

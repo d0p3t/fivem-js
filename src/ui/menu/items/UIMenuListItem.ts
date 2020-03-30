@@ -32,7 +32,7 @@ export class UIMenuListItem extends UIMenuItem {
 
   set SelectedItem(v: ListItem) {
     // tslint:disable-next-line: ter-arrow-parens
-    const idx = this.Collection.findIndex((li) => li.id === v.id);
+    const idx = this.Collection.findIndex(li => li.id === v.id);
     if (idx > 0) {
       this.Index = idx;
     } else {

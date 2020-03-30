@@ -221,7 +221,7 @@ setTick(() => {
     loadingPromptOffset = 0.035 + 0.035 * 0.038 * 2;
   }
 
-  activeTimerBars.forEach((timerbar) => {
+  activeTimerBars.forEach(timerbar => {
     const drawY =
       0.984 - loadingPromptOffset - safeZoneY - activeTimerBars.indexOf(timerbar) * 0.038;
     DrawSprite(

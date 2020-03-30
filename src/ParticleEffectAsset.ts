@@ -118,7 +118,7 @@ export class ParticleEffectAsset {
    * @param timeout Max time to load Particle Effect
    */
   public request(timeout: number): Promise<boolean> {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       if (!this.IsLoaded) {
         RequestNamedPtfxAsset(this.assetName);
         const start = GetGameTimer();
