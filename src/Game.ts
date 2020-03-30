@@ -1,5 +1,5 @@
 import { Audio } from './Audio';
-import { Control, InputMode, Language } from './enums';
+import { Control, InputMode, Language, RadioStation } from './enums';
 import { Ped, Player, Prop, Vehicle } from './models';
 
 export abstract class Game {
@@ -222,6 +222,27 @@ export abstract class Game {
    */
   public static get CurrentInputMode(): InputMode {
     return IsInputDisabled(2) ? InputMode.MouseAndKeyboard : InputMode.GamePad;
+  }
+
+  /**
+   * Gets the player's current radio station.
+   *
+   * @returns A radio station.
+   */
+  public static get RadioStation(): RadioStation {
+    const stationName: string = GetPlayerRadioStationName();
+    const keys = Object.keys(RadioStation).filter(x => RadioStation[x] === stationName);
+    return keys.length > 0 ? RadioStation[keys[0]] : RadioStation.RadioOff;
+  }
+
+  /**
+   * Sets the player's radio station.
+   *
+   * @param station A radio station.
+   */
+  public static set RadioStation(station: RadioStation) {
+    const stationName: string = RadioStation[station];
+    SetRadioToStationName(station);
   }
 
   /**
