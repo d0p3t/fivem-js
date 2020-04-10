@@ -1,5 +1,22 @@
 import { PointF, Vector3 } from '../utils';
 
+/**
+ * Scaleforms will automatically load when calling any of the render functions.
+ * 
+ * Example:
+ * 
+ * ```typescript
+ * import { Scaleform } from 'fivem-js/ui';
+ * 
+ * const scaleform = new Cfx.Scaleform("MIDSIZED_MESSAGE");
+ * 
+ * scaleform.callFunction("SHOW_MIDSIZED_MESSAGE", ["Title", "Message"]);
+ * 
+ * setTick(() => {
+ *  await scaleform.render2D();
+ * });
+ * ```
+ */
 export class Scaleform {
   protected handle: number;
   protected name: string;
@@ -9,15 +26,24 @@ export class Scaleform {
     this.name = name;
     this.handle = RequestScaleformMovie(this.name);
   }
-
+  
+  /**
+   * Get the handle of the scaleform.
+   */
   public get Handle(): number {
     return this.handle;
   }
 
+  /**
+   * Get whether the handle is a valid handle.
+   */
   public get IsValid(): boolean {
     return this.handle !== 0;
   }
 
+  /**
+   * Get whether the scaleform is loaded.
+   */
   public get IsLoaded(): boolean {
     if (!this.loaded) {
       this.loaded = !!HasScaleformMovieLoaded(this.handle);
@@ -26,6 +52,9 @@ export class Scaleform {
     return this.loaded;
   }
 
+  /**
+   * Dispose the scaleform allowing the GTA engine to free memory when wanted.
+   */
   public dispose(): void {
     if (this.IsLoaded) {
       SetScaleformMovieAsNoLongerNeeded(this.handle);
@@ -33,6 +62,12 @@ export class Scaleform {
     }
   }
 
+  /**
+   * Call a function on the scaleform.
+   * 
+   * @param name Name of the function
+   * @param args Additional arguments
+   */
   public callFunction(name: string, args: any[]): void {
     BeginScaleformMovieMethod(this.handle, name);
     args.forEach(arg => {
@@ -57,6 +92,13 @@ export class Scaleform {
     EndScaleformMovieMethod();
   }
 
+  /**
+   * Sets a duration the scaleform should be shown. Useful for showing a scaleform for a known amount of time, such as messages.
+   * 
+   * This only works for any scaleform using {@linkcode render2D};
+   * 
+   * @param duration Duration in milliseconds
+   */
   public setDuration(duration: number): void {
     if (duration <= 0) {
       return;
