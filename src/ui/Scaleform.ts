@@ -2,16 +2,16 @@ import { PointF, Vector3 } from '../utils';
 
 /**
  * Scaleforms will automatically load when calling any of the render functions.
- * 
+ *
  * Example:
- * 
+ *
  * ```typescript
  * import { Scaleform } from 'fivem-js/ui';
- * 
+ *
  * const scaleform = new Cfx.Scaleform("MIDSIZED_MESSAGE");
- * 
+ *
  * scaleform.callFunction("SHOW_MIDSIZED_MESSAGE", ["Title", "Message"]);
- * 
+ *
  * setTick(() => {
  *  await scaleform.render2D();
  * });
@@ -26,7 +26,7 @@ export class Scaleform {
     this.name = name;
     this.handle = RequestScaleformMovie(this.name);
   }
-  
+
   /**
    * Get the handle of the scaleform.
    */
@@ -64,7 +64,7 @@ export class Scaleform {
 
   /**
    * Call a function on the scaleform.
-   * 
+   *
    * @param name Name of the function
    * @param args Additional arguments
    */
@@ -93,10 +93,11 @@ export class Scaleform {
   }
 
   /**
-   * Sets a duration the scaleform should be shown. Useful for showing a scaleform for a known amount of time, such as messages.
-   * 
+   * Sets a duration the scaleform should be shown.
+   * Useful for showing a scaleform for a known amount of time, such as messages.
+   *
    * This only works for any scaleform using {@linkcode render2D};
-   * 
+   *
    * @param duration Duration in milliseconds
    */
   public setDuration(duration: number): void {
