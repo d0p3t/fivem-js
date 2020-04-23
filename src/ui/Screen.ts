@@ -68,7 +68,7 @@ export abstract class Screen {
     type: NotificationType = NotificationType.Default,
     showInBrief: boolean = true,
     sound: boolean = true,
-  ) {
+  ): Notification {
     const strings: string[] = stringToArray(message);
 
     SetNotificationTextEntry('CELL_EMAIL_BCON');
@@ -85,12 +85,12 @@ export abstract class Screen {
       SetNotificationFlashColor(flashColor.r, flashColor.g, flashColor.b, flashColor.a);
     }
 
-    SetNotificationMessage(iconSet, icon, true, Number(type), title, subtitle);
-    DrawNotification(blinking, showInBrief);
-
     if (sound) {
       Audio.playSoundFrontEnd('DELETE', 'HUD_DEATHMATCH_SOUNDSET');
     }
+
+    SetNotificationMessage(iconSet, icon, true, Number(type), title, subtitle);
+    return new Notification(DrawNotification(blinking, showInBrief));
   }
 
   public static worldToScreen(position: Vector3, scaleWidth: boolean = false) {
