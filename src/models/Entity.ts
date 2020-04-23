@@ -86,7 +86,7 @@ export class Entity {
   }
 
   public get IsCollisionEnabled(): boolean {
-    return !!!GetEntityCollisonDisabled(this.handle);
+    return !GetEntityCollisonDisabled(this.handle);
   }
 
   public set IsCollisionEnabled(value: boolean) {
@@ -118,7 +118,7 @@ export class Entity {
     return new Blip(AddBlipForEntity(this.handle));
   }
 
-  public setNoCollision(entity: Entity, toggle: boolean) {
+  public setNoCollision(entity: Entity, toggle: boolean): void {
     SetEntityNoCollisionEntity(this.handle, entity.Handle, toggle);
   }
 
@@ -138,7 +138,7 @@ export class Entity {
     return !!HasEntityBeenDamagedByWeapon(this.handle, 0, 1);
   }
 
-  public clearLastWeaponDamage() {
+  public clearLastWeaponDamage(): void {
     ClearEntityLastWeaponDamage(this.handle);
   }
 
@@ -217,7 +217,7 @@ export class Entity {
     return new Vector3(o[0], o[1], o[2]);
   }
 
-  public attachTo(entity: Entity, position: Vector3, rotation: Vector3) {
+  public attachTo(entity: Entity, position: Vector3, rotation: Vector3): void {
     AttachEntityToEntity(
       this.handle,
       entity.Handle,
@@ -237,7 +237,7 @@ export class Entity {
     );
   }
 
-  public attachToBone(entityBone: EntityBone, position: Vector3, rotation: Vector3) {
+  public attachToBone(entityBone: EntityBone, position: Vector3, rotation: Vector3): void {
     AttachEntityToEntity(
       this.handle,
       entityBone.Owner.Handle,
@@ -257,7 +257,7 @@ export class Entity {
     );
   }
 
-  public detach() {
+  public detach(): void {
     DetachEntity(this.handle, true, true);
   }
 
@@ -277,7 +277,7 @@ export class Entity {
     direction: Vector3,
     rotation: Vector3,
     forceType: ForceType = ForceType.MaxForceRot2,
-  ) {
+  ): void {
     ApplyForceToEntity(
       this.handle,
       Number(forceType),
@@ -300,7 +300,7 @@ export class Entity {
     direction: Vector3,
     rotation: Vector3,
     forceType: ForceType = ForceType.MaxForceRot2,
-  ) {
+  ): void {
     ApplyForceToEntity(
       this.handle,
       Number(forceType),
@@ -319,7 +319,7 @@ export class Entity {
     );
   }
 
-  public removeAllParticleEffects() {
+  public removeAllParticleEffects(): void {
     RemoveParticleFxFromEntity(this.handle);
   }
 
@@ -334,7 +334,7 @@ export class Entity {
     }
   }
 
-  public markAsNoLongerNeeded() {
+  public markAsNoLongerNeeded(): void {
     SetEntityAsMissionEntity(this.Handle, false, true);
     SetEntityAsNoLongerNeeded(this.Handle);
   }

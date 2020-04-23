@@ -68,7 +68,7 @@ export class Scaleform {
    * @param name Name of the function
    * @param args Additional arguments
    */
-  public callFunction(name: string, args: any[]): void {
+  public callFunction(name: string, ...args: unknown[]): void {
     BeginScaleformMovieMethod(this.handle, name);
     args.forEach(arg => {
       switch (typeof arg) {
@@ -112,7 +112,6 @@ export class Scaleform {
       } else {
         clearInterval(interval);
       }
-      // tslint:disable-next-line: align
     }, 0);
   }
 
@@ -219,7 +218,6 @@ export class Scaleform {
             console.log(`^1[fivem-js] Could not load scaleform ${this.name}!^7`);
             resolve(false);
           }
-          // tslint:disable-next-line: align
         }, 0);
       }
     });

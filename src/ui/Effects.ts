@@ -1,11 +1,7 @@
 import { ScreenEffect } from '../enums';
 
 export abstract class Effects {
-  public static start(
-    effectName: ScreenEffect,
-    duration: number = 0,
-    looped: boolean = false,
-  ): void {
+  public static start(effectName: ScreenEffect, duration = 0, looped = false): void {
     StartScreenEffect(this.effectToString(effectName), duration, looped);
   }
 

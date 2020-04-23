@@ -1,4 +1,4 @@
-import { IInvertAxis, InvertAxisFlags } from './enums';
+import { InvertAxis, InvertAxisFlags } from './enums';
 import { Entity } from './models/';
 import { Vector3 } from './utils';
 
@@ -47,8 +47,8 @@ export class ParticleEffectAsset {
     effectName: string,
     pos: Vector3,
     rot: Vector3 = new Vector3(0, 0, 0),
-    scale: number = 1.0,
-    invertAxis: IInvertAxis = { flags: InvertAxisFlags.None },
+    scale = 1.0,
+    invertAxis: InvertAxis = { flags: InvertAxisFlags.None },
   ): boolean {
     if (!this.setNextCall()) {
       return false;
@@ -88,8 +88,8 @@ export class ParticleEffectAsset {
     entity: Entity,
     off: Vector3 = new Vector3(0, 0, 0),
     rot: Vector3 = new Vector3(0, 0, 0),
-    scale: number = 1.0,
-    invertAxis: IInvertAxis = { flags: InvertAxisFlags.None },
+    scale = 1.0,
+    invertAxis: InvertAxis = { flags: InvertAxisFlags.None },
   ): boolean {
     if (!this.setNextCall()) {
       return false;
@@ -127,7 +127,6 @@ export class ParticleEffectAsset {
             clearInterval(interval);
             resolve(this.IsLoaded);
           }
-          // tslint:disable-next-line: align
         }, 0);
       } else {
         resolve(this.IsLoaded);

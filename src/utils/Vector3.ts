@@ -1,52 +1,52 @@
 // Source: https://raw.githubusercontent.com/you21979/typescript-vector/master/vector3.ts
-export interface IVec3 {
+export interface Vec3 {
   x: number;
   y: number;
   z: number;
 }
 
-export class Vector3 implements IVec3 {
-  public static create(v1: number | IVec3): Vector3 {
+export class Vector3 implements Vec3 {
+  public static create(v1: number | Vec3): Vector3 {
     if (typeof v1 === 'number') {
       return new Vector3(v1, v1, v1);
     }
     return new Vector3(v1.x, v1.y, v1.z);
   }
 
-  public static clone(v1: IVec3): Vector3 {
+  public static clone(v1: Vec3): Vector3 {
     return Vector3.create(v1);
   }
 
-  public static add(v1: IVec3, v2: number | IVec3): Vector3 {
+  public static add(v1: Vec3, v2: number | Vec3): Vector3 {
     if (typeof v2 === 'number') {
       return new Vector3(v1.x + v2, v1.y + v2, v1.z + v2);
     }
     return new Vector3(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
   }
 
-  public static subtract(v1: IVec3, v2: IVec3): Vector3 {
+  public static subtract(v1: Vec3, v2: Vec3): Vector3 {
     return new Vector3(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
   }
 
-  public static multiply(v1: IVec3, v2: IVec3 | number): Vector3 {
+  public static multiply(v1: Vec3, v2: Vec3 | number): Vector3 {
     if (typeof v2 === 'number') {
       return new Vector3(v1.x * v2, v1.y * v2, v1.z * v2);
     }
     return new Vector3(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
   }
 
-  public static divide(v1: IVec3, v2: IVec3 | number): Vector3 {
+  public static divide(v1: Vec3, v2: Vec3 | number): Vector3 {
     if (typeof v2 === 'number') {
       return new Vector3(v1.x / v2, v1.y / v2, v1.z / v2);
     }
     return new Vector3(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z);
   }
 
-  public static dotProduct(v1: IVec3, v2: IVec3): number {
+  public static dotProduct(v1: Vec3, v2: Vec3): number {
     return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
   }
 
-  public static crossProduct(v1: IVec3, v2: IVec3): Vector3 {
+  public static crossProduct(v1: Vec3, v2: Vec3): Vector3 {
     const x = v1.y * v2.z - v1.z * v2.y;
     const y = v1.z * v2.x - v1.z * v2.z;
     const z = v1.x * v2.y - v1.z * v2.x;
@@ -69,7 +69,7 @@ export class Vector3 implements IVec3 {
    * @param v Vector3 to find Euclidean magnitude between.
    * @returns Euclidean magnitude with another vector.
    */
-  public distanceSquared(v: IVec3): number {
+  public distanceSquared(v: Vec3): number {
     const w: Vector3 = this.subtract(v);
     return Vector3.dotProduct(w, w);
   }
@@ -80,7 +80,7 @@ export class Vector3 implements IVec3 {
    * @param v Vector3 to find distance between.
    * @returns Distance between this and another vector.
    */
-  public distance(v: IVec3): number {
+  public distance(v: Vec3): number {
     return Math.sqrt(this.distanceSquared(v));
   }
 
@@ -88,31 +88,31 @@ export class Vector3 implements IVec3 {
     return Vector3.normalize(this);
   }
 
-  public crossProduct(v: IVec3): Vector3 {
+  public crossProduct(v: Vec3): Vector3 {
     return Vector3.crossProduct(this, v);
   }
 
-  public dotProduct(v: IVec3): number {
+  public dotProduct(v: Vec3): number {
     return Vector3.dotProduct(this, v);
   }
 
-  public add(v: number | IVec3): IVec3 {
+  public add(v: number | Vec3): Vec3 {
     return Vector3.add(this, v);
   }
 
-  public subtract(v: IVec3): Vector3 {
+  public subtract(v: Vec3): Vector3 {
     return Vector3.subtract(this, v);
   }
 
-  public multiply(v: number | IVec3): Vector3 {
+  public multiply(v: number | Vec3): Vector3 {
     return Vector3.multiply(this, v);
   }
 
-  public divide(v: number | IVec3): IVec3 {
+  public divide(v: number | Vec3): Vec3 {
     return Vector3.divide(this, v);
   }
 
-  public replace(v: IVec3): void {
+  public replace(v: Vec3): void {
     this.x = v.x;
     this.y = v.y;
     this.z = v.z;

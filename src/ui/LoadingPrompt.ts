@@ -25,7 +25,7 @@ export abstract class LoadingPrompt {
   public static show(
     loadingText: string = null,
     spinnerType: LoadingSpinnerType = LoadingSpinnerType.RegularClockwise,
-  ) {
+  ): void {
     if (this.IsActive) {
       this.hide();
     }

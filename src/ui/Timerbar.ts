@@ -7,7 +7,7 @@ import { Sprite } from './Sprite';
 
 const activeTimerBars: Timerbar[] = [];
 
-const drawText = (text, position, options) => {
+const drawText = (text, position, options): void => {
   options = {
     ...{
       align: 1,
@@ -25,7 +25,6 @@ const drawText = (text, position, options) => {
   const outline = options.outline;
   const shadow = options.shadow;
   const color = options.color;
-  const wordWrap = options.wordWrap;
   const align = options.align;
 
   SetTextEntry('CELL_EMAIL_BCON');
@@ -64,17 +63,17 @@ const drawText = (text, position, options) => {
 
 export class Timerbar {
   private sprite: Sprite = null;
-  private title: string = '';
-  private text: string = '';
-  private useProgressBar: boolean = false;
-  private usePlayerStyle: boolean = false;
-  private isVisible: boolean = false;
-  private pbarValue: number = 0.0;
-  private textColor: any = [240, 240, 240, 255];
-  private pbarBgColor: any = [155, 155, 155, 255];
-  private pbarFgColor: any = [255, 255, 255, 255];
+  private title = '';
+  private text = '';
+  private useProgressBar = false;
+  private usePlayerStyle = false;
+  private isVisible = false;
+  private pbarValue = 0.0;
+  private textColor = [240, 240, 240, 255];
+  private pbarBgColor = [155, 155, 155, 255];
+  private pbarFgColor = [255, 255, 255, 255];
 
-  constructor(title: string, useProgressBar: boolean = false) {
+  constructor(title: string, useProgressBar = false) {
     this.title = title;
     this.useProgressBar = useProgressBar;
     this.text = '';
@@ -123,7 +122,7 @@ export class Timerbar {
     return this.useProgressBar;
   }
 
-  public get Progress() {
+  public get Progress(): number {
     return this.pbarValue;
   }
 
@@ -131,7 +130,7 @@ export class Timerbar {
     this.pbarValue = value <= 0.0 ? 0.0 : value >= 1.0 ? 1.0 : value;
   }
 
-  public get Visible() {
+  public get Visible(): boolean {
     return this.isVisible;
   }
 
@@ -152,11 +151,11 @@ export class Timerbar {
     this.isVisible = value;
   }
 
-  public get TextColor() {
+  public get TextColor(): number | number[] {
     return this.textColor;
   }
 
-  public set TextColor(value) {
+  public set TextColor(value: number | number[]) {
     if (Array.isArray(value)) {
       this.textColor = value;
     } else {
@@ -165,7 +164,7 @@ export class Timerbar {
     }
   }
 
-  public get ProgressbarBgColor() {
+  public get ProgressbarBgColor(): number[] {
     return this.pbarBgColor;
   }
 
@@ -178,7 +177,7 @@ export class Timerbar {
     }
   }
 
-  public get ProgressbarFgColor() {
+  public get ProgressbarFgColor(): number[] {
     return this.pbarFgColor;
   }
 
