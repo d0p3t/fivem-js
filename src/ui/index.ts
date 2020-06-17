@@ -1,5 +1,4 @@
 export * from './interfaces';
-export * from './menu';
 export { Rectangle } from './Rectangle';
 export { Container } from './Container';
 export { Effects } from './Effects';
@@ -12,3 +11,4 @@ export { Screen } from './Screen';
 export { Sprite } from './Sprite';
 export { Text } from './Text';
 export { Timerbar } from './Timerbar';
+export * from './menu';
