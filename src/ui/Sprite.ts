@@ -33,7 +33,6 @@ export class Sprite {
       if (this.IsTextureDictionaryLoaded) {
         clearInterval(interval);
       }
-      // tslint:disable-next-line: align
     }, 0);
   }
 

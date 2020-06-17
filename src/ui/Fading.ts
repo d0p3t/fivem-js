@@ -52,7 +52,6 @@ export abstract class Fading {
           clearInterval(interval);
           resolve();
         }
-        // tslint:disable-next-line: align
       }, 0);
     });
   }
@@ -71,7 +70,6 @@ export abstract class Fading {
           clearInterval(interval);
           resolve();
         }
-        // tslint:disable-next-line: align
       }, 0);
     });
   }

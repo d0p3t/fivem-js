@@ -2,7 +2,7 @@ import { Size } from '../utils';
 import { Rectangle, Screen } from './';
 
 export class Container extends Rectangle {
-  public items: any[];
+  public items: Container[];
 
   constructor(pos, size, color) {
     super(pos, size, color);

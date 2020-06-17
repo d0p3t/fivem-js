@@ -200,7 +200,7 @@ export class Camera {
     return !!IsCamInterpolating(this.handle);
   }
 
-  public attachTo(object: Entity | PedBone, offset: Vector3) {
+  public attachTo(object: Entity | PedBone, offset: Vector3): void {
     if (object instanceof Entity) {
       AttachCamToEntity(this.handle, object.Handle, offset.x, offset.y, offset.z, true);
     } else if (object instanceof PedBone) {

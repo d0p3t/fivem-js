@@ -20,7 +20,7 @@ export abstract class Screen {
     return this.Height * this.AspectRatio;
   }
 
-  public static showSubtitle(message: string, duration: number = 2500) {
+  public static showSubtitle(message: string, duration = 2500): void {
     const strings: string[] = stringToArray(message);
 
     BeginTextCommandPrint('CELL_EMAIL_BCON');
@@ -32,7 +32,7 @@ export abstract class Screen {
     EndTextCommandPrint(duration, true);
   }
 
-  public static displayHelpTextThisFrame(message: string) {
+  public static displayHelpTextThisFrame(message: string): void {
     const strings: string[] = stringToArray(message);
 
     BeginTextCommandDisplayHelp('CELL_EMAIL_BCON');
@@ -64,11 +64,11 @@ export abstract class Screen {
     icon: string,
     bgColor: HudColor = HudColor.NONE,
     flashColor: Color = Color.empty,
-    blinking: boolean = false,
+    blinking = false,
     type: NotificationType = NotificationType.Default,
-    showInBrief: boolean = true,
-    sound: boolean = true,
-  ) {
+    showInBrief = true,
+    sound = true,
+  ): Notification {
     const strings: string[] = stringToArray(message);
 
     SetNotificationTextEntry('CELL_EMAIL_BCON');
@@ -85,15 +85,15 @@ export abstract class Screen {
       SetNotificationFlashColor(flashColor.r, flashColor.g, flashColor.b, flashColor.a);
     }
 
-    SetNotificationMessage(iconSet, icon, true, Number(type), title, subtitle);
-    DrawNotification(blinking, showInBrief);
-
     if (sound) {
       Audio.playSoundFrontEnd('DELETE', 'HUD_DEATHMATCH_SOUNDSET');
     }
+
+    SetNotificationMessage(iconSet, icon, true, Number(type), title, subtitle);
+    return new Notification(DrawNotification(blinking, showInBrief));
   }
 
-  public static worldToScreen(position: Vector3, scaleWidth: boolean = false) {
+  public static worldToScreen(position: Vector3, scaleWidth = false): PointF {
     const coords = GetScreenCoordFromWorldCoord(position.x, position.y, position.z);
     return new PointF(
       coords[0] * (scaleWidth ? this.ScaledWidth : this.Width),

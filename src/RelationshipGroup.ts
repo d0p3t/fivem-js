@@ -50,7 +50,7 @@ export class RelationshipGroup {
   public setRelationshipBetweenGroups(
     targetGroup: RelationshipGroup,
     relationship: Relationship,
-    biDirectionally: boolean = false,
+    biDirectionally = false,
   ): void {
     SetRelationshipBetweenGroups(Number(relationship), this.Hash, targetGroup.Hash);
 
@@ -69,7 +69,7 @@ export class RelationshipGroup {
   public clearRelationshipBetweenGroups(
     targetGroup: RelationshipGroup,
     relationship: Relationship,
-    biDirectionally: boolean = false,
+    biDirectionally = false,
   ): void {
     ClearRelationshipBetweenGroups(Number(relationship), this.Hash, targetGroup.Hash);
 

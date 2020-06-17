@@ -17,7 +17,7 @@ export { HudColor } from './HudColor';
 export { HudComponent } from './HudComponent';
 export { InputMode } from './InputMode';
 export { IntersectOptions } from './IntersectOptions';
-export { IInvertAxis, InvertAxisFlags } from './InvertAxis';
+export { InvertAxis, InvertAxisFlags } from './InvertAxis';
 export { Language } from './Language';
 export { LoadingSpinnerType } from './LoadingSpinnerType';
 export { MarkerType } from './MarkerType';

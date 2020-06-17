@@ -84,8 +84,6 @@ export abstract class Game {
    * @returns Iterable list of Player objects.
    */
   public static *playerList(): IterableIterator<Player> {
-    const players: Player[] = [];
-
     for (let i = 0; i < GetActivePlayers(); i += 1) {
       yield new Player(i);
     }
@@ -241,8 +239,8 @@ export abstract class Game {
    * @param station A radio station.
    */
   public static set RadioStation(station: RadioStation) {
-    const stationName: string = RadioStation[station];
-    SetRadioToStationName(station);
+    const stationName = RadioStation[station];
+    SetRadioToStationName(stationName);
   }
 
   /**

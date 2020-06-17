@@ -1,26 +1,41 @@
 import { Sprite } from '../../';
-import { Alignment, BadgeStyle, Font } from '../../../enums';
+import { Alignment, Font } from '../../../enums';
 import { Color, LiteEvent, measureString, Point, Size } from '../../../utils';
 import { ItemsCollection, ListItem, ResText } from '../modules/';
 import { UIMenuItem } from './';
 
 export class UIMenuListItem extends UIMenuItem {
-  public scrollingEnabled: boolean = true;
-  public holdTimeBeforeScroll: number = 200;
+  public scrollingEnabled = true;
+  public holdTimeBeforeScroll = 200;
 
   protected itemText: ResText;
   protected arrowLeft: Sprite;
   protected arrowRight: Sprite;
-  protected index: number = 0;
+  protected index = 0;
 
   private readonly onListChanged = new LiteEvent();
 
   private arrowOnlyOnSelected: boolean;
   private holdTime: number;
-  private currOffset: number = 0;
-  private collection: ListItem[] = [];
+  private currOffset = 0;
+  private collection: (ListItem | string)[] = [];
 
-  get Collection() {
+  private Caption(): string {
+    // I suck at JS 'LINQ'
+    let caption = ' ';
+    if (this.Collection.length >= this.Index) {
+      const item = this.Collection[this.Index];
+
+      if (typeof item === 'string') {
+        caption = item;
+      } else {
+        caption = item.displayText;
+      }
+    }
+    return caption;
+  }
+
+  get Collection(): (ListItem | string)[] {
     return this.collection;
   }
   set Collection(v) {
@@ -30,9 +45,8 @@ export class UIMenuListItem extends UIMenuItem {
     this.collection = v;
   }
 
-  set SelectedItem(v: ListItem) {
-    // tslint:disable-next-line: ter-arrow-parens
-    const idx = this.Collection.findIndex(li => li.id === v.id);
+  set SelectedItem(v: ListItem | string) {
+    const idx = this.Collection.indexOf(v);
     if (idx > 0) {
       this.Index = idx;
     } else {
@@ -40,23 +54,29 @@ export class UIMenuListItem extends UIMenuItem {
     }
   }
 
-  get SelectedItem() {
-    return this.Collection.length > 0 ? this.Collection[this.Index] : null;
+  get SelectedItem(): ListItem | string {
+    return this.Collection.length > 0
+      ? this.Collection[this.Index] instanceof ListItem
+        ? this.Collection[this.Index]
+        : null
+      : null;
   }
 
-  get SelectedValue() {
+  get SelectedValue(): unknown {
     return this.SelectedItem == null
       ? null
+      : typeof this.SelectedItem === 'string'
+      ? this.SelectedItem
       : this.SelectedItem.data == null
       ? this.SelectedItem.displayText
       : this.SelectedItem.data;
   }
 
-  public get ListChanged() {
+  public get ListChanged(): LiteEvent {
     return this.onListChanged.expose();
   }
 
-  get Index() {
+  get Index(): number {
     if (this.Collection === null) {
       return -1;
     }
@@ -70,23 +90,23 @@ export class UIMenuListItem extends UIMenuItem {
     if (this.Collection === null) {
       return;
     }
-    if (this.Collection !== null && this.Collection.length === 0) {
+    if (this.Collection.length === 0) {
       return;
     }
 
     this.index = 100000 - (100000 % this.Collection.length) + value;
 
-    const caption =
-      this.Collection.length >= this.Index ? this.Collection[this.Index].displayText : ' ';
+    const caption: string = this.Caption();
+
     this.currOffset = measureString(caption);
   }
 
   constructor(
     text: string,
-    description: string = '',
-    collection: ItemsCollection = new ItemsCollection([]),
-    startIndex: number = 0,
-    arrowOnlyOnSelected: boolean = true,
+    description = '',
+    collection = new ItemsCollection([]),
+    startIndex = 0,
+    arrowOnlyOnSelected = true,
   ) {
     super(text, description);
     const y = 0;
@@ -115,11 +135,11 @@ export class UIMenuListItem extends UIMenuItem {
     );
   }
 
-  public setCollection(collection: ItemsCollection) {
+  public setCollection(collection: ItemsCollection): void {
     this.Collection = collection.getListItems();
   }
 
-  public setCollectionItem(index: number, item: ListItem | string, resetSelection: boolean = true) {
+  public setCollectionItem(index: number, item: ListItem | string, resetSelection = true): void {
     if (index > this.Collection.length) {
       // Placeholder for formatting
       throw new Error('Index out of bounds');
@@ -136,7 +156,7 @@ export class UIMenuListItem extends UIMenuItem {
     }
   }
 
-  public setVerticalPosition(y: number) {
+  public setVerticalPosition(y: number): void {
     this.arrowLeft.pos = new Point(
       300 + this.offset.X + this.parent.widthOffset,
       147 + y + this.offset.Y,
@@ -152,18 +172,17 @@ export class UIMenuListItem extends UIMenuItem {
     super.setVerticalPosition(y);
   }
 
-  public setRightLabel(text: string) {
-    return this;
-  }
+  // public setRightLabel(text: string) {
+  //   return this;
+  // }
 
-  public setRightBadge(badge: BadgeStyle) {
-    return this;
-  }
+  // public setRightBadge(badge: BadgeStyle) {
+  //   return this;
+  // }
 
-  public draw() {
+  public draw(): void {
     super.draw();
-    const caption =
-      this.Collection.length >= this.Index ? this.Collection[this.Index].displayText : ' ';
+    const caption = this.Caption();
     const offset = this.currOffset;
 
     this.itemText.color = this.enabled

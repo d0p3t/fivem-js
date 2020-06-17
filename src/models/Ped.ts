@@ -155,7 +155,7 @@ export class Ped extends Entity {
 
   public playAmbientSpeed(
     speechName: string,
-    voiceName: string = '',
+    voiceName = '',
     modifier: SpeechModifier = SpeechModifier.Standard,
   ): void {
     if (Number(modifier) >= 0 && Number(modifier) < this.speechModifierNames.length) {
@@ -203,12 +203,7 @@ export class Ped extends Entity {
     return this.pedBones;
   }
 
-  public giveWeapon(
-    weapon: WeaponHash,
-    ammoCount: number = 999,
-    isHidden: boolean = false,
-    equipNow: boolean = true,
-  ): void {
+  public giveWeapon(weapon: WeaponHash, ammoCount = 999, isHidden = false, equipNow = true): void {
     GiveWeaponToPed(this.handle, weapon, ammoCount, isHidden, equipNow);
   }
 
@@ -234,7 +229,7 @@ export class Ped extends Entity {
     SetPedCanRagdoll(this.handle, value);
   }
 
-  public ragdoll(duration: number = -1, ragdollType: RagdollType = RagdollType.Normal): void {
+  public ragdoll(duration = -1, ragdollType: RagdollType = RagdollType.Normal): void {
     this.CanRagdoll = true;
     SetPedToRagdoll(this.handle, duration, duration, Number(ragdollType), false, false, false);
   }
@@ -275,7 +270,7 @@ export class Ped extends Entity {
     return new Ped(ClonePed(this.handle, heading, false, false));
   }
 
-  public exists(ped: Ped = null) {
+  public exists(ped: Ped = null): boolean {
     if (ped === null) {
       return super.exists() && GetEntityType(this.handle) === 1;
     }

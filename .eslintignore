@@ -1,0 +1,5 @@
+.circleci/
+node_modules/
+lib/
+docs/
+examples/

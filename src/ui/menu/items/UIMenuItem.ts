@@ -26,7 +26,7 @@ export class UIMenuItem {
   public offset: Point;
   public parent: Menu;
 
-  public rightLabel: string = '';
+  public rightLabel = '';
   public leftBadge: BadgeStyle = BadgeStyle.None;
   public rightBadge: BadgeStyle = BadgeStyle.None;
 
@@ -39,9 +39,9 @@ export class UIMenuItem {
 
   protected labelText: ResText;
 
-  private event: { event: string; args: any[] };
+  private event: { event: string; args: unknown[] };
 
-  get Text() {
+  get Text(): string {
     return this.text.caption;
   }
   set Text(v) {
@@ -74,7 +74,7 @@ export class UIMenuItem {
     this.labelText = new ResText('', new Point(0, 0), 0.35, Color.white, 0, Alignment.Right);
   }
 
-  public setVerticalPosition(y: number) {
+  public setVerticalPosition(y: number): void {
     this.rectangle.pos = new Point(this.offset.X, y + 144 + this.offset.Y);
     this.selectedSprite.pos = new Point(0 + this.offset.X, y + 144 + this.offset.Y);
     this.text.pos = new Point(8 + this.offset.X, y + 147 + this.offset.Y);
@@ -85,7 +85,7 @@ export class UIMenuItem {
     this.labelText.pos = new Point(420 + this.offset.X, y + 148 + this.offset.Y);
   }
 
-  public addEvent(event: string, ...args: any[]): void {
+  public addEvent(event: string, ...args: unknown[]): void {
     this.event = { event, args };
   }
 
@@ -115,7 +115,7 @@ export class UIMenuItem {
 
     if (this.leftBadge !== BadgeStyle.None) {
       this.text.pos = new Point(35 + this.offset.X, this.text.pos.Y);
-      this.badgeLeft.TextureDict = this.badgeToSpriteLib(this.leftBadge);
+      this.badgeLeft.TextureDict = this.badgeToSpriteLib();
       this.badgeLeft.textureName = this.badgeToSpriteName(this.leftBadge, this.selected);
       this.badgeLeft.color = this.isBagdeWhiteSprite(this.leftBadge)
         ? this.enabled
@@ -134,7 +134,7 @@ export class UIMenuItem {
         385 + this.offset.X + this.parent.widthOffset,
         this.badgeRight.pos.Y,
       );
-      this.badgeRight.TextureDict = this.badgeToSpriteLib(this.rightBadge);
+      this.badgeRight.TextureDict = this.badgeToSpriteLib();
       this.badgeRight.textureName = this.badgeToSpriteName(this.rightBadge, this.selected);
       this.badgeRight.color = this.isBagdeWhiteSprite(this.rightBadge)
         ? this.enabled
@@ -174,7 +174,10 @@ export class UIMenuItem {
     this.rightLabel = text;
   }
 
-  public badgeToSpriteLib(badge: BadgeStyle): string {
+  /**
+   * Always returns 'commonmenu' for now
+   */
+  public badgeToSpriteLib(): string {
     return 'commonmenu';
   }
 

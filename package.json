@@ -8,7 +8,7 @@
     "build": "tsc",
     "builddev": "npm run build && copy.bat",
     "format": "prettier --write \"src/**/*.ts\"",
-    "lint": "tslint -p tsconfig.json",
+    "lint": "eslint . --ext .ts",
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
     "preversion": "npm run lint",
@@ -35,18 +35,19 @@
   },
   "homepage": "https://github.com/d0p3t/fivem-js#readme",
   "files": [
-    "lib/**/*"
+    "lib"
   ],
   "devDependencies": {
-    "prettier": "^2.0.2",
-    "tslint": "^6.1.0",
-    "tslint-config-airbnb": "^5.11.1",
-    "tslint-config-prettier": "^1.18.0",
-    "typedoc": "^0.17.3",
+    "@typescript-eslint/eslint-plugin": "^2.29.0",
+    "@typescript-eslint/parser": "^2.29.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "prettier": "^2.0.4",
+    "typedoc": "^0.17.4",
     "typedoc-fivemjs-theme": "^0.2.7",
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@citizenfx/client": "^1.0.2312-1"
+    "@citizenfx/client": "^1.0.2385-1"
   }
 }

@@ -4,7 +4,7 @@ import { Screen } from './';
 import { IElement } from './interfaces';
 
 export class Text extends IElement {
-  public static addLongString(str: string) {
+  public static addLongString(str: string): void {
     const strLen = 99;
     for (let i = 0; i < str.length; i += strLen) {
       const substr = str.substr(i, Math.min(strLen, str.length - i));
@@ -31,7 +31,7 @@ export class Text extends IElement {
   constructor(
     caption: string,
     pos: Point,
-    scale: number = 1,
+    scale = 1,
     color: Color = Color.black,
     font: Font = Font.ChaletLondon,
     alignment: Alignment = Alignment.Left,

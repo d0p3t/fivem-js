@@ -1,5 +1,5 @@
 import { ParticleEffectAsset } from './';
-import { IInvertAxis } from './enums';
+import { InvertAxis } from './enums';
 import { Color, Vector3 } from './utils';
 
 // TODO: Lots of Matrix stuff through memory access
@@ -14,7 +14,7 @@ export abstract class ParticleEffect {
   protected color: Color;
   protected scale: number;
   protected range: number;
-  protected invertAxis: IInvertAxis;
+  protected invertAxis: InvertAxis;
   private handle: number;
 
   /**
@@ -99,14 +99,14 @@ export abstract class ParticleEffect {
   /**
    * Get the invert axis flag of the particle effect.
    */
-  public get InvertAxis(): IInvertAxis {
+  public get InvertAxis(): InvertAxis {
     return this.invertAxis;
   }
 
   /**
    * Set the inverted axis of the particle effect.
    */
-  public set InvertAxis(invertAxis: IInvertAxis) {
+  public set InvertAxis(invertAxis: InvertAxis) {
     this.invertAxis = invertAxis;
     if (this.IsActive) {
       this.stop();

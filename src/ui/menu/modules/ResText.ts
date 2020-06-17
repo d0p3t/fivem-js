@@ -1,5 +1,5 @@
 import { Screen, Text } from '../../';
-import { Alignment, Font } from '../../../enums';
+import { Alignment } from '../../../enums';
 import { Color, Point, Size } from '../../../utils';
 
 export class ResText extends Text {
@@ -17,7 +17,7 @@ export class ResText extends Text {
 
   public draw(offset?: Size): void;
   public draw(caption, pos, scale, color, font, arg2): void;
-  public draw(arg1?, pos?, scale?, color?, font?, arg2?, dropShadow?, outline?, wordWrap?) {
+  public draw(arg1?, pos?, scale?, color?, font?, arg2?, dropShadow?, outline?, wordWrap?): void {
     let caption = arg1;
     let centered = arg2;
     let textAlignment = arg2;

@@ -1,5 +1,5 @@
 import { Sprite } from '../../';
-import { BadgeStyle } from '../../../enums';
+// import { BadgeStyle } from '../../../enums';
 import { Color, Point, Size } from '../../../utils/';
 import { ResRectangle } from '../modules/';
 import { UIMenuItem } from './';
@@ -13,27 +13,27 @@ export class UIMenuSliderItem extends UIMenuItem {
   private rectangleSlider: ResRectangle;
   private rectangleDivider: ResRectangle;
 
-  private items: any[];
+  private items: unknown[];
 
   private index: number;
 
-  get Index() {
+  get Index(): number {
     return this.index % this.items.length;
   }
-  set Index(value) {
+  set Index(value: number) {
     this.index = 100000000 - (100000000 % this.items.length) + value;
   }
 
   constructor(
     text: string,
-    items: any[],
+    items: unknown[],
     index: number,
-    description: string = '',
-    divider: boolean = false,
+    description = '',
+    divider = false,
     arrowOnlyOnSelected = false,
   ) {
     super(text, description);
-    const y: number = 0;
+    const y = 0;
     this.arrowOnlyOnSelected = arrowOnlyOnSelected;
     this.items = items;
     this.arrowLeft = new Sprite(
@@ -74,7 +74,7 @@ export class UIMenuSliderItem extends UIMenuItem {
     this.Index = index;
   }
 
-  public setVerticalPosition(y: number) {
+  public setVerticalPosition(y: number): void {
     this.rectangleBackground.pos = new Point(
       250 + this.offset.X + this.parent.widthOffset,
       y + 158.5 + this.offset.Y,
@@ -99,11 +99,11 @@ export class UIMenuSliderItem extends UIMenuItem {
     super.setVerticalPosition(y);
   }
 
-  public indexToItem(index: number) {
+  public indexToItem(index: number): unknown {
     return this.items[index];
   }
 
-  public draw() {
+  public draw(): void {
     super.draw();
     this.arrowLeft.color = this.enabled
       ? this.selected
@@ -139,7 +139,7 @@ export class UIMenuSliderItem extends UIMenuItem {
     this.rectangleDivider.draw();
   }
 
-  public setRightBadge(badge: BadgeStyle) {}
+  // public setRightBadge(badge: BadgeStyle): void {}
 
-  public setRightLabel(text: string) {}
+  // public setRightLabel(text: string): void {}
 }

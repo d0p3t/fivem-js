@@ -4,9 +4,9 @@ export class ListItem {
   public readonly id: string = uuidv4();
 
   public displayText: string;
-  public data: any;
+  public data: unknown;
 
-  constructor(text: string = '', data: any = null) {
+  constructor(text = '', data: unknown = null) {
     this.displayText = text;
     this.data = data;
   }

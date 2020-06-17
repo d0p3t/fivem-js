@@ -12,20 +12,20 @@ export class Menu {
   public parentMenu: Menu;
   public parentItem: UIMenuItem;
   public children: Map<string, Menu>;
-  public widthOffset: number = 0;
-  public visible: boolean = false;
-  public mouseControlsEnabled: boolean = false;
+  public widthOffset = 0;
+  public visible = false;
+  public mouseControlsEnabled = false;
 
-  public AUDIO_LIBRARY: string = 'HUD_FRONTEND_DEFAULT_SOUNDSET';
-  public AUDIO_UPDOWN: string = 'NAV_UP_DOWN';
-  public AUDIO_LEFTRIGHT: string = 'NAV_LEFT_RIGHT';
-  public AUDIO_SELECT: string = 'SELECT';
-  public AUDIO_BACK: string = 'BACK';
-  public AUDIO_ERROR: string = 'ERROR';
+  public AUDIO_LIBRARY = 'HUD_FRONTEND_DEFAULT_SOUNDSET';
+  public AUDIO_UPDOWN = 'NAV_UP_DOWN';
+  public AUDIO_LEFTRIGHT = 'NAV_LEFT_RIGHT';
+  public AUDIO_SELECT = 'SELECT';
+  public AUDIO_BACK = 'BACK';
+  public AUDIO_ERROR = 'ERROR';
 
   public menuItems: (UIMenuItem | UIMenuListItem | UIMenuSliderItem | UIMenuCheckboxItem)[] = [];
 
-  public get CurrentSelection() {
+  public get CurrentSelection(): number {
     return this.activeItem % this.menuItems.length;
   }
 
@@ -53,18 +53,18 @@ export class Menu {
 
   private title: string;
   private subtitle: string;
-  private counterPretext: string = '';
+  private counterPretext = '';
   private counterOverride: string = undefined;
   private spriteLibrary: string;
   private spriteName: string;
   private offset: Point;
   private lastUpDownNavigation = 0;
   private lastLeftRightNavigation = 0;
-  private activeItem: number = 1000;
-  private extraOffset: number = 0;
-  private justOpened: boolean = true;
+  private activeItem = 1000;
+  private extraOffset = 0;
+  private justOpened = true;
   private safezoneOffset: Point = new Point(0, 0);
-  private maxItemsOnScreen: number = 9;
+  private maxItemsOnScreen = 9;
   private minItem: number;
   private maxItem: number = this.maxItemsOnScreen;
 
@@ -205,7 +205,7 @@ export class Menu {
     });
   }
 
-  public setMenuwidthOffset(widthOffset: number) {
+  public setMenuwidthOffset(widthOffset: number): void {
     this.widthOffset = widthOffset;
     if (this.logo != null) {
       this.logo.size = new Size(431 + this.widthOffset, 107);
@@ -245,7 +245,7 @@ export class Menu {
     return subMenuToAdd;
   }
 
-  public addItem(item: UIMenuItem) {
+  public addItem(item: UIMenuItem): void {
     if (this.justOpened) {
       this.justOpened = false;
     }
@@ -260,7 +260,7 @@ export class Menu {
     this.recalculateDescriptionPosition();
   }
 
-  public refreshIndex() {
+  public refreshIndex(): void {
     if (this.menuItems.length === 0) {
       this.activeItem = 1000;
       this.maxItem = this.maxItemsOnScreen;
@@ -277,18 +277,18 @@ export class Menu {
     this.minItem = 0;
   }
 
-  public clear() {
+  public clear(): void {
     this.menuItems = [];
     this.recalculateDescriptionPosition();
   }
 
-  public open() {
+  public open(): void {
     Audio.playSoundFrontEnd(this.AUDIO_BACK, this.AUDIO_LIBRARY);
     this.visible = true;
     this.justOpened = true;
     this.menuOpen.emit();
   }
-  public close() {
+  public close(): void {
     Audio.playSoundFrontEnd(this.AUDIO_BACK, this.AUDIO_LIBRARY);
     this.visible = false;
     this.refreshIndex();
@@ -300,7 +300,7 @@ export class Menu {
     this.titleResText.caption = text;
   }
 
-  public get Title() {
+  public get Title(): string {
     return this.title;
   }
 
@@ -309,7 +309,7 @@ export class Menu {
     this.subtitleResText.caption = text;
   }
 
-  public get Subtitle() {
+  public get Subtitle(): string {
     return this.subtitle;
   }
 
@@ -317,7 +317,7 @@ export class Menu {
     this.subtitleResText.color = color;
   }
 
-  public get SubtitleForeColor() {
+  public get SubtitleForeColor(): Color {
     return this.subtitleResText.color;
   }
 
@@ -325,11 +325,11 @@ export class Menu {
     this.subtitleResRectangle.color = color;
   }
 
-  public get SubtitleBackColor() {
+  public get SubtitleBackColor(): Color {
     return this.subtitleResRectangle.color;
   }
 
-  public goLeft() {
+  public goLeft(): void {
     if (
       !(this.menuItems[this.CurrentSelection] instanceof UIMenuListItem) &&
       !(this.menuItems[this.CurrentSelection] instanceof UIMenuSliderItem)
@@ -353,7 +353,7 @@ export class Menu {
     }
   }
 
-  public goRight() {
+  public goRight(): void {
     if (
       !(this.menuItems[this.CurrentSelection] instanceof UIMenuListItem) &&
       !(this.menuItems[this.CurrentSelection] instanceof UIMenuSliderItem)
@@ -377,7 +377,7 @@ export class Menu {
     }
   }
 
-  public selectItem() {
+  public selectItem(): void {
     if (!this.menuItems[this.CurrentSelection].enabled) {
       Audio.playSoundFrontEnd(this.AUDIO_ERROR, this.AUDIO_LIBRARY);
       return;
@@ -409,7 +409,7 @@ export class Menu {
     return new Size(width, height);
   }
 
-  public processControl() {
+  public processControl(): void {
     if (!this.visible) {
       return;
     }
@@ -464,7 +464,7 @@ export class Menu {
     }
   }
 
-  public goUpOverflow() {
+  public goUpOverflow(): void {
     if (this.menuItems.length <= this.maxItemsOnScreen + 1) {
       return;
     }
@@ -492,7 +492,7 @@ export class Menu {
     this.indexChange.emit(this.CurrentSelection);
   }
 
-  public goUp() {
+  public goUp(): void {
     if (this.menuItems.length > this.maxItemsOnScreen + 1) {
       return;
     }
@@ -503,7 +503,7 @@ export class Menu {
     this.indexChange.emit(this.CurrentSelection);
   }
 
-  public goDownOverflow() {
+  public goDownOverflow(): void {
     if (this.menuItems.length <= this.maxItemsOnScreen + 1) {
       return;
     }
@@ -530,7 +530,7 @@ export class Menu {
     this.indexChange.emit(this.CurrentSelection);
   }
 
-  public goDown() {
+  public goDown(): void {
     if (this.menuItems.length > this.maxItemsOnScreen + 1) {
       return;
     }
@@ -541,7 +541,7 @@ export class Menu {
     this.indexChange.emit(this.CurrentSelection);
   }
 
-  public goBack() {
+  public goBack(): void {
     Audio.playSoundFrontEnd(this.AUDIO_BACK, this.AUDIO_LIBRARY);
     this.visible = false;
     if (this.parentMenu != null) {
@@ -553,13 +553,13 @@ export class Menu {
     this.menuClose.emit();
   }
 
-  public bindMenuToItem(menuToBind: Menu, itemToBindTo: UIMenuItem) {
+  public bindMenuToItem(menuToBind: Menu, itemToBindTo: UIMenuItem): void {
     menuToBind.parentMenu = this;
     menuToBind.parentItem = itemToBindTo;
     this.children.set(itemToBindTo.id, menuToBind);
   }
 
-  public releaseMenuFromItem(releaseFrom: UIMenuItem) {
+  public releaseMenuFromItem(releaseFrom: UIMenuItem): boolean {
     if (!this.children.has(releaseFrom.id)) {
       return false;
     }
@@ -569,7 +569,7 @@ export class Menu {
     this.children.delete(releaseFrom.id);
     return true;
   }
-  private recalculateDescriptionPosition() {
+  private recalculateDescriptionPosition(): void {
     this.descriptionBar.pos = new Point(this.offset.X, 149 - 37 + this.extraOffset + this.offset.Y);
     this.descriptionRectangle.pos = new Point(
       this.offset.X,
@@ -599,7 +599,7 @@ export class Menu {
     );
   }
 
-  private formatDescription(input: string) {
+  private formatDescription(input: string): string {
     if (input.length > 99) {
       input = input.slice(0, 99);
     }
@@ -622,7 +622,7 @@ export class Menu {
     return output;
   }
 
-  private render() {
+  private render(): void {
     if (!this.visible) {
       return;
     }

@@ -150,7 +150,6 @@ export abstract class World {
       SetWeatherTypeOverTime(weather, 1);
       setTimeout(() => {
         SetWeatherTypeNow(weather);
-        // tslint:disable-next-line: align
       }, 100);
     }
   }
@@ -286,11 +285,7 @@ export abstract class World {
    * @param heading Heading of Ped when spawning.
    * @returns Ped object.
    */
-  public static async createPed(
-    model: Model,
-    position: Vector3,
-    heading: number = 0,
-  ): Promise<Ped> {
+  public static async createPed(model: Model, position: Vector3, heading = 0): Promise<Ped> {
     if (!model.IsPed || !(await model.request(1000))) {
       return null;
     }
@@ -320,7 +315,7 @@ export abstract class World {
   public static async createVehicle(
     model: Model,
     position: Vector3,
-    heading: number = 0,
+    heading = 0,
   ): Promise<Vehicle> {
     if (!model.IsVehicle || !(await model.request(1000))) {
       return null;
@@ -337,10 +332,7 @@ export abstract class World {
    * @param heading Heading of Vehicle when spawning.
    * @returns Vehicle object.
    */
-  public static async createRandomVehicle(
-    position: Vector3,
-    heading: number = 0,
-  ): Promise<Vehicle> {
+  public static async createRandomVehicle(position: Vector3, heading = 0): Promise<Vehicle> {
     const vehicleCount: number = Object.keys(VehicleHash).length / 2; // check
     const randomIndex: number = getRandomInt(0, vehicleCount);
     const randomVehicleName: string = VehicleHash[randomIndex];
@@ -378,13 +370,13 @@ export abstract class World {
     rotation: Vector3,
     scale: Vector3,
     color: Color,
-    bobUpAndDown: boolean = false,
-    faceCamera: boolean = false,
-    rotateY: boolean = false,
-    textureDict: string = null,
-    textureName: string = null,
-    drawOnEntity: boolean = false,
-  ) {
+    bobUpAndDown = false,
+    faceCamera = false,
+    rotateY = false,
+    textureDict = null,
+    textureName = null,
+    drawOnEntity = false,
+  ): void {
     DrawMarker(
       Number(type),
       position.x,
@@ -421,7 +413,12 @@ export abstract class World {
    * @param range How far to draw the light.
    * @param intensity Intensity of the light ("alpha").
    */
-  public static drawLightWithRange(pos: Vector3, color: Color, range: number, intensity: number) {
+  public static drawLightWithRange(
+    pos: Vector3,
+    color: Color,
+    range: number,
+    intensity: number,
+  ): void {
     DrawLightWithRange(pos.x, pos.y, pos.z, color.r, color.g, color.b, range, intensity);
   }
 
@@ -446,7 +443,7 @@ export abstract class World {
     roundness: number,
     radius: number,
     fadeOut: number,
-  ) {
+  ): void {
     DrawSpotLight(
       pos.x,
       pos.y,
@@ -486,7 +483,7 @@ export abstract class World {
     roundness: number,
     radius: number,
     fadeOut: number,
-  ) {
+  ): void {
     DrawSpotLightWithShadow(
       pos.x,
       pos.y,
@@ -513,7 +510,7 @@ export abstract class World {
    * @param end World coordinate of end position of line.
    * @param color RGB color of line.
    */
-  public static drawLine(start: Vector3, end: Vector3, color: Color) {
+  public static drawLine(start: Vector3, end: Vector3, color: Color): void {
     DrawLine(start.x, start.y, start.z, end.x, end.y, end.z, color.r, color.g, color.b, color.a);
   }
 
@@ -525,7 +522,7 @@ export abstract class World {
    * @param vertexC World coordinate of third point.
    * @param color RGB color of polygon.
    */
-  public static drawPoly(vertexA: Vector3, vertexB: Vector3, vertexC: Vector3, color: Color) {
+  public static drawPoly(vertexA: Vector3, vertexB: Vector3, vertexC: Vector3, color: Color): void {
     DrawPoly(
       vertexA.x,
       vertexA.y,
@@ -580,7 +577,7 @@ export abstract class World {
   public static getAllPeds(): Ped[] {
     const peds: Ped[] = [];
 
-    let entityHandle: number = -1;
+    let entityHandle = -1;
     const handle: number = FindFirstPed(entityHandle);
     let ped: Ped = Entity.fromHandle(entityHandle) as Ped;
 
@@ -590,7 +587,7 @@ export abstract class World {
 
     entityHandle = -1;
 
-    while (!!FindNextPed(handle, entityHandle)) {
+    while (FindNextPed(handle, entityHandle)) {
       ped = Entity.fromHandle(entityHandle) as Ped;
       if (ped !== undefined && ped !== null && ped.exists()) {
         peds.push(ped);

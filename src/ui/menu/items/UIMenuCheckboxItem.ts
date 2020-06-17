@@ -1,19 +1,19 @@
 import { Sprite } from '../../';
-import { BadgeStyle } from '../../../enums';
+// import { BadgeStyle } from '../../../enums';
 import { Color, LiteEvent, Point, Size } from '../../../utils';
 import { UIMenuItem } from './';
 
 export class UIMenuCheckboxItem extends UIMenuItem {
-  public checked: boolean = false;
+  public checked = false;
 
   private readonly checkedSprite: Sprite;
   private readonly oncheckedChanged = new LiteEvent();
 
-  public get checkedChanged() {
+  public get checkedChanged(): LiteEvent {
     return this.oncheckedChanged.expose();
   }
 
-  constructor(text: string, check: boolean = false, description: string = '') {
+  constructor(text: string, check = false, description = '') {
     super(text, description);
     const y = 0;
     this.checkedSprite = new Sprite(
@@ -25,7 +25,7 @@ export class UIMenuCheckboxItem extends UIMenuItem {
     this.checked = check;
   }
 
-  public setVerticalPosition(y: number) {
+  public setVerticalPosition(y: number): void {
     super.setVerticalPosition(y);
     this.checkedSprite.pos = new Point(
       380 + this.offset.X + this.parent.widthOffset,
@@ -33,7 +33,7 @@ export class UIMenuCheckboxItem extends UIMenuItem {
     );
   }
 
-  public draw() {
+  public draw(): void {
     super.draw();
     this.checkedSprite.pos = this.checkedSprite.pos = new Point(
       380 + this.offset.X + this.parent.widthOffset,
@@ -54,11 +54,11 @@ export class UIMenuCheckboxItem extends UIMenuItem {
     this.checkedSprite.draw();
   }
 
-  public setRightBadge(badge: BadgeStyle) {
-    return this;
-  }
+  // public setRightBadge(badge: BadgeStyle) {
+  //   return this;
+  // }
 
-  public setRightLabel(text: string) {
-    return this;
-  }
+  // public setRightLabel(text: string) {
+  //   return this;
+  // }
 }

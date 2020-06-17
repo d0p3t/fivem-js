@@ -76,7 +76,6 @@ export class Model {
           this.markAsNoLongerNeeded();
           resolve(this.IsLoaded);
         }
-        // tslint:disable-next-line: align
       }, 0);
     });
   }

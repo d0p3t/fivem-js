@@ -8,7 +8,7 @@ export class ResRectangle extends Rectangle {
 
   public draw(offset?): void;
   public draw(pos, size, color: Color): void;
-  public draw(pos?, size?, color?: Color) {
+  public draw(pos?, size?, color?: Color): void {
     if (!pos) {
       pos = new Size();
     }

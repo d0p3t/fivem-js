@@ -1,20 +1,20 @@
 import { ListItem } from '../modules';
 
 export class ItemsCollection {
-  private items: any[];
+  private items: ListItem[] | string[];
 
-  constructor(items: any[]) {
+  constructor(items: ListItem[]) {
     if (items.length === 0) {
       throw new Error('ItemsCollection cannot be empty');
     }
     this.items = items;
   }
 
-  public length() {
+  public length(): number {
     return this.items.length;
   }
 
-  public getListItems() {
+  public getListItems(): (ListItem | string)[] {
     const items = [];
     for (const item of this.items) {
       if (item instanceof ListItem) {
