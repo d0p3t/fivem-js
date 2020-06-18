@@ -18,6 +18,25 @@ import { PointF, Vector3 } from '../utils';
  * ```
  */
 export class Scaleform {
+  public static render2DMasked(scaleform1: Scaleform, scaleform2: Scaleform): Promise<void> {
+    return new Promise(async resolve => {
+      if (scaleform1.IsLoaded && scaleform2.IsLoaded) {
+        DrawScaleformMovieFullscreenMasked(
+          scaleform1.Handle,
+          scaleform2.Handle,
+          255,
+          255,
+          255,
+          255,
+        );
+      } else {
+        await scaleform1.load();
+        await scaleform2.load();
+      }
+      resolve();
+    });
+  }
+
   protected handle: number;
   protected name: string;
   protected loaded: boolean;
@@ -205,7 +224,7 @@ export class Scaleform {
     });
   }
 
-  private load(): Promise<boolean> {
+  public load(): Promise<boolean> {
     return new Promise(resolve => {
       if (!this.IsLoaded) {
         const start = GetGameTimer();
