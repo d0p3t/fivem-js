@@ -3,7 +3,7 @@ import { ForceType } from '../enums';
 import { Game } from '../Game';
 import { WeaponHash } from '../hashes';
 import { Model } from '../Model';
-import { Vector3 } from '../utils';
+import { Quaternion, Vector3 } from '../utils';
 import { EntityBoneCollection, Ped, Prop, Vehicle } from './';
 import { EntityBone } from './EntityBone';
 
@@ -64,6 +64,10 @@ export class Entity {
     return !this.isDead();
   }
 
+  public get Model(): Model {
+    return new Model(GetEntityModel(this.handle));
+  }
+
   public get Position(): Vector3 {
     const coords = GetEntityCoords(this.handle, false);
     return new Vector3(coords[0], coords[1], coords[2]);
@@ -77,12 +81,144 @@ export class Entity {
     SetEntityCoordsNoOffset(this.handle, position.x, position.y, position.z, true, true, true);
   }
 
+  public get Rotation(): Vector3 {
+    const rotation = GetEntityRotation(this.handle, 2);
+    return new Vector3(rotation[0], rotation[1], rotation[2]);
+  }
+
+  public set Rotation(rotation: Vector3) {
+    SetEntityRotation(this.handle, rotation.x, rotation.y, rotation.z, 2, true);
+  }
+
+  public get Quaternion(): Quaternion {
+    const quaternion = GetEntityQuaternion(this.handle);
+    return new Quaternion(quaternion[0], quaternion[1], quaternion[2], quaternion[3]);
+  }
+
+  public set Quaternion(quaternion: Quaternion) {
+    SetEntityQuaternion(this.handle, quaternion.x, quaternion.y, quaternion.z, quaternion.w);
+  }
+
   public get Heading(): number {
     return GetEntityHeading(this.handle);
   }
 
   public set Heading(heading: number) {
     SetEntityHeading(this.handle, heading);
+  }
+
+  public set IsPositionFrozen(value: boolean) {
+    FreezeEntityPosition(this.handle, value);
+  }
+
+  public get Velocity(): Vector3 {
+    const velocity = GetEntityVelocity(this.handle);
+    return new Vector3(velocity[0], velocity[1], velocity[2]);
+  }
+
+  public set Velocity(velocity: Vector3) {
+    SetEntityVelocity(this.handle, velocity.x, velocity.y, velocity.z);
+  }
+
+  public get RotationVelocity(): Vector3 {
+    const velocity = GetEntityRotationVelocity(this.handle);
+    return new Vector3(velocity[0], velocity[1], velocity[2]);
+  }
+
+  public set MaxSpeed(value: number) {
+    SetEntityMaxSpeed(this.handle, value);
+  }
+
+  public set HasGravity(value: boolean) {
+    SetEntityHasGravity(this.handle, value);
+  }
+
+  public get HeightAboveGround(): number {
+    return GetEntityHeightAboveGround(this.handle);
+  }
+
+  public get SubmersionLevel(): number {
+    return GetEntitySubmergedLevel(this.handle);
+  }
+
+  public get LodDistance(): number {
+    return GetEntityLodDist(this.handle);
+  }
+
+  public set LodDistance(value: number) {
+    SetEntityLodDist(this.handle, value);
+  }
+
+  public get IsVisible(): boolean {
+    return !!IsEntityVisible(this.handle);
+  }
+
+  public set IsVisible(value: boolean) {
+    SetEntityVisible(this.handle, value, false);
+  }
+
+  public get IsOccluded(): boolean {
+    return !!IsEntityOccluded(this.handle);
+  }
+
+  public get IsOnScreen(): boolean {
+    return !!IsEntityOnScreen(this.handle);
+  }
+
+  public get IsUpright(): boolean {
+    return !!IsEntityUpright(this.handle, 0);
+  }
+
+  public get IsUpsideDown(): boolean {
+    return !!IsEntityUpsidedown(this.handle);
+  }
+
+  public get IsInAir(): boolean {
+    return !!IsEntityInAir(this.handle);
+  }
+
+  public get IsInWater(): boolean {
+    return !!IsEntityInWater(this.handle);
+  }
+
+  public get IsPersistent(): boolean {
+    return !!IsEntityAMissionEntity(this.handle);
+  }
+
+  public set IsPersistent(value: boolean) {
+    if (value) {
+      SetEntityAsMissionEntity(this.handle, true, false);
+    } else {
+      this.markAsNoLongerNeeded();
+    }
+  }
+
+  public get IsOnFire(): boolean {
+    return !!IsEntityOnFire(this.handle);
+  }
+
+  public set IsInvincible(value: boolean) {
+    SetEntityInvincible(this.handle, value);
+  }
+
+  public set IsOnlyDamagedByPlayer(value: boolean) {
+    SetEntityOnlyDamagedByPlayer(this.handle, value);
+  }
+
+  public get Opacity(): number {
+    return GetEntityAlpha(this.handle);
+  }
+
+  public set Opacity(value: number) {
+    SetEntityAlpha(this.handle, value, 0);
+  }
+
+  public resetOpacity(): void {
+    ResetEntityAlpha(this.handle);
+  }
+
+  public get HasCollided(): boolean {
+    return !!HasEntityCollidedWithAnything(this.handle);
   }
 
   public get IsCollisionEnabled(): boolean {

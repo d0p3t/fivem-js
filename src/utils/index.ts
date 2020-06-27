@@ -7,3 +7,4 @@ export { Point } from './Point';
 export { Color } from './Color';
 export { clamp, getRandomInt } from './Math';
 export { Size } from './Size';
+export { Quaternion } from  './Quaternion';
