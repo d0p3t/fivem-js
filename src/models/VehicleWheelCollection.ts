@@ -42,7 +42,7 @@ export class VehicleWheelCollection {
     });
   }
 
-  public hasWheel(wheel: VehicleWheelIndex) {
+  public hasWheel(wheel: VehicleWheelIndex): boolean {
     switch (wheel) {
       case VehicleWheelIndex.FrontLeftWheel:
         return this._owner.Bones.hasBone('wheel_lf');

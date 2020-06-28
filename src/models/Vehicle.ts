@@ -19,15 +19,15 @@ import { Game } from '../Game';
 import { Vector3 } from '../utils';
 
 export class Vehicle extends Entity {
-  public static getModelDisplayName(vehicleModel: Model) {
+  public static getModelDisplayName(vehicleModel: Model): string {
     return GetDisplayNameFromVehicleModel(vehicleModel.Hash);
   }
 
-  public static getModelClass(vehicleModel: Model) {
+  public static getModelClass(vehicleModel: Model): VehicleClass {
     return GetVehicleClassFromName(vehicleModel.Hash);
   }
 
-  public static getClassDisplayName(vehicleClass: VehicleClass) {
+  public static getClassDisplayName(vehicleClass: VehicleClass): string {
     return `VEH_CLASS_${vehicleClass}`;
   }
 

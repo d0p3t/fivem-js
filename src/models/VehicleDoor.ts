@@ -46,15 +46,15 @@ export class VehicleDoor {
     return this._owner;
   }
 
-  public open(loose: boolean = false, instantly: boolean = false): void {
+  public open(loose = false, instantly = false): void {
     SetVehicleDoorOpen(this._owner.Handle, this.Index, loose, instantly);
   }
 
-  public close(instantly: boolean = false): void {
+  public close(instantly = false): void {
     SetVehicleDoorShut(this._owner.Handle, this.Index, instantly);
   }
 
-  public break(stayInTheWorld: boolean = true): void {
+  public break(stayInTheWorld = true): void {
     SetVehicleDoorBroken(this._owner.Handle, this.Index, stayInTheWorld);
   }
 }

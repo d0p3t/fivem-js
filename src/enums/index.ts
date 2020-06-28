@@ -44,7 +44,7 @@ export {
   VehiclePaintType,
   VehicleDoorIndex,
   VehicleWheelType,
-  VehicleWheelIndex
+  VehicleWheelIndex,
 } from './Vehicle';
 export { Weather } from './Weather';
 export { ZoneID } from './ZoneID';

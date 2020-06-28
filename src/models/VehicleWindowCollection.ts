@@ -4,7 +4,10 @@ import { VehicleWindow } from './VehicleWindow';
 
 export class VehicleWindowCollection {
   private _owner: Vehicle;
-  private readonly _vehicleWindows: Map<VehicleWindowIndex, VehicleWindow> = new Map<VehicleWindowIndex, VehicleWindow>();
+  private readonly _vehicleWindows: Map<VehicleWindowIndex, VehicleWindow> = new Map<
+    VehicleWindowIndex,
+    VehicleWindow
+  >();
 
   constructor(owner) {
     this._owner = owner;
@@ -46,7 +49,7 @@ export class VehicleWindowCollection {
     });
   }
 
-  public hasWindow(window: VehicleWindowIndex) {
+  public hasWindow(window: VehicleWindowIndex): boolean {
     switch (window) {
       case VehicleWindowIndex.FrontLeftWindow:
         return this._owner.Bones.hasBone('window_lf');

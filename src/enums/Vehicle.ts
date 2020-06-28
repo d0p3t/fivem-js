@@ -278,7 +278,7 @@ export enum VehicleWindowIndex {
   ExtraWindow1 = 4,
   ExtraWindow2 = 5,
   ExtraWindow3 = 6,
-  ExtraWindow4 = 7
+  ExtraWindow4 = 7,
 }
 
 export enum VehicleModType {
@@ -338,7 +338,7 @@ export enum VehiclePaintType {
   Pearl,
   Matte,
   Metal,
-  Chrome
+  Chrome,
 }
 
 export enum VehicleDoorIndex {
@@ -347,7 +347,7 @@ export enum VehicleDoorIndex {
   BackRightDoor = 3,
   BackLeftDoor = 2,
   Hood = 4,
-  Trunk = 5
+  Trunk = 5,
 }
 
 export enum VehicleWheelType {
@@ -360,7 +360,7 @@ export enum VehicleWheelType {
   BikeWheels,
   HighEnd,
   BennysOriginals,
-  BennysBespoke
+  BennysBespoke,
 }
 
 export enum VehicleWheelIndex {
@@ -371,5 +371,5 @@ export enum VehicleWheelIndex {
   RearLeftWheel,
   RearRightWheel,
   TrailerMidLeftWheel = 45,
-  TrailerMidRightWheel = 47
+  TrailerMidRightWheel = 47,
 }
