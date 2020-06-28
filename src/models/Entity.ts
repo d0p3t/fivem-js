@@ -49,11 +49,11 @@ export class Entity {
   }
 
   public get MaxHealth(): number {
-    return GetEntityMaxHealth(this.handle) - 100;
+    return GetEntityMaxHealth(this.handle);
   }
 
   public set MaxHealth(amount: number) {
-    SetEntityMaxHealth(this.handle, amount + 100);
+    SetEntityMaxHealth(this.handle, amount);
   }
 
   public isDead(): boolean {
