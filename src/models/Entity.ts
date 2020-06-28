@@ -234,7 +234,7 @@ export class Entity {
   }
 
   public get Bones(): EntityBoneCollection {
-    if (this.bones === null) {
+    if (!this.bones) {
       this.bones = new EntityBoneCollection(this);
     }
     return this.bones;
