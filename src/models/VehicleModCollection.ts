@@ -15,8 +15,14 @@ import { VehicleToggleMod } from './VehicleToggleMod';
 
 export class VehicleModCollection {
   private _owner: Vehicle;
-  private readonly _vehicleMods: Map<VehicleModType, VehicleMod> = new Map<VehicleModType, VehicleMod>();
-  private readonly _vehicleToggleMods: Map<VehicleToggleModType, VehicleToggleMod> = new Map<VehicleToggleModType, VehicleToggleMod>();
+  private readonly _vehicleMods: Map<VehicleModType, VehicleMod> = new Map<
+    VehicleModType,
+    VehicleMod
+  >();
+  private readonly _vehicleToggleMods: Map<VehicleToggleModType, VehicleToggleMod> = new Map<
+    VehicleToggleModType,
+    VehicleToggleMod
+  >();
 
   constructor(owner: Vehicle) {
     this._owner = owner;
@@ -208,7 +214,11 @@ export class VehicleModCollection {
   }
 
   public get HasNeonLights(): boolean {
-    return Object.keys(VehicleNeonLight).findIndex(light => this.hasNeonLight(Number(light))) !== -1;
+    return (
+      Object.keys(VehicleNeonLight)
+        .filter(key => !isNaN(Number(key)))
+        .findIndex(light => this.hasNeonLight(Number(light))) !== -1
+    );
   }
 
   public hasNeonLight(light: VehicleNeonLight): boolean {
