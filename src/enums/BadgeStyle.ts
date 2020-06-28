@@ -22,4 +22,5 @@ export enum BadgeStyle {
   Trevor,
   Lock,
   Tick,
+  Cash
 }
