@@ -190,7 +190,7 @@ export class VehicleModCollection {
   }
 
   public areAllNeonLightsOn(): boolean {
-    if (!this.HasNeonLights) {
+    if (!this.HasAllNeonLights) {
       return false;
     }
     let on = true;
