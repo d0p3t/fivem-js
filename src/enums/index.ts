@@ -38,6 +38,13 @@ export {
   VehicleRoofState,
   VehicleSeat,
   VehicleWindowTint,
+  VehicleWindowIndex,
+  VehicleModType,
+  VehicleToggleModType,
+  VehiclePaintType,
+  VehicleDoorIndex,
+  VehicleWheelType,
+  VehicleWheelIndex
 } from './Vehicle';
 export { Weather } from './Weather';
 export { ZoneID } from './ZoneID';
