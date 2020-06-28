@@ -213,11 +213,11 @@ export class VehicleModCollection {
       });
   }
 
-  public get HasNeonLights(): boolean {
+  public get HasAllNeonLights(): boolean {
     return (
       Object.keys(VehicleNeonLight)
         .filter(key => !isNaN(Number(key)))
-        .findIndex(light => this.hasNeonLight(Number(light))) !== -1
+        .findIndex(light => !this.hasNeonLight(Number(light))) === -1
     );
   }
 
