@@ -258,6 +258,14 @@ export class Entity {
     SetEntityNoCollisionEntity(this.handle, entity.Handle, toggle);
   }
 
+  public hasClearLosToEntity(entity: Entity, traceType = 17): boolean {
+    return !!HasEntityClearLosToEntity(this.handle, entity.Handle, traceType);
+  }
+
+  public hasClearLosToEntityInFront(entity: Entity): boolean {
+    return !!HasEntityClearLosToEntityInFront(this.handle, entity.Handle);
+  }
+
   public hasBeenDamagedBy(entity: Entity): boolean {
     return !!HasEntityBeenDamagedByEntity(this.handle, entity.Handle, true);
   }
