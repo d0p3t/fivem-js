@@ -66,6 +66,10 @@ export class Blip {
     SetBlipSprite(this.handle, sprite);
   }
 
+  public set Display(display: number) {
+    SetBlipDisplay(this.handle, display);
+  }
+
   public set Name(name: string) {
     BeginTextCommandSetBlipName('STRING');
     AddTextComponentSubstringPlayerName(name);
