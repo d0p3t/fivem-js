@@ -343,5 +343,18 @@ export abstract class Game {
     Audio.stopMusic(musicFile);
   }
 
+  /**
+   * Determines if the game language files contain an entry for the specified GXT key.
+   * 
+   * @param entry The GXT key.
+   */
+  public static doesGXTEntryExist(entry: string): boolean {
+    return !!DoesTextLabelExist(entry);
+  }
+
+  public static getGXTEntry(entry: string): string {
+    return this.doesGXTEntryExist(entry) ? GetLabelText(entry) : null;
+  }
+
   protected static cachedPlayer: Player;
 }
