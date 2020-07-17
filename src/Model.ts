@@ -59,6 +59,13 @@ export class Model {
   }
 
   /**
+   * Gets if this model is a train or not.
+   */
+  public get IsTrain(): boolean {
+    return !!IsThisModelATrain(this.hash);
+  }
+
+  /**
    * Request and load the model with a specified timeout. Advised timeout - 1000.
    *
    * @param timeout Maximum allowed time for model to load.
