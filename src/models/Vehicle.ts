@@ -215,7 +215,7 @@ export class Vehicle extends Entity {
    *
    * @param duration How long should the horn be sounded?
    */
-  public SoundHorn(duration: number) {
+  public SoundHorn(duration: number): void {
     StartVehicleHorn(this.handle, duration, Game.generateHash('HELDDOWN'), false);
   }
 
