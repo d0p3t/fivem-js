@@ -352,6 +352,12 @@ export abstract class Game {
     return !!DoesTextLabelExist(entry);
   }
 
+  /**
+   * Gets the value for a GXT entry.
+   *
+   * @param entry The GXT key.
+   * @returns Value for GXT entry if exists, else `null`.
+   */
   public static getGXTEntry(entry: string): string {
     return this.doesGXTEntryExist(entry) ? GetLabelText(entry) : null;
   }
