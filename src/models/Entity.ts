@@ -338,4 +338,8 @@ export class Entity {
     SetEntityAsMissionEntity(this.Handle, false, true);
     SetEntityAsNoLongerNeeded(this.Handle);
   }
+
+  public get Model(): number {
+    return GetEntityModel(this.handle);
+  }
 }
