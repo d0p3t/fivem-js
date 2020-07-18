@@ -226,7 +226,9 @@ export class Scaleform {
 
   public load(): Promise<boolean> {
     return new Promise(resolve => {
-      if (!this.IsLoaded) {
+      if (this.IsLoaded) {
+        resolve(true);
+      } else {
         const start = GetGameTimer();
         const interval = setInterval(() => {
           if (this.IsLoaded) {
