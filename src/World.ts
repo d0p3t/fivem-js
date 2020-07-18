@@ -1,4 +1,4 @@
-import { Entity, Model } from './';
+import { Entity, Model, Prop } from './';
 import { Blip } from './Blip';
 import { Camera } from './Camera';
 import { CloudHat, IntersectOptions, MarkerType, Weather } from './enums';
@@ -345,6 +345,27 @@ export abstract class World {
     return new Vehicle(
       CreateVehicle(model.Hash, position.x, position.y, position.z, heading, true, false),
     );
+  }
+
+  public static async createProp(
+    model: Model,
+    position: Vector3,
+    dynamic: boolean,
+    placeOnGround: boolean,
+  ): Promise<Prop> {
+    if (!model.IsProp || !(await model.request(1000))) {
+      return null;
+    }
+
+    const prop = new Prop(
+      CreateObject(model.Hash, position.x, position.y, position.z, true, true, dynamic),
+    );
+
+    if (placeOnGround) {
+      prop.placeOnGround();
+    }
+
+    return prop;
   }
 
   /**
