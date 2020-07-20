@@ -255,6 +255,17 @@ export abstract class Game {
   }
 
   /**
+   * Check whether a disabled control is currently pressed.
+   *
+   * @param index input group (usually 0)
+   * @param control Control
+   * @returns True or False.
+   */
+  public static isDisabledControlPressed(index: number, control: Control): boolean {
+    return !!IsDisabledControlPressed(index, Number(control));
+  }
+
+  /**
    * Check whether a control has been pressed since last check.
    *
    * @param index input group (usually 0)
