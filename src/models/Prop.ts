@@ -12,4 +12,8 @@ export class Prop extends Entity {
   public exists(): boolean {
     return super.exists() && GetEntityType(this.handle) === 3;
   }
+
+  public placeOnGround(): void {
+    PlaceObjectOnGroundProperly(this.handle);
+  }
 }

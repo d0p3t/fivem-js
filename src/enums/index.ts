@@ -1,6 +1,7 @@
 export { Alignment } from './Alignment';
 export { AudioFlag } from './AudioFlag';
 export { BadgeStyle } from './BadgeStyle';
+export { BlipColor, BlipSprite } from './Blip';
 export { Bone } from './Bone';
 export { CameraShake } from './CameraShake';
 export { CheckpointCustomIconStyle, CheckpointIcon } from './Checkpoint';
@@ -38,6 +39,13 @@ export {
   VehicleRoofState,
   VehicleSeat,
   VehicleWindowTint,
+  VehicleWindowIndex,
+  VehicleModType,
+  VehicleToggleModType,
+  VehiclePaintType,
+  VehicleDoorIndex,
+  VehicleWheelType,
+  VehicleWheelIndex,
 } from './Vehicle';
 export { Weather } from './Weather';
 export { ZoneID } from './ZoneID';
