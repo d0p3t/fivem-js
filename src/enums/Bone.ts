@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 export enum Bone {
   SKEL_ROOT,
   SKEL_Pelvis = 11816,
