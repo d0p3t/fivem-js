@@ -9,6 +9,10 @@ export class Color {
     return new Color(a, r, g, b);
   }
 
+  public static fromRgb(r: number, g: number, b: number): Color {
+    return new Color(255, r, g, b);
+  }
+
   public a: number;
   public r: number;
   public g: number;

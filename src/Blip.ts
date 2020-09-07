@@ -1,9 +1,16 @@
 import { Vector3 } from './utils';
+import { BlipColor, BlipSprite } from './enums';
+import { Entity, Player } from './models';
 
 export class Blip {
   protected handle: number;
+
   constructor(handle: number) {
     this.handle = handle;
+  }
+
+  public get Handle(): number {
+    return this.handle;
   }
 
   public get Position(): Vector3 {
@@ -37,5 +44,97 @@ export class Blip {
 
   public set Priority(priority: number) {
     SetBlipPriority(this.handle, priority);
+  }
+
+  public set NumberLabel(number: number) {
+    ShowNumberOnBlip(this.handle, number);
+  }
+
+  public get Color(): BlipColor {
+    return GetBlipColour(this.handle);
+  }
+
+  public set Color(color: BlipColor) {
+    SetBlipColour(this.handle, color);
+  }
+
+  public get Sprite(): BlipSprite {
+    return GetBlipSprite(this.handle);
+  }
+
+  public set Sprite(sprite: BlipSprite) {
+    SetBlipSprite(this.handle, sprite);
+  }
+
+  public set Display(display: number) {
+    SetBlipDisplay(this.handle, display);
+  }
+
+  public set Name(name: string) {
+    BeginTextCommandSetBlipName('STRING');
+    AddTextComponentSubstringPlayerName(name);
+    EndTextCommandSetBlipName(this.handle);
+  }
+
+  public setNameToPlayerName(player: Player): void {
+    SetBlipNameToPlayerName(this.handle, player.Handle);
+  }
+
+  public get Entity(): Entity {
+    return Entity.fromHandle(GetBlipInfoIdEntityIndex(this.handle));
+  }
+
+  public set ShowHeadingIndicator(show: boolean) {
+    ShowHeadingIndicatorOnBlip(this.handle, show);
+  }
+
+  public set ShowRoute(show: boolean) {
+    SetBlipRoute(this.handle, show);
+  }
+
+  public set IsFriendly(friendly: boolean) {
+    SetBlipAsFriendly(this.handle, friendly);
+  }
+
+  public set IsFriend(friend: boolean) {
+    SetBlipFriend(this.handle, friend);
+  }
+
+  public set IsCrew(crew: boolean) {
+    SetBlipCrew(this.handle, crew);
+  }
+
+  public get IsFlashing(): boolean {
+    return !!IsBlipFlashing(this.handle);
+  }
+
+  public set IsFlashing(flashing: boolean) {
+    SetBlipFlashes(this.handle, flashing);
+  }
+
+  public get IsOnMinimap(): boolean {
+    return !!IsBlipOnMinimap(this.handle);
+  }
+
+  public get IsShortRange(): boolean {
+    return !!IsBlipShortRange(this.handle);
+  }
+
+  public set IsShortRange(shortRange: boolean) {
+    SetBlipAsShortRange(this.handle, shortRange);
+  }
+
+  public removeNumberLabel(): void {
+    HideNumberOnBlip(this.handle);
+  }
+
+  public delete(): void {
+    if (this.exists()) {
+      RemoveBlip(this.handle);
+    }
+  }
+
+  public exists(): boolean {
+    return !!DoesBlipExist(this.handle);
   }
 }

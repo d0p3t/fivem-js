@@ -246,56 +246,116 @@ export abstract class Game {
   /**
    * Check whether a control is currently pressed.
    *
-   * @param index input group (usually 0)
+   * @param inputMode InputMode
    * @param control Control
    * @returns True or False.
    */
-  public static isControlPressed(index: number, control: Control): boolean {
-    return !!IsControlPressed(index, Number(control));
+  public static isControlPressed(inputMode: InputMode, control: Control): boolean {
+    return !!IsControlPressed(inputMode, Number(control));
+  }
+
+  /**
+   * Check whether a disabled control is currently pressed.
+   *
+   * @param inputMode InputMode
+   * @param control Control
+   * @returns True or False.
+   */
+  public static isDisabledControlPressed(inputMode: InputMode, control: Control): boolean {
+    return !!IsDisabledControlPressed(inputMode, Number(control));
   }
 
   /**
    * Check whether a control has been pressed since last check.
    *
-   * @param index input group (usually 0)
+   * @param inputMode InputMode
    * @param control Control
    * @returns True or False.
    */
-  public static isControlJustPressed(index: number, control: Control): boolean {
-    return !!IsControlJustPressed(index, Number(control));
+  public static isControlJustPressed(inputMode: InputMode, control: Control): boolean {
+    return !!IsControlJustPressed(inputMode, Number(control));
   }
 
   /**
    * Check whether a disabled control has been pressed since last check.
    *
-   * @param index input group (usually 0)
+   * @param inputMode InputMode
    * @param control Control
    * @returns True or False.
    */
-  public static isDisabledControlJustPressed(index: number, control: Control): boolean {
-    return !!IsDisabledControlJustPressed(index, Number(control));
+  public static isDisabledControlJustPressed(inputMode: InputMode, control: Control): boolean {
+    return !!IsDisabledControlJustPressed(inputMode, Number(control));
   }
 
   /**
    * Check whether a control is being released.
    *
-   * @param index input group (usually 0)
+   * @param inputMode InputMode
    * @param control Control
    * @returns True or False.
    */
-  public static isControlReleased(index: number, control: Control): boolean {
-    return !!IsControlReleased(index, Number(control));
+  public static isControlReleased(inputMode: InputMode, control: Control): boolean {
+    return !!IsControlReleased(inputMode, Number(control));
   }
 
   /**
    * Check whether a control has been released since last check.
    *
-   * @param index input group (usually 0)
+   * @param inputMode InputMode
    * @param control Control
    * @returns True or False.
    */
-  public static isControlJustReleased(index: number, control: Control): boolean {
-    return !!IsControlJustReleased(index, Number(control));
+  public static isControlJustReleased(inputMode: InputMode, control: Control): boolean {
+    return !!IsControlJustReleased(inputMode, Number(control));
+  }
+
+  /**
+   * Check whether a control is enabled this frame.
+   *
+   * @param inputMode InputMode
+   * @param control Control
+   * @returns True or False.
+   */
+  public static isControlEnabled(inputMode: InputMode, control: Control): boolean {
+    return !!IsControlEnabled(inputMode, Number(control));
+  }
+
+  /**
+   * Makes the Game Engine respond to the given Control this frame
+   *
+   * @param inputMode InputMode
+   * @param control Control
+   */
+  public static enableControlThisFrame(inputMode: InputMode, control: Control): void {
+    EnableControlAction(inputMode, Number(control), true);
+  }
+
+  /**
+   * Makes the Game Engine ignore the given Control this frame
+   *
+   * @param inputMode InputMode
+   * @param control Control
+   */
+  public static disableControlThisFrame(inputMode: InputMode, control: Control): void {
+    DisableControlAction(inputMode, Number(control), true);
+  }
+
+  /**
+   * Disables all Controls this frame.
+   *
+   * @param inputMode InputMode
+   */
+  public static disableAllControlsThisFrame(inputMode: InputMode): void {
+    DisableAllControlActions(inputMode);
+  }
+
+  /**
+   * Enables all Controls this frame.
+   *
+   * @param inputMode InputMode
+   */
+  public static enableAllControlsThisFrame(inputMode: InputMode): void {
+    EnableAllControlActions(inputMode);
   }
 
   /**

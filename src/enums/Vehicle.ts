@@ -269,3 +269,107 @@ export enum VehicleWindowTint {
   Limo,
   Green,
 }
+
+export enum VehicleWindowIndex {
+  FrontRightWindow = 1,
+  FrontLeftWindow = 0,
+  BackRightWindow = 3,
+  BackLeftWindow = 2,
+  ExtraWindow1 = 4,
+  ExtraWindow2 = 5,
+  ExtraWindow3 = 6,
+  ExtraWindow4 = 7,
+}
+
+export enum VehicleModType {
+  Spoilers,
+  FrontBumper,
+  RearBumper,
+  SideSkirt,
+  Exhaust,
+  Frame,
+  Grille,
+  Hood,
+  Fender,
+  RightFender,
+  Roof,
+  Engine,
+  Brakes,
+  Transmission,
+  Horns,
+  Suspension,
+  Armor,
+  FrontWheel = 23,
+  RearWheel,
+  PlateHolder,
+  VanityPlates,
+  TrimDesign,
+  Ornaments,
+  Dashboard,
+  DialDesign,
+  DoorSpeakers,
+  Seats,
+  SteeringWheels,
+  ColumnShifterLevers,
+  Plaques,
+  Speakers,
+  Trunk,
+  Hydraulics,
+  EngineBlock,
+  AirFilter,
+  Struts,
+  ArchCover,
+  Aerials,
+  Trim,
+  Tank,
+  Windows,
+  Livery = 48,
+}
+
+export enum VehicleToggleModType {
+  Turbo = 18,
+  TireSmoke = 20,
+  XenonHeadlights = 22,
+}
+
+export enum VehiclePaintType {
+  Normal,
+  Metallic,
+  Pearl,
+  Matte,
+  Metal,
+  Chrome,
+}
+
+export enum VehicleDoorIndex {
+  FrontRightDoor = 1,
+  FrontLeftDoor = 0,
+  BackRightDoor = 3,
+  BackLeftDoor = 2,
+  Hood = 4,
+  Trunk = 5,
+}
+
+export enum VehicleWheelType {
+  Sport,
+  Muscle,
+  Lowrider,
+  SUV,
+  Offroad,
+  Tuner,
+  BikeWheels,
+  HighEnd,
+  BennysOriginals,
+  BennysBespoke,
+}
+
+export enum VehicleWheelIndex {
+  FrontLeftWheel,
+  FrontRightWheel,
+  MidLeftWheel,
+  MidRightWheel,
+  RearLeftWheel,
+  RearRightWheel,
+  TrailerMidLeftWheel = 45,
+  TrailerMidRightWheel = 47,
+}
