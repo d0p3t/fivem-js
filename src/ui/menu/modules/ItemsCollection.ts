@@ -3,7 +3,7 @@ import { ListItem } from '../modules';
 export class ItemsCollection {
   private items: ListItem[] | string[];
 
-  constructor(items: ListItem[]) {
+  constructor(items: ListItem[] | string[]) {
     if (items.length === 0) {
       throw new Error('ItemsCollection cannot be empty');
     }

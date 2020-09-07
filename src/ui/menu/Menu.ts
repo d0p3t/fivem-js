@@ -29,7 +29,7 @@ export class Menu {
     return this.activeItem % this.menuItems.length;
   }
 
-  public set CurrentSelection(v) {
+  public set CurrentSelection(v: number) {
     this.menuItems[this.activeItem % this.menuItems.length].selected = false;
     this.activeItem = 1000 - (1000 % this.menuItems.length) + v;
     if (this.CurrentSelection > this.maxItem) {
@@ -82,7 +82,13 @@ export class Menu {
   private readonly counterText: ResText;
   private readonly background: Sprite;
 
-  constructor(title, subtitle, offset = new Point(15, 15), spriteLibrary?, spriteName?) {
+  constructor(
+    title: string,
+    subtitle: string,
+    offset = new Point(15, 15),
+    spriteLibrary?: string,
+    spriteName?: string,
+  ) {
     if (!(offset instanceof Point)) {
       offset = Point.parse(offset);
     }

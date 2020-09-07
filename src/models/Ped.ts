@@ -54,6 +54,22 @@ export class Ped extends Entity {
     super(handle);
   }
 
+  public get Health(): number {
+    return super.Health - 100;
+  }
+
+  public set Health(amount: number) {
+    super.Health = amount + 100;
+  }
+
+  public get MaxHealth(): number {
+    return super.MaxHealth - 100;
+  }
+
+  public set MaxHealth(amount: number) {
+    super.MaxHealth = amount + 100;
+  }
+
   public get CurrentVehicle(): Vehicle {
     const veh = new Vehicle(GetVehiclePedIsIn(this.handle, false));
     return veh.exists() ? veh : null;
@@ -67,6 +83,276 @@ export class Ped extends Entity {
   public get VehicleTryingToEnter(): Vehicle {
     const veh = new Vehicle(GetVehiclePedIsTryingToEnter(this.handle));
     return veh.exists() ? veh : null;
+  }
+
+  public get IsJumpingOutOfVehicle(): boolean {
+    return !!IsPedJumpingOutOfVehicle(this.handle);
+  }
+
+  public set StaysInVehicleWhenJacked(value: boolean) {
+    SetPedStayInVehicleWhenJacked(this.handle, value);
+  }
+
+  public set MaxDrivingSpeed(value: number) {
+    SetDriveTaskMaxCruiseSpeed(this.handle, value);
+  }
+
+  public get IsHuman(): boolean {
+    return !!IsPedHuman(this.handle);
+  }
+
+  public set IsEnemy(value: boolean) {
+    SetPedAsEnemy(this.handle, value);
+  }
+
+  public set IsPriorityTargetForEnemies(value: boolean) {
+    SetEntityIsTargetPriority(this.handle, value, 0);
+  }
+
+  public get IsPlayer(): boolean {
+    return !!IsPedAPlayer(this.handle);
+  }
+
+  public get IsCuffed(): boolean {
+    return !!IsPedCuffed(this.handle);
+  }
+
+  public get IsWearingHelmet(): boolean {
+    return !!IsPedWearingHelmet(this.handle);
+  }
+
+  public get IsRagdoll(): boolean {
+    return !!IsPedRagdoll(this.handle);
+  }
+
+  public get IsIdle(): boolean {
+    return (
+      !this.IsInjured &&
+      !this.IsRagdoll &&
+      !this.IsInAir &&
+      !this.IsOnFire &&
+      !this.IsDucking &&
+      !this.IsGettingIntoAVehicle &&
+      !this.IsInCombat &&
+      !this.IsInMeleeCombat &&
+      (!this.isInAnyVehicle() || this.isSittingInAnyVehicle())
+    );
+  }
+
+  public get IsProne(): boolean {
+    return !!IsPedProne(this.handle);
+  }
+
+  public set IsDucking(value: boolean) {
+    SetPedDucking(this.handle, value);
+  }
+
+  public get IsDucking(): boolean {
+    return !!IsPedDucking(this.handle);
+  }
+
+  public get IsGettingUp(): boolean {
+    return !!IsPedGettingUp(this.handle);
+  }
+
+  public get IsClimbing(): boolean {
+    return !!IsPedClimbing(this.handle);
+  }
+
+  public get IsJumping(): boolean {
+    return !!IsPedJumping(this.handle);
+  }
+
+  public get IsFalling(): boolean {
+    return !!IsPedFalling(this.handle);
+  }
+
+  public get IsStopped(): boolean {
+    return !!IsPedStopped(this.handle);
+  }
+
+  public get IsWalking(): boolean {
+    return !!IsPedWalking(this.handle);
+  }
+
+  public get IsRunning(): boolean {
+    return !!IsPedRunning(this.handle);
+  }
+
+  public get IsSprinting(): boolean {
+    return !!IsPedSprinting(this.handle);
+  }
+
+  public get IsDiving(): boolean {
+    return !!IsPedDiving(this.handle);
+  }
+
+  public get IsInParachuteFreeFall(): boolean {
+    return !!IsPedInParachuteFreeFall(this.handle);
+  }
+
+  public get IsSwimming(): boolean {
+    return !!IsPedSwimming(this.handle);
+  }
+
+  public get IsSwimmingUnderWater(): boolean {
+    return !!IsPedSwimmingUnderWater(this.handle);
+  }
+
+  public get IsVaulting(): boolean {
+    return !!IsPedVaulting(this.handle);
+  }
+
+  public get IsOnBike(): boolean {
+    return !!IsPedOnAnyBike(this.handle);
+  }
+
+  public get IsOnFoot(): boolean {
+    return !!IsPedOnFoot(this.handle);
+  }
+
+  public get IsInSub(): boolean {
+    return !!IsPedInAnySub(this.handle);
+  }
+
+  public get IsInTaxi(): boolean {
+    return !!IsPedInAnyTaxi(this.handle);
+  }
+
+  public get IsInTrain(): boolean {
+    return !!IsPedInAnyTrain(this.handle);
+  }
+
+  public get IsInHeli(): boolean {
+    return !!IsPedInAnyHeli(this.handle);
+  }
+
+  public get IsInPlane(): boolean {
+    return !!IsPedInAnyPlane(this.handle);
+  }
+
+  public get IsInFlyingVehicle(): boolean {
+    return !!IsPedInFlyingVehicle(this.handle);
+  }
+
+  public get IsInBoat(): boolean {
+    return !!IsPedInAnyBoat(this.handle);
+  }
+
+  public get IsInPoliceVehicle(): boolean {
+    return !!IsPedInAnyPoliceVehicle(this.handle);
+  }
+
+  public get IsJacking(): boolean {
+    return !!IsPedJacking(this.handle);
+  }
+
+  public get IsBeingJacked(): boolean {
+    return !!IsPedBeingJacked(this.handle);
+  }
+
+  public get IsGettingIntoAVehicle(): boolean {
+    return !!IsPedGettingIntoAVehicle(this.handle);
+  }
+
+  public get IsTryingToEnterALockedVehicle(): boolean {
+    return !!IsPedTryingToEnterALockedVehicle(this.handle);
+  }
+
+  public get IsInjured(): boolean {
+    return !!IsPedInjured(this.handle);
+  }
+
+  public get IsFleeing(): boolean {
+    return !!IsPedFleeing(this.handle);
+  }
+
+  public get IsInCombat(): boolean {
+    return !!IsPedInCombat(this.handle, PlayerPedId());
+  }
+
+  public get IsInMeleeCombat(): boolean {
+    return !!IsPedInMeleeCombat(this.handle);
+  }
+
+  public get IsInStealthMode(): boolean {
+    return !!GetPedStealthMovement(this.handle);
+  }
+
+  public get IsAmbientSpeechPlaying(): boolean {
+    return !!IsAmbientSpeechPlaying(this.handle);
+  }
+
+  public get IsScriptedSpeechPlaying(): boolean {
+    return !!IsScriptedSpeechPlaying(this.handle);
+  }
+
+  public get IsAnySpeechPlaying(): boolean {
+    return !!IsAnySpeechPlaying(this.handle);
+  }
+
+  public get IsAmbientSpeechEnabled(): boolean {
+    return !IsAmbientSpeechDisabled(this.handle);
+  }
+
+  public set IsPainAudioEnabled(value: boolean) {
+    DisablePedPainAudio(this.handle, !value);
+  }
+
+  public get IsPlantingBomb(): boolean {
+    return !!IsPedPlantingBomb(this.handle);
+  }
+
+  public get IsShooting(): boolean {
+    return !!IsPedShooting(this.handle);
+  }
+
+  public get IsReloading(): boolean {
+    return !!IsPedReloading(this.handle);
+  }
+
+  public get IsDoingDriveby(): boolean {
+    return !!IsPedDoingDriveby(this.handle);
+  }
+
+  public get IsGoingIntoCover(): boolean {
+    return !!IsPedGoingIntoCover(this.handle);
+  }
+
+  public get IsBeingStunned(): boolean {
+    return !!IsPedBeingStunned(this.handle, 0);
+  }
+
+  public get IsBeingStealthKilled(): boolean {
+    return !!IsPedBeingStealthKilled(this.handle);
+  }
+
+  public get IsPerformingStealthKill(): boolean {
+    return !!IsPedPerformingStealthKill(this.handle);
+  }
+
+  public get IsAimingFromCover(): boolean {
+    return !!IsPedAimingFromCover(this.handle);
+  }
+
+  public isInCover(expectUseWeapon = false): boolean {
+    return !!IsPedInCover(this.handle, expectUseWeapon);
+  }
+
+  public get IsInCoverFacingLeft(): boolean {
+    return !!IsPedInCoverFacingLeft(this.handle);
+  }
+
+  public set FiringPattern(value: number) {
+    SetPedFiringPattern(this.handle, value);
+  }
+
+  public set DropsWeaponsOnDeath(value: boolean) {
+    SetPedDropsWeaponsWhenDead(this.handle, value);
+  }
+
+  public set DrivingSpeed(value: number) {
+    SetDriveTaskCruiseSpeed(this.handle, value);
   }
 
   public set DrivingStyle(style: DrivingStyle) {
@@ -93,7 +379,7 @@ export class Ped extends Entity {
     SetPedIntoVehicle(this.handle, vehicle.Handle, Number(seat));
   }
 
-  public isHeadtrackkking(entity: Entity): boolean {
+  public isHeadtracking(entity: Entity): boolean {
     return !!IsPedHeadtrackingEntity(this.handle, entity.Handle);
   }
 
@@ -118,16 +404,16 @@ export class Ped extends Entity {
   }
 
   public kill(): void {
-    super.Health = -1;
+    this.Health = -1;
   }
 
   public resurrect(): void {
-    const maxHealth: number = super.Health;
+    const maxHealth: number = this.Health;
     const isCollisionEnabled: boolean = super.IsCollisionEnabled;
 
     ResurrectPed(this.handle);
-    super.MaxHealth = maxHealth;
-    super.Health = maxHealth;
+    this.MaxHealth = maxHealth;
+    this.Health = maxHealth;
     super.IsCollisionEnabled = isCollisionEnabled;
     ClearPedTasksImmediately(this.handle);
   }

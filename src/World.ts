@@ -1,4 +1,4 @@
-import { Entity, Model } from './';
+import { Entity, Model, Prop } from './';
 import { Blip } from './Blip';
 import { Camera } from './Camera';
 import { CloudHat, IntersectOptions, MarkerType, Weather } from './enums';
@@ -347,6 +347,27 @@ export abstract class World {
     );
   }
 
+  public static async createProp(
+    model: Model,
+    position: Vector3,
+    dynamic: boolean,
+    placeOnGround: boolean,
+  ): Promise<Prop> {
+    if (!model.IsProp || !(await model.request(1000))) {
+      return null;
+    }
+
+    const prop = new Prop(
+      CreateObject(model.Hash, position.x, position.y, position.z, true, true, dynamic),
+    );
+
+    if (placeOnGround) {
+      prop.placeOnGround();
+    }
+
+    return prop;
+  }
+
   /**
    * Draw a marker at a desired location.
    *
@@ -574,31 +595,85 @@ export abstract class World {
     );
   }
 
+  public static getAllProps(): Prop[] {
+    const props: Prop[] = [];
+
+    const [handle, entityHandle] = (FindFirstObject(null) as unknown) as [number, number];
+    let prop: Prop = Entity.fromHandle(entityHandle) as Prop;
+
+    if (prop !== undefined && prop !== null && prop.exists()) {
+      props.push(prop);
+    }
+
+    let findResult: [number | boolean, number] = [false, null];
+
+    do {
+      findResult = (FindNextObject(handle, null) as unknown) as [number | boolean, number];
+      if (findResult[0]) {
+        prop = Entity.fromHandle(findResult[1]) as Prop;
+        if (prop !== undefined && prop !== null && prop.exists()) {
+          props.push(prop);
+        }
+      }
+    } while (findResult[0]);
+
+    EndFindObject(handle);
+
+    return props;
+  }
+
   public static getAllPeds(): Ped[] {
     const peds: Ped[] = [];
 
-    let entityHandle = -1;
-    const handle: number = FindFirstPed(entityHandle);
+    const [handle, entityHandle] = (FindFirstPed(null) as unknown) as [number, number];
     let ped: Ped = Entity.fromHandle(entityHandle) as Ped;
 
     if (ped !== undefined && ped !== null && ped.exists()) {
       peds.push(ped);
     }
 
-    entityHandle = -1;
+    let findResult: [number | boolean, number] = [false, null];
 
-    while (FindNextPed(handle, entityHandle)) {
-      ped = Entity.fromHandle(entityHandle) as Ped;
-      if (ped !== undefined && ped !== null && ped.exists()) {
-        peds.push(ped);
+    do {
+      findResult = (FindNextPed(handle, null) as unknown) as [number | boolean, number];
+      if (findResult[0]) {
+        ped = Entity.fromHandle(findResult[1]) as Ped;
+        if (ped !== undefined && ped !== null && ped.exists()) {
+          peds.push(ped);
+        }
       }
-
-      entityHandle = -1;
-    }
+    } while (findResult[0]);
 
     EndFindPed(handle);
 
     return peds;
+  }
+
+  public static getAllVehicles(): Vehicle[] {
+    const vehicles: Vehicle[] = [];
+
+    const [handle, entityHandle] = (FindFirstVehicle(null) as unknown) as [number, number];
+    let vehicle: Vehicle = Entity.fromHandle(entityHandle) as Vehicle;
+
+    if (vehicle !== undefined && vehicle !== null && vehicle.exists()) {
+      vehicles.push(vehicle);
+    }
+
+    let findResult: [number | boolean, number] = [false, null];
+
+    do {
+      findResult = (FindNextVehicle(handle, null) as unknown) as [number | boolean, number];
+      if (findResult[0]) {
+        vehicle = Entity.fromHandle(findResult[1]) as Vehicle;
+        if (vehicle !== undefined && vehicle !== null && vehicle.exists()) {
+          vehicles.push(vehicle);
+        }
+      }
+    } while (findResult[0]);
+
+    EndFindVehicle(handle);
+
+    return vehicles;
   }
 
   private static currentCloudHat: CloudHat = CloudHat.Clear;

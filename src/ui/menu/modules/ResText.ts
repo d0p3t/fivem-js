@@ -1,5 +1,5 @@
 import { Screen, Text } from '../../';
-import { Alignment } from '../../../enums';
+import { Alignment, Font } from '../../../enums';
 import { Color, Point, Size } from '../../../utils';
 
 export class ResText extends Text {
@@ -8,7 +8,14 @@ export class ResText extends Text {
   public outline: boolean;
   public wordWrap: Size;
 
-  constructor(caption, pos, scale, color?, font?, justify?) {
+  constructor(
+    caption: string,
+    pos: Point,
+    scale: number,
+    color?: Color,
+    font?: Font,
+    justify?: Alignment,
+  ) {
     super(caption, pos, scale, color || new Color(255, 255, 255, 255), font || 0, Alignment.Left);
     if (justify) {
       this.textAlignment = justify;
@@ -16,8 +23,25 @@ export class ResText extends Text {
   }
 
   public draw(offset?: Size): void;
-  public draw(caption, pos, scale, color, font, arg2): void;
-  public draw(arg1?, pos?, scale?, color?, font?, arg2?, dropShadow?, outline?, wordWrap?): void {
+  public draw(
+    caption: string,
+    pos: Point,
+    scale: number,
+    color: Color,
+    font: Font,
+    arg2: boolean,
+  ): void;
+  public draw(
+    arg1?,
+    pos?,
+    scale?,
+    color?: Color,
+    font?: Font,
+    arg2?,
+    dropShadow?: boolean,
+    outline?: boolean,
+    wordWrap?,
+  ): void {
     let caption = arg1;
     let centered = arg2;
     let textAlignment = arg2;

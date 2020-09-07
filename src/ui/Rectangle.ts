@@ -6,7 +6,7 @@ export class Rectangle extends IElement {
   public pos: Point;
   public size: Size;
   public color: Color;
-  constructor(pos, size, color: Color) {
+  constructor(pos: Point, size: Size, color: Color) {
     super();
     this.enabled = true;
     this.pos = pos;

@@ -38,7 +38,7 @@ export class UIMenuListItem extends UIMenuItem {
   get Collection(): (ListItem | string)[] {
     return this.collection;
   }
-  set Collection(v) {
+  set Collection(v: (ListItem | string)[]) {
     if (!v) {
       throw new Error("The collection can't be null");
     }
@@ -86,7 +86,7 @@ export class UIMenuListItem extends UIMenuItem {
 
     return this.index % this.Collection.length;
   }
-  set Index(value) {
+  set Index(value: number) {
     if (this.Collection === null) {
       return;
     }

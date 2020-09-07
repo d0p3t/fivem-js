@@ -11,10 +11,10 @@ export class Sprite {
   private textureDict: string;
 
   constructor(
-    textureDict,
-    textureName,
-    pos,
-    size,
+    textureDict: string,
+    textureName: string,
+    pos: Point,
+    size: Size,
     heading = 0,
     color = new Color(255, 255, 255, 255),
   ) {
@@ -36,7 +36,7 @@ export class Sprite {
     }, 0);
   }
 
-  public set TextureDict(v) {
+  public set TextureDict(v: string) {
     this.textureDict = v;
     if (!this.IsTextureDictionaryLoaded) {
       this.loadTextureDictionary();

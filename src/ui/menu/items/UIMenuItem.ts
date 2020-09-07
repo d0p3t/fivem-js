@@ -44,11 +44,11 @@ export class UIMenuItem {
   get Text(): string {
     return this.text.caption;
   }
-  set Text(v) {
+  set Text(v: string) {
     this.text.caption = v;
   }
 
-  constructor(text, description = '') {
+  constructor(text: string, description = '') {
     this.enabled = true;
 
     this.rectangle = new ResRectangle(new Point(0, 0), new Size(431, 38), new Color(150, 0, 0, 0));
@@ -224,11 +224,13 @@ export class UIMenuItem {
       case BadgeStyle.Star:
         return 'shop_new_star';
       case BadgeStyle.Tatoo:
-        return selected ? 'shop_tattoos_icon_b' : 'shop_tattoos_icon_';
+        return selected ? 'shop_tattoos_icon_b' : 'shop_tattoos_icon_a';
       case BadgeStyle.Tick:
         return 'shop_tick_icon';
       case BadgeStyle.Trevor:
         return selected ? 'shop_trevor_icon_b' : 'shop_trevor_icon_a';
+      case BadgeStyle.Cash:
+        return 'mp_specitem_cash';
       default:
         return '';
     }
