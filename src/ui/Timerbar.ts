@@ -126,7 +126,7 @@ export class Timerbar {
     return this.pbarValue;
   }
 
-  public set Progress(value) {
+  public set Progress(value: number) {
     this.pbarValue = value <= 0.0 ? 0.0 : value >= 1.0 ? 1.0 : value;
   }
 
@@ -134,7 +134,7 @@ export class Timerbar {
     return this.isVisible;
   }
 
-  public set Visible(value) {
+  public set Visible(value: boolean) {
     const idx = activeTimerBars.indexOf(this);
     if (value) {
       if (idx !== -1) {
@@ -164,11 +164,11 @@ export class Timerbar {
     }
   }
 
-  public get ProgressbarBgColor(): number[] {
+  public get ProgressbarBgColor(): number[] | number {
     return this.pbarBgColor;
   }
 
-  public set ProgressbarBgColor(value) {
+  public set ProgressbarBgColor(value: number[] | number) {
     if (Array.isArray(value)) {
       this.pbarBgColor = value;
     } else {
@@ -177,11 +177,11 @@ export class Timerbar {
     }
   }
 
-  public get ProgressbarFgColor(): number[] {
+  public get ProgressbarFgColor(): number[] | number {
     return this.pbarFgColor;
   }
 
-  public set ProgressbarFgColor(value) {
+  public set ProgressbarFgColor(value: number[] | number) {
     if (Array.isArray(value)) {
       this.pbarFgColor = value;
     } else {

@@ -44,11 +44,11 @@ export class UIMenuItem {
   get Text(): string {
     return this.text.caption;
   }
-  set Text(v) {
+  set Text(v: string) {
     this.text.caption = v;
   }
 
-  constructor(text, description = '') {
+  constructor(text: string, description = '') {
     this.enabled = true;
 
     this.rectangle = new ResRectangle(new Point(0, 0), new Size(431, 38), new Color(150, 0, 0, 0));

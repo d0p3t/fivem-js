@@ -1,10 +1,10 @@
-import { Size } from '../utils';
+import { Color, Point, Size } from '../utils';
 import { Rectangle, Screen } from './';
 
 export class Container extends Rectangle {
   public items: Container[];
 
-  constructor(pos, size, color) {
+  constructor(pos: Point, size: Size, color: Color) {
     super(pos, size, color);
     this.items = [];
   }
