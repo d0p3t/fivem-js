@@ -111,10 +111,12 @@ export class Model {
    * @returns Whether this model is a cargobob.
    */
   public get IsCargobob(): boolean {
-    return this.hash === VehicleHash.Cargobob
-      || this.hash === VehicleHash.Cargobob2
-      || this.hash === VehicleHash.Cargobob3
-      || this.hash === VehicleHash.Cargobob4;
+    return (
+      this.hash === VehicleHash.Cargobob ||
+      this.hash === VehicleHash.Cargobob2 ||
+      this.hash === VehicleHash.Cargobob3 ||
+      this.hash === VehicleHash.Cargobob4
+    );
   }
 
   /**

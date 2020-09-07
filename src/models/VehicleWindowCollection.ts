@@ -9,7 +9,7 @@ export class VehicleWindowCollection {
     VehicleWindow
   >();
 
-  constructor(owner) {
+  constructor(owner: Vehicle) {
     this._owner = owner;
   }
 
