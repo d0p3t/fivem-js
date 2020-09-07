@@ -1,4 +1,5 @@
 {
+  "inputFiles": ["./src"],
   "mode": "file",
   "out": "docs",
   "name": "fivem-js - Javascript/Typescript wrapper",
@@ -7,6 +8,8 @@
   "ignoreCompilerErrors": "true",
   "experimentalDecorators": "true",
   "emitDecoratorMetadata": "true",
+  "excludePrivate": true,
+  "excludeProtected": true,
   "target": "es6",
   "moduleResolution": "node",
   "preserveConstEnums": "true",
