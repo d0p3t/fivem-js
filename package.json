@@ -6,7 +6,6 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "builddev": "npm run build && copy.bat",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "eslint . --ext .ts",
     "prepare": "npm run build",
