@@ -112,7 +112,7 @@ You can join our public help Discord [here](https://discord.d0p3t.nl)
 
 You are more than welcome to contribute to this project by submitting a pull request and creating issues.
 
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/d0p3t/fivem-js/issues)
+Please checkout [CONTRIBUTING.md](./CONTRIBUTING.md) for our contributing guidelines.
 
 ## License
 
