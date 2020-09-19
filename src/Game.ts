@@ -299,6 +299,17 @@ export abstract class Game {
   }
 
   /**
+   * Check whether a disabled control is being released.
+   *
+   * @param inputMode InputMode
+   * @param control Control
+   * @returns True or False.
+   */
+  public static isDisabledControlReleased(inputMode: InputMode, control: Control): boolean {
+    return !!IsDisabledControlReleased(inputMode, Number(control));
+  }
+
+  /**
    * Check whether a control has been released since last check.
    *
    * @param inputMode InputMode
@@ -307,6 +318,17 @@ export abstract class Game {
    */
   public static isControlJustReleased(inputMode: InputMode, control: Control): boolean {
     return !!IsControlJustReleased(inputMode, Number(control));
+  }
+
+  /**
+   * Check whether a disabled control has been released since last check.
+   *
+   * @param inputMode InputMode
+   * @param control Control
+   * @returns True or False.
+   */
+  public static isDisabledControlJustReleased(inputMode: InputMode, control: Control): boolean {
+    return !!IsDisabledControlJustReleased(inputMode, Number(control));
   }
 
   /**
