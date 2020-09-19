@@ -44,6 +44,7 @@ export class UIMenuItem {
   get Text(): string {
     return this.text.caption;
   }
+
   set Text(v: string) {
     this.text.caption = v;
   }
@@ -76,10 +77,10 @@ export class UIMenuItem {
 
   public setVerticalPosition(y: number): void {
     this.rectangle.pos = new Point(this.offset.X, y + 144 + this.offset.Y);
-    this.selectedSprite.pos = new Point(0 + this.offset.X, y + 144 + this.offset.Y);
+    this.selectedSprite.pos = new Point(this.offset.X, y + 144 + this.offset.Y);
     this.text.pos = new Point(8 + this.offset.X, y + 147 + this.offset.Y);
 
-    this.badgeLeft.pos = new Point(0 + this.offset.X, y + 142 + this.offset.Y);
+    this.badgeLeft.pos = new Point(this.offset.X, y + 142 + this.offset.Y);
     this.badgeRight.pos = new Point(385 + this.offset.X, y + 142 + this.offset.Y);
 
     this.labelText.pos = new Point(420 + this.offset.X, y + 148 + this.offset.Y);
@@ -117,7 +118,7 @@ export class UIMenuItem {
       this.text.pos = new Point(35 + this.offset.X, this.text.pos.Y);
       this.badgeLeft.TextureDict = this.badgeToSpriteLib();
       this.badgeLeft.textureName = this.badgeToSpriteName(this.leftBadge, this.selected);
-      this.badgeLeft.color = this.isBagdeWhiteSprite(this.leftBadge)
+      this.badgeLeft.color = this.isBadgeWhiteSprite(this.leftBadge)
         ? this.enabled
           ? this.selected
             ? this.highlightedForeColor
@@ -136,7 +137,7 @@ export class UIMenuItem {
       );
       this.badgeRight.TextureDict = this.badgeToSpriteLib();
       this.badgeRight.textureName = this.badgeToSpriteName(this.rightBadge, this.selected);
-      this.badgeRight.color = this.isBagdeWhiteSprite(this.rightBadge)
+      this.badgeRight.color = this.isBadgeWhiteSprite(this.rightBadge)
         ? this.enabled
           ? this.selected
             ? this.highlightedForeColor
@@ -236,7 +237,7 @@ export class UIMenuItem {
     }
   }
 
-  public isBagdeWhiteSprite(badge: BadgeStyle): boolean {
+  public isBadgeWhiteSprite(badge: BadgeStyle): boolean {
     switch (badge) {
       case BadgeStyle.Lock:
       case BadgeStyle.Tick:
