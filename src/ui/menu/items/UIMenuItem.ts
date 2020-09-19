@@ -96,17 +96,17 @@ export class UIMenuItem {
     }
   }
 
-  public draw(): void {
+  public draw(resolution?: Size): void {
     this.rectangle.size = new Size(431 + this.parent.widthOffset, 38);
     this.selectedSprite.size = new Size(431 + this.parent.widthOffset, 38);
 
     if (this.hovered && !this.selected) {
       this.rectangle.color = new Color(20, 255, 255, 255);
-      this.rectangle.draw();
+      this.rectangle.draw(undefined, resolution);
     }
 
     this.selectedSprite.color = this.selected ? this.highlightedBackColor : this.backColor;
-    this.selectedSprite.draw();
+    this.selectedSprite.draw(resolution);
 
     this.text.color = this.enabled
       ? this.selected
@@ -125,7 +125,7 @@ export class UIMenuItem {
             : this.foreColor
           : new Color(255, 163, 159, 148)
         : Color.white;
-      this.badgeLeft.draw();
+      this.badgeLeft.draw(resolution);
     } else {
       this.text.pos = new Point(8 + this.offset.X, this.text.pos.Y);
     }
@@ -144,7 +144,7 @@ export class UIMenuItem {
             : this.foreColor
           : new Color(255, 163, 159, 148)
         : Color.white;
-      this.badgeRight.draw();
+      this.badgeRight.draw(resolution);
     }
 
     if (this.rightLabel && this.rightLabel !== '') {
@@ -158,9 +158,9 @@ export class UIMenuItem {
           ? this.highlightedForeColor
           : this.foreColor
         : new Color(255, 163, 159, 148);
-      this.labelText.draw();
+      this.labelText.draw(undefined, resolution);
     }
-    this.text.draw();
+    this.text.draw(undefined, resolution);
   }
 
   public setLeftBadge(badge: BadgeStyle): void {

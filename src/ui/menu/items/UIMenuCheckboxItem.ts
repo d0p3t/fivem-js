@@ -33,8 +33,8 @@ export class UIMenuCheckboxItem extends UIMenuItem {
     );
   }
 
-  public draw(): void {
-    super.draw();
+  public draw(resolution?: Size): void {
+    super.draw(resolution);
     this.checkedSprite.pos = this.checkedSprite.pos = new Point(
       380 + this.offset.X + this.parent.widthOffset,
       this.checkedSprite.pos.Y,
@@ -51,7 +51,7 @@ export class UIMenuCheckboxItem extends UIMenuItem {
         ? this.highlightedForeColor
         : this.foreColor
       : new Color(255, 163, 159, 148);
-    this.checkedSprite.draw();
+    this.checkedSprite.draw(resolution);
   }
 
   // public setRightBadge(badge: BadgeStyle) {

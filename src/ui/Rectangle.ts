@@ -6,6 +6,7 @@ export class Rectangle extends IElement {
   public pos: Point;
   public size: Size;
   public color: Color;
+
   constructor(pos: Point, size: Size, color: Color) {
     super();
     this.enabled = true;
@@ -14,7 +15,7 @@ export class Rectangle extends IElement {
     this.color = color;
   }
 
-  public draw(pos, size, color: Color): void {
+  public draw(pos, size: Size, color: Color, resolution?: Size): void {
     if (!pos) {
       pos = new Size(0, 0);
     }
@@ -32,13 +33,13 @@ export class Rectangle extends IElement {
       size = this.size;
       color = this.color;
     }
-    const height = Screen.Height;
-    const width = Screen.ScaledWidth;
 
-    const w = size.width / width;
-    const h = size.height / height;
-    const x = pos.X / width;
-    const y = pos.Y / height;
+    resolution = resolution || new Size(Screen.ScaledWidth, Screen.Height);
+
+    const w = size.width / resolution.width;
+    const h = size.height / resolution.height;
+    const x = pos.X / resolution.width;
+    const y = pos.Y / resolution.height;
 
     DrawRect(x, y, w, h, color.r, color.g, color.b, color.a);
   }

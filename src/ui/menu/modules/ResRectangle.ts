@@ -6,25 +6,23 @@ export class ResRectangle extends Rectangle {
     super(pos, size, color);
   }
 
-  public draw(offset?): void;
-  public draw(pos, size, color: Color): void;
-  public draw(pos?, size?, color?: Color): void {
-    if (!pos) {
-      pos = new Size();
+  public draw(offset?, resolution?: Size): void;
+  public draw(pos, size: Size, color: Color, resolution?: Size): void;
+  public draw(arg1?, arg2?: Size, color?: Color, resolution?: Size): void {
+    resolution = (!color ? arg2 : resolution) || new Size(Screen.ScaledWidth, Screen.Height);
+    if (!arg1) {
+      arg1 = new Size();
     }
-    if (pos && !size && !color) {
-      pos = new Point(this.pos.X + pos.width, this.pos.Y + pos.height);
-      size = this.size;
+    if (arg1 && !color) {
+      arg1 = new Point(this.pos.X + arg1.width, this.pos.Y + arg1.height);
+      arg2 = this.size;
       color = this.color;
     }
 
-    const height = Screen.Height;
-    const width = Screen.ScaledWidth;
-
-    const w = size.width / width;
-    const h = size.height / height;
-    const x = pos.X / width + w * 0.5;
-    const y = pos.Y / height + h * 0.5;
+    const w = arg2.width / resolution.width;
+    const h = arg2.height / resolution.height;
+    const x = arg1.X / resolution.width + w * 0.5;
+    const y = arg1.Y / resolution.height + h * 0.5;
 
     DrawRect(x, y, w, h, color.r, color.g, color.b, color.a);
   }

@@ -42,6 +42,7 @@ export class Sprite {
       this.loadTextureDictionary();
     }
   }
+
   public get TextureDict(): string {
     return this.textureDict;
   }
@@ -50,6 +51,7 @@ export class Sprite {
     return !!HasStreamedTextureDictLoaded(this.textureDict);
   }
 
+  public draw(resolution?: Size): void;
   public draw(
     textureDictionary?: string,
     textureName?: string,
@@ -58,27 +60,38 @@ export class Sprite {
     heading?: number,
     color?: Color,
     loadTexture?: boolean,
+    resolution?: Size,
+  ): void;
+  public draw(
+    arg1?,
+    textureName?: string,
+    pos?: Point,
+    size?: Size,
+    heading?: number,
+    color?: Color,
+    loadTexture = true,
+    resolution?: Size,
   ): void {
-    textureDictionary = textureDictionary || this.TextureDict;
+    const textureDictionary = (arg1 && typeof arg1 === 'string') ? arg1 : this.TextureDict;
+
     textureName = textureName || this.textureName;
     pos = pos || this.pos;
     size = size || this.size;
     heading = heading || this.heading;
     color = color || this.color;
-    loadTexture = loadTexture || true;
 
     if (loadTexture) {
       if (!HasStreamedTextureDictLoaded(textureDictionary)) {
         RequestStreamedTextureDict(textureDictionary, false);
       }
     }
-    const height = Screen.Height;
-    const width = Screen.ScaledWidth;
 
-    const w = this.size.width / width;
-    const h = this.size.height / height;
-    const x = this.pos.X / width + w * 0.5;
-    const y = this.pos.Y / height + h * 0.5;
+    resolution = (arg1 instanceof Size ? arg1 : resolution) || new Size(Screen.ScaledWidth, Screen.Height);
+
+    const w = size.width / resolution.width;
+    const h = size.height / resolution.height;
+    const x = pos.X / resolution.width + w * 0.5;
+    const y = pos.Y / resolution.height + h * 0.5;
 
     DrawSprite(
       textureDictionary,

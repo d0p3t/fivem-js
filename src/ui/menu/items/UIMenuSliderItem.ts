@@ -103,8 +103,8 @@ export class UIMenuSliderItem extends UIMenuItem {
     return this.items[index];
   }
 
-  public draw(): void {
-    super.draw();
+  public draw(resolution?: Size): void {
+    super.draw(resolution);
     this.arrowLeft.color = this.enabled
       ? this.selected
         ? Color.black
@@ -126,17 +126,17 @@ export class UIMenuSliderItem extends UIMenuItem {
 
     if (this.arrowOnlyOnSelected) {
       if (this.selected) {
-        this.arrowLeft.draw();
-        this.arrowRight.draw();
+        this.arrowLeft.draw(resolution);
+        this.arrowRight.draw(resolution);
       }
     } else {
-      this.arrowLeft.draw();
-      this.arrowRight.draw();
+      this.arrowLeft.draw(resolution);
+      this.arrowRight.draw(resolution);
     }
 
-    this.rectangleBackground.draw();
-    this.rectangleSlider.draw();
-    this.rectangleDivider.draw();
+    this.rectangleBackground.draw(undefined, resolution);
+    this.rectangleSlider.draw(undefined, resolution);
+    this.rectangleDivider.draw(undefined,resolution);
   }
 
   // public setRightBadge(badge: BadgeStyle): void {}

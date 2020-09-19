@@ -180,8 +180,8 @@ export class UIMenuListItem extends UIMenuItem {
   //   return this;
   // }
 
-  public draw(): void {
-    super.draw();
+  public draw(resolution?: Size): void {
+    super.draw(resolution);
     const caption = this.Caption();
     const offset = this.currOffset;
 
@@ -210,8 +210,8 @@ export class UIMenuListItem extends UIMenuItem {
     );
     if (this.arrowOnlyOnSelected) {
       if (this.selected) {
-        this.arrowLeft.draw();
-        this.arrowRight.draw();
+        this.arrowLeft.draw(resolution);
+        this.arrowRight.draw(resolution);
         this.itemText.pos = new Point(
           405 + this.offset.X + this.parent.widthOffset,
           this.itemText.pos.Y,
@@ -223,13 +223,13 @@ export class UIMenuListItem extends UIMenuItem {
         );
       }
     } else {
-      this.arrowLeft.draw();
-      this.arrowRight.draw();
+      this.arrowLeft.draw(resolution);
+      this.arrowRight.draw(resolution);
       this.itemText.pos = new Point(
         405 + this.offset.X + this.parent.widthOffset,
         this.itemText.pos.Y,
       );
     }
-    this.itemText.draw();
+    this.itemText.draw(undefined, resolution);
   }
 }

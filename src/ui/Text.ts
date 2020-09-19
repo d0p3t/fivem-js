@@ -1,5 +1,5 @@
 import { Alignment, Font } from '../enums';
-import { Color, Point } from '../utils';
+import { Color, Point, Size } from '../utils';
 import { Screen } from './';
 import { IElement } from './interfaces';
 
@@ -45,9 +45,10 @@ export class Text extends IElement {
     this.alignment = alignment;
   }
 
-  public draw(): void {
-    const x = this.pos.X / Screen.ScaledWidth;
-    const y = this.pos.Y / Screen.Height;
+  public draw(resolution?: Size): void {
+    resolution = resolution || new Size(Screen.ScaledWidth, Screen.Height);
+    const x = this.pos.X / resolution.width;
+    const y = this.pos.Y / resolution.height;
 
     BeginTextCommandDisplayText('STRING');
     SetTextFont(Number(this.font));
