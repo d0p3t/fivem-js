@@ -1,23 +1,23 @@
 import { Color, Point, Size } from '../utils';
-import { Rectangle, Screen } from './';
+import { IDrawable, Screen } from './';
 
-export class Container extends Rectangle {
-  public items: Container[];
+export class Container implements IDrawable {
+  public pos: Point;
+  public size: Size;
+  public color: Color;
+  public items: IDrawable[] = [];
 
   constructor(pos: Point, size: Size, color: Color) {
-    super(pos, size, color);
-    this.items = [];
+    this.pos = pos;
+    this.size = size;
+    this.color = color;
   }
 
-  public addItem(item): void {
+  public addItem(item: IDrawable): void {
     this.items.push(item);
   }
 
   public draw(offset?: Size, resolution?: Size): void {
-    if (!this.enabled) {
-      return;
-    }
-
     resolution = resolution || new Size(Screen.ScaledWidth, Screen.Height);
     offset = offset || new Size();
 

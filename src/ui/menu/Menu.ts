@@ -1,10 +1,9 @@
-import { Container, MenuControls, MenuSettings, Screen, Sprite } from '../';
+import { Container, MenuControls, MenuSettings, Rectangle, Screen, Sprite, Text } from '../';
 import { Audio, InputMode } from '../../';
 import { Alignment, Control, Font } from '../../enums';
 import { Game } from '../../Game';
 import { Color, LiteEvent, measureString, Point, Size, uuidv4 } from '../../utils';
 import { UIMenuCheckboxItem, UIMenuItem, UIMenuListItem, UIMenuSliderItem } from './items';
-import { ResRectangle, ResText } from './modules';
 
 export class Menu {
   public readonly id: string = uuidv4();
@@ -71,7 +70,7 @@ export class Menu {
   private title: string;
   private subtitle: string;
   private counterPretext = '';
-  private counterOverride: string = undefined;
+  private counterOverride: string;
   private spriteLibrary: string;
   private spriteName: string;
   private offset: Point;
@@ -91,28 +90,24 @@ export class Menu {
   private readonly mainMenu: Container;
   private readonly logo: Sprite;
   private readonly upAndDownSprite: Sprite;
-  private readonly titleResText: ResText;
-  private readonly subtitleResText: ResText;
-  private readonly subtitleResRectangle: ResRectangle;
-  private readonly extraRectangleUp: ResRectangle;
-  private readonly extraRectangleDown: ResRectangle;
-  private readonly descriptionBar: ResRectangle;
+  private readonly titleResText: Text;
+  private readonly subtitleResText: Text;
+  private readonly subtitleResRectangle: Rectangle;
+  private readonly extraRectangleUp: Rectangle;
+  private readonly extraRectangleDown: Rectangle;
+  private readonly descriptionBar: Rectangle;
   private readonly descriptionRectangle: Sprite;
-  private readonly descriptionText: ResText;
-  private readonly counterText: ResText;
+  private readonly descriptionText: Text;
+  private readonly counterText: Text;
   private readonly background: Sprite;
 
   constructor(
     title: string,
     subtitle: string,
-    offset = new Point(0, 0),
+    offset = new Point(),
     spriteLibrary = 'commonmenu',
     spriteName = 'interaction_bgd',
   ) {
-    if (!(offset instanceof Point)) {
-      offset = Point.parse(offset);
-    }
-
     this.title = title;
     this.subtitle = subtitle;
     this.spriteLibrary = spriteLibrary;
@@ -120,7 +115,7 @@ export class Menu {
     this.offset = new Point(offset.X, offset.Y);
 
     // Create everything
-    this.mainMenu = new Container(new Point(0, 0), new Size(700, 500), new Color(0, 0, 0, 0));
+    this.mainMenu = new Container(new Point(), new Size(700, 500), Color.transparent);
     this.logo = new Sprite(
       this.spriteLibrary,
       this.spriteName,
@@ -128,11 +123,11 @@ export class Menu {
       new Size(431, 107),
     );
     this.mainMenu.addItem(
-      (this.titleResText = new ResText(
+      (this.titleResText = new Text(
         this.title,
         new Point(215 + this.offset.X, 20 + this.offset.Y),
         1.15,
-        new Color(255, 255, 255, 255),
+        Color.white,
         1,
         Alignment.Centered,
       )),
@@ -140,18 +135,18 @@ export class Menu {
 
     if (this.subtitle !== '') {
       this.mainMenu.addItem(
-        (this.subtitleResRectangle = new ResRectangle(
+        (this.subtitleResRectangle = new Rectangle(
           new Point(this.offset.X, 107 + this.offset.Y),
           new Size(431, 37),
-          new Color(255, 0, 0, 0),
+          Color.black,
         )),
       );
       this.mainMenu.addItem(
-        (this.subtitleResText = new ResText(
+        (this.subtitleResText = new Text(
           this.subtitle,
           new Point(8 + this.offset.X, 110 + this.offset.Y),
           0.35,
-          new Color(255, 255, 255, 255),
+          Color.white,
           0,
           Alignment.Left,
         )),
@@ -159,11 +154,11 @@ export class Menu {
       if (this.subtitle.startsWith('~')) {
         this.counterPretext = this.subtitle.substr(0, 3);
       }
-      this.counterText = new ResText(
+      this.counterText = new Text(
         '',
         new Point(425 + this.offset.X, 110 + this.offset.Y),
         0.35,
-        new Color(255, 255, 255, 255),
+        Color.white,
         0,
         Alignment.Right,
       );
@@ -180,7 +175,7 @@ export class Menu {
       new Size(50, 50),
     );
 
-    this.extraRectangleUp = new ResRectangle(
+    this.extraRectangleUp = new Rectangle(
       new Point(
         this.offset.X,
         144 + 38 * (this.maxItemsOnScreen + 1) + this.offset.Y - 37 + this.extraOffset,
@@ -189,7 +184,7 @@ export class Menu {
       new Color(200, 0, 0, 0),
     );
 
-    this.extraRectangleDown = new ResRectangle(
+    this.extraRectangleDown = new Rectangle(
       new Point(
         this.offset.X,
         144 + 18 + 38 * (this.maxItemsOnScreen + 1) + this.offset.Y - 37 + this.extraOffset,
@@ -198,7 +193,7 @@ export class Menu {
       new Color(200, 0, 0, 0),
     );
 
-    this.descriptionBar = new ResRectangle(
+    this.descriptionBar = new Rectangle(
       new Point(this.offset.X, 123),
       new Size(431, 4),
       Color.black,
@@ -209,11 +204,11 @@ export class Menu {
       new Point(this.offset.X, 127),
       new Size(431, 30),
     );
-    this.descriptionText = new ResText(
+    this.descriptionText = new Text(
       'Description',
       new Point(this.offset.X + 5, 125),
       0.35,
-      new Color(255, 255, 255, 255),
+      Color.white,
       Font.ChaletLondon,
       Alignment.Left,
     );
@@ -236,7 +231,7 @@ export class Menu {
       this.logo.size = new Size(431 + this.widthOffset, 107);
     }
     this.mainMenu.items[0].pos = new Point(
-      ((this.widthOffset + 431) / 2) + this.offset.X,
+      (this.widthOffset + 431) / 2 + this.offset.X,
       20 + this.offset.Y,
     );
     if (this.counterText) {
@@ -467,10 +462,7 @@ export class Menu {
       return;
     }
     // Back
-    if (
-      this.Controls.back.Enabled
-      && Game.isDisabledControlJustReleased(0, Control.PhoneCancel)
-    ) {
+    if (this.Controls.back.Enabled && Game.isDisabledControlJustReleased(0, Control.PhoneCancel)) {
       this.goBack();
     }
     if (this.menuItems.length === 0) {
@@ -478,10 +470,10 @@ export class Menu {
     }
     // Up
     if (
-      this.Controls.up.Enabled
-      && (
-        Game.isDisabledControlPressed(0, Control.PhoneUp)
-        || Game.isDisabledControlPressed(0, Control.CursorScrollUp)
+      this.Controls.up.Enabled &&
+      (
+        Game.isDisabledControlPressed(0, Control.PhoneUp) ||
+        Game.isDisabledControlPressed(0, Control.CursorScrollUp)
       )
       && this.lastUpDownNavigation + this.navigationDelay < Date.now()
     ) {
@@ -494,10 +486,10 @@ export class Menu {
     }
     // Down
     if (
-      this.Controls.down.Enabled
-      && (
-        Game.isDisabledControlPressed(0, Control.PhoneDown)
-        || Game.isDisabledControlPressed(0, Control.CursorScrollDown)
+      this.Controls.down.Enabled &&
+      (
+        Game.isDisabledControlPressed(0, Control.PhoneDown) ||
+        Game.isDisabledControlPressed(0, Control.CursorScrollDown)
       )
       && this.lastUpDownNavigation + this.navigationDelay < Date.now()
     ) {
@@ -510,26 +502,26 @@ export class Menu {
     }
     // Left
     if (
-      this.Controls.left.Enabled
-      && Game.isDisabledControlPressed(0, Control.PhoneLeft)
-      && this.lastLeftRightNavigation + this.navigationDelay < Date.now()
+      this.Controls.left.Enabled &&
+      Game.isDisabledControlPressed(0, Control.PhoneLeft) &&
+      this.lastLeftRightNavigation + this.navigationDelay < Date.now()
     ) {
       this.lastLeftRightNavigation = Date.now();
       this.goLeft();
     }
     // Right
     if (
-      this.Controls.right.Enabled
-      && Game.isDisabledControlPressed(0, Control.PhoneRight)
-      && this.lastLeftRightNavigation + this.navigationDelay < Date.now()
+      this.Controls.right.Enabled &&
+      Game.isDisabledControlPressed(0, Control.PhoneRight) &&
+      this.lastLeftRightNavigation + this.navigationDelay < Date.now()
     ) {
       this.lastLeftRightNavigation = Date.now();
       this.goRight();
     }
     // Select
     if (
-      this.Controls.select.Enabled
-      && Game.isDisabledControlJustPressed(0, Control.FrontendAccept)
+      this.Controls.select.Enabled &&
+      Game.isDisabledControlJustPressed(0, Control.FrontendAccept)
     ) {
       this.selectItem();
     }
@@ -648,7 +640,7 @@ export class Menu {
 
   private _disEnableControls(): void {
     Game.disableAllControlsThisFrame(InputMode.GamePad);
-    for (let control of this._settings.enabledControls[Game.CurrentInputMode]) {
+    for (const control of this._settings.enabledControls[Game.CurrentInputMode]) {
       Game.enableControlThisFrame(0, control);
     }
   }
@@ -727,7 +719,9 @@ export class Menu {
       this.menuItems[this.activeItem % this.menuItems.length].selected = true;
       if (this.menuItems[this.activeItem % this.menuItems.length].description.trim() !== '') {
         this._recalculateDescriptionPosition();
-        this.descriptionText.caption = this.menuItems[this.activeItem % this.menuItems.length].description;
+        this.descriptionText.caption = this.menuItems[
+          this.activeItem % this.menuItems.length
+        ].description;
         const numLines = this.descriptionText.caption.split('\n').length;
         this.descriptionRectangle.size = new Size(431 + this.widthOffset, numLines * 25 + 15);
 

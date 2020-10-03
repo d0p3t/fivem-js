@@ -16,7 +16,7 @@ export class Sprite {
     pos: Point,
     size: Size,
     heading = 0,
-    color = new Color(255, 255, 255, 255),
+    color = Color.white,
   ) {
     this.textureDict = textureDict;
     this.textureName = textureName;
@@ -63,7 +63,7 @@ export class Sprite {
     resolution?: Size,
   ): void;
   public draw(
-    arg1?,
+    arg1?: Size | string,
     textureName?: string,
     pos?: Point,
     size?: Size,
@@ -72,7 +72,7 @@ export class Sprite {
     loadTexture = true,
     resolution?: Size,
   ): void {
-    const textureDictionary = (arg1 && typeof arg1 === 'string') ? arg1 : this.TextureDict;
+    const textureDictionary = arg1 && typeof arg1 === 'string' ? arg1 : this.TextureDict;
 
     textureName = textureName || this.textureName;
     pos = pos || this.pos;
@@ -86,7 +86,8 @@ export class Sprite {
       }
     }
 
-    resolution = (arg1 instanceof Size ? arg1 : resolution) || new Size(Screen.ScaledWidth, Screen.Height);
+    resolution = arg1 instanceof Size ? arg1 : resolution;
+    resolution = resolution || new Size(Screen.ScaledWidth, Screen.Height);
 
     const w = size.width / resolution.width;
     const h = size.height / resolution.height;

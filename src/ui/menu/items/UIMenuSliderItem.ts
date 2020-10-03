@@ -1,7 +1,5 @@
-import { Sprite } from '../../';
-// import { BadgeStyle } from '../../../enums';
+import { Rectangle, Sprite } from '../../';
 import { Color, Point, Size } from '../../../utils/';
-import { ResRectangle } from '../modules/';
 import { UIMenuItem } from './';
 
 export class UIMenuSliderItem extends UIMenuItem {
@@ -9,9 +7,9 @@ export class UIMenuSliderItem extends UIMenuItem {
   private arrowRight: Sprite;
   private arrowOnlyOnSelected: boolean;
 
-  private rectangleBackground: ResRectangle;
-  private rectangleSlider: ResRectangle;
-  private rectangleDivider: ResRectangle;
+  private rectangleBackground: Rectangle;
+  private rectangleSlider: Rectangle;
+  private rectangleDivider: Rectangle;
 
   private items: unknown[];
 
@@ -20,6 +18,7 @@ export class UIMenuSliderItem extends UIMenuItem {
   get Index(): number {
     return this.index % this.items.length;
   }
+
   set Index(value: number) {
     this.index = 100000000 - (100000000 % this.items.length) + value;
   }
@@ -48,25 +47,25 @@ export class UIMenuSliderItem extends UIMenuItem {
       new Point(0, 105 + y),
       new Size(15, 15),
     );
-    this.rectangleBackground = new ResRectangle(
-      new Point(0, 0),
+    this.rectangleBackground = new Rectangle(
+      new Point(),
       new Size(150, 9),
       new Color(255, 4, 32, 57),
     );
-    this.rectangleSlider = new ResRectangle(
-      new Point(0, 0),
+    this.rectangleSlider = new Rectangle(
+      new Point(),
       new Size(75, 9),
       new Color(255, 57, 116, 200),
     );
     if (divider) {
-      this.rectangleDivider = new ResRectangle(
-        new Point(0, 0),
+      this.rectangleDivider = new Rectangle(
+        new Point(),
         new Size(2.5, 20),
         Color.whiteSmoke,
       );
     } else {
-      this.rectangleDivider = new ResRectangle(
-        new Point(0, 0),
+      this.rectangleDivider = new Rectangle(
+        new Point(),
         new Size(2.5, 20),
         Color.transparent,
       );
@@ -136,10 +135,6 @@ export class UIMenuSliderItem extends UIMenuItem {
 
     this.rectangleBackground.draw(undefined, resolution);
     this.rectangleSlider.draw(undefined, resolution);
-    this.rectangleDivider.draw(undefined,resolution);
+    this.rectangleDivider.draw(undefined, resolution);
   }
-
-  // public setRightBadge(badge: BadgeStyle): void {}
-
-  // public setRightLabel(text: string): void {}
 }

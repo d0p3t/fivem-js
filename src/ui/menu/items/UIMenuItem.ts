@@ -1,24 +1,23 @@
 import { Menu } from '../';
-import { Sprite } from '../../';
+import { Rectangle, Sprite, Text } from '../../';
 import { Alignment, BadgeStyle, Font } from '../../../enums';
 import { Color, Point, Size, uuidv4 } from '../../../utils';
-import { ResRectangle, ResText } from '../modules/';
 
 export class UIMenuItem {
-  public static readonly defaultBackColor: Color = Color.empty;
-  public static readonly defaultHighlightedBackColor: Color = Color.white;
-  public static readonly defaultForeColor: Color = Color.whiteSmoke;
-  public static readonly defaultHighlightedForeColor: Color = Color.black;
+  public static readonly defaultBackColor = Color.empty;
+  public static readonly defaultHighlightedBackColor = Color.white;
+  public static readonly defaultForeColor = Color.whiteSmoke;
+  public static readonly defaultHighlightedForeColor = Color.black;
 
   public readonly id: string = uuidv4();
 
-  public backColor: Color = UIMenuItem.defaultBackColor;
-  public highlightedBackColor: Color = UIMenuItem.defaultHighlightedBackColor;
+  public backColor = UIMenuItem.defaultBackColor;
+  public highlightedBackColor = UIMenuItem.defaultHighlightedBackColor;
 
-  public foreColor: Color = UIMenuItem.defaultForeColor;
-  public highlightedForeColor: Color = UIMenuItem.defaultHighlightedForeColor;
+  public foreColor = UIMenuItem.defaultForeColor;
+  public highlightedForeColor = UIMenuItem.defaultHighlightedForeColor;
 
-  public enabled: boolean;
+  public enabled = true;
   public selected: boolean;
   public hovered: boolean;
   public description: string;
@@ -27,17 +26,17 @@ export class UIMenuItem {
   public parent: Menu;
 
   public rightLabel = '';
-  public leftBadge: BadgeStyle = BadgeStyle.None;
-  public rightBadge: BadgeStyle = BadgeStyle.None;
+  public leftBadge = BadgeStyle.None;
+  public rightBadge = BadgeStyle.None;
 
-  protected rectangle: ResRectangle;
-  protected text: ResText;
+  protected rectangle: Rectangle;
+  protected text: Text;
   protected selectedSprite: Sprite;
 
   protected badgeLeft: Sprite;
   protected badgeRight: Sprite;
 
-  protected labelText: ResText;
+  protected labelText: Text;
 
   private event: { event: string; args: unknown[] };
 
@@ -50,10 +49,8 @@ export class UIMenuItem {
   }
 
   constructor(text: string, description = '') {
-    this.enabled = true;
-
-    this.rectangle = new ResRectangle(new Point(0, 0), new Size(431, 38), new Color(150, 0, 0, 0));
-    this.text = new ResText(
+    this.rectangle = new Rectangle(new Point(), new Size(431, 38), new Color(150, 0, 0, 0));
+    this.text = new Text(
       text,
       new Point(8, 0),
       0.33,
@@ -65,14 +62,14 @@ export class UIMenuItem {
     this.selectedSprite = new Sprite(
       'commonmenu',
       'gradient_nav',
-      new Point(0, 0),
+      new Point(),
       new Size(431, 38),
     );
 
-    this.badgeLeft = new Sprite('commonmenu', '', new Point(0, 0), new Size(40, 40));
-    this.badgeRight = new Sprite('commonmenu', '', new Point(0, 0), new Size(40, 40));
+    this.badgeLeft = new Sprite('commonmenu', '', new Point(), new Size(40, 40));
+    this.badgeRight = new Sprite('commonmenu', '', new Point(), new Size(40, 40));
 
-    this.labelText = new ResText('', new Point(0, 0), 0.35, Color.white, 0, Alignment.Right);
+    this.labelText = new Text('', new Point(), 0.35, Color.white, 0, Alignment.Right);
   }
 
   public setVerticalPosition(y: number): void {
@@ -253,9 +250,9 @@ export class UIMenuItem {
       case BadgeStyle.Lock:
       case BadgeStyle.Tick:
       case BadgeStyle.Crown:
-        return selected ? new Color(255, 0, 0, 0) : new Color(255, 255, 255, 255);
+        return selected ? Color.black : Color.white;
       default:
-        return new Color(255, 255, 255, 255);
+        return Color.white;
     }
   }
 }

@@ -1,5 +1,4 @@
 import { Sprite } from '../../';
-// import { BadgeStyle } from '../../../enums';
 import { Color, LiteEvent, Point, Size } from '../../../utils';
 import { UIMenuItem } from './';
 
@@ -53,12 +52,4 @@ export class UIMenuCheckboxItem extends UIMenuItem {
       : new Color(255, 163, 159, 148);
     this.checkedSprite.draw(resolution);
   }
-
-  // public setRightBadge(badge: BadgeStyle) {
-  //   return this;
-  // }
-
-  // public setRightLabel(text: string) {
-  //   return this;
-  // }
 }

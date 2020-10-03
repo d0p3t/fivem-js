@@ -13,12 +13,7 @@ export class MenuSettings {
     error: 'ERROR',
   };
   public enabledControls = {
-    [InputMode.GamePad]: [
-      Control.LookUpDown,
-      Control.LookLeftRight,
-      Control.Aim,
-      Control.Attack,
-    ],
+    [InputMode.GamePad]: [Control.LookUpDown, Control.LookLeftRight, Control.Aim, Control.Attack],
     [InputMode.MouseAndKeyboard]: [
       Control.FrontendAccept,
       Control.FrontendAxisX,

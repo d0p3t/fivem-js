@@ -1,4 +1,4 @@
-import { ResText, Screen } from '..';
+import { Screen, Text } from '..';
 import { clamp } from './Math';
 
 export function stringToArray(input: string): string[] {
@@ -19,7 +19,7 @@ export function stringToArray(input: string): string[] {
 
 export function measureStringWidthNoConvert(input: string): number {
   SetTextEntryForWidth('STRING');
-  ResText.addLongString(input);
+  Text.addLongString(input);
   SetTextFont(0);
   SetTextScale(0.35, 0.35);
   return GetTextScreenWidth(false);
