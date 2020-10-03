@@ -283,10 +283,36 @@ export class Menu {
     item.setVerticalPosition(this.menuItems.length * 25 - 37 + this.extraOffset);
     this.menuItems.push(item);
 
-    item.description = this._formatDescription(item.description);
+    this.formatItemDescription(item);
 
     this.refreshIndex();
     this._recalculateDescriptionPosition();
+  }
+
+  public formatItemDescription(item: UIMenuItem): void {
+    let input = item.description;
+    if (input.length > 99) {
+      input = input.slice(0, 99);
+    }
+
+    const maxPixelsPerLine = 425 + this.widthOffset;
+    let aggregatePixels = 0;
+    let output = '';
+    const words = input.split(' ');
+
+    for (const word of words) {
+      const offset = measureString(word);
+      aggregatePixels += offset;
+      if (aggregatePixels > maxPixelsPerLine) {
+        output = `${output} \n${word} `;
+        aggregatePixels = offset + measureString(' ');
+      } else {
+        output = `${output}${word} `;
+        aggregatePixels += measureString(' ');
+      }
+    }
+
+    item.description = output;
   }
 
   public refreshIndex(): void {
@@ -306,26 +332,20 @@ export class Menu {
     this.minItem = 0;
   }
 
-  public refreshItems(): void {
-    this.menuItems.forEach(item => {
-      item.description = this._formatDescription(item.description);
-    });
-  }
-
   public clear(): void {
     this.menuItems = [];
     this._recalculateDescriptionPosition();
   }
 
   public open(): void {
-    Audio.playSoundFrontEnd(this.Settings.audio.back, this.Settings.audio.library);
+    this._playSoundAndReleaseId(this.Settings.audio.back, this.Settings.audio.library);
     this.visible = true;
     this.justOpened = true;
     this.menuOpen.emit();
   }
 
   public close(): void {
-    Audio.playSoundFrontEnd(this.Settings.audio.back, this.Settings.audio.library);
+    this._playSoundAndReleaseId(this.Settings.audio.back, this.Settings.audio.library);
     this.visible = false;
     this.refreshIndex();
     this.menuClose.emit();
@@ -378,12 +398,12 @@ export class Menu {
         return;
       }
       it.Index -= 1;
-      Audio.playSoundFrontEnd(this.Settings.audio.leftRight, this.Settings.audio.library);
+      this._playSoundAndReleaseId(this.Settings.audio.leftRight, this.Settings.audio.library);
       this.listChange.emit(it, it.Index);
     } else if (this.menuItems[this.CurrentSelection] instanceof UIMenuSliderItem) {
       const it = this.menuItems[this.CurrentSelection] as UIMenuSliderItem;
       it.Index = it.Index - 1;
-      Audio.playSoundFrontEnd(this.Settings.audio.leftRight, this.Settings.audio.library);
+      this._playSoundAndReleaseId(this.Settings.audio.leftRight, this.Settings.audio.library);
       this.sliderChange.emit(it, it.Index, it.indexToItem(it.Index));
       // it.sliderChangedTrigger(it.Index);
     }
@@ -402,12 +422,12 @@ export class Menu {
         return;
       }
       it.Index += 1;
-      Audio.playSoundFrontEnd(this.Settings.audio.leftRight, this.Settings.audio.library);
+      this._playSoundAndReleaseId(this.Settings.audio.leftRight, this.Settings.audio.library);
       this.listChange.emit(it, it.Index);
     } else if (this.menuItems[this.CurrentSelection] instanceof UIMenuSliderItem) {
       const it = this.menuItems[this.CurrentSelection] as UIMenuSliderItem;
       it.Index += 1;
-      Audio.playSoundFrontEnd(this.Settings.audio.leftRight, this.Settings.audio.library);
+      this._playSoundAndReleaseId(this.Settings.audio.leftRight, this.Settings.audio.library);
       this.sliderChange.emit(it, it.Index, it.indexToItem(it.Index));
       // it.sliderChangedTrigger(it.Index);
     }
@@ -415,16 +435,16 @@ export class Menu {
 
   public selectItem(): void {
     if (!this.menuItems[this.CurrentSelection].enabled) {
-      Audio.playSoundFrontEnd(this.Settings.audio.error, this.Settings.audio.library);
+      this._playSoundAndReleaseId(this.Settings.audio.error, this.Settings.audio.library);
       return;
     }
     const it = this.menuItems[this.CurrentSelection] as UIMenuCheckboxItem;
     if (this.menuItems[this.CurrentSelection] instanceof UIMenuCheckboxItem) {
       it.checked = !it.checked;
-      Audio.playSoundFrontEnd(this.Settings.audio.select, this.Settings.audio.library);
+      this._playSoundAndReleaseId(this.Settings.audio.select, this.Settings.audio.library);
       this.checkboxChange.emit(it, it.checked);
     } else {
-      Audio.playSoundFrontEnd(this.Settings.audio.select, this.Settings.audio.library);
+      this._playSoundAndReleaseId(this.Settings.audio.select, this.Settings.audio.library);
       this.itemSelect.emit(it, this.CurrentSelection);
       if (this.children.has(it.id)) {
         const subMenu = this.children.get(it.id);
@@ -539,7 +559,7 @@ export class Menu {
       this.activeItem -= 1;
       this.menuItems[this.activeItem % this.menuItems.length].selected = true;
     }
-    Audio.playSoundFrontEnd(this.Settings.audio.upDown, this.Settings.audio.library);
+    this._playSoundAndReleaseId(this.Settings.audio.upDown, this.Settings.audio.library);
     this.indexChange.emit(this.CurrentSelection);
   }
 
@@ -550,7 +570,7 @@ export class Menu {
     this.menuItems[this.activeItem % this.menuItems.length].selected = false;
     this.activeItem -= 1;
     this.menuItems[this.activeItem % this.menuItems.length].selected = true;
-    Audio.playSoundFrontEnd(this.Settings.audio.upDown, this.Settings.audio.library);
+    this._playSoundAndReleaseId(this.Settings.audio.upDown, this.Settings.audio.library);
     this.indexChange.emit(this.CurrentSelection);
   }
 
@@ -577,7 +597,7 @@ export class Menu {
       this.activeItem += 1;
       this.menuItems[this.activeItem % this.menuItems.length].selected = true;
     }
-    Audio.playSoundFrontEnd(this.Settings.audio.upDown, this.Settings.audio.library);
+    this._playSoundAndReleaseId(this.Settings.audio.upDown, this.Settings.audio.library);
     this.indexChange.emit(this.CurrentSelection);
   }
 
@@ -588,12 +608,12 @@ export class Menu {
     this.menuItems[this.activeItem % this.menuItems.length].selected = false;
     this.activeItem += 1;
     this.menuItems[this.activeItem % this.menuItems.length].selected = true;
-    Audio.playSoundFrontEnd(this.Settings.audio.upDown, this.Settings.audio.library);
+    this._playSoundAndReleaseId(this.Settings.audio.upDown, this.Settings.audio.library);
     this.indexChange.emit(this.CurrentSelection);
   }
 
   public goBack(): void {
-    Audio.playSoundFrontEnd(this.Settings.audio.back, this.Settings.audio.library);
+    this._playSoundAndReleaseId(this.Settings.audio.back, this.Settings.audio.library);
     this.visible = false;
     if (this.parentMenu != null) {
       this.parentMenu.visible = true;
@@ -619,6 +639,11 @@ export class Menu {
     menu.parentMenu = null;
     this.children.delete(releaseFrom.id);
     return true;
+  }
+
+  private _playSoundAndReleaseId(sound: string, set?: string): void {
+    const soundId = Audio.playSoundFrontEnd(sound, set);
+    Audio.releaseSound(soundId);
   }
 
   private _disEnableControls(): void {
@@ -656,29 +681,6 @@ export class Menu {
       this.offset.X + 8,
       38 * count + this.descriptionText.pos.Y,
     );
-  }
-
-  private _formatDescription(input: string): string {
-    if (input.length > 99) {
-      input = input.slice(0, 99);
-    }
-
-    const maxPixelsPerLine = 425 + this.widthOffset;
-    let aggregatePixels = 0;
-    let output = '';
-    const words = input.split(' ');
-    for (const word of words) {
-      const offset = measureString(word);
-      aggregatePixels += offset;
-      if (aggregatePixels > maxPixelsPerLine) {
-        output = `${output} \n${word} `;
-        aggregatePixels = offset + measureString(' ');
-      } else {
-        output = `${output}${word} `;
-        aggregatePixels += measureString(' ');
-      }
-    }
-    return output;
   }
 
   private _render(): void {
@@ -725,9 +727,7 @@ export class Menu {
       this.menuItems[this.activeItem % this.menuItems.length].selected = true;
       if (this.menuItems[this.activeItem % this.menuItems.length].description.trim() !== '') {
         this._recalculateDescriptionPosition();
-        const descCaption = this.menuItems[this.activeItem % this.menuItems.length].description;
-        // descCaption = this.FormatDescription(descCaption);
-        this.descriptionText.caption = descCaption;
+        this.descriptionText.caption = this.menuItems[this.activeItem % this.menuItems.length].description;
         const numLines = this.descriptionText.caption.split('\n').length;
         this.descriptionRectangle.size = new Size(431 + this.widthOffset, numLines * 25 + 15);
 
