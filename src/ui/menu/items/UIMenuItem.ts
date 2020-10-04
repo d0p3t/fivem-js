@@ -94,8 +94,8 @@ export class UIMenuItem {
   }
 
   public draw(resolution?: Size): void {
-    this.rectangle.size = new Size(431 + this.parent.widthOffset, 38);
-    this.selectedSprite.size = new Size(431 + this.parent.widthOffset, 38);
+    this.rectangle.size = new Size(431 + this.parent.WidthOffset, 38);
+    this.selectedSprite.size = new Size(431 + this.parent.WidthOffset, 38);
 
     if (this.hovered && !this.selected) {
       this.rectangle.color = new Color(20, 255, 255, 255);
@@ -129,7 +129,7 @@ export class UIMenuItem {
 
     if (this.rightBadge !== BadgeStyle.None) {
       this.badgeRight.pos = new Point(
-        385 + this.offset.X + this.parent.widthOffset,
+        385 + this.offset.X + this.parent.WidthOffset,
         this.badgeRight.pos.Y,
       );
       this.badgeRight.TextureDict = this.badgeToSpriteLib();
@@ -146,7 +146,7 @@ export class UIMenuItem {
 
     if (this.rightLabel && this.rightLabel !== '') {
       this.labelText.pos = new Point(
-        420 + this.offset.X + this.parent.widthOffset,
+        420 + this.offset.X + this.parent.WidthOffset,
         this.labelText.pos.Y,
       );
       this.labelText.caption = this.rightLabel;

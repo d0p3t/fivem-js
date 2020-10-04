@@ -159,15 +159,15 @@ export class UIMenuListItem extends UIMenuItem {
 
   public setVerticalPosition(y: number): void {
     this.arrowLeft.pos = new Point(
-      300 + this.offset.X + this.parent.widthOffset,
+      300 + this.offset.X + this.parent.WidthOffset,
       147 + y + this.offset.Y,
     );
     this.arrowRight.pos = new Point(
-      400 + this.offset.X + this.parent.widthOffset,
+      400 + this.offset.X + this.parent.WidthOffset,
       147 + y + this.offset.Y,
     );
     this.itemText.pos = new Point(
-      300 + this.offset.X + this.parent.widthOffset,
+      300 + this.offset.X + this.parent.WidthOffset,
       y + 147 + this.offset.Y,
     );
     super.setVerticalPosition(y);
@@ -198,7 +198,7 @@ export class UIMenuListItem extends UIMenuItem {
       : new Color(255, 163, 159, 148);
 
     this.arrowLeft.pos = new Point(
-      375 - offset + this.offset.X + this.parent.widthOffset,
+      375 - offset + this.offset.X + this.parent.WidthOffset,
       this.arrowLeft.pos.Y,
     );
     if (this.arrowOnlyOnSelected) {
@@ -206,12 +206,12 @@ export class UIMenuListItem extends UIMenuItem {
         this.arrowLeft.draw(resolution);
         this.arrowRight.draw(resolution);
         this.itemText.pos = new Point(
-          405 + this.offset.X + this.parent.widthOffset,
+          405 + this.offset.X + this.parent.WidthOffset,
           this.itemText.pos.Y,
         );
       } else {
         this.itemText.pos = new Point(
-          420 + this.offset.X + this.parent.widthOffset,
+          420 + this.offset.X + this.parent.WidthOffset,
           this.itemText.pos.Y,
         );
       }
@@ -219,7 +219,7 @@ export class UIMenuListItem extends UIMenuItem {
       this.arrowLeft.draw(resolution);
       this.arrowRight.draw(resolution);
       this.itemText.pos = new Point(
-        405 + this.offset.X + this.parent.widthOffset,
+        405 + this.offset.X + this.parent.WidthOffset,
         this.itemText.pos.Y,
       );
     }

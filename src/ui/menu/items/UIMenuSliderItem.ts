@@ -75,23 +75,23 @@ export class UIMenuSliderItem extends UIMenuItem {
 
   public setVerticalPosition(y: number): void {
     this.rectangleBackground.pos = new Point(
-      250 + this.offset.X + this.parent.widthOffset,
+      250 + this.offset.X + this.parent.WidthOffset,
       y + 158.5 + this.offset.Y,
     );
     this.rectangleSlider.pos = new Point(
-      250 + this.offset.X + this.parent.widthOffset,
+      250 + this.offset.X + this.parent.WidthOffset,
       y + 158.5 + this.offset.Y,
     );
     this.rectangleDivider.pos = new Point(
-      323.5 + this.offset.X + this.parent.widthOffset,
+      323.5 + this.offset.X + this.parent.WidthOffset,
       y + 153 + this.offset.Y,
     );
     this.arrowLeft.pos = new Point(
-      235 + this.offset.X + this.parent.widthOffset,
+      235 + this.offset.X + this.parent.WidthOffset,
       155.5 + y + this.offset.Y,
     );
     this.arrowRight.pos = new Point(
-      400 + this.offset.X + this.parent.widthOffset,
+      400 + this.offset.X + this.parent.WidthOffset,
       155.5 + y + this.offset.Y,
     );
 
@@ -119,7 +119,7 @@ export class UIMenuSliderItem extends UIMenuItem {
         (this.items.length - 1)) *
       this.Index;
     this.rectangleSlider.pos = new Point(
-      250 + this.offset.X + offset + +this.parent.widthOffset,
+      250 + this.offset.X + offset + +this.parent.WidthOffset,
       this.rectangleSlider.pos.Y,
     );
 

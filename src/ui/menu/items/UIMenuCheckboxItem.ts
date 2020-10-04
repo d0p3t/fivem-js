@@ -27,7 +27,7 @@ export class UIMenuCheckboxItem extends UIMenuItem {
   public setVerticalPosition(y: number): void {
     super.setVerticalPosition(y);
     this.checkedSprite.pos = new Point(
-      380 + this.offset.X + this.parent.widthOffset,
+      380 + this.offset.X + this.parent.WidthOffset,
       y + 138 + this.offset.Y,
     );
   }
@@ -35,7 +35,7 @@ export class UIMenuCheckboxItem extends UIMenuItem {
   public draw(resolution?: Size): void {
     super.draw(resolution);
     this.checkedSprite.pos = this.checkedSprite.pos = new Point(
-      380 + this.offset.X + this.parent.widthOffset,
+      380 + this.offset.X + this.parent.WidthOffset,
       this.checkedSprite.pos.Y,
     );
     const isDefaultHightlitedForeColor =
