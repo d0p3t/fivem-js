@@ -13,8 +13,11 @@ export class Container implements IDrawable {
     this.color = color;
   }
 
-  public addItem(item: IDrawable): void {
-    this.items.push(item);
+  public addItem(items: IDrawable | IDrawable[]): void {
+    if (!Array.isArray(items)) {
+      items = [items];
+    }
+    this.items.push(...items);
   }
 
   public draw(offset?: Size, resolution?: Size): void {
