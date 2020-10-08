@@ -1,5 +1,4 @@
 import { Sprite } from '../../';
-// import { BadgeStyle } from '../../../enums';
 import { Color, LiteEvent, Point, Size } from '../../../utils';
 import { UIMenuItem } from './';
 
@@ -28,15 +27,15 @@ export class UIMenuCheckboxItem extends UIMenuItem {
   public setVerticalPosition(y: number): void {
     super.setVerticalPosition(y);
     this.checkedSprite.pos = new Point(
-      380 + this.offset.X + this.parent.widthOffset,
+      380 + this.offset.X + this.parent.WidthOffset,
       y + 138 + this.offset.Y,
     );
   }
 
-  public draw(): void {
-    super.draw();
+  public draw(resolution?: Size): void {
+    super.draw(resolution);
     this.checkedSprite.pos = this.checkedSprite.pos = new Point(
-      380 + this.offset.X + this.parent.widthOffset,
+      380 + this.offset.X + this.parent.WidthOffset,
       this.checkedSprite.pos.Y,
     );
     const isDefaultHightlitedForeColor =
@@ -51,14 +50,6 @@ export class UIMenuCheckboxItem extends UIMenuItem {
         ? this.highlightedForeColor
         : this.foreColor
       : new Color(255, 163, 159, 148);
-    this.checkedSprite.draw();
+    this.checkedSprite.draw(resolution);
   }
-
-  // public setRightBadge(badge: BadgeStyle) {
-  //   return this;
-  // }
-
-  // public setRightLabel(text: string) {
-  //   return this;
-  // }
 }

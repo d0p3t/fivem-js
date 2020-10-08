@@ -246,7 +246,7 @@ export abstract class World {
    * @returns Blip object.
    */
   public static createBlip(position: Vector3, radius?: number): Blip {
-    if (radius !== null) {
+    if (radius !== null && radius !== undefined) {
       return new Blip(AddBlipForRadius(position.x, position.y, position.z, radius));
     }
     return new Blip(AddBlipForCoord(position.x, position.y, position.z));

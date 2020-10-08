@@ -1,1 +1,1 @@
-export { IElement } from './IElement';
+export { IDrawable } from './IDrawable';

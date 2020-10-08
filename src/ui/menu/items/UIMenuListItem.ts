@@ -1,14 +1,14 @@
-import { Sprite } from '../../';
+import { Sprite, Text } from '../../';
 import { Alignment, Font } from '../../../enums';
 import { Color, LiteEvent, measureString, Point, Size } from '../../../utils';
-import { ItemsCollection, ListItem, ResText } from '../modules/';
+import { ItemsCollection, ListItem } from '../modules/';
 import { UIMenuItem } from './';
 
 export class UIMenuListItem extends UIMenuItem {
   public scrollingEnabled = true;
   public holdTimeBeforeScroll = 200;
 
-  protected itemText: ResText;
+  protected itemText: Text;
   protected arrowLeft: Sprite;
   protected arrowRight: Sprite;
   protected index = 0;
@@ -16,7 +16,6 @@ export class UIMenuListItem extends UIMenuItem {
   private readonly onListChanged = new LiteEvent();
 
   private arrowOnlyOnSelected: boolean;
-  private holdTime: number;
   private currOffset = 0;
   private collection: (ListItem | string)[] = [];
 
@@ -38,9 +37,10 @@ export class UIMenuListItem extends UIMenuItem {
   get Collection(): (ListItem | string)[] {
     return this.collection;
   }
+
   set Collection(v: (ListItem | string)[]) {
     if (!v) {
-      throw new Error("The collection can't be null");
+      throw new Error('The collection can\'t be null');
     }
     this.collection = v;
   }
@@ -66,10 +66,10 @@ export class UIMenuListItem extends UIMenuItem {
     return this.SelectedItem == null
       ? null
       : typeof this.SelectedItem === 'string'
-      ? this.SelectedItem
-      : this.SelectedItem.data == null
-      ? this.SelectedItem.displayText
-      : this.SelectedItem.data;
+        ? this.SelectedItem
+        : this.SelectedItem.data == null
+          ? this.SelectedItem.displayText
+          : this.SelectedItem.data;
   }
 
   public get ListChanged(): LiteEvent {
@@ -86,6 +86,7 @@ export class UIMenuListItem extends UIMenuItem {
 
     return this.index % this.Collection.length;
   }
+
   set Index(value: number) {
     if (this.Collection === null) {
       return;
@@ -125,7 +126,7 @@ export class UIMenuListItem extends UIMenuItem {
       new Point(280, 105 + y),
       new Size(30, 30),
     );
-    this.itemText = new ResText(
+    this.itemText = new Text(
       '',
       new Point(290, y + 104),
       0.35,
@@ -158,30 +159,22 @@ export class UIMenuListItem extends UIMenuItem {
 
   public setVerticalPosition(y: number): void {
     this.arrowLeft.pos = new Point(
-      300 + this.offset.X + this.parent.widthOffset,
+      300 + this.offset.X + this.parent.WidthOffset,
       147 + y + this.offset.Y,
     );
     this.arrowRight.pos = new Point(
-      400 + this.offset.X + this.parent.widthOffset,
+      400 + this.offset.X + this.parent.WidthOffset,
       147 + y + this.offset.Y,
     );
     this.itemText.pos = new Point(
-      300 + this.offset.X + this.parent.widthOffset,
+      300 + this.offset.X + this.parent.WidthOffset,
       y + 147 + this.offset.Y,
     );
     super.setVerticalPosition(y);
   }
 
-  // public setRightLabel(text: string) {
-  //   return this;
-  // }
-
-  // public setRightBadge(badge: BadgeStyle) {
-  //   return this;
-  // }
-
-  public draw(): void {
-    super.draw();
+  public draw(resolution?: Size): void {
+    super.draw(resolution);
     const caption = this.Caption();
     const offset = this.currOffset;
 
@@ -205,31 +198,31 @@ export class UIMenuListItem extends UIMenuItem {
       : new Color(255, 163, 159, 148);
 
     this.arrowLeft.pos = new Point(
-      375 - offset + this.offset.X + this.parent.widthOffset,
+      375 - offset + this.offset.X + this.parent.WidthOffset,
       this.arrowLeft.pos.Y,
     );
     if (this.arrowOnlyOnSelected) {
       if (this.selected) {
-        this.arrowLeft.draw();
-        this.arrowRight.draw();
+        this.arrowLeft.draw(resolution);
+        this.arrowRight.draw(resolution);
         this.itemText.pos = new Point(
-          405 + this.offset.X + this.parent.widthOffset,
+          405 + this.offset.X + this.parent.WidthOffset,
           this.itemText.pos.Y,
         );
       } else {
         this.itemText.pos = new Point(
-          420 + this.offset.X + this.parent.widthOffset,
+          420 + this.offset.X + this.parent.WidthOffset,
           this.itemText.pos.Y,
         );
       }
     } else {
-      this.arrowLeft.draw();
-      this.arrowRight.draw();
+      this.arrowLeft.draw(resolution);
+      this.arrowRight.draw(resolution);
       this.itemText.pos = new Point(
-        405 + this.offset.X + this.parent.widthOffset,
+        405 + this.offset.X + this.parent.WidthOffset,
         this.itemText.pos.Y,
       );
     }
-    this.itemText.draw();
+    this.itemText.draw(undefined, resolution);
   }
 }
