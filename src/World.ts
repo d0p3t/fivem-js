@@ -485,8 +485,8 @@ export abstract class World {
     bobUpAndDown = false,
     faceCamera = false,
     rotateY = false,
-    textureDict = null,
-    textureName = null,
+    textureDict: string = null,
+    textureName: string = null,
     drawOnEntity = false,
   ): void {
     DrawMarker(
