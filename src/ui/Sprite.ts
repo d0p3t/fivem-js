@@ -8,7 +8,8 @@ export class Sprite {
   public heading: number;
   public color: Color;
   public visible: boolean;
-  private textureDict: string;
+
+  private _textureDict: string;
 
   constructor(
     textureDict: string,
@@ -18,7 +19,7 @@ export class Sprite {
     heading = 0,
     color = Color.white,
   ) {
-    this.textureDict = textureDict;
+    this._textureDict = textureDict;
     this.textureName = textureName;
     this.pos = pos || new Point();
     this.size = size || new Size();
@@ -28,7 +29,7 @@ export class Sprite {
   }
 
   public loadTextureDictionary(): void {
-    RequestStreamedTextureDict(this.textureDict, true);
+    RequestStreamedTextureDict(this._textureDict, true);
     const interval = setInterval(() => {
       if (this.IsTextureDictionaryLoaded) {
         clearInterval(interval);
@@ -37,18 +38,18 @@ export class Sprite {
   }
 
   public set TextureDict(v: string) {
-    this.textureDict = v;
+    this._textureDict = v;
     if (!this.IsTextureDictionaryLoaded) {
       this.loadTextureDictionary();
     }
   }
 
   public get TextureDict(): string {
-    return this.textureDict;
+    return this._textureDict;
   }
 
   public get IsTextureDictionaryLoaded(): boolean {
-    return !!HasStreamedTextureDictLoaded(this.textureDict);
+    return !!HasStreamedTextureDictLoaded(this._textureDict);
   }
 
   public draw(resolution?: Size): void;

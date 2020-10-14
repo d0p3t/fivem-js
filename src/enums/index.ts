@@ -4,6 +4,7 @@ export { BadgeStyle } from './BadgeStyle';
 export { BlipColor, BlipSprite } from './Blip';
 export { Bone } from './Bone';
 export { CameraShake } from './CameraShake';
+export { CheckboxStyle } from './CheckboxStyle';
 export { CheckpointCustomIconStyle, CheckpointIcon } from './Checkpoint';
 export { CloudHat } from './CloudHat';
 export { Control } from './Control';

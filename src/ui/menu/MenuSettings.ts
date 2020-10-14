@@ -3,6 +3,9 @@ import { Control } from '../../enums';
 
 export class MenuSettings {
   public scaleWithSafezone = true;
+  public resetCursorOnOpen = true;
+  public mouseControlsEnabled = true;
+  public mouseEdgeEnabled = true;
   public controlDisablingEnabled = true;
   public audio = {
     library: 'HUD_FRONTEND_DEFAULT_SOUNDSET',
