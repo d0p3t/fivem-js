@@ -1,23 +1,33 @@
 import { Audio } from '../Audio';
 import { HudColor, NotificationType } from '../enums';
-import { Color, PointF, stringToArray, Vector3 } from '../utils';
+import { Color, PointF, Size, stringToArray, Vector3 } from '../utils';
 import { Notification } from './';
 
 export abstract class Screen {
+  public static get Resolution(): Size {
+    const [width, height] = GetScreenActiveResolution();
+    return new Size(width, height);
+  }
+
+  public static get ScaledResolution(): Size {
+    const height = this.Height;
+    return new Size(height * this.AspectRatio, height);
+  }
+
   public static get Width(): number {
-    return GetScreenActiveResolution()[0];
-  }
-
-  public static get Height(): number {
-    return GetScreenActiveResolution()[1];
-  }
-
-  public static get AspectRatio(): number {
-    return GetAspectRatio(false);
+    return this.Resolution.width;
   }
 
   public static get ScaledWidth(): number {
     return this.Height * this.AspectRatio;
+  }
+
+  public static get Height(): number {
+    return this.Resolution.height;
+  }
+
+  public static get AspectRatio(): number {
+    return GetAspectRatio(false);
   }
 
   public static showSubtitle(message: string, duration = 2500): void {
