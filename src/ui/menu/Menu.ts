@@ -860,7 +860,7 @@ export class Menu {
     this._background.draw(Menu.screenResolution);
 
     if (this.items.length > 0) {
-      const hasDescription = this.CurrentItem.Description !== '';
+      const hasDescription = this.CurrentItem.Description && this.CurrentItem.Description !== '';
       this.CurrentItem.selected = true;
 
       if (hasDescription) {
@@ -874,7 +874,7 @@ export class Menu {
         this._descriptionText.draw(undefined, Menu.screenResolution);
       }
 
-      if (this.CurrentItem.Panels.length) {
+      if (this.CurrentItem.Panels && this.CurrentItem.Panels.length) {
         let offset = this._calculatePanelPosition(hasDescription);
         for (let i = 0; i < this.CurrentItem.Panels.length; i++) {
           if (i > 0) {

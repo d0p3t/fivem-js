@@ -437,7 +437,7 @@ export class UIMenuItem {
 
   public get Description(): string {
     if (!this.supportsDescription) {
-      throw new Error('This item does not support description');
+      return null;
     }
     return this._description;
   }
@@ -494,7 +494,7 @@ export class UIMenuItem {
 
   public get LeftBadge(): BadgeStyle {
     if (!this.supportsLeftBadge) {
-      throw new Error('This item does not support left badge');
+      return null;
     }
     return this._leftBadge;
   }
@@ -511,7 +511,7 @@ export class UIMenuItem {
 
   public get RightBadge(): BadgeStyle {
     if (!this.supportsRightBadge) {
-      throw new Error('This item does not support right badge');
+      return null;
     }
     return this._rightBadge;
   }
@@ -528,7 +528,7 @@ export class UIMenuItem {
 
   public get RightLabel(): string {
     if (!this.supportsRightLabel) {
-      throw new Error('This item does not support right label');
+      return null;
     }
     return this.labelText.caption;
   }
@@ -546,7 +546,7 @@ export class UIMenuItem {
 
   public get Panels(): AbstractUIMenuPanel[] {
     if (!this.supportsPanels) {
-      throw new Error('This item does not support panels');
+      return null;
     }
     return this._panels;
   }
