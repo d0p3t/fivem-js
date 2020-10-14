@@ -392,19 +392,8 @@ export class UIMenuItem {
   private _panels: AbstractUIMenuPanel[] = [];
 
   constructor(text: string, description?: string) {
-    this.rectangle = new Rectangle(
-      new Point(),
-      new Size(431, 38),
-      this._backColor,
-    );
-    this.text = new Text(
-      '',
-      new Point(),
-      0.33,
-      this._foreColor,
-      Font.ChaletLondon,
-      Alignment.Left,
-    );
+    this.rectangle = new Rectangle(new Point(), new Size(431, 38), this._backColor);
+    this.text = new Text('', new Point(), 0.33, this._foreColor, Font.ChaletLondon, Alignment.Left);
     this.selectedSprite = new Sprite(
       'commonmenu',
       'gradient_nav',
@@ -415,14 +404,7 @@ export class UIMenuItem {
     );
     this.badgeLeft = new Sprite('', '');
     this.badgeRight = new Sprite('', '');
-    this.labelText = new Text(
-      '',
-      new Point(),
-      0.35,
-      this._foreColor,
-      0,
-      Alignment.Right,
-    );
+    this.labelText = new Text('', new Point(), 0.35, this._foreColor, 0, Alignment.Right);
     this.Text = text;
     this.Description = description;
   }
@@ -1090,7 +1072,13 @@ export class UIMenuItem {
       case BadgeStyle.BrandLcc:
       case BadgeStyle.BrandProgen2:
       case BadgeStyle.BrandRune:
-        return selected ? (enabled ? Color.black : Color.fromRgb(50, 50, 50)) : (enabled ? Color.white : Color.fromRgb(109, 109, 109));
+        return selected
+          ? enabled
+            ? Color.black
+            : Color.fromRgb(50, 50, 50)
+          : enabled
+          ? Color.white
+          : Color.fromRgb(109, 109, 109);
       case BadgeStyle.GlobeBlue:
         return enabled ? Color.fromRgb(10, 103, 166) : Color.fromRgb(11, 62, 117);
       case BadgeStyle.GlobeGreen:
@@ -1124,9 +1112,7 @@ export class UIMenuItem {
     } else {
       this.rectangle.size.width = 431 + this.parent.WidthOffset;
       this.rectangle.pos.X = this.offset.X;
-      this.rectangle.color = this.hovered ?
-        UIMenuItem.defaultHoveredBackColor :
-        this._backColor;
+      this.rectangle.color = this.hovered ? UIMenuItem.defaultHoveredBackColor : this._backColor;
       this.rectangle.draw(undefined, Menu.screenResolution);
     }
 
@@ -1134,8 +1120,8 @@ export class UIMenuItem {
       ? this.selected
         ? this._highlightedForeColor
         : this.hovered
-          ? UIMenuItem.defaultHoveredForeColor
-          : this._foreColor
+        ? UIMenuItem.defaultHoveredForeColor
+        : this._foreColor
       : new Color(255, 163, 159, 148);
 
     if (this.supportsLeftBadge && this._leftBadge !== BadgeStyle.None) {

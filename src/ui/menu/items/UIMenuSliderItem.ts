@@ -38,35 +38,13 @@ export class UIMenuSliderItem extends UIMenuItem {
     arrowOnlyOnSelected = false,
   ) {
     super(text, description);
-    this._background = new Rectangle(
-      new Point(),
-      new Size(150, 9),
-      new Color(255, 4, 32, 57),
-    );
-    this._slider = new Rectangle(
-      new Point(),
-      new Size(75, 9),
-      new Color(255, 57, 116, 200),
-    );
-    this._divider = new Rectangle(
-      new Point(),
-      new Size(2.5, 20),
-      Color.whiteSmoke,
-    );
-    this._leftArrow = new Sprite(
-      'commonmenutu',
-      'arrowleft',
-      new Point(),
-      new Size(15, 15),
-    );
-    this._rightArrow = new Sprite(
-      'commonmenutu',
-      'arrowright',
-      new Point(),
-      new Size(15, 15),
-    );
-    this._leftSliderBadgeSprite = new Sprite('', '',);
-    this._rightSliderBadgeSprite = new Sprite('', '',);
+    this._background = new Rectangle(new Point(), new Size(150, 9), new Color(255, 4, 32, 57));
+    this._slider = new Rectangle(new Point(), new Size(75, 9), new Color(255, 57, 116, 200));
+    this._divider = new Rectangle(new Point(), new Size(2.5, 20), Color.whiteSmoke);
+    this._leftArrow = new Sprite('commonmenutu', 'arrowleft', new Point(), new Size(15, 15));
+    this._rightArrow = new Sprite('commonmenutu', 'arrowright', new Point(), new Size(15, 15));
+    this._leftSliderBadgeSprite = new Sprite('', '');
+    this._rightSliderBadgeSprite = new Sprite('', '');
     this.ArrowOnlyOnSelected = arrowOnlyOnSelected;
     this.ShowDivider = showDivider;
     this.Items = items;
@@ -174,8 +152,10 @@ export class UIMenuSliderItem extends UIMenuItem {
     this._divider.pos.Y = yOffset + 153;
     this._leftArrow.pos.Y = yOffset + 155.5;
     this._rightArrow.pos.Y = yOffset + 155.5;
-    this._leftSliderBadgeSprite.pos.Y = yOffset + 142 + UIMenuItem.getBadgeSpriteHeightOffset(this._leftSliderBadgeSprite);
-    this._rightSliderBadgeSprite.pos.Y = yOffset + 142 + UIMenuItem.getBadgeSpriteHeightOffset(this._rightSliderBadgeSprite);
+    this._leftSliderBadgeSprite.pos.Y =
+      yOffset + 142 + UIMenuItem.getBadgeSpriteHeightOffset(this._leftSliderBadgeSprite);
+    this._rightSliderBadgeSprite.pos.Y =
+      yOffset + 142 + UIMenuItem.getBadgeSpriteHeightOffset(this._rightSliderBadgeSprite);
     super.setVerticalPosition(y);
   }
 
@@ -215,8 +195,7 @@ export class UIMenuSliderItem extends UIMenuItem {
     }
 
     const sliderXOffset =
-      ((this._background.size.width - this._slider.size.width) /
-        (this._items.length - 1)) *
+      ((this._background.size.width - this._slider.size.width) / (this._items.length - 1)) *
       this.Index;
 
     this._slider.pos.X = this._background.pos.X + sliderXOffset;

@@ -16,12 +16,7 @@ export class UIMenuCheckboxItem extends UIMenuItem {
 
   constructor(text: string, checked = false, description?: string, style: CheckboxStyle = null) {
     super(text, description);
-    this._checkboxSprite = new Sprite(
-      'commonmenu',
-      '',
-      new Point(410, 95),
-      new Size(50, 50),
-    );
+    this._checkboxSprite = new Sprite('commonmenu', '', new Point(410, 95), new Size(50, 50));
     this.Checked = checked;
     this.Style = style;
   }

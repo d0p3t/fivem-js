@@ -19,23 +19,10 @@ export class UIMenuPercentagePanel extends AbstractUIMenuPanel {
 
   constructor(title?: string, percentage = 0, minText?: string, maxText?: string) {
     super();
-    this.background = new Sprite(
-      'commonmenu',
-      'gradient_bgd',
-      new Point(),
-      new Size(431, 76),
-    );
+    this.background = new Sprite('commonmenu', 'gradient_bgd', new Point(), new Size(431, 76));
     const barSize = new Size(413, 10);
-    this._activeBar = new Rectangle(
-      new Point(),
-      barSize,
-      Color.fromRgb(245, 245, 245),
-    );
-    this._backgroundBar = new Rectangle(
-      new Point(),
-      { ...barSize },
-      Color.fromRgb(87, 87, 87),
-    );
+    this._activeBar = new Rectangle(new Point(), barSize, Color.fromRgb(245, 245, 245));
+    this._backgroundBar = new Rectangle(new Point(), { ...barSize }, Color.fromRgb(87, 87, 87));
     this._title = new Text(
       '',
       new Point(),
@@ -125,7 +112,7 @@ export class UIMenuPercentagePanel extends AbstractUIMenuPanel {
     if (this.enabled) {
       super.draw();
 
-      const x = this.parentItem.offset.X + (this.ParentMenu.WidthOffset / 2);
+      const x = this.parentItem.offset.X + this.ParentMenu.WidthOffset / 2;
       this._activeBar.pos.X = x + 9;
       this._backgroundBar.pos.X = x + 9;
       this._minText.pos.X = x + 25;
@@ -154,9 +141,8 @@ export class UIMenuPercentagePanel extends AbstractUIMenuPanel {
     ) {
       this._pressed = true;
       (async () => {
-        while (
-          Game.isDisabledControlPressed(0, Control.Attack)) {
-          await (new Promise(resolve => setTimeout(resolve, 0)));
+        while (Game.isDisabledControlPressed(0, Control.Attack)) {
+          await new Promise(resolve => setTimeout(resolve, 0));
           this._activeBar.size.width = this._getProgress();
         }
         this.updateParentItem();
@@ -174,7 +160,8 @@ export class UIMenuPercentagePanel extends AbstractUIMenuPanel {
 
   private _getProgress(): number {
     const drawOffset = this.ParentMenu.DrawOffset;
-    const progress = (GetControlNormal(0, 239) - drawOffset.X) * Menu.screenWidth - this._activeBar.pos.X;
+    const progress =
+      (GetControlNormal(0, 239) - drawOffset.X) * Menu.screenWidth - this._activeBar.pos.X;
     return progress < 0 ? 0 : progress > 413 ? 413 : progress;
   }
 }

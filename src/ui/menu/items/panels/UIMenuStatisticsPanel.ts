@@ -10,11 +10,7 @@ export class UIMenuStatisticsPanel extends AbstractUIMenuPanel {
 
   constructor(item?: UIMenuStatisticsPanelItem[] | UIMenuStatisticsPanelItem, divider = true) {
     super();
-    this.background = new Rectangle(
-      new Point(),
-      new Size(431, 47),
-      new Color(170, 0, 0, 0),
-    );
+    this.background = new Rectangle(new Point(), new Size(431, 47), new Color(170, 0, 0, 0));
     if (item) {
       this.addItem(item);
     }
@@ -70,7 +66,7 @@ export class UIMenuStatisticsPanel extends AbstractUIMenuPanel {
     if (this.enabled) {
       super.draw();
 
-      const x = this.parentItem.offset.X + (this.ParentMenu.WidthOffset / 2);
+      const x = this.parentItem.offset.X + this.ParentMenu.WidthOffset / 2;
       this._items.forEach(async (item, index) => {
         const itemCountOffset = 40 * (index + 1);
         item.backgroundBar.pos.X = x + 200;

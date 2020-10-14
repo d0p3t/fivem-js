@@ -1,4 +1,14 @@
-import { Container, Hud, MenuControls, MenuSettings, Rectangle, Screen, Sprite, Text, UIMenuSeparatorItem } from '../';
+import {
+  Container,
+  Hud,
+  MenuControls,
+  MenuSettings,
+  Rectangle,
+  Screen,
+  Sprite,
+  Text,
+  UIMenuSeparatorItem,
+} from '../';
 import { Audio, CursorSprite, Game, GameplayCamera, InputMode } from '../../';
 import { Alignment, Control, Font } from '../../enums';
 import { Color, LiteEvent, Point, Size, uuidv4 } from '../../utils';
@@ -139,11 +149,7 @@ export class Menu {
       { ...extraRectangleColor },
     );
 
-    this._descriptionBar = new Rectangle(
-      new Point(this._offset.X),
-      new Size(431, 4),
-      Color.black,
-    );
+    this._descriptionBar = new Rectangle(new Point(this._offset.X), new Size(431, 4), Color.black);
     this._descriptionRectangle = new Sprite(
       'commonmenu',
       'gradient_bgd',
@@ -368,7 +374,10 @@ export class Menu {
     this._maxItem = this._maxItemsOnScreen;
     this._minItem = 0;
 
-    if (this.CurrentItem instanceof UIMenuSeparatorItem && this._isThereAnyItemExcludingSeparators()) {
+    if (
+      this.CurrentItem instanceof UIMenuSeparatorItem &&
+      this._isThereAnyItemExcludingSeparators()
+    ) {
       this.goDown();
     }
   }
@@ -477,7 +486,7 @@ export class Menu {
       x += this._drawOffset.X;
       y += this._drawOffset.Y;
     }
-    return (cX >= x && cX <= x + w) && (cY > y && cY < y + h);
+    return cX >= x && cX <= x + w && cY > y && cY < y + h;
   }
 
   public goUp(): void {
@@ -501,7 +510,10 @@ export class Menu {
       this._activeItem--;
     }
     // Skip separator items
-    if (this.CurrentItem instanceof UIMenuSeparatorItem && this._isThereAnyItemExcludingSeparators()) {
+    if (
+      this.CurrentItem instanceof UIMenuSeparatorItem &&
+      this._isThereAnyItemExcludingSeparators()
+    ) {
       this.goUp();
     } else {
       this.CurrentItem.selected = true;
@@ -530,7 +542,10 @@ export class Menu {
       this._activeItem++;
     }
     // Skip separator items
-    if (this.CurrentItem instanceof UIMenuSeparatorItem && this._isThereAnyItemExcludingSeparators()) {
+    if (
+      this.CurrentItem instanceof UIMenuSeparatorItem &&
+      this._isThereAnyItemExcludingSeparators()
+    ) {
       this.goDown();
     } else {
       this.CurrentItem.selected = true;
@@ -572,7 +587,13 @@ export class Menu {
       if (this.isMouseInBounds(new Point(), new Size(30, Menu.screenHeight), false)) {
         GameplayCamera.RelativeHeading += 1;
         Hud.CursorSprite = CursorSprite.LeftArrow;
-      } else if (this.isMouseInBounds(new Point(Menu.screenWidth - 30), new Size(30, Menu.screenHeight), false)) {
+      } else if (
+        this.isMouseInBounds(
+          new Point(Menu.screenWidth - 30),
+          new Size(30, Menu.screenHeight),
+          false,
+        )
+      ) {
         GameplayCamera.RelativeHeading -= 1;
         Hud.CursorSprite = CursorSprite.RightArrow;
       } else {
@@ -585,7 +606,8 @@ export class Menu {
     }
 
     let hoveredItem, hoveredItemIndex;
-    const limit = this.items.length > this._maxItemsOnScreen + 1 ? this._maxItem : this.items.length - 1;
+    const limit =
+      this.items.length > this._maxItemsOnScreen + 1 ? this._maxItem : this.items.length - 1;
 
     for (let i = this._minItem; i <= limit; i++) {
       const item = this.items[i] as UIMenuItem;
@@ -625,11 +647,14 @@ export class Menu {
           this.CurrentSelection = hoveredItemIndex;
           this.indexChange.emit(this.CurrentSelection);
         }
-        await (new Promise(resolve => setTimeout(resolve, this._navigationDelay)));
+        await new Promise(resolve => setTimeout(resolve, this._navigationDelay));
         while (Game.isDisabledControlPressed(0, Control.Attack) && hoveredItem.IsMouseInBounds) {
           if (hoveredItem.selected) {
             if (hoveredItem.enabled) {
-              if (hoveredItem instanceof UIMenuListItem || hoveredItem instanceof UIMenuSliderItem) {
+              if (
+                hoveredItem instanceof UIMenuListItem ||
+                hoveredItem instanceof UIMenuSliderItem
+              ) {
                 if (hoveredItem.IsMouseInBoundsOfLeftArrow) {
                   this.goLeft();
                 } else if (hoveredItem.IsMouseInBoundsOfRightArrow) {
@@ -644,7 +669,7 @@ export class Menu {
             this.CurrentSelection = hoveredItemIndex;
             this.indexChange.emit(this.CurrentSelection);
           }
-          await (new Promise(resolve => setTimeout(resolve, 125)));
+          await new Promise(resolve => setTimeout(resolve, 125));
         }
         this._mousePressed = false;
       })();
@@ -660,10 +685,10 @@ export class Menu {
         (async () => {
           this._mousePressed = true;
           this.goUp();
-          await (new Promise(resolve => setTimeout(resolve, this._navigationDelay)));
+          await new Promise(resolve => setTimeout(resolve, this._navigationDelay));
           while (Game.isDisabledControlPressed(0, Control.Attack)) {
             this.goUp();
-            await (new Promise(resolve => setTimeout(resolve, 125)));
+            await new Promise(resolve => setTimeout(resolve, 125));
           }
           this._mousePressed = false;
         })();
@@ -682,10 +707,10 @@ export class Menu {
         (async () => {
           this._mousePressed = true;
           this.goDown();
-          await (new Promise(resolve => setTimeout(resolve, this._navigationDelay)));
+          await new Promise(resolve => setTimeout(resolve, this._navigationDelay));
           while (Game.isDisabledControlPressed(0, Control.Attack)) {
             this.goDown();
-            await (new Promise(resolve => setTimeout(resolve, 125)));
+            await new Promise(resolve => setTimeout(resolve, 125));
           }
           this._mousePressed = false;
         })();
@@ -713,11 +738,9 @@ export class Menu {
     // Up
     if (
       this.Controls.up.Enabled &&
-      (
-        Game.isDisabledControlPressed(0, Control.PhoneUp) ||
-        Game.isDisabledControlPressed(0, Control.CursorScrollUp)
-      )
-      && this._lastUpDownNavigation + this._navigationDelay < Date.now()
+      (Game.isDisabledControlPressed(0, Control.PhoneUp) ||
+        Game.isDisabledControlPressed(0, Control.CursorScrollUp)) &&
+      this._lastUpDownNavigation + this._navigationDelay < Date.now()
     ) {
       this._lastUpDownNavigation = Date.now();
       this.goUp();
@@ -725,11 +748,9 @@ export class Menu {
     // Down
     if (
       this.Controls.down.Enabled &&
-      (
-        Game.isDisabledControlPressed(0, Control.PhoneDown) ||
-        Game.isDisabledControlPressed(0, Control.CursorScrollDown)
-      )
-      && this._lastUpDownNavigation + this._navigationDelay < Date.now()
+      (Game.isDisabledControlPressed(0, Control.PhoneDown) ||
+        Game.isDisabledControlPressed(0, Control.CursorScrollDown)) &&
+      this._lastUpDownNavigation + this._navigationDelay < Date.now()
     ) {
       this._lastUpDownNavigation = Date.now();
       this.goDown();

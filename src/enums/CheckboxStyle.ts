@@ -1,4 +1,4 @@
 export enum CheckboxStyle {
   Tick,
-  Cross
+  Cross,
 }

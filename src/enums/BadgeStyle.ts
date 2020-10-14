@@ -178,5 +178,5 @@ export enum BadgeStyle {
   BrandWesternmotorcycle,
   BrandWillard,
   BrandZirconium,
-  Info
+  Info,
 }

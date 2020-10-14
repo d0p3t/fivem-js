@@ -17,7 +17,11 @@ export function stringToArray(input: string): string[] {
   return outputString;
 }
 
-export function measureStringWidthNoConvert(input: string, font = Font.ChaletLondon, scale = 0): number {
+export function measureStringWidthNoConvert(
+  input: string,
+  font = Font.ChaletLondon,
+  scale = 0,
+): number {
   SetTextEntryForWidth('STRING');
   Text.addLongString(input);
   SetTextFont(font);
@@ -25,6 +29,11 @@ export function measureStringWidthNoConvert(input: string, font = Font.ChaletLon
   return GetTextScreenWidth(false);
 }
 
-export function measureString(str: string, font?: Font, scale?: number, screenWidth = Screen.ScaledWidth): number {
+export function measureString(
+  str: string,
+  font?: Font,
+  scale?: number,
+  screenWidth = Screen.ScaledWidth,
+): number {
   return this.measureStringWidthNoConvert(str, font, scale) * screenWidth;
 }

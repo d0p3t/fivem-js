@@ -1,5 +1,5 @@
 export class Point {
-  public static parse(arg: [number, number] | { X: number, Y: number } | string): Point {
+  public static parse(arg: [number, number] | { X: number; Y: number } | string): Point {
     let point = new Point();
     if (arg) {
       if (typeof arg === 'object') {

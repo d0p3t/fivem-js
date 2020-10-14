@@ -37,7 +37,7 @@ export abstract class AbstractUIMenuPanel {
 
   public setVerticalPosition(y: number): void {
     this.background.pos.Y = y;
-  };
+  }
 
   public draw(): void {
     this.background.size.width = 431 + this.ParentMenu.WidthOffset;
@@ -47,5 +47,5 @@ export abstract class AbstractUIMenuPanel {
     } else {
       this.background.draw(undefined, Menu.screenResolution);
     }
-  };
+  }
 }

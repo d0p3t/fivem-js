@@ -26,29 +26,10 @@ export class UIMenuColorPanel extends AbstractUIMenuPanel {
 
   constructor(title: string, colors: Color[]) {
     super();
-    this.background = new Sprite(
-      'commonmenu',
-      'gradient_bgd',
-      new Point(),
-      new Size(431, 112),
-    );
-    this._leftArrow = new Sprite(
-      'commonmenu',
-      'arrowleft',
-      new Point(),
-      new Size(30, 30),
-    );
-    this._rightArrow = new Sprite(
-      'commonmenu',
-      'arrowright',
-      new Point(),
-      new Size(30, 30),
-    );
-    this._selectedRectangle = new Rectangle(
-      new Point(),
-      new Size(44.5, 8),
-      Color.white,
-    );
+    this.background = new Sprite('commonmenu', 'gradient_bgd', new Point(), new Size(431, 112));
+    this._leftArrow = new Sprite('commonmenu', 'arrowleft', new Point(), new Size(30, 30));
+    this._rightArrow = new Sprite('commonmenu', 'arrowright', new Point(), new Size(30, 30));
+    this._selectedRectangle = new Rectangle(new Point(), new Size(44.5, 8), Color.white);
     this._text = new Text(
       '',
       new Point(),
@@ -80,15 +61,9 @@ export class UIMenuColorPanel extends AbstractUIMenuPanel {
     }
     this._colors = value;
     this._bar = [];
-    const colorRectangles = value
-      .slice(0, this._total)
-      .map(color => {
-        return new Rectangle(
-          new Point(0, 0),
-          new Size(44.5, 44.5),
-          color,
-        );
-      });
+    const colorRectangles = value.slice(0, this._total).map(color => {
+      return new Rectangle(new Point(0, 0), new Size(44.5, 44.5), color);
+    });
     this._bar.push(...colorRectangles);
     this._refreshIndex();
     this._updateSelection(true);
@@ -99,13 +74,9 @@ export class UIMenuColorPanel extends AbstractUIMenuPanel {
   }
 
   public set Color(value: Color) {
-    const index = this._colors
-      .findIndex(c => {
-        return c.a === value.a &&
-          c.r === value.r &&
-          c.g === value.g &&
-          c.b === value.b;
-      });
+    const index = this._colors.findIndex(c => {
+      return c.a === value.a && c.r === value.r && c.g === value.g && c.b === value.b;
+    });
     if (index !== -1) {
       this.Index = index;
     }
@@ -154,7 +125,7 @@ export class UIMenuColorPanel extends AbstractUIMenuPanel {
     this._leftArrow.pos.Y = y + 15;
     this._rightArrow.pos.Y = y + 15;
     this._text.pos.Y = y + 15;
-    this._bar.forEach(async (colorRect) => {
+    this._bar.forEach(async colorRect => {
       colorRect.pos.Y = y + 55;
     });
   }
@@ -163,8 +134,8 @@ export class UIMenuColorPanel extends AbstractUIMenuPanel {
     if (this.enabled) {
       super.draw();
 
-      const x = this.parentItem.offset.X + (this.ParentMenu.WidthOffset / 2);
-      this._selectedRectangle.pos.X = x + 15 + (44.5 * (this.Index - this._min));
+      const x = this.parentItem.offset.X + this.ParentMenu.WidthOffset / 2;
+      this._selectedRectangle.pos.X = x + 15 + 44.5 * (this.Index - this._min);
       this._leftArrow.pos.X = x + 7.5;
       this._rightArrow.pos.X = x + 393.5;
       this._text.pos.X = x + 215.5;
@@ -176,7 +147,7 @@ export class UIMenuColorPanel extends AbstractUIMenuPanel {
       this._selectedRectangle.draw(undefined, Menu.screenResolution);
 
       this._bar.forEach(async (colorRect, index) => {
-        colorRect.pos.X = x + 15 + (44.5 * index);
+        colorRect.pos.X = x + 15 + 44.5 * index;
         colorRect.draw(undefined, Menu.screenResolution);
       });
 

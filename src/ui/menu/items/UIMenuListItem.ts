@@ -28,18 +28,8 @@ export class UIMenuListItem extends UIMenuItem {
     arrowOnlyOnSelected = true,
   ) {
     super(text, description);
-    this._leftArrow = new Sprite(
-      'commonmenu',
-      'arrowleft',
-      new Point(),
-      new Size(30, 30),
-    );
-    this._rightArrow = new Sprite(
-      'commonmenu',
-      'arrowright',
-      new Point(),
-      new Size(30, 30),
-    );
+    this._leftArrow = new Sprite('commonmenu', 'arrowleft', new Point(), new Size(30, 30));
+    this._rightArrow = new Sprite('commonmenu', 'arrowright', new Point(), new Size(30, 30));
     this._itemText = new Text(
       '',
       new Point(),
@@ -59,7 +49,7 @@ export class UIMenuListItem extends UIMenuItem {
 
   public set Items(value: ListItem[]) {
     if (!value) {
-      throw new Error('Items can\'t be null');
+      throw new Error("Items can't be null");
     }
     this._items = value;
   }
@@ -144,7 +134,8 @@ export class UIMenuListItem extends UIMenuItem {
       this._leftArrow.color = this._itemText.color;
       this._rightArrow.color = this._itemText.color;
 
-      this._leftArrow.pos.X = this._itemText.pos.X - this._textWidth - this._leftArrow.size.width + 5;
+      this._leftArrow.pos.X =
+        this._itemText.pos.X - this._textWidth - this._leftArrow.size.width + 5;
 
       this._leftArrow.draw(Menu.screenResolution);
       this._rightArrow.draw(Menu.screenResolution);

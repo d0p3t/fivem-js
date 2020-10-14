@@ -44,10 +44,7 @@ export class Text implements IDrawable {
     }
 
     if (wordWrap) {
-      SetTextWrap(
-        x,
-        (pos.X + wordWrap.width) / resolution.width,
-      );
+      SetTextWrap(x, (pos.X + wordWrap.width) / resolution.width);
     }
 
     SetTextEntry('STRING');
@@ -164,6 +161,17 @@ export class Text implements IDrawable {
       wordWrap = wordWrap || this.wordWrap;
     }
 
-    Text.draw(arg1 as string, arg2, scale, color, font, alignment, dropShadow, outline, wordWrap, resolution);
+    Text.draw(
+      arg1 as string,
+      arg2,
+      scale,
+      color,
+      font,
+      alignment,
+      dropShadow,
+      outline,
+      wordWrap,
+      resolution,
+    );
   }
 }
