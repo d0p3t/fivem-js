@@ -1,4 +1,5 @@
 import { CursorSprite, HudComponent } from '../enums';
+import { Point } from '../utils';
 
 export abstract class Hud {
   public static isComponentActive(component: HudComponent): boolean {
@@ -15,6 +16,10 @@ export abstract class Hud {
 
   public static showCursorThisFrame(): void {
     ShowCursorThisFrame();
+  }
+
+  public static set CursorPosition(position: Point) {
+    SetCursorLocation(position.X, position.Y);
   }
 
   public static get CursorSprite(): CursorSprite {
