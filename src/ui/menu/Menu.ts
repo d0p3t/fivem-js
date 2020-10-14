@@ -417,7 +417,10 @@ export class Menu {
       this.listChange.emit(item, item.Index, item.SelectedItem);
       item.listChanged.emit(item.Index, item.SelectedItem);
     } else if (item instanceof UIMenuSliderItem) {
-      item.Index = item.Index - 1;
+      if (!item.Items.length) {
+        return;
+      }
+      item.Index -= 1;
       this._playSoundAndReleaseId(this.Settings.audio.leftRight, this.Settings.audio.library);
       this.sliderChange.emit(item, item.Index, item.indexToItem(item.Index));
       item.sliderChanged.emit(item.Index, item.indexToItem(item.Index));
