@@ -75,9 +75,10 @@ export class UIMenuListItem extends UIMenuItem {
   }
 
   public set Index(value: number) {
-    if (!(value in this._items)) {
+    if (!this._items.length) {
       return;
     }
+    value = value < 0 ? this._items.length - 1 : value > this._items.length - 1 ? 0 : value;
     this._index = value;
     delete this._textWidth;
   }
