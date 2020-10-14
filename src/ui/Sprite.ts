@@ -13,17 +13,17 @@ export class Sprite {
   constructor(
     textureDict: string,
     textureName: string,
-    pos: Point,
-    size: Size,
+    pos?: Point,
+    size?: Size,
     heading = 0,
     color = Color.white,
   ) {
     this.textureDict = textureDict;
     this.textureName = textureName;
-    this.pos = pos;
-    this.size = size;
-    this.heading = heading;
-    this.color = color;
+    this.pos = pos || new Point();
+    this.size = size || new Size();
+    this.heading = heading || 0;
+    this.color = color || Color.white;
     this.visible = true;
   }
 
