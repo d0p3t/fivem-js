@@ -1,4 +1,4 @@
-import { Screen, Text } from '..';
+import { Font, Screen, Text } from '..';
 import { clamp } from './Math';
 
 export function stringToArray(input: string): string[] {
@@ -17,15 +17,14 @@ export function stringToArray(input: string): string[] {
   return outputString;
 }
 
-export function measureStringWidthNoConvert(input: string): number {
+export function measureStringWidthNoConvert(input: string, font = Font.ChaletLondon, scale = 0): number {
   SetTextEntryForWidth('STRING');
   Text.addLongString(input);
-  SetTextFont(0);
-  SetTextScale(0.35, 0.35);
+  SetTextFont(font);
+  SetTextScale(1, scale);
   return GetTextScreenWidth(false);
 }
 
-export function measureString(str: string): number {
-  const width = Screen.ScaledWidth;
-  return this.measureStringWidthNoConvert(str) * width;
+export function measureString(str: string, font?: Font, scale?: number, screenWidth = Screen.ScaledWidth): number {
+  return this.measureStringWidthNoConvert(str, font, scale) * screenWidth;
 }
