@@ -56,6 +56,14 @@ export class Vehicle extends Entity {
     return Vehicle.getClassDisplayName(this.ClassType);
   }
 
+  public get NumberPlate(): string {
+    return GetVehicleNumberPlateText(this.handle)
+  }
+
+  public set NumberPlate(value: string) {
+    SetVehicleNumberPlateText(this.handle, value.substring(0, 8))
+  }
+
   public get ClassType(): VehicleClass {
     return GetVehicleClass(this.handle);
   }
