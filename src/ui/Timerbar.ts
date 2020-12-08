@@ -5,8 +5,10 @@ import { LoadingPrompt } from './LoadingPrompt';
 import { Screen } from './Screen';
 import { Sprite } from './Sprite';
 
+/** @internal */
 const activeTimerBars: Timerbar[] = [];
 
+/** @internal */
 const drawText = (text, position, options): void => {
   options = {
     ...{
@@ -61,6 +63,18 @@ const drawText = (text, position, options): void => {
   DrawText(position[0] || 0, position[1] || 0);
 };
 
+/**
+ * Create a Timerbar. It's automatically added to the internal Timerbar array and drawn in a FIFO (first in, first out) way.
+ *
+ * ```typescript
+ * // Create simple Timerbar
+ * const myTimerbar = new Cfx.Timerbar("Hello");
+ * myTimerbar.Text = "World";
+ *
+ * // Disable Timerbar later on
+ * myTimerbar.Visible = false;
+ * ```
+ */
 export class Timerbar {
   private sprite: Sprite = null;
   private title = '';
