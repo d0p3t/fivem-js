@@ -27,6 +27,9 @@
     "typescript",
     "citizenfx"
   ],
+  "files": [
+    "lib/**/*"
+  ],
   "author": "Remco Troost <d0p3t>",
   "license": "MIT",
   "bugs": {
