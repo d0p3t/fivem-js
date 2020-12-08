@@ -1,33 +1,34 @@
+import { UIMenuItem } from './';
+import { Alignment } from '../../../enums';
 import { Menu } from '../';
-import { Rectangle } from '../../';
-import { Color, Point, Size, uuidv4 } from '../../../utils';
 
-export class UIMenuSeparatorItem {
-  public readonly id: string = uuidv4();
+export class UIMenuSeparatorItem extends UIMenuItem {
+  protected supportsDescription = false;
+  protected supportsPanels = false;
+  protected supportsLeftBadge = false;
+  protected supportsRightBadge = false;
+  protected supportsRightLabel = false;
 
-  public offset: Point;
-  public parent: Menu;
-
-  protected rectangle: Rectangle;
-
-  constructor(height = 3, color = Color.black) {
-    this.rectangle = new Rectangle(new Point(), new Size(431, height), color);
-  }
-
-  public get Height(): number {
-    return this.rectangle.size.height;
-  }
-
-  public set Height(value: number) {
-    this.rectangle.size.height = value;
+  constructor(text?: string) {
+    super(text);
+    this.text.alignment = Alignment.Centered;
   }
 
   public setVerticalPosition(y: number): void {
-    this.rectangle.pos = new Point(this.offset.X, y + 144 + this.offset.Y);
+    const yOffset = y + this.offset.Y;
+    this.rectangle.pos.Y = yOffset + 144;
+    this.text.pos.Y = yOffset + 147;
   }
 
-  public draw(resolution?: Size): void {
-    this.rectangle.size = new Size(431 + this.parent.WidthOffset, this.Height);
-    this.rectangle.draw(undefined, resolution);
+  public draw(): void {
+    const width = 431 + this.parent.WidthOffset;
+    this.rectangle.size.width = width;
+    this.rectangle.pos.X = this.offset.X;
+    this.rectangle.draw(undefined, Menu.screenResolution);
+
+    if (this.text.caption !== '') {
+      this.text.pos.X = this.offset.X + width / 2;
+      this.text.draw(undefined, Menu.screenResolution);
+    }
   }
 }

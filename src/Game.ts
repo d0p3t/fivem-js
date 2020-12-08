@@ -83,9 +83,9 @@ export abstract class Game {
    * Get an iterable list of players currently on server.
    * @returns Iterable list of Player objects.
    */
-  public static *playerList(): IterableIterator<Player> {
-    for (let i = 0; i < GetActivePlayers(); i += 1) {
-      yield new Player(i);
+  public static* playerList(): IterableIterator<Player> {
+    for (const id of GetActivePlayers() as number[]) {
+      yield new Player(id);
     }
   }
 
@@ -407,6 +407,7 @@ export abstract class Game {
   public static playSound(soundFile: string, soundSet: string): void {
     Audio.playSound(soundFile, soundSet);
   }
+
   /**
    * Play music. Same as Audio.playSound
    *

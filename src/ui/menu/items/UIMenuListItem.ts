@@ -1,228 +1,152 @@
-import { Sprite, Text } from '../../';
+import { Menu, Sprite, Text } from '../../';
 import { Alignment, Font } from '../../../enums';
 import { Color, LiteEvent, measureString, Point, Size } from '../../../utils';
-import { ItemsCollection, ListItem } from '../modules/';
+import { ListItem } from '../modules/';
 import { UIMenuItem } from './';
 
 export class UIMenuListItem extends UIMenuItem {
-  public scrollingEnabled = true;
-  public holdTimeBeforeScroll = 200;
+  public readonly listChanged = new LiteEvent();
+  public readonly listSelected = new LiteEvent();
 
-  protected itemText: Text;
-  protected arrowLeft: Sprite;
-  protected arrowRight: Sprite;
-  protected index = 0;
+  protected supportsRightBadge = false;
+  protected supportsRightLabel = false;
 
-  private readonly onListChanged = new LiteEvent();
+  private _itemText: Text;
+  private _leftArrow: Sprite;
+  private _rightArrow: Sprite;
 
-  private arrowOnlyOnSelected: boolean;
-  private currOffset = 0;
-  private collection: (ListItem | string)[] = [];
-
-  private Caption(): string {
-    // I suck at JS 'LINQ'
-    let caption = ' ';
-    if (this.Collection.length >= this.Index) {
-      const item = this.Collection[this.Index];
-
-      if (typeof item === 'string') {
-        caption = item;
-      } else {
-        caption = item.displayText;
-      }
-    }
-    return caption;
-  }
-
-  get Collection(): (ListItem | string)[] {
-    return this.collection;
-  }
-
-  set Collection(v: (ListItem | string)[]) {
-    if (!v) {
-      throw new Error("The collection can't be null");
-    }
-    this.collection = v;
-  }
-
-  set SelectedItem(v: ListItem | string) {
-    const idx = this.Collection.indexOf(v);
-    if (idx > 0) {
-      this.Index = idx;
-    } else {
-      this.Index = 0;
-    }
-  }
-
-  get SelectedItem(): ListItem | string {
-    return this.Collection.length > 0
-      ? this.Collection[this.Index] instanceof ListItem
-        ? this.Collection[this.Index]
-        : null
-      : null;
-  }
-
-  get SelectedValue(): unknown {
-    return this.SelectedItem == null
-      ? null
-      : typeof this.SelectedItem === 'string'
-      ? this.SelectedItem
-      : this.SelectedItem.data == null
-      ? this.SelectedItem.displayText
-      : this.SelectedItem.data;
-  }
-
-  public get ListChanged(): LiteEvent {
-    return this.onListChanged.expose();
-  }
-
-  get Index(): number {
-    if (this.Collection === null) {
-      return -1;
-    }
-    if (this.Collection !== null && this.Collection.length === 0) {
-      return -1;
-    }
-
-    return this.index % this.Collection.length;
-  }
-
-  set Index(value: number) {
-    if (this.Collection === null) {
-      return;
-    }
-    if (this.Collection.length === 0) {
-      return;
-    }
-
-    this.index = 100000 - (100000 % this.Collection.length) + value;
-
-    const caption: string = this.Caption();
-
-    this.currOffset = measureString(caption);
-  }
+  private _index = 0;
+  private _arrowOnlyOnSelected: boolean;
+  private _items: ListItem[] = [];
+  private _textWidth: number;
 
   constructor(
     text: string,
-    description = '',
-    collection = new ItemsCollection([]),
+    items: ListItem[],
     startIndex = 0,
+    description?: string,
     arrowOnlyOnSelected = true,
   ) {
     super(text, description);
-    const y = 0;
-    this.arrowOnlyOnSelected = arrowOnlyOnSelected;
-    this.Collection = collection.getListItems();
-    this.Index = startIndex;
-    this.arrowLeft = new Sprite(
-      'commonmenu',
-      'arrowleft',
-      new Point(110, 105 + y),
-      new Size(30, 30),
-    );
-    this.arrowRight = new Sprite(
-      'commonmenu',
-      'arrowright',
-      new Point(280, 105 + y),
-      new Size(30, 30),
-    );
-    this.itemText = new Text(
+    this._leftArrow = new Sprite('commonmenu', 'arrowleft', new Point(), new Size(30, 30));
+    this._rightArrow = new Sprite('commonmenu', 'arrowright', new Point(), new Size(30, 30));
+    this._itemText = new Text(
       '',
-      new Point(290, y + 104),
+      new Point(),
       0.35,
       Color.white,
       Font.ChaletLondon,
       Alignment.Right,
     );
+    this.ArrowOnlyOnSelected = arrowOnlyOnSelected;
+    this.Items = items;
+    this.Index = startIndex;
   }
 
-  public setCollection(collection: ItemsCollection): void {
-    this.Collection = collection.getListItems();
+  public get Items(): ListItem[] {
+    return this._items;
   }
 
-  public setCollectionItem(index: number, item: ListItem | string, resetSelection = true): void {
-    if (index > this.Collection.length) {
-      // Placeholder for formatting
-      throw new Error('Index out of bounds');
+  public set Items(value: ListItem[]) {
+    if (!value) {
+      throw new Error("Items can't be null");
     }
-    if (typeof item === 'string') {
-      // Placeholder for formatting
-      item = new ListItem(item);
-    }
-    this.Collection.splice(index, 1, item);
+    this._items = value;
+  }
 
-    if (resetSelection) {
-      // Placeholder for formatting
-      this.Index = 0;
+  public get SelectedItem(): ListItem {
+    return this.Items[this.Index];
+  }
+
+  public set SelectedItem(value: ListItem) {
+    const index = this.Items.findIndex(i => i.id === value.id);
+    if (index >= 0) {
+      this.Index = index;
     }
+  }
+
+  public get SelectedValue(): unknown {
+    const item = this.SelectedItem;
+    return item ? item.value : null;
+  }
+
+  public get Index(): number {
+    return this._index % this.Items.length;
+  }
+
+  public set Index(value: number) {
+    if (!this._items.length) {
+      return;
+    }
+    value = value < 0 ? this._items.length - 1 : value > this._items.length - 1 ? 0 : value;
+    this._index = value;
+    delete this._textWidth;
+  }
+
+  public get ArrowOnlyOnSelected(): boolean {
+    return this._arrowOnlyOnSelected;
+  }
+
+  public set ArrowOnlyOnSelected(value: boolean) {
+    this._arrowOnlyOnSelected = value;
+  }
+
+  public get IsMouseInBoundsOfLeftArrow(): boolean {
+    return this.parent.isMouseInBounds(this._leftArrow.pos, this._leftArrow.size);
+  }
+
+  public get IsMouseInBoundsOfRightArrow(): boolean {
+    return this.parent.isMouseInBounds(this._rightArrow.pos, this._rightArrow.size);
   }
 
   public setVerticalPosition(y: number): void {
-    this.arrowLeft.pos = new Point(
-      300 + this.offset.X + this.parent.WidthOffset,
-      147 + y + this.offset.Y,
-    );
-    this.arrowRight.pos = new Point(
-      400 + this.offset.X + this.parent.WidthOffset,
-      147 + y + this.offset.Y,
-    );
-    this.itemText.pos = new Point(
-      300 + this.offset.X + this.parent.WidthOffset,
-      y + 147 + this.offset.Y,
-    );
+    const yOffset = y + this.offset.Y + 147;
+    this._leftArrow.pos.Y = yOffset;
+    this._rightArrow.pos.Y = yOffset;
+    this._itemText.pos.Y = yOffset;
     super.setVerticalPosition(y);
   }
 
-  public draw(resolution?: Size): void {
-    super.draw(resolution);
-    const caption = this.Caption();
-    const offset = this.currOffset;
-
-    this.itemText.color = this.enabled
-      ? this.selected
-        ? this.highlightedForeColor
-        : this.foreColor
-      : new Color(255, 163, 159, 148);
-
-    this.itemText.caption = caption;
-
-    this.arrowLeft.color = this.enabled
-      ? this.selected
-        ? this.highlightedForeColor
-        : this.foreColor
-      : new Color(255, 163, 159, 148);
-    this.arrowRight.color = this.enabled
-      ? this.selected
-        ? this.highlightedForeColor
-        : this.foreColor
-      : new Color(255, 163, 159, 148);
-
-    this.arrowLeft.pos = new Point(
-      375 - offset + this.offset.X + this.parent.WidthOffset,
-      this.arrowLeft.pos.Y,
-    );
-    if (this.arrowOnlyOnSelected) {
-      if (this.selected) {
-        this.arrowLeft.draw(resolution);
-        this.arrowRight.draw(resolution);
-        this.itemText.pos = new Point(
-          405 + this.offset.X + this.parent.WidthOffset,
-          this.itemText.pos.Y,
-        );
-      } else {
-        this.itemText.pos = new Point(
-          420 + this.offset.X + this.parent.WidthOffset,
-          this.itemText.pos.Y,
-        );
-      }
-    } else {
-      this.arrowLeft.draw(resolution);
-      this.arrowRight.draw(resolution);
-      this.itemText.pos = new Point(
-        405 + this.offset.X + this.parent.WidthOffset,
-        this.itemText.pos.Y,
+  public draw(): void {
+    super.draw();
+    if (this._textWidth === undefined) {
+      const caption = this._getSelectedItemCaption();
+      this._itemText.caption = caption;
+      this._textWidth = measureString(
+        caption,
+        this._itemText.font,
+        this._itemText.scale,
+        Menu.screenWidth,
       );
     }
-    this.itemText.draw(undefined, resolution);
+
+    this._rightArrow.pos.X = this.offset.X + this.parent.WidthOffset + 400;
+    this._itemText.pos.X = this._rightArrow.pos.X + 5;
+
+    this._itemText.color = this.enabled
+      ? this.selected
+        ? this.HighlightedForeColor
+        : this.ForeColor
+      : new Color(255, 163, 159, 148);
+
+    if (this._arrowOnlyOnSelected && !this.selected) {
+      this._itemText.pos.X += this._rightArrow.size.width / 2;
+    } else {
+      this._leftArrow.color = this._itemText.color;
+      this._rightArrow.color = this._itemText.color;
+
+      this._leftArrow.pos.X =
+        this._itemText.pos.X - this._textWidth - this._leftArrow.size.width + 5;
+
+      this._leftArrow.draw(Menu.screenResolution);
+      this._rightArrow.draw(Menu.screenResolution);
+    }
+
+    this._itemText.draw(undefined, Menu.screenResolution);
+  }
+
+  private _getSelectedItemCaption(): string {
+    const item = this.SelectedItem;
+    return item ? item.name : '';
   }
 }
