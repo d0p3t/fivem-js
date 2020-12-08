@@ -1,9 +1,57 @@
 import { Alignment, Font } from '../enums';
-import { Color, Point } from '../utils';
-import { Screen } from './';
-import { IElement } from './interfaces';
+import { Color, Point, Size } from '../utils';
+import { IDrawable, Screen } from './';
 
-export class Text extends IElement {
+export class Text implements IDrawable {
+  public static draw(
+    caption: string,
+    pos: Point,
+    scale = 1,
+    color = Color.white,
+    font = Font.ChaletLondon,
+    alignment = Alignment.Left,
+    dropShadow = false,
+    outline = false,
+    wordWrap?: Size,
+    resolution?: Size,
+  ): void {
+    resolution = resolution || new Size(Screen.ScaledWidth, Screen.Height);
+    const x = pos.X / resolution.width;
+    const y = pos.Y / resolution.height;
+
+    SetTextFont(Number(font));
+    SetTextScale(1.0, scale);
+    SetTextColour(color.r, color.g, color.b, color.a);
+
+    if (dropShadow) {
+      SetTextDropshadow(2, 0, 0, 0, 0);
+    }
+
+    if (outline) {
+      SetTextOutline();
+    }
+
+    switch (alignment) {
+      case Alignment.Centered:
+        SetTextCentre(true);
+        break;
+      case Alignment.Right:
+        SetTextRightJustify(true);
+        if (!wordWrap) {
+          SetTextWrap(0.0, x);
+        }
+        break;
+    }
+
+    if (wordWrap) {
+      SetTextWrap(x, (pos.X + wordWrap.width) / resolution.width);
+    }
+
+    SetTextEntry('STRING');
+    Text.addLongString(caption);
+    DrawText(x, y);
+  }
+
   public static addLongString(str: string): void {
     const strLen = 99;
     for (let i = 0; i < str.length; i += strLen) {
@@ -18,6 +66,9 @@ export class Text extends IElement {
   public color: Color;
   public font: Font;
   public alignment: Alignment;
+  public dropShadow: boolean;
+  public outline: boolean;
+  public wordWrap: Size;
 
   /**
    *
@@ -27,50 +78,100 @@ export class Text extends IElement {
    * @param color Color of text. Default black.
    * @param font Font of text. Default Chalet London.
    * @param alignment Alignment of text. Default Left.
+   * @param dropShadow
+   * @param outline
+   * @param wordWrap
    */
   constructor(
     caption: string,
     pos: Point,
     scale = 1,
-    color: Color = Color.black,
-    font: Font = Font.ChaletLondon,
-    alignment: Alignment = Alignment.Left,
+    color = Color.white,
+    font = Font.ChaletLondon,
+    alignment = Alignment.Left,
+    dropShadow = false,
+    outline = false,
+    wordWrap?: Size,
   ) {
-    super();
     this.caption = caption;
     this.pos = pos;
     this.scale = scale;
     this.color = color;
     this.font = font;
     this.alignment = alignment;
+    this.dropShadow = dropShadow;
+    this.outline = outline;
+    this.wordWrap = wordWrap;
   }
 
-  public draw(): void {
-    const x = this.pos.X / Screen.ScaledWidth;
-    const y = this.pos.Y / Screen.Height;
+  public draw(offset?: Size, resolution?: Size): void;
+  public draw(
+    caption: string,
+    pos: Point,
+    scale: number,
+    color?: Color,
+    font?: Font,
+    alignment?: Alignment,
+    dropShadow?: boolean,
+    outline?: boolean,
+    wordWrap?: Size,
+    resolution?: Size,
+  ): void;
+  public draw(
+    arg1?: Size | string,
+    arg2?: Size | Point,
+    scale?: number,
+    color?: Color,
+    font?: Font,
+    alignment?: Alignment,
+    dropShadow?: boolean,
+    outline?: boolean,
+    wordWrap?: Size,
+    resolution?: Size,
+  ): void {
+    resolution = arg2 instanceof Size ? arg2 : resolution;
 
-    BeginTextCommandDisplayText('STRING');
-    SetTextFont(Number(this.font));
-    SetTextScale(this.scale, this.scale);
-    SetTextColour(this.color.r, this.color.g, this.color.b, this.color.a);
-
-    switch (this.alignment) {
-      case Alignment.Centered:
-        SetScriptGfxAlign(67, 84);
-        break;
-      case Alignment.Right:
-        SetTextJustification(2);
-        SetTextWrap(0, GetSafeZoneSize() - x);
-        break;
-      default:
-        SetScriptGfxAlign(76, 84);
-        break;
+    if (scale === undefined) {
+      if (arg1 && arg1 instanceof Size) {
+        arg2 = new Point(this.pos.X + arg1.width, this.pos.Y + arg1.height);
+      } else {
+        arg2 = this.pos;
+      }
+      arg1 = this.caption;
+      scale = this.scale;
+      color = this.color;
+      font = this.font;
+      alignment = this.alignment;
+      dropShadow = this.dropShadow;
+      outline = this.outline;
+      wordWrap = this.wordWrap;
+    } else {
+      arg1 = arg1 || this.caption;
+      if (!arg2) {
+        arg2 = this.pos;
+      } else {
+        arg2 = arg2 as Point;
+      }
+      scale = scale !== undefined && scale !== null ? scale : this.scale;
+      color = color || this.color;
+      font = font !== undefined && font !== null ? font : this.font;
+      alignment = alignment !== undefined && alignment !== null ? alignment : this.alignment;
+      dropShadow = typeof dropShadow === 'boolean' ? dropShadow : dropShadow;
+      outline = typeof outline === 'boolean' ? outline : outline;
+      wordWrap = wordWrap || this.wordWrap;
     }
 
-    Text.addLongString(this.caption);
-    EndTextCommandDisplayText(x, y);
-    ResetScriptGfxAlign();
+    Text.draw(
+      arg1 as string,
+      arg2,
+      scale,
+      color,
+      font,
+      alignment,
+      dropShadow,
+      outline,
+      wordWrap,
+      resolution,
+    );
   }
 }
-
-exports = Text;

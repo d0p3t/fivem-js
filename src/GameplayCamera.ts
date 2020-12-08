@@ -52,14 +52,14 @@ export abstract class GameplayCamera {
   /**
    * Get heading of gameplay camera.
    */
-  public get RelativeHeading(): number {
+  public static get RelativeHeading(): number {
     return GetGameplayCamRelativeHeading();
   }
 
   /**
    * Get heading of gameplay camera.
    */
-  public set RelativeHeading(heading: number) {
+  public static set RelativeHeading(heading: number) {
     SetGameplayCamRelativeHeading(heading);
   }
 }

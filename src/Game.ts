@@ -84,8 +84,8 @@ export abstract class Game {
    * @returns Iterable list of Player objects.
    */
   public static *playerList(): IterableIterator<Player> {
-    for (let i = 0; i < GetActivePlayers(); i += 1) {
-      yield new Player(i);
+    for (const id of GetActivePlayers() as number[]) {
+      yield new Player(id);
     }
   }
 
@@ -299,6 +299,17 @@ export abstract class Game {
   }
 
   /**
+   * Check whether a disabled control is being released.
+   *
+   * @param inputMode InputMode
+   * @param control Control
+   * @returns True or False.
+   */
+  public static isDisabledControlReleased(inputMode: InputMode, control: Control): boolean {
+    return !!IsDisabledControlReleased(inputMode, Number(control));
+  }
+
+  /**
    * Check whether a control has been released since last check.
    *
    * @param inputMode InputMode
@@ -307,6 +318,17 @@ export abstract class Game {
    */
   public static isControlJustReleased(inputMode: InputMode, control: Control): boolean {
     return !!IsControlJustReleased(inputMode, Number(control));
+  }
+
+  /**
+   * Check whether a disabled control has been released since last check.
+   *
+   * @param inputMode InputMode
+   * @param control Control
+   * @returns True or False.
+   */
+  public static isDisabledControlJustReleased(inputMode: InputMode, control: Control): boolean {
+    return !!IsDisabledControlJustReleased(inputMode, Number(control));
   }
 
   /**
@@ -385,6 +407,7 @@ export abstract class Game {
   public static playSound(soundFile: string, soundSet: string): void {
     Audio.playSound(soundFile, soundSet);
   }
+
   /**
    * Play music. Same as Audio.playSound
    *
