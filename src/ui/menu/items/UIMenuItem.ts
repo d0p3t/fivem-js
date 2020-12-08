@@ -59,12 +59,7 @@ export class UIMenuItem {
       Alignment.Left,
     );
     this.description = description;
-    this.selectedSprite = new Sprite(
-      'commonmenu',
-      'gradient_nav',
-      new Point(),
-      new Size(431, 38),
-    );
+    this.selectedSprite = new Sprite('commonmenu', 'gradient_nav', new Point(), new Size(431, 38));
 
     this.badgeLeft = new Sprite('commonmenu', '', new Point(), new Size(40, 40));
     this.badgeRight = new Sprite('commonmenu', '', new Point(), new Size(40, 40));

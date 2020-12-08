@@ -40,7 +40,7 @@ export class UIMenuListItem extends UIMenuItem {
 
   set Collection(v: (ListItem | string)[]) {
     if (!v) {
-      throw new Error('The collection can\'t be null');
+      throw new Error("The collection can't be null");
     }
     this.collection = v;
   }
@@ -66,10 +66,10 @@ export class UIMenuListItem extends UIMenuItem {
     return this.SelectedItem == null
       ? null
       : typeof this.SelectedItem === 'string'
-        ? this.SelectedItem
-        : this.SelectedItem.data == null
-          ? this.SelectedItem.displayText
-          : this.SelectedItem.data;
+      ? this.SelectedItem
+      : this.SelectedItem.data == null
+      ? this.SelectedItem.displayText
+      : this.SelectedItem.data;
   }
 
   public get ListChanged(): LiteEvent {

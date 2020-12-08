@@ -11,10 +11,16 @@ import { clamp, Color, getRandomInt, Vector3 } from './utils';
  * Class with common world manipulations.
  *
  * This class includes methods for creating entities and common world rendering.
+ *
+ * You can create blips, entities, cameras and more.
+ *
+ * @abstract
  */
 export abstract class World {
   /**
    * Get the current camera that's rendering.
+   *
+   * @returns The camera that's currently used.
    */
   public static get RenderingCamera(): Camera {
     return new Camera(GetRenderingCam());
@@ -22,6 +28,17 @@ export abstract class World {
 
   /**
    * Set the rendering camera. World.RenderingCamera = null to reset.
+   *
+   * ```typescript
+   * const position = new Vector3(-802.311, 175.056, 72.8446);
+   * const myCamera = World.createCamera(position, new Vector3(0,0,0), 180);
+   * World.RenderingCamera = myCamera;
+   *
+   * // Reset to default cam
+   * World.RenderingCamera = null;
+   * ```
+   *
+   * @param value The camera to render.
    */
   public static set RenderingCamera(value: Camera) {
     if (value === null) {
@@ -34,6 +51,8 @@ export abstract class World {
 
   /**
    * Get the current date in the world.
+   *
+   * @returns The current date.
    */
   public static get CurrentDate(): Date {
     const year = GetClockYear();
@@ -56,6 +75,8 @@ export abstract class World {
 
   /**
    * Disables all emissive textures, street/building/vehicle lights. "EMP" effect.
+   *
+   * @param value On or off.
    */
   public static set Blackout(value: boolean) {
     SetBlackout(value);
@@ -63,6 +84,8 @@ export abstract class World {
 
   /**
    * Get the current cloud hat.
+   *
+   * @returns The current cloud hat type.
    */
   public static get CloudHat(): CloudHat {
     return this.currentCloudHat;
@@ -70,6 +93,8 @@ export abstract class World {
 
   /**
    * Set the current cloud hat.
+   *
+   * @param value The type of cloud hat.
    */
   public static set CloudHat(value: CloudHat) {
     this.currentCloudHat = value;
@@ -89,6 +114,8 @@ export abstract class World {
 
   /**
    * Get the opacity of current cloud hat. Value is between 0-1.
+   *
+   * @returns The current cloud opacity between 0.0 and 1.0
    */
   public static get CloudHatOpacity(): number {
     return GetCloudHatOpacity();
@@ -96,6 +123,8 @@ export abstract class World {
 
   /**
    * Set opacity of current cloud hat between 0-1.
+   *
+   * @param value Opacity between 0.0 and 1.0
    */
   public static set CloudHatOpacity(value: number) {
     SetCloudHatOpacity(clamp(value, 0, 1));
@@ -103,6 +132,8 @@ export abstract class World {
 
   /**
    * Get the current weather type.
+   *
+   * @returns The current type of weather.
    */
   public static get Weather(): Weather {
     switch (GetPrevWeatherTypeHashName()) {
@@ -143,6 +174,8 @@ export abstract class World {
 
   /**
    * Set the current weather.
+   *
+   * @param value Type of weather to set.
    */
   public static set Weather(value: Weather) {
     if (value !== Weather.Unknown) {
@@ -156,6 +189,8 @@ export abstract class World {
 
   /**
    * Get the next weather type.
+   *
+   * @returns The Weather type
    */
   public static get NextWeather(): Weather {
     switch (GetNextWeatherTypeHashName()) {
@@ -241,6 +276,12 @@ export abstract class World {
   /**
    * Creates a blip at a given position and optionally radius.
    *
+   * ```typescript
+   * const position = new Vector3(-802.311, 175.056, 72.8446);
+   * const myStoreBlip = World.createBlip(position, 5.0);
+   * myStoreBlip.Sprite = BlipSprite.Store;
+   * ```
+   *
    * @param position World coordinate of blip.
    * @param radius (Optional) Radius of where blip should be shown.
    * @returns Blip object.
@@ -254,6 +295,11 @@ export abstract class World {
 
   /**
    * Creates a camera using 'DEFAULT_SCRIPTED_CAMERA'.
+   *
+   * ```typescript
+   * const position = new Vector3(-802.311, 175.056, 72.8446);
+   * const myCamera = World.createCamera(position, new Vector3(0,0,0), 180);
+   * ```
    *
    * @param position World coordinate where the camera should render.
    * @param rotation Rotation of camera relative to world.
@@ -280,6 +326,12 @@ export abstract class World {
   /**
    * Create a ped at a desired location.
    *
+   * ```typescript
+   * const position = new Vector3(-802.311, 175.056, 72.8446);
+   * const model = new Model("a_f_m_beach_01");
+   * const myPed = await World.createPed(model, position);
+   * ```
+   *
    * @param model Ped model to be spawned.
    * @param position World position (coordinates) of Ped spawn.
    * @param heading Heading of Ped when spawning.
@@ -295,7 +347,12 @@ export abstract class World {
   }
 
   /**
-   * Creates a ped with a random model.
+   * Creates a [[`Ped`]] with a random model.
+   *
+   * ```typescript
+   * const position = new Vector3(-802.311, 175.056, 72.8446);
+   * const randomPed = World.createRandomPed(position);
+   * ```
    *
    * @param position World coordinate of Ped spawn.
    * @returns Ped object.
@@ -306,6 +363,12 @@ export abstract class World {
 
   /**
    * Create a vehicle at a desired location.
+   *
+   * ```typescript
+   * const position = new Vector3(-802.311, 175.056, 72.8446);
+   * const model = new Model("adder");
+   * const myVehicle = await World.createVehicle(model, position);
+   * ```
    *
    * @param model Vehicle model to be spawned.
    * @param position World position (coordinates) of Vehicle spawn.
@@ -328,6 +391,11 @@ export abstract class World {
   /**
    * Create a random vehicle at a desired location.
    *
+   * ```typescript
+   * const position = new Vector3(-802.311, 175.056, 72.8446);
+   * const randomVehicle = await World.createRandomVehicle(position);
+   * ```
+   *
    * @param position World position (coordinates) of Vehicle spawn.
    * @param heading Heading of Vehicle when spawning.
    * @returns Vehicle object.
@@ -347,6 +415,20 @@ export abstract class World {
     );
   }
 
+  /**
+   * Spawns a [[`Prop`]] at the given position.
+   *
+   * ```typescript
+   * const position = new Vector3(-802.311, 175.056, 72.8446);
+   * const model = new Model("prop_barrel_02a");
+   * const myBarrelProp = await World.createProp(model, position, false, true);
+   * ```
+   *
+   * @param model The [[`Model`]] to spawn (must be a Prop)
+   * @param position Location of Prop
+   * @param dynamic If set to true, the Prop will have physics otherwise it's static.
+   * @param placeOnGround If set to true, sets the Prop on the ground nearest to position.
+   */
   public static async createProp(
     model: Model,
     position: Vector3,
@@ -369,7 +451,16 @@ export abstract class World {
   }
 
   /**
-   * Draw a marker at a desired location.
+   * Draw a marker at a desired location. Careful! Must be drawn every tick.
+   *
+   * ```typescript
+   * const position = new Vector3(-802.311, 175.056, 72.8446);
+   * const zeroVector = new Vector3(0,0,0);
+   *
+   * setTick(() => {
+   *  World.drawMarker(MarkerType.ThickChevronUp, position, zeroVector, zeroVector, 1.0, new Color(255,0,0));
+   * })
+   * ```
    *
    * @param type Type of marker.
    * @param position Location of marker.
@@ -394,8 +485,8 @@ export abstract class World {
     bobUpAndDown = false,
     faceCamera = false,
     rotateY = false,
-    textureDict = null,
-    textureName = null,
+    textureDict: string = null,
+    textureName: string = null,
     drawOnEntity = false,
   ): void {
     DrawMarker(
@@ -595,6 +686,11 @@ export abstract class World {
     );
   }
 
+  /**
+   * Get all [[`Prop`]] entities in your own scope.
+   *
+   * @returns Array of Props.
+   */
   public static getAllProps(): Prop[] {
     const props: Prop[] = [];
 
@@ -622,6 +718,11 @@ export abstract class World {
     return props;
   }
 
+  /**
+   * Get all [[`Ped`]] entities in your own scope.
+   *
+   * @returns Array of Peds.
+   */
   public static getAllPeds(): Ped[] {
     const peds: Ped[] = [];
 
@@ -649,6 +750,11 @@ export abstract class World {
     return peds;
   }
 
+  /**
+   * Get all [[`Vehicle`]] entities in your own scope.
+   *
+   * @returns Array of Vehicles.
+   */
   public static getAllVehicles(): Vehicle[] {
     const vehicles: Vehicle[] = [];
 
