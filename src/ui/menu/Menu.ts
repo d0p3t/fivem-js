@@ -1,4 +1,13 @@
-import { Container, MenuControls, MenuSettings, Rectangle, Screen, Sprite, Text, UIMenuSeparatorItem } from '../';
+import {
+  Container,
+  MenuControls,
+  MenuSettings,
+  Rectangle,
+  Screen,
+  Sprite,
+  Text,
+  UIMenuSeparatorItem,
+} from '../';
 import { Audio, InputMode } from '../../';
 import { Alignment, Control, Font } from '../../enums';
 import { Game } from '../../Game';
@@ -215,11 +224,7 @@ export class Menu {
       { ...extraRectangleColor },
     );
 
-    this._descriptionBar = new Rectangle(
-      new Point(this._offset.X),
-      new Size(431, 4),
-      Color.black,
-    );
+    this._descriptionBar = new Rectangle(new Point(this._offset.X), new Size(431, 4), Color.black);
     this._descriptionRectangle = new Sprite(
       'commonmenu',
       'gradient_bgd',
@@ -273,7 +278,9 @@ export class Menu {
     return subMenuToAdd;
   }
 
-  public addItem(items: UIMenuItem | UIMenuSeparatorItem | (UIMenuItem | UIMenuSeparatorItem)[]): void {
+  public addItem(
+    items: UIMenuItem | UIMenuSeparatorItem | (UIMenuItem | UIMenuSeparatorItem)[],
+  ): void {
     let shouldRefreshIndex = false;
     if (!Array.isArray(items)) {
       items = [items];
@@ -497,11 +504,9 @@ export class Menu {
     // Up
     if (
       this.Controls.up.Enabled &&
-      (
-        Game.isDisabledControlPressed(0, Control.PhoneUp) ||
-        Game.isDisabledControlPressed(0, Control.CursorScrollUp)
-      )
-      && this._lastUpDownNavigation + this._navigationDelay < Date.now()
+      (Game.isDisabledControlPressed(0, Control.PhoneUp) ||
+        Game.isDisabledControlPressed(0, Control.CursorScrollUp)) &&
+      this._lastUpDownNavigation + this._navigationDelay < Date.now()
     ) {
       this._lastUpDownNavigation = Date.now();
       if (this.menuItems.length > this._maxItemsOnScreen + 1) {
@@ -513,11 +518,9 @@ export class Menu {
     // Down
     if (
       this.Controls.down.Enabled &&
-      (
-        Game.isDisabledControlPressed(0, Control.PhoneDown) ||
-        Game.isDisabledControlPressed(0, Control.CursorScrollDown)
-      )
-      && this._lastUpDownNavigation + this._navigationDelay < Date.now()
+      (Game.isDisabledControlPressed(0, Control.PhoneDown) ||
+        Game.isDisabledControlPressed(0, Control.CursorScrollDown)) &&
+      this._lastUpDownNavigation + this._navigationDelay < Date.now()
     ) {
       this._lastUpDownNavigation = Date.now();
       if (this.menuItems.length > this._maxItemsOnScreen + 1) {
@@ -696,7 +699,11 @@ export class Menu {
   private _calculateSeparatorHeight(index?: number): number {
     let height = 0;
     for (const [idx, separator] of this._menuSeparators) {
-      if ((index !== undefined ? idx <= (index - 1) : true) && idx >= this._minItem && idx <= this._maxItem) {
+      if (
+        (index !== undefined ? idx <= index - 1 : true) &&
+        idx >= this._minItem &&
+        idx <= this._maxItem
+      ) {
         height += separator.Height;
       }
     }
@@ -739,8 +746,14 @@ export class Menu {
 
     this._background.size =
       this.menuItems.length > this._maxItemsOnScreen + 1
-        ? new Size(431 + this._widthOffset, 38 * (this._maxItemsOnScreen + 1) + this._calculateSeparatorHeight(this._maxItem))
-        : new Size(431 + this._widthOffset, 38 * this.menuItems.length + this._calculateSeparatorHeight());
+        ? new Size(
+            431 + this._widthOffset,
+            38 * (this._maxItemsOnScreen + 1) + this._calculateSeparatorHeight(this._maxItem),
+          )
+        : new Size(
+            431 + this._widthOffset,
+            38 * this.menuItems.length + this._calculateSeparatorHeight(),
+          );
     this._background.draw(screenResolution);
 
     if (this.menuItems.length > 0) {

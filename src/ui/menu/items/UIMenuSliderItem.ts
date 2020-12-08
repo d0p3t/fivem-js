@@ -58,17 +58,9 @@ export class UIMenuSliderItem extends UIMenuItem {
       new Color(255, 57, 116, 200),
     );
     if (divider) {
-      this.rectangleDivider = new Rectangle(
-        new Point(),
-        new Size(2.5, 20),
-        Color.whiteSmoke,
-      );
+      this.rectangleDivider = new Rectangle(new Point(), new Size(2.5, 20), Color.whiteSmoke);
     } else {
-      this.rectangleDivider = new Rectangle(
-        new Point(),
-        new Size(2.5, 20),
-        Color.transparent,
-      );
+      this.rectangleDivider = new Rectangle(new Point(), new Size(2.5, 20), Color.transparent);
     }
     this.Index = index;
   }
