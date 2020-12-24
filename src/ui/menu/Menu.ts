@@ -185,12 +185,28 @@ export class Menu {
     return this._title.caption;
   }
 
+  public get TitleFont(): Font {
+    return this._title.font;
+  }
+
+  public set TitleFont(font: Font) {
+    this._title.font = font;
+  }
+
   public set Subtitle(text: string) {
     this._subtitle.caption = text;
   }
 
   public get Subtitle(): string {
     return this._subtitle.caption;
+  }
+
+  public set SubtitleFont(font: Font) {
+    this._subtitle.font = font;
+  }
+
+  public get SubtitleFont(): Font {
+    return this._subtitle.font;
   }
 
   public set SubtitleForeColor(color: Color) {
@@ -296,6 +312,8 @@ export class Menu {
       );
       menu.WidthOffset = this.WidthOffset;
       menu._settings = this._settings;
+      menu.TitleFont = this.TitleFont;
+      menu.SubtitleFont = this.SubtitleFont;
     } else {
       menu = new Menu(this._title.caption, text);
     }
@@ -309,6 +327,8 @@ export class Menu {
     if (inherit) {
       subMenuToAdd.WidthOffset = this.WidthOffset;
       subMenuToAdd._settings = this._settings;
+      subMenuToAdd.TitleFont = this.TitleFont;
+      subMenuToAdd.SubtitleFont = this.SubtitleFont;
     }
     const item = new UIMenuItem(text, description);
     this.addItem(item);
