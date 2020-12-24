@@ -81,6 +81,7 @@ export class Menu {
     offset = new Point(),
     spriteLibrary = 'commonmenu',
     spriteName = 'interaction_bgd',
+    font = Font.HouseScript
   ) {
     this._offset = offset;
 
@@ -98,7 +99,7 @@ export class Menu {
         new Point(431 / 2 + this._offset.X, 20 + this._offset.Y),
         1.15,
         Color.white,
-        1,
+        font,
         Alignment.Centered,
       )),
       (this._subtitleResRectangle = new Rectangle(
@@ -284,7 +285,7 @@ export class Menu {
     return this._settings;
   }
 
-  public addNewSubMenu(text: string, description?: string, inherit = true): Menu {
+  public addNewSubMenu(text: string, description?: string, inherit = true, font = Font.HouseScript): Menu {
     let menu;
     if (inherit) {
       menu = new Menu(
@@ -293,6 +294,7 @@ export class Menu {
         this._offset,
         this._logo.TextureDict,
         this._logo.textureName,
+        font
       );
       menu.WidthOffset = this.WidthOffset;
       menu._settings = this._settings;
