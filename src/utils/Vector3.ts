@@ -119,6 +119,6 @@ export class Vector3 implements Vec3 {
   }
 
   public get Length(): number {
-    return this.distanceSquared(this);
+    return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
   }
 }
