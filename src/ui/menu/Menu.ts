@@ -11,7 +11,7 @@ import {
 } from '../';
 import { Audio, CursorSprite, Game, GameplayCamera, InputMode } from '../../';
 import { Alignment, Control, Font } from '../../enums';
-import { Color, LiteEvent, Point, Size, uuidv4 } from '../../utils';
+import { Color, Crypto, LiteEvent, Point, Size } from '../../utils';
 import { UIMenuCheckboxItem, UIMenuItem, UIMenuListItem, UIMenuSliderItem } from './items';
 
 export class Menu {
@@ -20,7 +20,7 @@ export class Menu {
   public static screenWidth = Menu.screenHeight * Menu.screenAspectRatio;
   public static screenResolution = new Size(Menu.screenWidth, Menu.screenHeight);
 
-  public readonly id: string = uuidv4();
+  public readonly id: string = Crypto.uuidv4();
 
   public visible = false;
 

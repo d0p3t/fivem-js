@@ -1,6 +1,6 @@
 import { Menu, Sprite, Text } from '../../';
 import { Alignment, Font } from '../../../enums';
-import { Color, LiteEvent, measureString, Point, Size } from '../../../utils';
+import { Color, LiteEvent, Point, Size, String } from '../../../utils';
 import { ListItem } from '../modules/';
 import { UIMenuItem } from './';
 
@@ -112,7 +112,7 @@ export class UIMenuListItem extends UIMenuItem {
     if (this._textWidth === undefined) {
       const caption = this._getSelectedItemCaption();
       this._itemText.caption = caption;
-      this._textWidth = measureString(
+      this._textWidth = String.measureString(
         caption,
         this._itemText.font,
         this._itemText.scale,

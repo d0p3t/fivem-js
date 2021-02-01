@@ -5,7 +5,7 @@ import { CloudHat, IntersectOptions, MarkerType, Weather } from './enums';
 import { VehicleHash } from './hashes';
 import { Ped, Vehicle } from './models';
 import { RaycastResult } from './Raycast';
-import { clamp, Color, getRandomInt, Vector3 } from './utils';
+import { Color, Maths, Vector3 } from './utils';
 
 /**
  * Class with common world manipulations.
@@ -127,7 +127,7 @@ export abstract class World {
    * @param value Opacity between 0.0 and 1.0
    */
   public static set CloudHatOpacity(value: number) {
-    SetCloudHatOpacity(clamp(value, 0, 1));
+    SetCloudHatOpacity(Maths.clamp(value, 0, 1));
   }
 
   /**
@@ -402,7 +402,7 @@ export abstract class World {
    */
   public static async createRandomVehicle(position: Vector3, heading = 0): Promise<Vehicle> {
     const vehicleCount: number = Object.keys(VehicleHash).length / 2; // check
-    const randomIndex: number = getRandomInt(0, vehicleCount);
+    const randomIndex: number = Maths.getRandomInt(0, vehicleCount);
     const randomVehicleName: string = VehicleHash[randomIndex];
     const modelHash: number = GetHashKey(randomVehicleName);
     const model = new Model(modelHash);

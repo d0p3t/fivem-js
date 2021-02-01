@@ -1,7 +1,7 @@
 import { AbstractUIMenuPanel, Menu } from '../';
 import { Rectangle, Sprite, Text } from '../../';
 import { Alignment, BadgeStyle, Font } from '../../../enums';
-import { Color, LiteEvent, measureString, Point, Size, uuidv4 } from '../../../utils';
+import { Color, Crypto, LiteEvent, Point, Size, String } from '../../../utils';
 
 export class UIMenuItem {
   public static badgeToTextureDict(badge: BadgeStyle): string {
@@ -349,7 +349,7 @@ export class UIMenuItem {
   public static defaultHoveredForeColor = UIMenuItem.defaultForeColor;
   public static defaultHighlightedForeColor = Color.black;
 
-  public readonly id: string = uuidv4();
+  public readonly id: string = Crypto.uuidv4();
 
   public enabled = true;
   public selected: boolean;
@@ -593,10 +593,10 @@ export class UIMenuItem {
     let aggregatePixels = 0;
     let output = '';
     const words = input.split(' ');
-    const spaceWidth = measureString(' ', Font.ChaletLondon, 0.33, Menu.screenWidth);
+    const spaceWidth = String.measureString(' ', Font.ChaletLondon, 0.33, Menu.screenWidth);
 
     for (const word of words) {
-      const offset = measureString(word, Font.ChaletLondon, 0.33, Menu.screenWidth);
+      const offset = String.measureString(word, Font.ChaletLondon, 0.33, Menu.screenWidth);
       aggregatePixels += offset;
 
       if (aggregatePixels > maxPixelsPerLine) {

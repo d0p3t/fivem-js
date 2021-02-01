@@ -1,10 +1,10 @@
 import { UIMenuItem } from '../';
-import { uuidv4 } from '../../../../utils';
+import { Crypto } from '../../../../utils';
 import { Rectangle, Sprite } from '../../../';
 import { Menu } from '../../';
 
 export abstract class AbstractUIMenuPanel {
-  public readonly id: string = uuidv4();
+  public readonly id: string = Crypto.uuidv4();
 
   protected parentItem: UIMenuItem;
   protected enabled = true;
