@@ -1,5 +1,13 @@
 import { Vector3 } from '../';
-import { DrivingStyle, HelmetType, RagdollType, SpeechModifier, VehicleSeat } from '../enums';
+import {
+  DrivingStyle,
+  FiringPattern,
+  Gender,
+  HelmetType,
+  RagdollType,
+  SpeechModifier,
+  VehicleSeat,
+} from '../enums';
 import { WeaponHash } from '../hashes';
 import { Tasks } from '../Tasks';
 import { Entity, PedBoneCollection, Vehicle } from './';
@@ -57,6 +65,36 @@ export class Ped extends Entity {
     super(handle);
   }
 
+  public get Money(): number {
+    return GetPedMoney(this.handle);
+  }
+
+  public set Money(amount: number) {
+    SetPedMoney(this.handle, amount);
+  }
+
+  public get Gender(): Gender {
+    return IsPedMale(this.handle) ? Gender.Male : Gender.Female;
+  }
+
+  public get Armor(): number {
+    return GetPedArmour(this.handle);
+  }
+
+  public set Armor(amount: number) {
+    if (amount > 100) amount = 100;
+    SetPedArmour(this.handle, amount);
+  }
+
+  public get Accuracy(): number {
+    return GetPedAccuracy(this.handle);
+  }
+
+  public set Accuracy(accuracy: number) {
+    if (accuracy > 100) accuracy = 100;
+    SetPedAccuracy(this.handle, accuracy);
+  }
+
   public get Health(): number {
     return super.Health - 100;
   }
@@ -71,6 +109,48 @@ export class Ped extends Entity {
 
   public set MaxHealth(amount: number) {
     super.MaxHealth = amount + 100;
+  }
+
+  public set Sweat(value: number) {
+    SetPedSweat(this.handle, value);
+  }
+
+  public set WetnessHeight(value: number) {
+    if (value === 0) {
+      ClearPedWetness(this.Handle);
+    } else {
+      SetPedWetnessHeight(this.handle, value);
+    }
+  }
+
+  public set Voice(value: string) {
+    SetAmbientVoiceName(this.handle, value);
+  }
+
+  public set ShootRate(value: number) {
+    if (value > 1000) value = 1000;
+    SetPedShootRate(this.handle, value);
+  }
+
+  public get WasKilledByStealth(): boolean {
+    return !!WasPedKilledByStealth(this.handle);
+  }
+
+  public get WasKilledByTakedown(): boolean {
+    return !!WasPedKilledByTakedown(this.handle);
+  }
+
+  public get SeatIndex(): VehicleSeat {
+    if (!this.isInAnyVehicle()) return VehicleSeat.None;
+
+    const numberOfSeats = GetVehicleModelNumberOfSeats(this.CurrentVehicle.Model.Hash);
+    for (let seat = -1; seat < numberOfSeats; seat++) {
+      if (this.CurrentVehicle.getPedOnSeat(seat).Handle == this.handle) {
+        return seat;
+      }
+    }
+
+    return VehicleSeat.None;
   }
 
   public get CurrentVehicle(): Vehicle {
@@ -310,6 +390,10 @@ export class Ped extends Entity {
     return !!IsPedShooting(this.handle);
   }
 
+  public get IsAiming(): boolean {
+    return this.getConfigFlag(78);
+  }
+
   public get IsReloading(): boolean {
     return !!IsPedReloading(this.handle);
   }
@@ -346,7 +430,7 @@ export class Ped extends Entity {
     return !!IsPedInCoverFacingLeft(this.handle);
   }
 
-  public set FiringPattern(value: number) {
+  public set FiringPattern(value: FiringPattern) {
     SetPedFiringPattern(this.handle, value);
   }
 
