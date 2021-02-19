@@ -9,7 +9,7 @@ import {
   Text,
   UIMenuSeparatorItem,
 } from '../';
-import { Audio, CursorSprite, Game, GameplayCamera, InputMode } from '../../';
+import { Audio, CursorSprite, Game, GameplayCamera, InputMode, Wait } from '../../';
 import { Alignment, Control, Font } from '../../enums';
 import { Color, Crypto, LiteEvent, Point, Size } from '../../utils';
 import { UIMenuCheckboxItem, UIMenuItem, UIMenuListItem, UIMenuSliderItem } from './items';
@@ -650,7 +650,7 @@ export class Menu {
           this.CurrentSelection = hoveredItemIndex;
           this.indexChange.emit(this.CurrentSelection);
         }
-        await new Promise(resolve => setTimeout(resolve, this._navigationDelay));
+        await Wait(this._navigationDelay);
         while (Game.isDisabledControlPressed(0, Control.Attack) && hoveredItem.IsMouseInBounds) {
           if (hoveredItem.selected) {
             if (hoveredItem.enabled) {
@@ -672,7 +672,7 @@ export class Menu {
             this.CurrentSelection = hoveredItemIndex;
             this.indexChange.emit(this.CurrentSelection);
           }
-          await new Promise(resolve => setTimeout(resolve, 125));
+          await Wait(125);
         }
         this._mousePressed = false;
       })();
@@ -688,10 +688,10 @@ export class Menu {
         (async () => {
           this._mousePressed = true;
           this.goUp();
-          await new Promise(resolve => setTimeout(resolve, this._navigationDelay));
+          await Wait(this._navigationDelay);
           while (Game.isDisabledControlPressed(0, Control.Attack)) {
             this.goUp();
-            await new Promise(resolve => setTimeout(resolve, 125));
+            await Wait(125);
           }
           this._mousePressed = false;
         })();
@@ -710,10 +710,10 @@ export class Menu {
         (async () => {
           this._mousePressed = true;
           this.goDown();
-          await new Promise(resolve => setTimeout(resolve, this._navigationDelay));
+          await Wait(this._navigationDelay);
           while (Game.isDisabledControlPressed(0, Control.Attack)) {
             this.goDown();
-            await new Promise(resolve => setTimeout(resolve, 125));
+            await Wait(125);
           }
           this._mousePressed = false;
         })();
