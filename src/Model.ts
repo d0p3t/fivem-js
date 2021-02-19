@@ -195,11 +195,11 @@ export class Model {
   }
 
   /**
-   * Request and load the model with a specified timeout. Advised timeout - 1000.
+   * Request and load the model with a specified timeout. Default timeout is 1000 (recommended).
    *
    * @param timeout Maximum allowed time for model to load.
    */
-  public request(timeout: number): Promise<boolean> {
+  public request(timeout = 1000): Promise<boolean> {
     return new Promise(resolve => {
       if (!this.IsInCdImage && !this.IsValid && !IsWeaponValid(this.hash)) {
         resolve(false);
