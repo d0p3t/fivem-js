@@ -448,7 +448,7 @@ export class Tasks {
   }
 
   public warpOutOfVehicle(vehicle: Vehicle, flags: LeaveVehicleFlags): void {
-    TaskLeaveVehicle(this.ped.Handle, vehicle.Handle, 16);
+    TaskLeaveVehicle(this.ped.Handle, vehicle.Handle, flags);
   }
 
   public clearAll(): void {
