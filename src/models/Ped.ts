@@ -1,6 +1,7 @@
 import { Vector3 } from '../';
 import { DrivingStyle, HelmetType, RagdollType, SpeechModifier, VehicleSeat } from '../enums';
 import { WeaponHash } from '../hashes';
+import { Tasks } from '../Tasks';
 import { Entity, PedBoneCollection, Vehicle } from './';
 
 export class Ped extends Entity {
@@ -49,6 +50,8 @@ export class Ped extends Entity {
     'SPEECH_PARAMS_SHOUTED_CLEAR',
     'SPEECH_PARAMS_SHOUTED_CRITICAL',
   ];
+
+  private tasks: Tasks = null;
 
   constructor(handle: number) {
     super(handle);
@@ -357,6 +360,22 @@ export class Ped extends Entity {
 
   public set DrivingStyle(style: DrivingStyle) {
     SetDriveTaskDrivingStyle(this.handle, Number(style));
+  }
+
+  public get Task(): Tasks {
+    if (this.tasks === null) {
+      this.tasks = new Tasks(this);
+    }
+
+    return this.tasks;
+  }
+
+  public get TaskSequenceProgress(): number {
+    return GetSequenceProgress(this.handle);
+  }
+
+  public set BlockPermanentEvents(block: boolean) {
+    SetBlockingOfNonTemporaryEvents(this.handle, block);
   }
 
   public isInAnyVehicle(): boolean {
