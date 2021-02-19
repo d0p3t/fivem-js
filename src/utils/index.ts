@@ -8,3 +8,6 @@ export { Color } from './Color';
 export { Maths } from './Maths';
 export { Size } from './Size';
 export { Quaternion } from './Quaternion';
+
+export const Wait = (milliseconds: number): Promise<void> =>
+  new Promise(resolve => setTimeout(resolve, milliseconds));
