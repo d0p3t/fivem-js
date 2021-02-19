@@ -5,7 +5,9 @@
   "name": "fivem-js - Documentation",
   "theme": "node_modules/typedoc-fivemjs-theme/bin/default",
   "readme": "none",
+  "hideGenerator": true,
   "ignoreCompilerErrors": "true",
+  "includeVersion": true,
   "experimentalDecorators": "true",
   "emitDecoratorMetadata": "true",
   "excludePrivate": true,
@@ -15,5 +17,6 @@
   "stripInternal": "true",
   "suppressExcessPropertyErrors": "false",
   "suppressImplicitAnyIndexErrors": "false",
-  "module": "commonjs"
+  "module": "commonjs",
+  "gaID": "UA-9229957-3"
 }
