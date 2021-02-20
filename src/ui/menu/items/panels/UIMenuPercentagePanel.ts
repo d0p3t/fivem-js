@@ -2,7 +2,7 @@ import { Color, Point, Size } from '../../../../utils';
 import { AbstractUIMenuPanel } from './';
 import { Menu, Rectangle, Sprite, Text } from '../../../';
 import { Alignment, Control, Font } from '../../../../enums';
-import { Game } from '../../../../';
+import { Game, Wait } from '../../../../';
 
 export class UIMenuPercentagePanel extends AbstractUIMenuPanel {
   protected readonly background: Sprite;

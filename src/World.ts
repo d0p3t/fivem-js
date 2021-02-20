@@ -335,14 +335,20 @@ export abstract class World {
    * @param model Ped model to be spawned.
    * @param position World position (coordinates) of Ped spawn.
    * @param heading Heading of Ped when spawning.
+   * @param isNetwork
    * @returns Ped object.
    */
-  public static async createPed(model: Model, position: Vector3, heading = 0): Promise<Ped> {
+  public static async createPed(
+    model: Model,
+    position: Vector3,
+    heading = 0,
+    isNetwork = true,
+  ): Promise<Ped> {
     if (!model.IsPed || !(await model.request(1000))) {
       return null;
     }
     return new Ped(
-      CreatePed(26, model.Hash, position.x, position.y, position.z, heading, true, false),
+      CreatePed(26, model.Hash, position.x, position.y, position.z, heading, isNetwork, false),
     );
   }
 
@@ -373,18 +379,20 @@ export abstract class World {
    * @param model Vehicle model to be spawned.
    * @param position World position (coordinates) of Vehicle spawn.
    * @param heading Heading of Vehicle when spawning.
+   * @param isNetwork
    * @returns Vehicle object.
    */
   public static async createVehicle(
     model: Model,
     position: Vector3,
     heading = 0,
+    isNetwork = true,
   ): Promise<Vehicle> {
     if (!model.IsVehicle || !(await model.request(1000))) {
       return null;
     }
     return new Vehicle(
-      CreateVehicle(model.Hash, position.x, position.y, position.z, heading, true, false),
+      CreateVehicle(model.Hash, position.x, position.y, position.z, heading, isNetwork, false),
     );
   }
 
@@ -398,9 +406,14 @@ export abstract class World {
    *
    * @param position World position (coordinates) of Vehicle spawn.
    * @param heading Heading of Vehicle when spawning.
+   * @param isNetwork
    * @returns Vehicle object.
    */
-  public static async createRandomVehicle(position: Vector3, heading = 0): Promise<Vehicle> {
+  public static async createRandomVehicle(
+    position: Vector3,
+    heading = 0,
+    isNetwork = true,
+  ): Promise<Vehicle> {
     const vehicleCount: number = Object.keys(VehicleHash).length / 2; // check
     const randomIndex: number = Maths.getRandomInt(0, vehicleCount);
     const randomVehicleName: string = VehicleHash[randomIndex];
@@ -411,7 +424,7 @@ export abstract class World {
       return null;
     }
     return new Vehicle(
-      CreateVehicle(model.Hash, position.x, position.y, position.z, heading, true, false),
+      CreateVehicle(model.Hash, position.x, position.y, position.z, heading, isNetwork, false),
     );
   }
 
@@ -428,19 +441,22 @@ export abstract class World {
    * @param position Location of Prop
    * @param dynamic If set to true, the Prop will have physics otherwise it's static.
    * @param placeOnGround If set to true, sets the Prop on the ground nearest to position.
+   * @param isNetwork
+   * @returns Prop object.
    */
   public static async createProp(
     model: Model,
     position: Vector3,
     dynamic: boolean,
     placeOnGround: boolean,
+    isNetwork = true,
   ): Promise<Prop> {
     if (!model.IsProp || !(await model.request(1000))) {
       return null;
     }
 
     const prop = new Prop(
-      CreateObject(model.Hash, position.x, position.y, position.z, true, true, dynamic),
+      CreateObject(model.Hash, position.x, position.y, position.z, isNetwork, true, dynamic),
     );
 
     if (placeOnGround) {

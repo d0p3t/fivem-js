@@ -1,4 +1,4 @@
-import { Color, Point, Size } from '../../../../utils';
+import { Color, Point, Size, Wait } from '../../../../utils';
 import { AbstractUIMenuPanel } from './';
 import { Menu, Sprite, Text } from '../../../';
 import { Alignment, Control, Font } from '../../../../enums';

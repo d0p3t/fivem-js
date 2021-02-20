@@ -10,7 +10,7 @@ import {
   UIMenuSeparatorItem,
 } from '../';
 import { Audio, CursorSprite, Game, GameplayCamera, InputMode, Wait } from '../../';
-import { Alignment, Control, Font } from '../../enums';
+import { Alignment, Control, Font, MenuAlignment } from '../../enums';
 import { Color, Crypto, LiteEvent, Point, Size } from '../../utils';
 import { UIMenuCheckboxItem, UIMenuItem, UIMenuListItem, UIMenuSliderItem } from './items';
 
@@ -46,6 +46,7 @@ export class Menu {
 
   private _counterPretext = '';
   private _counterOverride: string;
+  private _alignment = MenuAlignment.Left;
   private _offset: Point;
   private _navigationDelay = 140;
   private _lastUpDownNavigation = 0;
@@ -185,12 +186,28 @@ export class Menu {
     return this._title.caption;
   }
 
+  public get TitleFont(): Font {
+    return this._title.font;
+  }
+
+  public set TitleFont(font: Font) {
+    this._title.font = font;
+  }
+
   public set Subtitle(text: string) {
     this._subtitle.caption = text;
   }
 
   public get Subtitle(): string {
     return this._subtitle.caption;
+  }
+
+  public set SubtitleFont(font: Font) {
+    this._subtitle.font = font;
+  }
+
+  public get SubtitleFont(): Font {
+    return this._subtitle.font;
   }
 
   public set SubtitleForeColor(color: Color) {
@@ -237,6 +254,14 @@ export class Menu {
     }
   }
 
+  public get Alignment(): MenuAlignment {
+    return this._alignment;
+  }
+
+  public set Alignment(alignment: MenuAlignment) {
+    this._alignment = alignment;
+  }
+
   public get WidthOffset(): number {
     return this._widthOffset;
   }
@@ -273,7 +298,7 @@ export class Menu {
   }
 
   public get DrawOffset(): Point {
-    return this.Settings.scaleWithSafezone ? this._drawOffset : new Point();
+    return this._drawOffset;
   }
 
   public get Controls(): MenuControls {
@@ -285,7 +310,7 @@ export class Menu {
   }
 
   public addNewSubMenu(text: string, description?: string, inherit = true): Menu {
-    let menu;
+    let menu: Menu;
     if (inherit) {
       menu = new Menu(
         this._title.caption,
@@ -294,8 +319,11 @@ export class Menu {
         this._logo.TextureDict,
         this._logo.textureName,
       );
+      menu.Alignment = this.Alignment;
       menu.WidthOffset = this.WidthOffset;
       menu._settings = this._settings;
+      menu.TitleFont = this.TitleFont;
+      menu.SubtitleFont = this.SubtitleFont;
     } else {
       menu = new Menu(this._title.caption, text);
     }
@@ -307,8 +335,11 @@ export class Menu {
 
   public addSubMenu(subMenuToAdd: Menu, text: string, description?: string, inherit = true): Menu {
     if (inherit) {
+      subMenuToAdd.Alignment = this.Alignment;
       subMenuToAdd.WidthOffset = this.WidthOffset;
       subMenuToAdd._settings = this._settings;
+      subMenuToAdd.TitleFont = this.TitleFont;
+      subMenuToAdd.SubtitleFont = this.SubtitleFont;
     }
     const item = new UIMenuItem(text, description);
     this.addItem(item);
@@ -861,12 +892,28 @@ export class Menu {
       }
     }
 
+    SetScriptGfxAlign(this._alignment, 84);
+
+    const menuWidth = (431 + this._widthOffset) / Menu.screenWidth;
+
     if (this.Settings.scaleWithSafezone) {
-      ScreenDrawPositionBegin(76, 84);
-      ScreenDrawPositionRatio(0, 0, 0, 0);
+      SetScriptGfxAlignParams(0, 0, menuWidth, 0);
       const pos = GetScriptGfxPosition(0, 0);
       this._drawOffset.X = pos[0];
       this._drawOffset.Y = pos[1];
+    } else {
+      const sSize = (1 - GetSafeZoneSize()) / 2;
+      if (this._alignment === MenuAlignment.Right) {
+        SetScriptGfxAlignParams(sSize, -sSize, menuWidth, 0);
+        const pos = GetScriptGfxPosition(0, 0);
+        this._drawOffset.X = pos[0];
+        this._drawOffset.Y = pos[1];
+      } else {
+        SetScriptGfxAlignParams(-sSize, -sSize, menuWidth, 0);
+        const pos = GetScriptGfxPosition(0, 0);
+        this._drawOffset.X = pos[0];
+        this._drawOffset.Y = pos[1];
+      }
     }
 
     this._mainMenu.draw(undefined, Menu.screenResolution);
@@ -948,8 +995,6 @@ export class Menu {
 
     this._logo.draw(Menu.screenResolution);
 
-    if (this.Settings.scaleWithSafezone) {
-      ScreenDrawPositionEnd();
-    }
+    ResetScriptGfxAlign();
   }
 }
