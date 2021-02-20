@@ -26,6 +26,7 @@ export { Language } from './Language';
 export { LeaveVehicleFlags } from './LeaveVehicleFlags';
 export { LoadingSpinnerType } from './LoadingSpinnerType';
 export { MarkerType } from './MarkerType';
+export { MenuAlignment } from './MenuAlignment';
 export { NotificationType } from './NotificationType';
 export { ParachuteLandingType, ParachuteState } from './Parachute';
 export { RadioStation } from './RadioStation';
