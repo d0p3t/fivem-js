@@ -142,7 +142,7 @@ export class UIMenuPercentagePanel extends AbstractUIMenuPanel {
       this._pressed = true;
       (async () => {
         while (Game.isDisabledControlPressed(0, Control.Attack)) {
-          await new Promise(resolve => setTimeout(resolve, 0));
+          await Wait(0);
           this._activeBar.size.width = this._getProgress();
         }
         this.updateParentItem();

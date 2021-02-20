@@ -1,7 +1,7 @@
-import { uuidv4 } from '../../../utils';
+import { Crypto } from '../../../utils';
 
 export class ListItem {
-  public readonly id: string = uuidv4();
+  public readonly id: string = Crypto.uuidv4();
 
   public name: string;
   public value: unknown;

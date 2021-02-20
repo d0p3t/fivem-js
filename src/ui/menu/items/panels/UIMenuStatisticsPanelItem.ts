@@ -1,9 +1,9 @@
-import { Color, Point, Size, uuidv4 } from '../../../../utils';
+import { Color, Crypto, Point, Size } from '../../../../utils';
 import { Rectangle, Text } from '../../../';
 import { Alignment, Font } from '../../../../enums';
 
 export class UIMenuStatisticsPanelItem {
-  public readonly id: string = uuidv4();
+  public readonly id: string = Crypto.uuidv4();
 
   public readonly text: Text;
   public readonly activeBar: Rectangle;

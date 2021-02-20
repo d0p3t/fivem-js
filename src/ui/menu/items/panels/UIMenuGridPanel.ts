@@ -238,7 +238,7 @@ export class UIMenuGridPanel extends AbstractUIMenuPanel {
       (async () => {
         const drawOffset = this.ParentMenu.DrawOffset;
         while (Game.isDisabledControlPressed(0, Control.Attack)) {
-          await new Promise(resolve => setTimeout(resolve, 0));
+          await Wait(0);
           let cX = (GetControlNormal(0, Control.CursorX) - drawOffset.X) * Menu.screenWidth;
           let cY = (GetControlNormal(0, Control.CursorY) - drawOffset.Y) * Menu.screenHeight;
           cX -= this._circle.size.width / 2;

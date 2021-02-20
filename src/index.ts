@@ -10,6 +10,8 @@ export { ParticleEffect } from './ParticleEffect';
 export { ParticleEffectAsset } from './ParticleEffectAsset';
 export { RaycastResult } from './Raycast';
 export { RelationshipGroup } from './RelationshipGroup';
+export { Tasks } from './Tasks';
+export { TaskSequence } from './TaskSequence';
 
 // Lets export all from folders
 export * from './models';
