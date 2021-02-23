@@ -2,8 +2,10 @@ import { Entity, Model, Prop } from './';
 import { Blip } from './Blip';
 import { Camera } from './Camera';
 import { CloudHat, IntersectOptions, MarkerType, Weather } from './enums';
+import { PickupType } from './enums/PickupType';
 import { VehicleHash } from './hashes';
 import { Ped, Vehicle } from './models';
+import { Pickup } from './Pickup';
 import { RaycastResult } from './Raycast';
 import { Color, Maths, Vector3 } from './utils';
 
@@ -428,6 +430,7 @@ export abstract class World {
    * @param position Location of Prop
    * @param dynamic If set to true, the Prop will have physics otherwise it's static.
    * @param placeOnGround If set to true, sets the Prop on the ground nearest to position.
+   * @returns Prop object.
    */
   public static async createProp(
     model: Model,
@@ -448,6 +451,92 @@ export abstract class World {
     }
 
     return prop;
+  }
+
+  /**
+   * Create a pickup in a specific position in the world with a specified type and value.
+   *
+   * @param type The [[`PickupType`]] of pickup.
+   * @param position The position in the world it should be spawned.
+   * @param model The model of the spawned pickup.
+   * @param value Give a value for the pickup when picked up.
+   * @param rotation If set, create a rotating pickup with this rotation.
+   * @returns Pickup object.
+   */
+  public static async CreatePickup(
+    type: PickupType,
+    position: Vector3,
+    model: Model,
+    value: number,
+    rotation?: Vector3,
+  ): Promise<Pickup> {
+    if (!(await model.request(1000))) {
+      return null;
+    }
+
+    let handle = 0;
+
+    if (rotation !== undefined)
+      handle = CreatePickupRotate(
+        type,
+        position.x,
+        position.y,
+        position.z,
+        rotation.x,
+        rotation.y,
+        rotation.z,
+        0,
+        value,
+        2,
+        true,
+        model.Hash,
+      );
+    else
+      handle = CreatePickup(type, position.x, position.y, position.z, 0, value, true, model.Hash);
+
+    if (handle === 0) {
+      return null;
+    }
+
+    return new Pickup(handle);
+  }
+
+  /**
+   * Creates an ambient pickup.
+   *
+   * @param type The [[`PickupType`]] of the pickup.
+   * @param position The position where it should be spawned.
+   * @param model The model.
+   * @param value The value tied to the pickup.
+   * @returns The pickup in form of a Prop.
+   */
+  public static async CreateAmbientPickup(
+    type: PickupType,
+    position: Vector3,
+    model: Model,
+    value: number,
+  ): Promise<Prop> {
+    if (!(await model.request(1000))) {
+      return null;
+    }
+
+    const handle = CreateAmbientPickup(
+      type,
+      position.x,
+      position.y,
+      position.z,
+      0,
+      value,
+      model.Hash,
+      false,
+      true,
+    );
+
+    if (handle === 0) {
+      return null;
+    }
+
+    return new Prop(handle);
   }
 
   /**
@@ -689,6 +778,8 @@ export abstract class World {
   /**
    * Get all [[`Prop`]] entities in your own scope.
    *
+   * We recommend using [[getAllPropsInGamePool]] instead.
+   *
    * @returns Array of Props.
    */
   public static getAllProps(): Prop[] {
@@ -719,7 +810,22 @@ export abstract class World {
   }
 
   /**
+   * Get all [[`Prop`]] entities using the GetGamePool.
+   * @returns Array of Props.
+   */
+  public static getAllPropsInGamePool(): Prop[] {
+    const handles: number[] = GetGamePool('CObject');
+    const props: Prop[] = [];
+
+    handles.forEach(handle => props.push(new Prop(handle)));
+
+    return props;
+  }
+
+  /**
    * Get all [[`Ped`]] entities in your own scope.
+   *
+   * We recommend using [[getAllPedsInGamePool]] instead.
    *
    * @returns Array of Peds.
    */
@@ -751,7 +857,22 @@ export abstract class World {
   }
 
   /**
+   * Get all [[`Ped`]] entities using the GetGamePool.
+   * @returns Array of Peds.
+   */
+  public static getAllPedsInGamePool(): Ped[] {
+    const handles: number[] = GetGamePool('CPed');
+    const peds: Ped[] = [];
+
+    handles.forEach(handle => peds.push(new Ped(handle)));
+
+    return peds;
+  }
+
+  /**
    * Get all [[`Vehicle`]] entities in your own scope.
+   *
+   * We recommend using [[getAllVehiclesInGamePool]] instead.
    *
    * @returns Array of Vehicles.
    */
@@ -780,6 +901,66 @@ export abstract class World {
     EndFindVehicle(handle);
 
     return vehicles;
+  }
+
+  /**
+   * Get all [[`Vehicle`]] entities using the GetGamePool.
+   * @returns Array of Vehicles.
+   */
+  public static getAllVehiclesInGamePool(): Vehicle[] {
+    const handles: number[] = GetGamePool('CVehicle');
+    const vehicles: Vehicle[] = [];
+
+    handles.forEach(handle => vehicles.push(new Vehicle(handle)));
+
+    return vehicles;
+  }
+
+  /**
+   * Get all [[`Pickup`]] entities in your own scope.
+   *
+   * We recommend using [[getAllPickupsInGamePool]] instead.
+   *
+   * @returns Array of Pickups.
+   */
+  public static getAllPickups(): Pickup[] {
+    const pickups: Pickup[] = [];
+
+    const [handle, entityHandle] = (FindFirstPickup(null) as unknown) as [number, number];
+    let pickup: Pickup = new Pickup(entityHandle);
+
+    if (pickup !== undefined && pickup !== null && pickup.exists()) {
+      pickups.push(pickup);
+    }
+
+    let findResult: [number | boolean, number] = [false, null];
+
+    do {
+      findResult = (FindNextPickup(handle, null) as unknown) as [number | boolean, number];
+      if (findResult[0]) {
+        pickup = new Pickup(findResult[1]);
+        if (pickup !== undefined && pickup !== null && pickup.exists()) {
+          pickups.push(pickup);
+        }
+      }
+    } while (findResult[0]);
+
+    EndFindPickup(handle);
+
+    return pickups;
+  }
+
+  /**
+   * Get all [[`Pickup`]] entities using the GetGamePool.
+   * @returns Array of Pickups.
+   */
+  public static getAllPickupsInGamePool(): Pickup[] {
+    const handles: number[] = GetGamePool('CPickup');
+    const pickups: Pickup[] = [];
+
+    handles.forEach(handle => pickups.push(new Pickup(handle)));
+
+    return pickups;
   }
 
   private static currentCloudHat: CloudHat = CloudHat.Clear;

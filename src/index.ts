@@ -8,6 +8,7 @@ export { Checkpoint } from './Checkpoint';
 export { GameplayCamera } from './GameplayCamera';
 export { ParticleEffect } from './ParticleEffect';
 export { ParticleEffectAsset } from './ParticleEffectAsset';
+export { Pickup } from './Pickup';
 export { RaycastResult } from './Raycast';
 export { RelationshipGroup } from './RelationshipGroup';
 export { Tasks } from './Tasks';

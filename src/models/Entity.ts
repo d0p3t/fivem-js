@@ -1,7 +1,7 @@
 import { Blip } from '../Blip';
 import { ForceType } from '../enums';
 import { Game } from '../Game';
-import { WeaponHash } from '../hashes';
+import { MaterialHash, WeaponHash } from '../hashes';
 import { Model } from '../Model';
 import { Quaternion, Vector3 } from '../utils';
 import { EntityBoneCollection, Ped, Prop, Vehicle } from './';
@@ -219,6 +219,10 @@ export class Entity {
 
   public get HasCollided(): boolean {
     return !!HasEntityCollidedWithAnything(this.handle);
+  }
+
+  public get MaterialCollidingWith(): MaterialHash {
+    return GetLastMaterialHitByEntity(this.handle);
   }
 
   public get IsCollisionEnabled(): boolean {
