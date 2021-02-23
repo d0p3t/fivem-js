@@ -374,7 +374,7 @@ export class Vehicle extends Entity {
   }
 
   public set IsDriveable(value: boolean) {
-    SetVehicleUndriveable(this.handle, value);
+    SetVehicleUndriveable(this.handle, !value);
   }
 
   public get IsEngineOnFire(): boolean {

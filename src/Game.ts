@@ -239,8 +239,7 @@ export abstract class Game {
    * @param station A radio station.
    */
   public static set RadioStation(station: RadioStation) {
-    const stationName = RadioStation[station];
-    SetRadioToStationName(stationName);
+    SetRadioToStationName(station);
   }
 
   /**
