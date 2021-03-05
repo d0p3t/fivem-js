@@ -425,5 +425,30 @@ export abstract class Game {
     Audio.stopMusic(musicFile);
   }
 
+  /**
+   * Determines the game language files contain a entry for the specified GXT key
+   *
+   * @param entry - The GXT key.
+   * @returns true if GXT entry exists; otherwise, false
+   * @constructor
+   */
+  public static DoesGXTEntryExist(entry: number | string): boolean {
+    if (typeof entry === 'number'){
+      return !!DoesTextLabelExist(entry.toString());
+    }else if (typeof entry === 'string'){
+      return !!DoesTextLabelExist(entry);
+    }
+  }
+
+  /**
+   * Returns a localised string from the games language files with a specified GXT key
+   *
+   * @param entry - The GXT key.
+   * @returns The localised string if the key exists; otherwise, empty string
+   */
+  public static GetGXTEntry(entry: number | string): string {
+    return Game.DoesGXTEntryExist(entry) ? GetLabelText(entry.toString()) : '';
+  }
+
   protected static cachedPlayer: Player;
 }
