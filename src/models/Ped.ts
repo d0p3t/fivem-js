@@ -11,6 +11,7 @@ import {
 import { WeaponHash } from '../hashes';
 import { Tasks } from '../Tasks';
 import { Entity, PedBoneCollection, Vehicle } from './';
+import { WeaponCollection } from '../weapon/WeaponCollection';
 
 export class Ped extends Entity {
   public static exists(ped: Ped): boolean {
@@ -524,6 +525,7 @@ export class Ped extends Entity {
   public resetVisibleDamage(): void {
     ResetPedVisibleDamage(this.handle);
   }
+
   public clearBloodDamage(): void {
     ClearPedBloodDamage(this.handle);
   }
@@ -590,6 +592,14 @@ export class Ped extends Entity {
     }
 
     return this.pedBones;
+  }
+
+  public get Weapons(): WeaponCollection {
+    if (!this.weapons) {
+      this.weapons = new WeaponCollection(this);
+    }
+
+    return this.weapons;
   }
 
   public giveWeapon(weapon: WeaponHash, ammoCount = 999, isHidden = false, equipNow = true): void {
