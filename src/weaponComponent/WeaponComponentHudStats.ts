@@ -1,8 +1,13 @@
 import { WeaponComponentHash } from './WeaponComponentHash';
 import { enumValues } from '../utils/EnumValues';
+import { getUInt32FromUint8Array } from '../utils/GetUInt32FromUInt8Array';
 
+/***
+ * WeaponComponentHudStats
+ * refer: https://github.com/citizenfx/fivem/blob/master/code/client/clrcore/External/Game.cs#L976
+ *
+ */
 export interface WeaponComponentHudStats {
-  // https://github.com/citizenfx/fivem/blob/da7f3bf9b660c88be8ec12ce0bf7fbbcc34cd590/code/client/clrcore/External/Game.cs#L976
   // 		[StructLayout(LayoutKind.Explicit, Size = 0x28)]
   // 		[SecuritySafeCritical]
   // 		internal struct UnsafeWeaponComponentHudStats
@@ -30,9 +35,13 @@ export interface WeaponComponentHudStats {
   hudRange: number;
 }
 
+/**
+ * Mapping of WeaponComponentHash -> WeaponComponentHudStats
+ *
+ */
 export const WeaponComponentHudStat = new Map<WeaponComponentHash, WeaponComponentHudStats>();
 
-function initialize() {
+function initializeOnce() {
   let isInitialized = false;
 
   return function() {
@@ -51,11 +60,11 @@ function initialize() {
 
       // noinspection PointlessArithmeticExpressionJS
       const weaponComponentHudStat: WeaponComponentHudStats = {
-        hudDamage: new Uint32Array(buffer.slice(0 * intLength, 1 * intLength).buffer)[0],
-        hudSpeed: new Uint32Array(buffer.slice(2 * intLength, 3 * intLength).buffer)[0],
-        hudCapacity: new Uint32Array(buffer.slice(4 * intLength, 5 * intLength).buffer)[0],
-        hudAccuracy: new Uint32Array(buffer.slice(6 * intLength, 7 * intLength).buffer)[0],
-        hudRange: new Uint32Array(buffer.slice(8 * intLength, 9 * intLength).buffer)[0],
+        hudDamage: getUInt32FromUint8Array(buffer, 0 * intLength, 1 * intLength),
+        hudSpeed: getUInt32FromUint8Array(buffer, 2 * intLength, 3 * intLength),
+        hudCapacity: getUInt32FromUint8Array(buffer, 4 * intLength, 5 * intLength),
+        hudAccuracy: getUInt32FromUint8Array(buffer, 6 * intLength, 7 * intLength),
+        hudRange: getUInt32FromUint8Array(buffer, 8 * intLength, 9 * intLength),
       };
 
       WeaponComponentHudStat.set(hash, weaponComponentHudStat);
@@ -65,4 +74,4 @@ function initialize() {
   };
 }
 
-initialize();
+initializeOnce()();
