@@ -26,7 +26,7 @@ export class InvalidWeaponComponent extends WeaponComponent{
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public static GetAttachmentPoint(hash: WeaponHash, componentHash: WeaponComponentHash): ComponentAttachmentPoint{
+  public static getAttachmentPoint(hash: WeaponHash, componentHash: WeaponComponentHash): ComponentAttachmentPoint{
     return ComponentAttachmentPoint.Invalid;
   }
 }

@@ -51,7 +51,7 @@ export class WeaponComponent {
    * @constructor
    */
   public get DisplayName(): string {
-    return WeaponComponent.GetComponentDisplayNameFromHash(this.weapon.Hash, this.componentHash);
+    return WeaponComponent.getComponentDisplayNameFromHash(this.weapon.Hash, this.componentHash);
   }
 
   /**
@@ -69,7 +69,7 @@ export class WeaponComponent {
    * @constructor
    */
   public get AttachmentPoint(): ComponentAttachmentPoint {
-    return WeaponComponent.GetAttachmentPoint(this.weapon.Hash, this.componentHash);
+    return WeaponComponent.getAttachmentPoint(this.weapon.Hash, this.componentHash);
   }
 
   /**
@@ -88,7 +88,7 @@ export class WeaponComponent {
    * @param componentHash
    * @constructor
    */
-  public static GetComponentDisplayNameFromHash(hash: WeaponHash, componentHash: WeaponComponentHash): string {
+  public static getComponentDisplayNameFromHash(hash: WeaponHash, componentHash: WeaponComponentHash): string {
     if (!hash) {
       return 'WCT_INVALID';
     }
@@ -103,7 +103,7 @@ export class WeaponComponent {
    * @param componentHash
    * @constructor
    */
-  public static GetAttachmentPoint(weaponHash: WeaponHash, componentHash: WeaponComponentHash): ComponentAttachmentPoint {
+  public static getAttachmentPoint(weaponHash: WeaponHash, componentHash: WeaponComponentHash): ComponentAttachmentPoint {
     const componentHashes = WeaponComponentHashesByWeaponHash.get(weaponHash);
     if (!componentHashes) {
       return ComponentAttachmentPoint.Invalid;

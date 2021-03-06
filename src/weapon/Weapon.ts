@@ -54,7 +54,7 @@ export class Weapon {
   }
 
   public get DisplayName(): string {
-    return Weapon.GetDisplayNameFromHash(this.hash) ?? 'WCT_INVALID';
+    return Weapon.getDisplayNameFromHash(this.hash) ?? 'WCT_INVALID';
   }
 
   public get LocalizedName(): string {
@@ -166,12 +166,12 @@ export class Weapon {
       .some(x => x === this.hash);
   }
 
-  public SetLivery(liveryId: WeaponLivery, colorId: WeaponLiveryColor): void {
+  public setLivery(liveryId: WeaponLivery, colorId: WeaponLiveryColor): void {
     if (!this.IsMk2) {
       return;
     }
 
-    const component = this.Components.GetMk2CamoComponent(liveryId);
+    const component = this.Components.getMk2CamoComponent(liveryId);
     component.Active = true;
     SetPedWeaponLiveryColor(this.owner.Handle, this.hash, component.ComponentHash, colorId);
   }
@@ -180,7 +180,7 @@ export class Weapon {
     return WeaponHudStats.get(this.hash);
   }
 
-  public static GetDisplayNameFromHash(hash: WeaponHash): string {
+  public static getDisplayNameFromHash(hash: WeaponHash): string {
     if (!hash) {
       return 'WT_INVALID';
     }
