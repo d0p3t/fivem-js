@@ -302,7 +302,7 @@ export const ComponentDisplayNameByHash = new Map<WeaponComponentHash, string>([
  * Initialize with DlcWeaponComponentData, in case of any missing dlc data
  *
  */
-function initialize() {
+function initializeOnce() {
   let isInitialized = false;
 
   return function() {
@@ -318,4 +318,4 @@ function initialize() {
   };
 }
 
-initialize();
+initializeOnce()();
