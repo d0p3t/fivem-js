@@ -1,6 +1,12 @@
 import { enumValues } from '../utils/EnumValues';
 import { WeaponHash } from '../hashes';
+import { getUInt32FromUint8Array } from '../utils/GetUInt32FromUInt8Array';
 
+/***
+ * WeaponHudStats
+ * refer: https://github.com/citizenfx/fivem/blob/master/code/client/clrcore/External/Game.cs#L900
+ *
+ */
 export interface WeaponHudStats {
   // https://docs.fivem.net/natives/?_0xD92C739EE34C9EBA
   // // members should be aligned to 8 bytes by default but it's best to use alignas here, just to be sure
@@ -19,9 +25,17 @@ export interface WeaponHudStats {
   hudRange: number;
 }
 
+/**
+ * Mapping of WeaponHash -> WeaponHudStats
+ *
+ */
 export const WeaponHudStats = new Map<WeaponHash, WeaponHudStats>();
 
-function initialize() {
+/**
+ * Initialize WeaponHudStats, avoid calling expansive native repeatedly
+ *
+ */
+function initializeOnce() {
   let isInitialized = false;
 
   return function() {
@@ -40,11 +54,11 @@ function initialize() {
 
       // noinspection PointlessArithmeticExpressionJS
       const weaponHudStats: WeaponHudStats = {
-        hudDamage: new Uint32Array(buffer.slice(0 * intLength, 1 * intLength).buffer)[0],
-        hudSpeed: new Uint32Array(buffer.slice(2 * intLength, 3 * intLength).buffer)[0],
-        hudCapacity: new Uint32Array(buffer.slice(4 * intLength, 5 * intLength).buffer)[0],
-        hudAccuracy: new Uint32Array(buffer.slice(6 * intLength, 7 * intLength).buffer)[0],
-        hudRange: new Uint32Array(buffer.slice(8 * intLength, 9 * intLength).buffer)[0],
+        hudDamage: getUInt32FromUint8Array(buffer, 0 * intLength, 1 * intLength),
+        hudSpeed: getUInt32FromUint8Array(buffer, 2 * intLength, 3 * intLength),
+        hudCapacity: getUInt32FromUint8Array(buffer, 4 * intLength, 5 * intLength),
+        hudAccuracy: getUInt32FromUint8Array(buffer, 6 * intLength, 7 * intLength),
+        hudRange: getUInt32FromUint8Array(buffer, 8 * intLength, 9 * intLength),
       };
 
       WeaponHudStats.set(hash, weaponHudStats);
@@ -54,4 +68,4 @@ function initialize() {
   };
 }
 
-initialize();
+initializeOnce()();
