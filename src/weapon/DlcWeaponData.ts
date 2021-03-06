@@ -1,4 +1,6 @@
 import { WeaponHash } from '../hashes';
+import { getUInt32FromUint8Array } from '../utils/GetUInt32FromUInt8Array';
+import { getStringFromUInt8Array } from '../utils/GetStringFromBuffer';
 
 /**
  * DlcWeaponData
@@ -68,17 +70,17 @@ function initializeOnce() {
 
       // noinspection PointlessArithmeticExpressionJS
       const dlcWeaponData: DlcWeaponData = {
-        validCheck: new Uint32Array(buffer.slice(0 * intLength, 1 * intLength).buffer)[0],
-        weaponHash: new Uint32Array(buffer.slice(2 * intLength, 3 * intLength).buffer)[0],
-        unk: new Uint32Array(buffer.slice(4 * intLength, 5 * intLength).buffer)[0],
-        weaponCost: new Uint32Array(buffer.slice(6 * intLength, 7 * intLength).buffer)[0],
-        ammoCost: new Uint32Array(buffer.slice(8 * intLength, 9 * intLength).buffer)[0],
-        ammoType: new Uint32Array(buffer.slice(10 * intLength, 11 * intLength).buffer)[0],
-        defaultClipSize: new Uint32Array(buffer.slice(12 * intLength, 13 * intLength).buffer)[0],
-        name: String.fromCharCode(...buffer.slice(14 * intLength, 14 * intLength + strLength)),
-        desc: String.fromCharCode(...buffer.slice(14 * intLength + strLength, 14 * intLength + 2 * strLength)),
-        simpleDesc: String.fromCharCode(...buffer.slice(14 * intLength + 2 * strLength, 14 * intLength + 3 * strLength)),
-        upperCaseName: String.fromCharCode(...buffer.slice(14 * intLength + 3 * strLength, 14 * intLength + 4 * strLength)),
+        validCheck: getUInt32FromUint8Array(buffer, 0 * intLength, 1 * intLength),
+        weaponHash: getUInt32FromUint8Array(buffer, 2 * intLength, 3 * intLength),
+        unk: getUInt32FromUint8Array(buffer, 4 * intLength, 5 * intLength),
+        weaponCost: getUInt32FromUint8Array(buffer, 6 * intLength, 7 * intLength),
+        ammoCost: getUInt32FromUint8Array(buffer, 8 * intLength, 9 * intLength),
+        ammoType: getUInt32FromUint8Array(buffer, 10 * intLength, 11 * intLength),
+        defaultClipSize: getUInt32FromUint8Array(buffer, 12 * intLength, 13 * intLength),
+        name: getStringFromUInt8Array(buffer,14 * intLength, 14 * intLength + strLength),
+        desc: getStringFromUInt8Array(buffer,14 * intLength + strLength, 14 * intLength + 2 * strLength),
+        simpleDesc: getStringFromUInt8Array(buffer,14 * intLength + 2 * strLength, 14 * intLength + 3 * strLength),
+        upperCaseName: getStringFromUInt8Array(buffer, 14 * intLength + 3 * strLength, 14 * intLength + 4 * strLength),
       };
 
       DlcWeaponData.set(dlcWeaponData.weaponHash, dlcWeaponData);
@@ -88,4 +90,4 @@ function initializeOnce() {
   };
 }
 
-initializeOnce();
+initializeOnce()();
