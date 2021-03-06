@@ -1,9 +1,9 @@
 import { WeaponHash } from '../hashes';
 import { WeaponComponentHash } from './WeaponComponentHash';
+import { getUInt32FromUint8Array } from '../utils/GetUInt32FromUInt8Array';
 
 /**
- * Mapping of WeaponHash -> WeaponComponentHashes,
- * use for
+ * Mapping of WeaponHash -> WeaponComponentHashes
  *
  */
 export const WeaponComponentHashesByWeaponHash = new Map<WeaponHash, WeaponComponentHash[]>([
@@ -505,7 +505,7 @@ export const WeaponComponentHashesByWeaponHash = new Map<WeaponHash, WeaponCompo
  * Initialize dlc data, avoid calling expansive native repeatedly
  *
  */
-function initializeDlcDataOnce() {
+function initializeOnce() {
   let isInitialized = false;
 
   return function() {
@@ -524,7 +524,7 @@ function initializeDlcDataOnce() {
       // https://docs.fivem.net/natives/?_0x79923CD21BECE14E
       Citizen.invokeNative('0x79923CD21BECE14E', i, weaponBuffer, Citizen.returnResultAnyway());
 
-      const weaponHash = new Uint32Array(weaponBuffer.slice(2 * intLength, 3 * intLength).buffer)[0];
+      const weaponHash = getUInt32FromUint8Array(weaponBuffer, 2 * intLength, 3 * intLength);
 
       const componentCount = GetNumDlcWeaponComponents(i);
 
@@ -535,7 +535,7 @@ function initializeDlcDataOnce() {
         // https://docs.fivem.net/natives/?_0x6CF598A2957C2BF8
         Citizen.invokeNative('0x6CF598A2957C2BF8', i, j, componentBuffer, Citizen.returnResultAnyway());
 
-        const componentHash = new Uint32Array(componentBuffer.slice(6 * intLength, 7 * intLength).buffer)[0];
+        const componentHash = getUInt32FromUint8Array(componentBuffer, 6 * intLength, 7 * intLength);
         componentHashes.push(componentHash);
       }
 
@@ -546,4 +546,4 @@ function initializeDlcDataOnce() {
   };
 }
 
-initializeDlcDataOnce();
+initializeOnce()();
