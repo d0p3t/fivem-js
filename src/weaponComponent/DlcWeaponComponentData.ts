@@ -1,4 +1,6 @@
 import { WeaponComponentHash } from './WeaponComponentHash';
+import { getUInt32FromUint8Array } from '../utils/GetUInt32FromUInt8Array';
+import { getStringFromUInt8Array } from '../utils/GetStringFromBuffer';
 
 /**
  * DlcWeaponComponentData
@@ -69,14 +71,14 @@ function initializeOnce() {
 
         // noinspection PointlessArithmeticExpressionJS
         const dlcWeaponComponentData: DlcWeaponComponentData = {
-          attachBone: new Uint32Array(buffer.slice(0 * intLength, 1 * intLength).buffer)[0],
-          bActiveByDefault: new Uint32Array(buffer.slice(2 * intLength, 3 * intLength).buffer)[0],
-          unk: new Uint32Array(buffer.slice(4 * intLength, 5 * intLength).buffer)[0],
-          componentHash: new Uint32Array(buffer.slice(6 * intLength, 7 * intLength).buffer)[0],
-          unk2: new Uint32Array(buffer.slice(8 * intLength, 9 * intLength).buffer)[0],
-          componentCost: new Uint32Array(buffer.slice(10 * intLength, 11 * intLength).buffer)[0],
-          name: String.fromCharCode(...buffer.slice(12 * intLength, 12 * intLength + strLength)),
-          desc: String.fromCharCode(...buffer.slice(12 * intLength + strLength, 12 * intLength + 2 * strLength)),
+          attachBone: getUInt32FromUint8Array(buffer, 0 * intLength, 1 * intLength),
+          bActiveByDefault: getUInt32FromUint8Array(buffer, 2 * intLength, 3 * intLength),
+          unk: getUInt32FromUint8Array(buffer, 4 * intLength, 5 * intLength),
+          componentHash: getUInt32FromUint8Array(buffer, 6 * intLength, 7 * intLength),
+          unk2: getUInt32FromUint8Array(buffer, 8 * intLength, 9 * intLength),
+          componentCost: getUInt32FromUint8Array(buffer, 10 * intLength, 11 * intLength),
+          name: getStringFromUInt8Array(buffer,12 * intLength, 12 * intLength + strLength),
+          desc: getStringFromUInt8Array(buffer,12 * intLength + strLength, 12 * intLength + 2 * strLength),
         };
 
         DlcWeaponComponentData.set(dlcWeaponComponentData.componentHash, dlcWeaponComponentData);
@@ -87,4 +89,4 @@ function initializeOnce() {
   };
 }
 
-initializeOnce();
+initializeOnce()();
