@@ -11,7 +11,18 @@ export class WeaponCollection implements Iterable<Weapon> {
   }
 
   [Symbol.iterator](): Iterator<Weapon> {
-    return undefined;
+    let pointer = 0;
+    const weapons = this.weapons;
+
+    return {
+      next(): IteratorResult<Weapon> {
+        if (pointer < weapons.size) {
+          return { done: false, value: weapons[pointer++] };
+        } else {
+          return { done: true, value: null };
+        }
+      },
+    };
   }
 
   public get(hash: WeaponHash): Weapon {
