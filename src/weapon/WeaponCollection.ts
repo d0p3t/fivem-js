@@ -29,7 +29,7 @@ export class WeaponCollection implements Iterable<Weapon> {
     let weapon = this.weapons.get(hash);
 
     if (!weapon) {
-      if (!this.HasWeapon(hash)) {
+      if (!this.hasWeapon(hash)) {
         return null;
       }
 
@@ -67,15 +67,15 @@ export class WeaponCollection implements Iterable<Weapon> {
     }
   }
 
-  public HasWeapon(hash: WeaponHash): boolean {
+  public hasWeapon(hash: WeaponHash): boolean {
     return !!HasPedGotWeapon(this.owner.Handle, hash, false);
   }
 
-  public IsWeaponValid(hash: WeaponHash): boolean {
+  public isWeaponValid(hash: WeaponHash): boolean {
     return !!IsWeaponValid(hash);
   }
 
-  public Give(hash: WeaponHash, ammoCount: number, equipNow: boolean, isAmmoLoaded: boolean): Weapon {
+  public give(hash: WeaponHash, ammoCount: number, equipNow: boolean, isAmmoLoaded: boolean): Weapon {
     let weapon = this.weapons.get(hash);
 
     if (!weapon) {
@@ -83,7 +83,7 @@ export class WeaponCollection implements Iterable<Weapon> {
     }
 
     if (weapon.IsPresent) {
-      this.Select(weapon);
+      this.select(weapon);
     } else {
       GiveWeaponToPed(this.owner.Handle, weapon.Hash, ammoCount, equipNow, isAmmoLoaded);
     }
@@ -91,7 +91,7 @@ export class WeaponCollection implements Iterable<Weapon> {
     return weapon;
   }
 
-  public Select(weapon: Weapon | WeaponHash): boolean {
+  public select(weapon: Weapon | WeaponHash): boolean {
     if (weapon instanceof Weapon) {
       if (!weapon.IsPresent) {
         return false;
@@ -101,7 +101,7 @@ export class WeaponCollection implements Iterable<Weapon> {
 
       return true;
     } else {
-      if (!this.HasWeapon(weapon)) {
+      if (!this.hasWeapon(weapon)) {
         return false;
       }
 
@@ -112,24 +112,24 @@ export class WeaponCollection implements Iterable<Weapon> {
 
   }
 
-  public Remove(weapon: Weapon | WeaponHash): void {
+  public remove(weapon: Weapon | WeaponHash): void {
     if (weapon instanceof Weapon) {
       if (this.weapons.has(weapon.Hash)) {
         this.weapons.delete(weapon.Hash);
       }
 
-      this.Remove(weapon.Hash);
+      this.remove(weapon.Hash);
     } else {
       RemoveWeaponFromPed(this.owner.Handle, weapon);
     }
   }
 
-  public RemoveAll(): void {
+  public removeAll(): void {
     RemoveAllPedWeapons(this.owner.Handle, true);
     this.weapons.clear();
   }
 
-  public Drop(): void {
+  public drop(): void {
     SetPedDropsWeapon(this.owner.Handle);
   }
 

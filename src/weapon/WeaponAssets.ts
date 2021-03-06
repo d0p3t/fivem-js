@@ -22,12 +22,12 @@ export class WeaponAssets {
     return !!HasWeaponAssetLoaded(this.hash);
   }
 
-  public Request(): void {
+  public request(): void {
     RequestWeaponAsset(this.hash, 31, 0);
   }
 
-  public async RequestAsync(timeout: number): Promise<boolean> {
-    this.Request();
+  public async requestAsync(timeout: number): Promise<boolean> {
+    this.request();
 
     const start = GetGameTimer();
 
@@ -43,12 +43,12 @@ export class WeaponAssets {
     return true;
   }
 
-  public Dismiss(): void {
+  public dismiss(): void {
     RemoveWeaponAsset(this.hash);
   }
 
   public get DisplayName(): string {
-    return Weapon.GetDisplayNameFromHash(this.hash);
+    return Weapon.getDisplayNameFromHash(this.hash);
   }
 
   public get LocalizedName(): string{

@@ -60,7 +60,7 @@ export class WeaponComponentCollection implements Iterable<WeaponComponent> {
     return this.components.size;
   }
 
-  public GetClipComponent(index: number): WeaponComponent {
+  public getClipComponent(index: number): WeaponComponent {
     for (const [, component] of this.components) {
       const attachmentPoint = component.AttachmentPoint;
       if ([ComponentAttachmentPoint.Clip, ComponentAttachmentPoint.Clip2].some(x => x === attachmentPoint)) {
@@ -86,7 +86,7 @@ export class WeaponComponentCollection implements Iterable<WeaponComponent> {
     return count;
   }
 
-  public GetScopeComponent(index: number): WeaponComponent {
+  public getScopeComponent(index: number): WeaponComponent {
     for (const [, component] of this.components) {
       const attachmentPoint = component.AttachmentPoint;
       if ([ComponentAttachmentPoint.Scope, ComponentAttachmentPoint.Scope2].some(x => x === attachmentPoint)) {
@@ -112,7 +112,7 @@ export class WeaponComponentCollection implements Iterable<WeaponComponent> {
     return count;
   }
 
-  public GetSuppressorComponent(): WeaponComponent {
+  public getSuppressorComponent(): WeaponComponent {
     for (const [, component] of this.components) {
       const attachmentPoint = component.AttachmentPoint;
       if ([ComponentAttachmentPoint.Supp, ComponentAttachmentPoint.Supp2].some(x => x === attachmentPoint)) {
@@ -123,7 +123,7 @@ export class WeaponComponentCollection implements Iterable<WeaponComponent> {
     return this.invalidComponent;
   }
 
-  public GetFlashLightComponent(): WeaponComponent {
+  public getFlashLightComponent(): WeaponComponent {
     for (const [, component] of this.components) {
       const attachmentPoint = component.AttachmentPoint;
       if ([ComponentAttachmentPoint.FlashLaser, ComponentAttachmentPoint.FlashLaser2].some(x => x === attachmentPoint)) {
@@ -134,7 +134,7 @@ export class WeaponComponentCollection implements Iterable<WeaponComponent> {
     return this.invalidComponent;
   }
 
-  public GetLuxuryFinishComponent(): WeaponComponent {
+  public getLuxuryFinishComponent(): WeaponComponent {
     for (const [, component] of this.components) {
       const attachmentPoint = component.AttachmentPoint;
       if (attachmentPoint === ComponentAttachmentPoint.GunRoot) {
@@ -145,7 +145,7 @@ export class WeaponComponentCollection implements Iterable<WeaponComponent> {
     return this.invalidComponent;
   }
 
-  public GetMk2CamoComponent(index: number): WeaponComponent {
+  public getMk2CamoComponent(index: number): WeaponComponent {
     for (const [, component] of this.components) {
       const attachmentPoint = component.AttachmentPoint;
       if (attachmentPoint === ComponentAttachmentPoint.GunRoot) {
@@ -158,7 +158,7 @@ export class WeaponComponentCollection implements Iterable<WeaponComponent> {
     return this.invalidComponent;
   }
 
-  public GetMk2BarrelComponent(index: number): WeaponComponent {
+  public getMk2BarrelComponent(index: number): WeaponComponent {
     for (const [, component] of this.components) {
       const attachmentPoint = component.AttachmentPoint;
       if (attachmentPoint === ComponentAttachmentPoint.Barrel) {
