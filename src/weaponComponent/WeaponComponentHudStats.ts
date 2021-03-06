@@ -39,7 +39,7 @@ export interface WeaponComponentHudStats {
  * Mapping of WeaponComponentHash -> WeaponComponentHudStats
  *
  */
-export const WeaponComponentHudStat = new Map<WeaponComponentHash, WeaponComponentHudStats>();
+export const WeaponComponentHudStats = new Map<WeaponComponentHash, WeaponComponentHudStats>();
 
 function initializeOnce() {
   let isInitialized = false;
@@ -67,7 +67,7 @@ function initializeOnce() {
         hudRange: getUInt32FromUint8Array(buffer, 8 * intLength, 9 * intLength),
       };
 
-      WeaponComponentHudStat.set(hash, weaponComponentHudStat);
+      WeaponComponentHudStats.set(hash, weaponComponentHudStat);
     }
 
     isInitialized = true;

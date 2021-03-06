@@ -7,7 +7,7 @@ import { Game } from '../Game';
 import { ComponentDisplayNameByHash } from './ComponentDisplayNameByHash';
 import { WeaponComponentHashesByWeaponHash } from './WeaponComponentHashesByWeaponHash';
 import { ComponentAttachmentPointByHash } from './ComponentAttachmentPointByHash';
-import { WeaponComponentHudStat, WeaponComponentHudStats } from './WeaponComponentHudStats';
+import { WeaponComponentHudStats } from './WeaponComponentHudStats';
 
 export class WeaponComponent {
   protected readonly owner: Ped;
@@ -78,7 +78,7 @@ export class WeaponComponent {
    * @constructor
    */
   public get HudStats(): WeaponComponentHudStats {
-    return WeaponComponentHudStat.get(this.componentHash);
+    return WeaponComponentHudStats.get(this.componentHash);
   }
 
   /**
