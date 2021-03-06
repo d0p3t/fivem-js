@@ -1,4 +1,5 @@
 /**
+ * EnumValues - iterate over enum values
  * Just copy&paste from https://github.com/microsoft/TypeScript/issues/4753#issuecomment-694557208
  *
  * @param enumObj
