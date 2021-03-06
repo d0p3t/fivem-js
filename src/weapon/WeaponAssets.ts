@@ -1,7 +1,7 @@
 import { WeaponHash } from '../hashes';
-import { Delay } from '../utils/Delay';
 import { Weapon } from './Weapon';
 import { Game } from '../Game';
+import { Wait } from '../utils';
 
 export class WeaponAssets {
   private hash: WeaponHash;
@@ -32,7 +32,7 @@ export class WeaponAssets {
     const start = GetGameTimer();
 
     while (!this.IsLoaded) {
-      await Delay(100);
+      await Wait(100);
 
       const now = GetGameTimer();
       if (now - start >= timeout) {
