@@ -594,6 +594,11 @@ export class Ped extends Entity {
     return this.pedBones;
   }
 
+  /**
+   * Ped Weapons
+   *
+   * @constructor
+   */
   public get Weapons(): WeaponCollection {
     if (!this.weapons) {
       this.weapons = new WeaponCollection(this);
