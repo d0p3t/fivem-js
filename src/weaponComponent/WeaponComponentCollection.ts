@@ -5,6 +5,7 @@ import { WeaponComponent } from './WeaponComponent';
 import { InvalidWeaponComponent } from './InvalidWeaponComponent';
 import { WeaponComponentHashesByWeaponHash } from './WeaponComponentHashesByWeaponHash';
 import { ComponentAttachmentPoint } from './ComponentAttachmentPoint';
+import { ComponentAttachmentPointByHash } from './ComponentAttachmentPointByHash';
 
 
 export class WeaponComponentCollection implements Iterable<WeaponComponent> {
@@ -12,8 +13,6 @@ export class WeaponComponentCollection implements Iterable<WeaponComponent> {
   private readonly weapon: Weapon;
 
   private readonly components = new Map<WeaponComponentHash, WeaponComponent>();
-
-  private readonly componentHashes: WeaponComponentHash[];
 
   private readonly invalidComponent = new InvalidWeaponComponent();
 
@@ -23,7 +22,6 @@ export class WeaponComponentCollection implements Iterable<WeaponComponent> {
   ) {
     this.owner = owner;
     this.weapon = weapon;
-    this.componentHashes = WeaponComponentHashesByWeaponHash[this.weapon.Hash];
   }
 
   [Symbol.iterator](): Iterator<WeaponComponent> {
@@ -41,13 +39,17 @@ export class WeaponComponentCollection implements Iterable<WeaponComponent> {
     };
   }
 
+  /**
+   * get component
+   *
+   * @param componentHash
+   */
   public get(componentHash: WeaponComponentHash): WeaponComponent {
-    if (this.componentHashes.some(x => x === componentHash)) {
+    if (this.AllWeaponComponentHashes.some(x => x === componentHash)) {
       let component = this.components.get(componentHash);
 
       if (!component) {
-        component = new WeaponComponent(this.owner, this.weapon, componentHash);
-        this.components.set(componentHash, component);
+        component = this.createAndAddComponent(componentHash);
       }
 
       return component;
@@ -56,119 +58,169 @@ export class WeaponComponentCollection implements Iterable<WeaponComponent> {
     return this.invalidComponent;
   }
 
+  /**
+   * get current weapon component count
+   *
+   * @constructor
+   */
   public get Count(): number {
     return this.components.size;
   }
 
+  /**
+   * get clip component
+   *
+   * @param index - index of component
+   */
   public getClipComponent(index: number): WeaponComponent {
-    for (const [, component] of this.components) {
-      const attachmentPoint = component.AttachmentPoint;
-      if ([ComponentAttachmentPoint.Clip, ComponentAttachmentPoint.Clip2].some(x => x === attachmentPoint)) {
-        if (index-- === 0) {
-          return component;
-        }
-      }
-    }
-
-    return this.invalidComponent;
+    return this.getAnyComponentByAttachmentPoints(
+      index,
+      ComponentAttachmentPoint.Clip,
+      ComponentAttachmentPoint.Clip2);
   }
 
+  /**
+   * get clip variation count
+   *
+   * @constructor
+   */
   public get ClipVariationsCount(): number {
-    let count = 0;
-
-    for (const [, component] of this.components) {
-      const attachmentPoint = component.AttachmentPoint;
-      if ([ComponentAttachmentPoint.Clip, ComponentAttachmentPoint.Clip2].some(x => x === attachmentPoint)) {
-        count++;
-      }
-    }
-
-    return count;
+    return this.getComponentHashesByAttachmentPoints(
+      ComponentAttachmentPoint.Clip,
+      ComponentAttachmentPoint.Clip2)
+      .length;
   }
 
+  /**
+   * get scope component
+   *
+   * @param index - index of component
+   */
   public getScopeComponent(index: number): WeaponComponent {
-    for (const [, component] of this.components) {
-      const attachmentPoint = component.AttachmentPoint;
-      if ([ComponentAttachmentPoint.Scope, ComponentAttachmentPoint.Scope2].some(x => x === attachmentPoint)) {
-        if (index-- === 0) {
-          return component;
-        }
-      }
-    }
-
-    return this.invalidComponent;
+    return this.getAnyComponentByAttachmentPoints(
+      index,
+      ComponentAttachmentPoint.Scope,
+      ComponentAttachmentPoint.Scope2);
   }
 
+  /**
+   * get scope variation count
+   *
+   * @constructor
+   */
   public get ScopeVariationsCount(): number {
-    let count = 0;
-
-    for (const [, component] of this.components) {
-      const attachmentPoint = component.AttachmentPoint;
-      if ([ComponentAttachmentPoint.Scope, ComponentAttachmentPoint.Scope2].some(x => x === attachmentPoint)) {
-        count++;
-      }
-    }
-
-    return count;
+    return this.getComponentHashesByAttachmentPoints(
+      ComponentAttachmentPoint.Scope,
+      ComponentAttachmentPoint.Scope2)
+      .length;
   }
 
+  /**
+   * get suppressor component
+   *
+   */
   public getSuppressorComponent(): WeaponComponent {
-    for (const [, component] of this.components) {
-      const attachmentPoint = component.AttachmentPoint;
-      if ([ComponentAttachmentPoint.Supp, ComponentAttachmentPoint.Supp2].some(x => x === attachmentPoint)) {
-        return component;
-      }
-    }
-
-    return this.invalidComponent;
+    return this.getAnyComponentByAttachmentPoints(
+      undefined,
+      ComponentAttachmentPoint.Supp,
+      ComponentAttachmentPoint.Supp2);
   }
 
+  /**
+   * get flash light component
+   *
+   */
   public getFlashLightComponent(): WeaponComponent {
-    for (const [, component] of this.components) {
-      const attachmentPoint = component.AttachmentPoint;
-      if ([ComponentAttachmentPoint.FlashLaser, ComponentAttachmentPoint.FlashLaser2].some(x => x === attachmentPoint)) {
-        return component;
-      }
-    }
-
-    return this.invalidComponent;
+    return this.getAnyComponentByAttachmentPoints(
+      undefined,
+      ComponentAttachmentPoint.FlashLaser,
+      ComponentAttachmentPoint.FlashLaser2);
   }
 
+  /**
+   * get luxury finish component
+   *
+   */
   public getLuxuryFinishComponent(): WeaponComponent {
-    for (const [, component] of this.components) {
-      const attachmentPoint = component.AttachmentPoint;
-      if (attachmentPoint === ComponentAttachmentPoint.GunRoot) {
-        return component;
-      }
-    }
-
-    return this.invalidComponent;
+    return this.getAnyComponentByAttachmentPoints(undefined, ComponentAttachmentPoint.GunRoot);
   }
 
+  /**
+   * get Mk2 camo component
+   *
+   * @param index - index of component
+   */
   public getMk2CamoComponent(index: number): WeaponComponent {
-    for (const [, component] of this.components) {
-      const attachmentPoint = component.AttachmentPoint;
-      if (attachmentPoint === ComponentAttachmentPoint.GunRoot) {
-        if (index-- === 0) {
-          return component;
-        }
-      }
-    }
-
-    return this.invalidComponent;
+    return this.getAnyComponentByAttachmentPoints(index, ComponentAttachmentPoint.GunRoot);
   }
 
+  /**
+   * get Mk2 barrel component
+   *
+   * @param index - index of component
+   */
   public getMk2BarrelComponent(index: number): WeaponComponent {
-    for (const [, component] of this.components) {
-      const attachmentPoint = component.AttachmentPoint;
-      if (attachmentPoint === ComponentAttachmentPoint.Barrel) {
-        if (index-- === 0) {
-          return component;
-        }
-      }
-    }
-
-    return this.invalidComponent;
+    return this.getAnyComponentByAttachmentPoints(index, ComponentAttachmentPoint.Barrel);
   }
 
+  /**
+   * Create component object and add to collection
+   *
+   * @param hash
+   * @private
+   */
+  private createAndAddComponent(hash: WeaponComponentHash): WeaponComponent {
+    const uintHash = hash >>> 0;
+
+    console.log('createAndAdd', hash, uintHash);
+
+    console.log('about to create', this.owner, this.weapon, uintHash);
+
+    const component = new WeaponComponent(this.owner, this.weapon, uintHash);
+    this.components.set(uintHash, component);
+
+    return component;
+  }
+
+  /**
+   * get all WeaponComponentHash belongs to weapon
+   *
+   * @constructor
+   * @private
+   */
+  private get AllWeaponComponentHashes(): WeaponComponentHash[] {
+    return WeaponComponentHashesByWeaponHash.get(this.weapon.Hash);
+  }
+
+  /**
+   * get components belongs to attachmentPoints
+   *
+   * @param attachmentPoints
+   * @private
+   */
+  private getComponentHashesByAttachmentPoints(...attachmentPoints: ComponentAttachmentPoint[])
+    : WeaponComponentHash[] {
+    return this.AllWeaponComponentHashes
+      .filter(hash => attachmentPoints.some(attachmentPoint =>
+        ComponentAttachmentPointByHash.get(hash) === attachmentPoint));
+  }
+
+  /**
+   * get component by index and attachmentPoints
+   *
+   * @param index - component index
+   * @param attachmentPoints -  attachmentPoints to search
+   * @private
+   */
+  private getAnyComponentByAttachmentPoints(index?: number, ...attachmentPoints: ComponentAttachmentPoint[]) {
+    const hashes = this.getComponentHashesByAttachmentPoints(...attachmentPoints);
+
+    if (index === undefined) {
+      return this.get(hashes[0]) ?? this.invalidComponent;
+    }
+
+    return 0 <= index && index <= hashes.length - 1
+      ? this.get(hashes[index])
+      : this.invalidComponent;
+  }
 }
