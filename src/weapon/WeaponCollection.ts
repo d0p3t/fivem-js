@@ -134,8 +134,9 @@ export class WeaponCollection implements Iterable<Weapon> {
   }
 
   private createAndAddWeapon(hash: WeaponHash): Weapon {
-    const weapon = new Weapon(this.owner, hash);
-    this.weapons.set(hash, weapon);
+    const uintHash = hash >>> 0;
+    const weapon = new Weapon(this.owner, uintHash);
+    this.weapons.set(uintHash, weapon);
 
     return weapon;
   }
