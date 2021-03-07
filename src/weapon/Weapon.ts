@@ -9,6 +9,8 @@ import { WeaponGroup } from './WeaponGroup';
 import { WeaponLivery } from './WeaponLivery';
 import { WeaponLiveryColor } from './WeaponLiveryColor';
 import { WeaponHudStats } from './WeaponHudStats';
+import { enumValues } from '../utils/EnumValues';
+import { Mk2WeaponHash } from './Mk2WeaponHash';
 
 export class Weapon {
   private readonly owner: Ped;
@@ -155,23 +157,29 @@ export class Weapon {
     return !!CanUseWeaponOnParachute(this.hash);
   }
 
+  /**
+   * Check weapon is Mk2 or not
+   *
+   * @constructor
+   */
   public get IsMk2(): boolean {
-    return [
-      WeaponHash.PistolMk2,
-      WeaponHash.AssaultRifleMk2,
-      WeaponHash.CarbineRifleMk2,
-      WeaponHash.CombatMGMk2,
-      WeaponHash.HeavySniperMk2,
-      WeaponHash.SMGMk2]
-      .some(x => x === this.hash);
+    return Array.from(enumValues(Mk2WeaponHash))
+      .some(x => x as number === this.hash as number);
   }
 
   public setLivery(liveryId: WeaponLivery, colorId: WeaponLiveryColor): void {
     if (!this.IsMk2) {
+      console.log(`[ERROR]${this.setLivery.name} failed. Reason: non-Mk2 weapon`);
       return;
     }
 
     const component = this.Components.getMk2CamoComponent(liveryId);
+
+    if (component.IsInvalid) {
+      console.log(`[ERROR]${this.setLivery.name} failed. Reason: invalid liveryId/Component`);
+      return;
+    }
+
     component.Active = true;
     SetPedWeaponLiveryColor(this.owner.Handle, this.hash, component.ComponentHash, colorId);
   }
