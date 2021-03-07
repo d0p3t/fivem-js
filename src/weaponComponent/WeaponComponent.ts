@@ -17,11 +17,20 @@ export class WeaponComponent {
   public constructor(
     owner: Ped,
     weapon: Weapon,
-    component: WeaponComponentHash,
+    componentHash: WeaponComponentHash,
   ) {
     this.owner = owner;
     this.weapon = weapon;
-    this.componentHash = component;
+    this.componentHash = componentHash;
+  }
+
+  /**
+   * Check WeaponComponent is invalid or not
+   *
+   * @constructor
+   */
+  public get IsInvalid(): boolean {
+    return this.componentHash === WeaponComponentHash.Invalid;
   }
 
   public get ComponentHash(): WeaponComponentHash {
