@@ -6,27 +6,27 @@ import { getStringFromUInt8Array } from '../utils/GetStringFromBuffer';
  * DlcWeaponComponentData
  * refer1: https://github.com/citizenfx/fivem/blob/master/code/client/clrcore/External/DlcWeaponStructs.cs#L130
  * refer2: https://docs.fivem.net/natives/?_0x6CF598A2957C2BF8
+ * p0 seems to be the weapon index
+ * p1 seems to be the weapon component index
+ * struct DlcComponentData{
+ * int attachBone;
+ * int padding1;
+ * int bActiveByDefault;
+ * int padding2;
+ * int unk;
+ * int padding3;
+ * int componentHash;
+ * int padding4;
+ * int unk2;
+ * int padding5;
+ * int componentCost;
+ * int padding6;
+ * char nameLabel[64];
+ * char descLabel[64];
+ * };
  *
  */
 export interface DlcWeaponComponentData {
-  // p0 seems to be the weapon index
-  // p1 seems to be the weapon component index
-  // struct DlcComponentData{
-  // int attachBone;
-  // int padding1;
-  // int bActiveByDefault;
-  // int padding2;
-  // int unk;
-  // int padding3;
-  // int componentHash;
-  // int padding4;
-  // int unk2;
-  // int padding5;
-  // int componentCost;
-  // int padding6;
-  // char nameLabel[64];
-  // char descLabel[64];
-  // };
   attachBone: number;
   bActiveByDefault: number;
   unk: number;
@@ -77,8 +77,8 @@ function initializeOnce() {
           componentHash: getUInt32FromUint8Array(buffer, 6 * intLength, 7 * intLength),
           unk2: getUInt32FromUint8Array(buffer, 8 * intLength, 9 * intLength),
           componentCost: getUInt32FromUint8Array(buffer, 10 * intLength, 11 * intLength),
-          name: getStringFromUInt8Array(buffer,12 * intLength, 12 * intLength + strLength),
-          desc: getStringFromUInt8Array(buffer,12 * intLength + strLength, 12 * intLength + 2 * strLength),
+          name: getStringFromUInt8Array(buffer, 12 * intLength, 12 * intLength + strLength),
+          desc: getStringFromUInt8Array(buffer, 12 * intLength + strLength, 12 * intLength + 2 * strLength),
         };
 
         DlcWeaponComponentData.set(dlcWeaponComponentData.componentHash, dlcWeaponComponentData);

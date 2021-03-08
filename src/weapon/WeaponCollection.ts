@@ -2,6 +2,10 @@ import { Weapon } from './Weapon';
 import { Ped, Prop } from '../models';
 import { WeaponHash } from '../hashes';
 
+/**
+ * ped weapons
+ *
+ */
 export class WeaponCollection implements Iterable<Weapon> {
   private readonly owner: Ped;
   private readonly weapons = new Map<WeaponHash, Weapon>();
@@ -25,6 +29,11 @@ export class WeaponCollection implements Iterable<Weapon> {
     };
   }
 
+  /**
+   * get weapon by hash
+   *
+   * @param hash
+   */
   public get(hash: WeaponHash): Weapon {
     let weapon = this.weapons.get(hash);
 
@@ -39,6 +48,11 @@ export class WeaponCollection implements Iterable<Weapon> {
     return weapon;
   }
 
+  /**
+   * get ped current weapon
+   *
+   * @constructor
+   */
   public get Current(): Weapon {
     const [, hash] = GetCurrentPedWeapon(this.owner.Handle, true);
 
@@ -49,6 +63,11 @@ export class WeaponCollection implements Iterable<Weapon> {
     }
   }
 
+  /**
+   * get ped current weapon object
+   *
+   * @constructor
+   */
   public get CurrentWeaponObject(): Prop {
     if (this.Current.IsUnarmed) {
       return null;
@@ -57,6 +76,11 @@ export class WeaponCollection implements Iterable<Weapon> {
     return new Prop(GetCurrentPedWeaponEntityIndex(this.owner.Handle));
   }
 
+  /**
+   * get ped best weapon
+   *
+   * @constructor
+   */
   public get BestWeapon(): Weapon {
     const hash = GetBestPedWeapon(this.owner.Handle, false);
 
@@ -67,14 +91,32 @@ export class WeaponCollection implements Iterable<Weapon> {
     }
   }
 
+  /**
+   * check ped has weapon
+   *
+   * @param hash
+   */
   public hasWeapon(hash: WeaponHash): boolean {
     return !!HasPedGotWeapon(this.owner.Handle, hash, false);
   }
 
+  /**
+   * check weapon is valid
+   *
+   * @param hash
+   */
   public isWeaponValid(hash: WeaponHash): boolean {
     return !!IsWeaponValid(hash);
   }
 
+  /**
+   * give weapon to ped
+   *
+   * @param hash
+   * @param ammoCount
+   * @param equipNow
+   * @param isAmmoLoaded
+   */
   public give(hash: WeaponHash, ammoCount: number, equipNow: boolean, isAmmoLoaded: boolean): Weapon {
     let weapon = this.weapons.get(hash);
 
@@ -91,6 +133,11 @@ export class WeaponCollection implements Iterable<Weapon> {
     return weapon;
   }
 
+  /**
+   * set ped current weapon on hand
+   *
+   * @param weapon
+   */
   public select(weapon: Weapon | WeaponHash): boolean {
     if (weapon instanceof Weapon) {
       if (!weapon.IsPresent) {
@@ -112,6 +159,11 @@ export class WeaponCollection implements Iterable<Weapon> {
 
   }
 
+  /**
+   * remove weapon from ped
+   *
+   * @param weapon
+   */
   public remove(weapon: Weapon | WeaponHash): void {
     if (weapon instanceof Weapon) {
       if (this.weapons.has(weapon.Hash)) {
@@ -124,15 +176,32 @@ export class WeaponCollection implements Iterable<Weapon> {
     }
   }
 
+  /**
+   * remove all weapons from ped
+   *
+   */
   public removeAll(): void {
     RemoveAllPedWeapons(this.owner.Handle, true);
     this.weapons.clear();
   }
 
+  /**
+   * Drop ped current weapon?
+   * todo: this native seems does not work as expected, need to investigate
+   * refer1: https://docs.fivem.net/natives/?_0x6B7513D9966FBEC0
+   * refer2: https://forum.cfx.re/t/release-weapondrop/49856/8
+   *
+   */
   public drop(): void {
     SetPedDropsWeapon(this.owner.Handle);
   }
 
+  /**
+   * create weapon object and add to collection
+   *
+   * @param hash
+   * @private
+   */
   private createAndAddWeapon(hash: WeaponHash): Weapon {
     const uintHash = hash >>> 0;
     const weapon = new Weapon(this.owner, uintHash);

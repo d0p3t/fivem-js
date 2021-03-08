@@ -7,26 +7,27 @@ import { getStringFromUInt8Array } from '../utils/GetStringFromBuffer';
  * refer1: https://github.com/citizenfx/fivem/blob/master/code/client/clrcore/External/DlcWeaponStructs.cs#L10
  * refer2: https://docs.fivem.net/natives/?_0xBF0FD6E56C964FCB
  *
+ * int emptyCheck; //use DLC1::_IS_DLC_DATA_EMPTY on this
+ * int padding1;
+ * int weaponHash;
+ * int padding2;
+ * int unk;
+ * int padding3;
+ * int weaponCost;
+ * int padding4;
+ * int ammoCost;
+ * int padding5;
+ * int ammoType;
+ * int padding6;
+ * int defaultClipSize;
+ * int padding7;
+ * char nameLabel[64];
+ * char descLabel[64];
+ * char desc2Label[64]; // usually "the" + name
+ * char upperCaseNameLabel[64];
+ *
  */
 export interface DlcWeaponData {
-  // int emptyCheck; //use DLC1::_IS_DLC_DATA_EMPTY on this
-  // int padding1;
-  // int weaponHash;
-  // int padding2;
-  // int unk;
-  // int padding3;
-  // int weaponCost;
-  // int padding4;
-  // int ammoCost;
-  // int padding5;
-  // int ammoType;
-  // int padding6;
-  // int defaultClipSize;
-  // int padding7;
-  // char nameLabel[64];
-  // char descLabel[64];
-  // char desc2Label[64]; // usually "the" + name
-  // char upperCaseNameLabel[64];
   validCheck: number;
   weaponHash: number;
   unk: number;
@@ -41,7 +42,7 @@ export interface DlcWeaponData {
 }
 
 /**
- * DlcWeaponData
+ * DlcWeaponData - Mapping of WeaponHash -> DlcWeaponData
  */
 export const DlcWeaponData = new Map<WeaponHash, DlcWeaponData>();
 
@@ -77,9 +78,9 @@ function initializeOnce() {
         ammoCost: getUInt32FromUint8Array(buffer, 8 * intLength, 9 * intLength),
         ammoType: getUInt32FromUint8Array(buffer, 10 * intLength, 11 * intLength),
         defaultClipSize: getUInt32FromUint8Array(buffer, 12 * intLength, 13 * intLength),
-        name: getStringFromUInt8Array(buffer,14 * intLength, 14 * intLength + strLength),
-        desc: getStringFromUInt8Array(buffer,14 * intLength + strLength, 14 * intLength + 2 * strLength),
-        simpleDesc: getStringFromUInt8Array(buffer,14 * intLength + 2 * strLength, 14 * intLength + 3 * strLength),
+        name: getStringFromUInt8Array(buffer, 14 * intLength, 14 * intLength + strLength),
+        desc: getStringFromUInt8Array(buffer, 14 * intLength + strLength, 14 * intLength + 2 * strLength),
+        simpleDesc: getStringFromUInt8Array(buffer, 14 * intLength + 2 * strLength, 14 * intLength + 3 * strLength),
         upperCaseName: getStringFromUInt8Array(buffer, 14 * intLength + 3 * strLength, 14 * intLength + 4 * strLength),
       };
 

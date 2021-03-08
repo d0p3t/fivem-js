@@ -4,7 +4,7 @@ import { WeaponHash } from '../hashes';
 import { ComponentAttachmentPoint } from './ComponentAttachmentPoint';
 import { Game } from '../Game';
 
-export class InvalidWeaponComponent extends WeaponComponent{
+export class InvalidWeaponComponent extends WeaponComponent {
   constructor() {
     super(null, null, WeaponComponentHash.Invalid);
   }
@@ -26,7 +26,7 @@ export class InvalidWeaponComponent extends WeaponComponent{
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public static getAttachmentPoint(hash: WeaponHash, componentHash: WeaponComponentHash): ComponentAttachmentPoint{
+  public static getAttachmentPoint(hash: WeaponHash, componentHash: WeaponComponentHash): ComponentAttachmentPoint {
     return ComponentAttachmentPoint.Invalid;
   }
 }

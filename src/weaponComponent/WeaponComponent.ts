@@ -9,6 +9,10 @@ import { WeaponComponentHashesByWeaponHash } from './WeaponComponentHashesByWeap
 import { ComponentAttachmentPointByHash } from './ComponentAttachmentPointByHash';
 import { WeaponComponentHudStats } from './WeaponComponentHudStats';
 
+/**
+ * ped weapon component on weapon
+ *
+ */
 export class WeaponComponent {
   protected readonly owner: Ped;
   protected readonly weapon: Weapon;
@@ -33,19 +37,30 @@ export class WeaponComponent {
     return this.componentHash === WeaponComponentHash.Invalid;
   }
 
+  /**
+   * get component hash
+   *
+   * @constructor
+   */
   public get ComponentHash(): WeaponComponentHash {
     return this.componentHash;
   }
 
-  // public static implicit operator WeaponComponentHash(WeaponComponent weaponComponent)
-  // {
-  //   return weaponComponent.ComponentHash;
-  // }
-
+  /**
+   * check ped has weapon component
+   *
+   * @constructor
+   */
   public get Active(): boolean {
     return HasPedGotWeaponComponent(this.owner.Handle, this.weapon.Hash, this.componentHash) !== 0;
   }
 
+  /**
+   * give weapon component to ped
+   *
+   * @param value
+   * @constructor
+   */
   public set Active(value: boolean) {
     if (value) {
       GiveWeaponComponentToPed(this.owner.Handle, this.weapon.Hash, this.componentHash);
@@ -55,7 +70,7 @@ export class WeaponComponent {
   }
 
   /**
-   * DisplayName
+   * get component display name / label
    *
    * @constructor
    */
@@ -64,7 +79,7 @@ export class WeaponComponent {
   }
 
   /**
-   * LocalizedName
+   * get component localized name
    *
    * @constructor
    */
@@ -73,7 +88,7 @@ export class WeaponComponent {
   }
 
   /**
-   * AttachmentPoint
+   * get component attachment point
    *
    * @constructor
    */
@@ -91,7 +106,7 @@ export class WeaponComponent {
   }
 
   /**
-   * GetComponentDisplayNameFromHash
+   * get component display name / label by hash
    *
    * @param hash
    * @param componentHash
@@ -106,7 +121,7 @@ export class WeaponComponent {
   }
 
   /**
-   * GetAttachmentPoint
+   * get component attachment point by WeaponHash and WeaponComponentHash
    *
    * @param weaponHash
    * @param componentHash

@@ -7,7 +7,10 @@ import { WeaponComponentHashesByWeaponHash } from './WeaponComponentHashesByWeap
 import { ComponentAttachmentPoint } from './ComponentAttachmentPoint';
 import { ComponentAttachmentPointByHash } from './ComponentAttachmentPointByHash';
 
-
+/**
+ * ped weapon components on weapon
+ *
+ */
 export class WeaponComponentCollection implements Iterable<WeaponComponent> {
   private readonly owner: Ped;
   private readonly weapon: Weapon;
