@@ -83,7 +83,7 @@ export abstract class Game {
    * Get an iterable list of players currently on server.
    * @returns Iterable list of Player objects.
    */
-  public static *playerList(): IterableIterator<Player> {
+  public static* playerList(): IterableIterator<Player> {
     for (const id of GetActivePlayers() as number[]) {
       yield new Player(id);
     }
@@ -432,10 +432,10 @@ export abstract class Game {
    * @returns true if GXT entry exists; otherwise, false
    * @constructor
    */
-  public static DoesGXTEntryExist(entry: number | string): boolean {
-    if (typeof entry === 'number'){
+  public static doesGXTEntryExist(entry: number | string): boolean {
+    if (typeof entry === 'number') {
       return !!DoesTextLabelExist(entry.toString());
-    }else if (typeof entry === 'string'){
+    } else if (typeof entry === 'string') {
       return !!DoesTextLabelExist(entry);
     }
   }
@@ -446,8 +446,8 @@ export abstract class Game {
    * @param entry - The GXT key.
    * @returns The localised string if the key exists; otherwise, empty string
    */
-  public static GetGXTEntry(entry: number | string): string {
-    return Game.DoesGXTEntryExist(entry) ? GetLabelText(entry.toString()) : '';
+  public static getGXTEntry(entry: number | string): string {
+    return Game.doesGXTEntryExist(entry) ? GetLabelText(entry.toString()) : '';
   }
 
   protected static cachedPlayer: Player;

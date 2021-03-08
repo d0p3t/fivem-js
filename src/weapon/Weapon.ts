@@ -60,7 +60,7 @@ export class Weapon {
   }
 
   public get LocalizedName(): string {
-    return Game.GetGXTEntry(this.DisplayName);
+    return Game.getGXTEntry(this.DisplayName);
   }
 
   public get Model(): Model {

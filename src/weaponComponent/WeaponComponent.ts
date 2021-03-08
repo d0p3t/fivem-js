@@ -69,7 +69,7 @@ export class WeaponComponent {
    * @constructor
    */
   public get LocalizedName(): string {
-    return Game.GetGXTEntry(this.DisplayName);
+    return Game.getGXTEntry(this.DisplayName);
   }
 
   /**
