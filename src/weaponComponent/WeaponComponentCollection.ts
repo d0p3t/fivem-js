@@ -1,5 +1,5 @@
 import { Ped } from '../models';
-import { Weapon } from '../weapon/Weapon';
+import { Weapon } from '../weapon';
 import { WeaponComponentHash } from './WeaponComponentHash';
 import { WeaponComponent } from './WeaponComponent';
 import { InvalidWeaponComponent } from './InvalidWeaponComponent';
