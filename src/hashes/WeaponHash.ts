@@ -75,12 +75,30 @@ export enum WeaponHash {
   PipeBomb = 3125143736,
   PoolCue = 2484171525,
   Wrench = 419712736,
-  PistolMk2 = 0xbfe256d4,
-  AssaultRifleMk2 = 0x394f415c,
-  CarbineRifleMk2 = 0xfad1f1c9,
-  CombatMGMk2 = 0xdbbd7280,
-  HeavySniperMk2 = 0xa914799,
-  SMGMk2 = 0x78a97cd0,
+
+  // handguns
+  PistolMk2 = 0xBFE256D4,
+  SNSPistolMk2 = 0x88374054,
+  RevolverMk2 = 0xCB96392F,
+
+  // smg
+  SMGMk2 = 0x78A97CD0,
+
+  // shotgun
+  PumpShotgunMk2 = 0x555AF99A,
+
+  // assault_rifles
+  AssaultRifleMk2 = 0x394F415C,
+  CarbineRifleMk2 = 0xFAD1F1C9,
+  SpecialCarbineMk2 = 0x969C3D67,
+  BullpupRifleMk2 = 0x84D6FAFD,
+
+  // machine_guns
+  CombatMGMk2 = 0xDBBD7280,
+
+  // sniper_rifles
+  HeavySniperMk2 = 0xA914799,
+  MarksmanRifleMk2 = 0x6A6C02E0,
 }
 
 export enum VehicleWeaponHash {
