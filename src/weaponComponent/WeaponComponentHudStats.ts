@@ -5,29 +5,18 @@ import { getUInt32FromUint8Array } from '../utils/GetUInt32FromUInt8Array';
 /***
  * WeaponComponentHudStats
  * refer: https://github.com/citizenfx/fivem/blob/master/code/client/clrcore/External/Game.cs#L976
+ *    [StructLayout(LayoutKind.Explicit, Size = 0x28)]
+ *    [SecuritySafeCritical]
+ *    internal struct UnsafeWeaponComponentHudStats
+ *    {
+ * 			[FieldOffset(0x00)] private int hudDamage;
+ * 			[FieldOffset(0x08)] private int hudSpeed;
+ * 			[FieldOffset(0x10)] private int hudCapacity;
+ * 			[FieldOffset(0x18)] private int hudAccuracy;
+ * 			[FieldOffset(0x20)] private int hudRange;
  *
  */
 export interface WeaponComponentHudStats {
-  // 		[StructLayout(LayoutKind.Explicit, Size = 0x28)]
-  // 		[SecuritySafeCritical]
-  // 		internal struct UnsafeWeaponComponentHudStats
-  // 		{
-  // 			[FieldOffset(0x00)] private int hudDamage;
-  //
-  // 			[FieldOffset(0x08)] private int hudSpeed;
-  //
-  // 			[FieldOffset(0x10)] private int hudCapacity;
-  //
-  // 			[FieldOffset(0x18)] private int hudAccuracy;
-  //
-  // 			[FieldOffset(0x20)] private int hudRange;
-  //
-  //
-  // 			public WeaponComponentHudStats GetSafeStats()
-  // 			{
-  // 				return new WeaponComponentHudStats(hudDamage, hudSpeed, hudCapacity, hudAccuracy, hudRange);
-  // 			}
-  // 		}
   hudDamage: number;
   hudSpeed: number;
   hudCapacity: number;
