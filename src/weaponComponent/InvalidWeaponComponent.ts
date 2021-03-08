@@ -22,7 +22,7 @@ export class InvalidWeaponComponent extends WeaponComponent{
   }
 
   public get LocalizedName(): string {
-    return Game.GetGXTEntry(this.DisplayName);
+    return Game.getGXTEntry(this.DisplayName);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
