@@ -1,6 +1,5 @@
 import { WeaponComponentHash } from './WeaponComponentHash';
-import { getUInt32FromUint8Array } from '../utils/GetUInt32FromUInt8Array';
-import { getStringFromUInt8Array } from '../utils/GetStringFromBuffer';
+import { getStringFromUInt8Array, getUInt32FromUint8Array } from '../utils';
 
 /**
  * DlcWeaponComponentData
