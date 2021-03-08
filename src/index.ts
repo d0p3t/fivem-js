@@ -20,3 +20,6 @@ export * from './utils';
 export * from './enums';
 export * from './hashes';
 export * from './ui';
+
+export * from './weapon';
+export * from './weaponComponent';
