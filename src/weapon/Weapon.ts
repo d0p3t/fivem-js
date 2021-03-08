@@ -11,6 +11,8 @@ import { WeaponLiveryColor } from './WeaponLiveryColor';
 import { WeaponHudStats } from './WeaponHudStats';
 import { enumValues } from '../utils/EnumValues';
 import { Mk2WeaponHash } from './Mk2WeaponHash';
+import { WeaponComponentHash } from '../weaponComponent';
+import { WeaponComponentHashesByWeaponHash } from '../weaponComponent/WeaponComponentHashesByWeaponHash';
 
 /**
  * ped weapon
@@ -305,5 +307,14 @@ export class Weapon {
     }
 
     return WeaponDisplayNameByHash.get(hash) ?? 'WCT_INVALID';
+  }
+
+  /**
+   * get component hashes belongs to weapon
+   *
+   * @param hash
+   */
+  public static getWeaponComponentHashes(hash: WeaponHash): WeaponComponentHash[] {
+    return [...WeaponComponentHashesByWeaponHash.get(hash)];
   }
 }
