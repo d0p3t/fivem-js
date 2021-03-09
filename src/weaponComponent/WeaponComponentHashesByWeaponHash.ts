@@ -1,6 +1,6 @@
 import { WeaponHash } from '../hashes';
 import { WeaponComponentHash } from './WeaponComponentHash';
-import { getUInt32FromUint8Array } from '../utils/GetUInt32FromUInt8Array';
+import { getUInt32FromUint8Array } from '../utils';
 
 /**
  * Mapping of WeaponHash -> WeaponComponentHashes
