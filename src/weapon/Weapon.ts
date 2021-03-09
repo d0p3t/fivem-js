@@ -315,6 +315,12 @@ export class Weapon {
    * @param hash
    */
   public static getWeaponComponentHashes(hash: WeaponHash): WeaponComponentHash[] {
-    return [...WeaponComponentHashesByWeaponHash.get(hash)];
+    const hashes = WeaponComponentHashesByWeaponHash.get(hash);
+
+    if (!hashes) {
+      return [];
+    }
+
+    return [...hashes];
   }
 }
