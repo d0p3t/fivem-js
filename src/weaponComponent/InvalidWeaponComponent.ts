@@ -14,8 +14,7 @@ export class InvalidWeaponComponent extends WeaponComponent {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  public set Active(value: boolean) {
-  }
+  public set Active(value: boolean) {}
 
   public get DisplayName(): string {
     return 'WCT_INVALID';
@@ -25,8 +24,12 @@ export class InvalidWeaponComponent extends WeaponComponent {
     return Game.getGXTEntry(this.DisplayName);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public static getAttachmentPoint(hash: WeaponHash, componentHash: WeaponComponentHash): ComponentAttachmentPoint {
+  public static getAttachmentPoint(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    hash: WeaponHash,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    componentHash: WeaponComponentHash,
+  ): ComponentAttachmentPoint {
     return ComponentAttachmentPoint.Invalid;
   }
 }

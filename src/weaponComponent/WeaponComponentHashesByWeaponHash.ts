@@ -209,9 +209,7 @@ export const WeaponComponentHashesByWeaponHash = new Map<WeaponHash, WeaponCompo
   ],
   [
     WeaponHash.RayPistol, // Up - n - Atomizer
-    [
-      WeaponComponentHash.COMPONENT_RAYPISTOL_VARMOD_XMAS18,
-    ],
+    [WeaponComponentHash.COMPONENT_RAYPISTOL_VARMOD_XMAS18],
   ],
   [
     WeaponHash.CeramicPistol, // Ceramic Pistol
@@ -259,10 +257,7 @@ export const WeaponComponentHashesByWeaponHash = new Map<WeaponHash, WeaponCompo
   ],
   [
     WeaponHash.MiniSMG, // Mini SMG
-    [
-      WeaponComponentHash.COMPONENT_MINISMG_CLIP_01,
-      WeaponComponentHash.COMPONENT_MINISMG_CLIP_02,
-    ],
+    [WeaponComponentHash.COMPONENT_MINISMG_CLIP_01, WeaponComponentHash.COMPONENT_MINISMG_CLIP_02],
   ],
   [
     WeaponHash.SMGMk2, // SMG Mk II
@@ -332,9 +327,7 @@ export const WeaponComponentHashesByWeaponHash = new Map<WeaponHash, WeaponCompo
   ],
   [
     WeaponHash.SawnOffShotgun, // Sawed - Off Shotgun
-    [
-      WeaponComponentHash.COMPONENT_SAWNOFFSHOTGUN_VARMOD_LUXE,
-    ],
+    [WeaponComponentHash.COMPONENT_SAWNOFFSHOTGUN_VARMOD_LUXE],
   ],
   [
     WeaponHash.AssaultShotgun, // Assault Shotgun
@@ -394,10 +387,7 @@ export const WeaponComponentHashesByWeaponHash = new Map<WeaponHash, WeaponCompo
   ],
   [
     WeaponHash.CombatShotgun, // Combat Shotgun
-    [
-      WeaponComponentHash.COMPONENT_AT_AR_FLSH,
-      WeaponComponentHash.COMPONENT_AT_AR_SUPP,
-    ],
+    [WeaponComponentHash.COMPONENT_AT_AR_FLSH, WeaponComponentHash.COMPONENT_AT_AR_SUPP],
   ],
 
   // Rifles
@@ -813,7 +803,7 @@ export const WeaponComponentHashesByWeaponHash = new Map<WeaponHash, WeaponCompo
 function initializeOnce() {
   let isInitialized = false;
 
-  return function() {
+  return function () {
     if (isInitialized) {
       return;
     }
@@ -838,9 +828,19 @@ function initializeOnce() {
         const componentBuffer = new Uint8Array(14 * intLength + 4 * strLength);
 
         // https://docs.fivem.net/natives/?_0x6CF598A2957C2BF8
-        Citizen.invokeNative('0x6CF598A2957C2BF8', i, j, componentBuffer, Citizen.returnResultAnyway());
+        Citizen.invokeNative(
+          '0x6CF598A2957C2BF8',
+          i,
+          j,
+          componentBuffer,
+          Citizen.returnResultAnyway(),
+        );
 
-        const componentHash = getUInt32FromUint8Array(componentBuffer, 6 * intLength, 7 * intLength);
+        const componentHash = getUInt32FromUint8Array(
+          componentBuffer,
+          6 * intLength,
+          7 * intLength,
+        );
         componentHashes.push(componentHash);
       }
 

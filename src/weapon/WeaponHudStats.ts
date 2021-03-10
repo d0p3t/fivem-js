@@ -37,7 +37,7 @@ export const WeaponHudStats = new Map<WeaponHash, WeaponHudStats>();
 function initializeOnce() {
   let isInitialized = false;
 
-  return function() {
+  return function () {
     if (isInitialized) {
       return;
     }

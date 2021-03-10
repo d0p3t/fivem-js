@@ -6,7 +6,10 @@ import { DlcWeaponComponentData } from './DlcWeaponComponentData';
  * ComponentAttachmentPointByHash - Mapping of WeaponComponentHash -> ComponentAttachmentPoint
  *
  */
-export const ComponentAttachmentPointByHash = new Map<WeaponComponentHash, ComponentAttachmentPoint>([
+export const ComponentAttachmentPointByHash = new Map<
+  WeaponComponentHash,
+  ComponentAttachmentPoint
+>([
   [WeaponComponentHash.PistolClip01, ComponentAttachmentPoint.Clip],
   [WeaponComponentHash.PistolClip02, ComponentAttachmentPoint.Clip],
   [WeaponComponentHash.CombatPistolClip01, ComponentAttachmentPoint.Clip],
@@ -254,7 +257,6 @@ export const ComponentAttachmentPointByHash = new Map<WeaponComponentHash, Compo
   [WeaponComponentHash.SMGMk2ScopeMacro, ComponentAttachmentPoint.Scope],
   [WeaponComponentHash.SMGMk2ScopeSmall, ComponentAttachmentPoint.Scope],
 
-
   [WeaponComponentHash.PistolMk2CamoSlideDigital, ComponentAttachmentPoint.Scope2],
   [WeaponComponentHash.PistolMk2CamoSlideBrushstroke, ComponentAttachmentPoint.Scope2],
   [WeaponComponentHash.PistolMk2CamoSlideWoodland, ComponentAttachmentPoint.Scope2],
@@ -309,7 +311,7 @@ export const ComponentAttachmentPointByHash = new Map<WeaponComponentHash, Compo
 function initializeOnce() {
   let isInitialized = false;
 
-  return function() {
+  return function () {
     if (isInitialized) {
       return;
     }
