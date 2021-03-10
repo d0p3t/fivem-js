@@ -6,6 +6,19 @@ import { DlcWeaponComponentData } from './DlcWeaponComponentData';
  *
  */
 export const ComponentDisplayNameByHash = new Map<WeaponComponentHash, string>([
+  [WeaponComponentHash.Invalid, 'WCT_INVALID'],
+
+  // [WeaponComponentHash.COMPONENT_KNUCKLE_VARMOD_BASE, 'WT_KNUCKLE'],
+  // [WeaponComponentHash.COMPONENT_KNUCKLE_VARMOD_PIMP, 'WCT_KNUCK_02'],
+  // [WeaponComponentHash.COMPONENT_KNUCKLE_VARMOD_BALLAS, 'WCT_KNUCK_BG'],
+  // [WeaponComponentHash.COMPONENT_KNUCKLE_VARMOD_DOLLAR, 'WCT_KNUCK_DLR'],
+  // [WeaponComponentHash.COMPONENT_KNUCKLE_VARMOD_DIAMOND, 'WCT_KNUCK_DMD'],
+  // [WeaponComponentHash.COMPONENT_KNUCKLE_VARMOD_HATE, 'WCT_KNUCK_HT'],
+  // [WeaponComponentHash.COMPONENT_KNUCKLE_VARMOD_LOVE, 'WCT_KNUCK_LV'],
+  // [WeaponComponentHash.COMPONENT_KNUCKLE_VARMOD_PLAYER, 'WCT_KNUCK_PC'],
+  // [WeaponComponentHash.COMPONENT_KNUCKLE_VARMOD_KING, 'WCT_KNUCK_SLG'],
+  // [WeaponComponentHash.COMPONENT_KNUCKLE_VARMOD_VAGOS, 'WCT_KNUCK_VG'],
+
   [WeaponComponentHash.KnuckleVarmodBase, 'WT_KNUCKLE'],
   [WeaponComponentHash.KnuckleVarmodPimp, 'WCT_KNUCK_02'],
   [WeaponComponentHash.KnuckleVarmodBallas, 'WCT_KNUCK_BG'],
