@@ -65,7 +65,7 @@ export const WeaponDisplayNameByHash = new Map<WeaponHash, string>([
 function initializeOnce() {
   let isInitialized = false;
 
-  return function() {
+  return function () {
     if (isInitialized) {
       return;
     }

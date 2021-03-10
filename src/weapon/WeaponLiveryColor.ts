@@ -30,5 +30,5 @@ export enum WeaponLiveryColor {
   Olive,
   Moss,
   Turquoise,
-  DarkGreen
+  DarkGreen,
 }

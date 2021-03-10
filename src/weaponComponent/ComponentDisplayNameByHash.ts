@@ -65,10 +65,10 @@ export const ComponentDisplayNameByHash = new Map<WeaponComponentHash, string>([
   [WeaponComponentHash.HeavySniperClip01, 'WCT_CLIP1'],
   [WeaponComponentHash.AssaultSMGClip01, 'WCT_CLIP1'],
   [WeaponComponentHash.Pistol50Clip01, 'WCT_CLIP1'],
-  [0x0BAAB157 as WeaponComponentHash, 'WCT_CLIP1'],
-  [0x5AF49386 as WeaponComponentHash, 'WCT_CLIP1'],
-  [0xCAEBD246 as WeaponComponentHash, 'WCT_CLIP1'],
-  [0xF8955D89 as WeaponComponentHash, 'WCT_CLIP1'],
+  [0x0baab157 as WeaponComponentHash, 'WCT_CLIP1'],
+  [0x5af49386 as WeaponComponentHash, 'WCT_CLIP1'],
+  [0xcaebd246 as WeaponComponentHash, 'WCT_CLIP1'],
+  [0xf8955d89 as WeaponComponentHash, 'WCT_CLIP1'],
   [WeaponComponentHash.SNSPistolClip01, 'WCT_CLIP1'],
   [WeaponComponentHash.VintagePistolClip01, 'WCT_CLIP1'],
   [WeaponComponentHash.HeavyShotgunClip01, 'WCT_CLIP1'],
@@ -97,9 +97,9 @@ export const ComponentDisplayNameByHash = new Map<WeaponComponentHash, string>([
   [WeaponComponentHash.MinigunClip01, 'WCT_CLIP2'],
   [WeaponComponentHash.AssaultSMGClip02, 'WCT_CLIP2'],
   [WeaponComponentHash.Pistol50Clip02, 'WCT_CLIP2'],
-  [0x6CBF371B as WeaponComponentHash, 'WCT_CLIP2'],
-  [0xE1C5FFFA as WeaponComponentHash, 'WCT_CLIP2'],
-  [0x3E7E6956 as WeaponComponentHash, 'WCT_CLIP2'],
+  [0x6cbf371b as WeaponComponentHash, 'WCT_CLIP2'],
+  [0xe1c5fffa as WeaponComponentHash, 'WCT_CLIP2'],
+  [0x3e7e6956 as WeaponComponentHash, 'WCT_CLIP2'],
   [WeaponComponentHash.SNSPistolClip02, 'WCT_CLIP2'],
   [WeaponComponentHash.VintagePistolClip02, 'WCT_CLIP2'],
   [WeaponComponentHash.HeavyShotgunClip02, 'WCT_CLIP2'],
@@ -120,7 +120,7 @@ export const ComponentDisplayNameByHash = new Map<WeaponComponentHash, string>([
   [WeaponComponentHash.PistolVarmodLuxe, 'WCT_VAR_GOLD'],
   [WeaponComponentHash.SMGVarmodLuxe, 'WCT_VAR_GOLD'],
   [WeaponComponentHash.MicroSMGVarmodLuxe, 'WCT_VAR_GOLD'],
-  [0x161E9241 as WeaponComponentHash, 'WCT_VAR_GOLD'],
+  [0x161e9241 as WeaponComponentHash, 'WCT_VAR_GOLD'],
   [WeaponComponentHash.AssaultSMGVarmodLowrider, 'WCT_VAR_GOLD'],
   [WeaponComponentHash.CombatPistolVarmodLowrider, 'WCT_VAR_GOLD'],
   [WeaponComponentHash.MGVarmodLowrider, 'WCT_VAR_GOLD'],
@@ -308,7 +308,6 @@ export const ComponentDisplayNameByHash = new Map<WeaponComponentHash, string>([
   [WeaponComponentHash.PistolMk2Compensator, 'WCT_COMP'],
 
   [WeaponComponentHash.HeavySniperMk2ScopeLarge, 'WCT_SCOPE_LRG2'],
-
 ]);
 
 /**
@@ -318,7 +317,7 @@ export const ComponentDisplayNameByHash = new Map<WeaponComponentHash, string>([
 function initializeOnce() {
   let isInitialized = false;
 
-  return function() {
+  return function () {
     if (isInitialized) {
       return;
     }

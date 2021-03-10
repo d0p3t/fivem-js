@@ -33,7 +33,7 @@ export const WeaponComponentHudStats = new Map<WeaponComponentHash, WeaponCompon
 function initializeOnce() {
   let isInitialized = false;
 
-  return function() {
+  return function () {
     if (isInitialized) {
       return;
     }

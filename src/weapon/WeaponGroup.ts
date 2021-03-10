@@ -14,5 +14,5 @@ export enum WeaponGroup {
   Stungun = 690389602,
   Heavy = 2725924767,
   Thrown = 1548507267,
-  PetrolCan = 1595662460
+  PetrolCan = 1595662460,
 }

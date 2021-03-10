@@ -53,7 +53,7 @@ export const DlcWeaponData = new Map<WeaponHash, DlcWeaponData>();
 function initializeOnce() {
   let isInitialized = false;
 
-  return function() {
+  return function () {
     if (isInitialized) {
       return;
     }
@@ -79,9 +79,21 @@ function initializeOnce() {
         ammoType: getUInt32FromUint8Array(buffer, 10 * intLength, 11 * intLength),
         defaultClipSize: getUInt32FromUint8Array(buffer, 12 * intLength, 13 * intLength),
         name: getStringFromUInt8Array(buffer, 14 * intLength, 14 * intLength + strLength),
-        desc: getStringFromUInt8Array(buffer, 14 * intLength + strLength, 14 * intLength + 2 * strLength),
-        simpleDesc: getStringFromUInt8Array(buffer, 14 * intLength + 2 * strLength, 14 * intLength + 3 * strLength),
-        upperCaseName: getStringFromUInt8Array(buffer, 14 * intLength + 3 * strLength, 14 * intLength + 4 * strLength),
+        desc: getStringFromUInt8Array(
+          buffer,
+          14 * intLength + strLength,
+          14 * intLength + 2 * strLength,
+        ),
+        simpleDesc: getStringFromUInt8Array(
+          buffer,
+          14 * intLength + 2 * strLength,
+          14 * intLength + 3 * strLength,
+        ),
+        upperCaseName: getStringFromUInt8Array(
+          buffer,
+          14 * intLength + 3 * strLength,
+          14 * intLength + 4 * strLength,
+        ),
       };
 
       DlcWeaponData.set(dlcWeaponData.weaponHash, dlcWeaponData);

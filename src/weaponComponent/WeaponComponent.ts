@@ -18,11 +18,7 @@ export class WeaponComponent {
   protected readonly weapon: Weapon;
   protected readonly componentHash: WeaponComponentHash;
 
-  public constructor(
-    owner: Ped,
-    weapon: Weapon,
-    componentHash: WeaponComponentHash,
-  ) {
+  public constructor(owner: Ped, weapon: Weapon, componentHash: WeaponComponentHash) {
     this.owner = owner;
     this.weapon = weapon;
     this.componentHash = componentHash;
@@ -112,7 +108,10 @@ export class WeaponComponent {
    * @param componentHash
    * @constructor
    */
-  public static getComponentDisplayNameFromHash(hash: WeaponHash, componentHash: WeaponComponentHash): string {
+  public static getComponentDisplayNameFromHash(
+    hash: WeaponHash,
+    componentHash: WeaponComponentHash,
+  ): string {
     if (!hash) {
       return 'WCT_INVALID';
     }
@@ -127,7 +126,10 @@ export class WeaponComponent {
    * @param componentHash
    * @constructor
    */
-  public static getAttachmentPoint(weaponHash: WeaponHash, componentHash: WeaponComponentHash): ComponentAttachmentPoint {
+  public static getAttachmentPoint(
+    weaponHash: WeaponHash,
+    componentHash: WeaponComponentHash,
+  ): ComponentAttachmentPoint {
     const componentHashes = WeaponComponentHashesByWeaponHash.get(weaponHash);
     if (!componentHashes) {
       return ComponentAttachmentPoint.Invalid;

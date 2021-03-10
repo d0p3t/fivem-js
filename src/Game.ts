@@ -83,7 +83,7 @@ export abstract class Game {
    * Get an iterable list of players currently on server.
    * @returns Iterable list of Player objects.
    */
-  public static* playerList(): IterableIterator<Player> {
+  public static *playerList(): IterableIterator<Player> {
     for (const id of GetActivePlayers() as number[]) {
       yield new Player(id);
     }

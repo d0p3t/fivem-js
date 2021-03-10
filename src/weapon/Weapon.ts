@@ -190,7 +190,8 @@ export class Weapon {
       this.owner.Handle,
       this.hash,
       Citizen.pointerValueInt(),
-      Citizen.resultAsInteger());
+      Citizen.resultAsInteger(),
+    );
 
     return amount;
   }
@@ -260,8 +261,7 @@ export class Weapon {
    * @constructor
    */
   public get IsMk2(): boolean {
-    return Array.from(enumValues(Mk2WeaponHash))
-      .some(x => x as number === this.hash as number);
+    return Array.from(enumValues(Mk2WeaponHash)).some(x => (x as number) === (this.hash as number));
   }
 
   /**

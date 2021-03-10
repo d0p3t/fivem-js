@@ -117,7 +117,12 @@ export class WeaponCollection implements Iterable<Weapon> {
    * @param equipNow
    * @param isAmmoLoaded
    */
-  public give(hash: WeaponHash, ammoCount: number, equipNow: boolean, isAmmoLoaded: boolean): Weapon {
+  public give(
+    hash: WeaponHash,
+    ammoCount: number,
+    equipNow: boolean,
+    isAmmoLoaded: boolean,
+  ): Weapon {
     let weapon = this.weapons.get(hash);
 
     if (!weapon) {
@@ -156,7 +161,6 @@ export class WeaponCollection implements Iterable<Weapon> {
 
       return true;
     }
-
   }
 
   /**

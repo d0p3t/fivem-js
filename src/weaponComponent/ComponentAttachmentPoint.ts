@@ -14,5 +14,5 @@ export enum ComponentAttachmentPoint {
   TorchBulb = 421673795,
   Rail = 2451679629,
   Rail2 = 497110245,
-  Barrel = 2982890265
+  Barrel = 2982890265,
 }
