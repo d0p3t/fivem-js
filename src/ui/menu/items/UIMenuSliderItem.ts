@@ -10,11 +10,11 @@ export class UIMenuSliderItem extends UIMenuItem {
   protected supportsRightBadge = false;
   protected supportsRightLabel = false;
 
-  private _index: number;
-  private _items: unknown[];
+  private _index = 0;
+  private _items: unknown[] = [];
 
-  private _showDivider: boolean;
-  private _arrowOnlyOnSelected: boolean;
+  private _showDivider = true;
+  private _arrowOnlyOnSelected = false;
 
   private _leftSliderBadge = BadgeStyle.None;
   private _rightSliderBadge = BadgeStyle.None;
@@ -134,11 +134,15 @@ export class UIMenuSliderItem extends UIMenuItem {
   }
 
   public get IsMouseInBoundsOfLeftArrow(): boolean {
-    return this.parent.isMouseInBounds(this._leftArrow.pos, this._leftArrow.size);
+    return this.parent
+      ? this.parent.isMouseInBounds(this._leftArrow.pos, this._leftArrow.size)
+      : false;
   }
 
   public get IsMouseInBoundsOfRightArrow(): boolean {
-    return this.parent.isMouseInBounds(this._rightArrow.pos, this._rightArrow.size);
+    return this.parent
+      ? this.parent.isMouseInBounds(this._rightArrow.pos, this._rightArrow.size)
+      : false;
   }
 
   public indexToItem(index: number): unknown {
@@ -162,7 +166,7 @@ export class UIMenuSliderItem extends UIMenuItem {
   public draw(): void {
     super.draw();
     const showArrows = !this._arrowOnlyOnSelected || this.selected;
-    const x = this.offset.X + this.parent.WidthOffset;
+    const x = this.offset.X + (this.parent ? this.parent.WidthOffset : 0);
 
     this._background.pos.X = 431 + x - this._background.size.width;
 

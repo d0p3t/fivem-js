@@ -17,7 +17,7 @@ export class Ped extends Entity {
     return typeof ped !== 'undefined' && ped.exists();
   }
 
-  private pedBones: PedBoneCollection;
+  private pedBones: PedBoneCollection | undefined;
 
   private readonly speechModifierNames: string[] = [
     'SPEECH_PARAMS_STANDARD',
@@ -59,7 +59,7 @@ export class Ped extends Entity {
     'SPEECH_PARAMS_SHOUTED_CRITICAL',
   ];
 
-  private tasks: Tasks = null;
+  private tasks: Tasks | undefined;
 
   constructor(handle: number) {
     super(handle);
@@ -141,7 +141,7 @@ export class Ped extends Entity {
   }
 
   public get SeatIndex(): VehicleSeat {
-    if (!this.isInAnyVehicle()) return VehicleSeat.None;
+    if (!this.CurrentVehicle) return VehicleSeat.None;
 
     const numberOfSeats = GetVehicleModelNumberOfSeats(this.CurrentVehicle.Model.Hash);
     for (let seat = -1; seat < numberOfSeats; seat++) {
@@ -153,17 +153,17 @@ export class Ped extends Entity {
     return VehicleSeat.None;
   }
 
-  public get CurrentVehicle(): Vehicle {
+  public get CurrentVehicle(): Vehicle | null {
     const veh = new Vehicle(GetVehiclePedIsIn(this.handle, false));
     return veh.exists() ? veh : null;
   }
 
-  public get LastVehicle(): Vehicle {
+  public get LastVehicle(): Vehicle | null {
     const veh = new Vehicle(GetVehiclePedIsIn(this.handle, true));
     return veh.exists() ? veh : null;
   }
 
-  public get VehicleTryingToEnter(): Vehicle {
+  public get VehicleTryingToEnter(): Vehicle | null {
     const veh = new Vehicle(GetVehiclePedIsTryingToEnter(this.handle));
     return veh.exists() ? veh : null;
   }
@@ -446,7 +446,7 @@ export class Ped extends Entity {
     SetDriveTaskDrivingStyle(this.handle, Number(style));
   }
 
-  public get Task(): Tasks {
+  public get Task(): Tasks | undefined {
     if (this.tasks === null) {
       this.tasks = new Tasks(this);
     }
@@ -502,7 +502,7 @@ export class Ped extends Entity {
     return new Ped(GetMeleeTargetForPed(this.handle));
   }
 
-  public getKiller(): Entity {
+  public getKiller(): Entity | null {
     return Entity.fromHandle(GetPedSourceOfDeath(this.handle));
   }
 
@@ -584,7 +584,7 @@ export class Ped extends Entity {
     ClearPedLastWeaponDamage(this.handle);
   }
 
-  public get Bones(): PedBoneCollection {
+  public get Bones(): PedBoneCollection | undefined {
     if (this.pedBones === null) {
       this.pedBones = new PedBoneCollection(this);
     }
@@ -605,9 +605,9 @@ export class Ped extends Entity {
   }
 
   public getLastWeaponImpactPosition(): Vector3 {
-    const position = GetPedLastWeaponImpactCoord(this.handle);
+    const position = GetPedLastWeaponImpactCoord(this.handle)[1];
 
-    return new Vector3(position[0], position[1][0], position[1][1]); // Does this work?
+    return new Vector3(position[0], position[1], position[2]); // Does this work?
   }
 
   public get CanRagdoll(): boolean {
@@ -659,11 +659,11 @@ export class Ped extends Entity {
     return new Ped(ClonePed(this.handle, heading, false, false));
   }
 
-  public exists(ped: Ped = null): boolean {
+  public exists(ped?: Ped): boolean {
     if (ped === null) {
       return super.exists() && GetEntityType(this.handle) === 1;
     }
 
-    return ped.exists();
+    return ped?.exists() ?? false;
   }
 }

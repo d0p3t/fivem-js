@@ -7,7 +7,7 @@ export class VehicleMod {
 
   constructor(owner: Vehicle, modType: VehicleModType) {
     this._owner = owner;
-    this.ModType = modType;
+    this._modType = modType;
   }
 
   public get ModType(): VehicleModType {

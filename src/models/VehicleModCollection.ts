@@ -32,21 +32,21 @@ export class VehicleModCollection {
     return GetNumVehicleMods(this._owner.Handle, type) > 0;
   }
 
-  public getMod(modType: VehicleModType): VehicleMod {
+  public getMod(modType: VehicleModType): VehicleMod | undefined {
     if (!this._vehicleMods.has(modType)) {
       this._vehicleMods.set(modType, new VehicleMod(this._owner, modType));
     }
     return this._vehicleMods.get(modType);
   }
 
-  public getToggleMod(modType: VehicleToggleModType): VehicleToggleMod {
+  public getToggleMod(modType: VehicleToggleModType): VehicleToggleMod | undefined {
     if (!this._vehicleToggleMods.has(modType)) {
       this._vehicleToggleMods.set(modType, new VehicleToggleMod(this._owner, modType));
     }
     return this._vehicleToggleMods.get(modType);
   }
 
-  public getAllMods(): VehicleMod[] {
+  public getAllMods(): (VehicleMod | null | undefined)[] {
     return Object.keys(VehicleModType)
       .filter(key => !isNaN(Number(key)))
       .map(key => {
@@ -71,25 +71,27 @@ export class VehicleModCollection {
     SetVehicleModKit(this._owner.Handle, 0);
   }
 
-  public get Livery(): number {
-    const modCount = this.getMod(VehicleModType.Livery).ModCount;
-    if (modCount > 0) {
-      return this.getMod(VehicleModType.Livery).Index;
+  public get Livery(): number | undefined {
+    const modCount = this.getMod(VehicleModType.Livery)?.ModCount;
+    if (modCount !== undefined && modCount > 0) {
+      return this.getMod(VehicleModType.Livery)?.Index;
     }
     return GetVehicleLivery(this._owner.Handle);
   }
 
-  public set Livery(value: number) {
-    if (this.getMod(VehicleModType.Livery).ModCount > 0) {
-      this.getMod(VehicleModType.Livery).Index = value;
+  public set Livery(value: number | undefined) {
+    if (value === undefined) return;
+    const mod = this.getMod(VehicleModType.Livery);
+    if (mod !== undefined && mod.ModCount > 0) {
+      mod.Index = value;
     } else {
       SetVehicleLivery(this._owner.Handle, value);
     }
   }
 
   public get LiveryCount(): number {
-    const modCount = this.getMod(VehicleModType.Livery).ModCount;
-    if (modCount > 0) {
+    const modCount = this.getMod(VehicleModType.Livery)?.ModCount;
+    if (modCount !== undefined && modCount > 0) {
       return modCount;
     }
     return GetVehicleLiveryCount(this._owner.Handle);
@@ -222,6 +224,7 @@ export class VehicleModCollection {
   }
 
   public hasNeonLight(light: VehicleNeonLight): boolean {
+    if (this._owner.Bones === undefined) return false;
     switch (light) {
       case VehicleNeonLight.Left:
         return this._owner.Bones.hasBone('neon_l');

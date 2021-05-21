@@ -7,7 +7,7 @@ export class VehicleToggleMod {
 
   constructor(owner: Vehicle, modType: VehicleToggleModType) {
     this._owner = owner;
-    this.ModType = modType;
+    this._modType = modType;
   }
 
   public get ModType(): VehicleToggleModType {

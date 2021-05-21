@@ -10,7 +10,7 @@ export class UIMenuSeparatorItem extends UIMenuItem {
   protected supportsRightLabel = false;
 
   constructor(text?: string) {
-    super(text);
+    super(text ?? '');
     this.text.alignment = Alignment.Centered;
   }
 
@@ -21,7 +21,7 @@ export class UIMenuSeparatorItem extends UIMenuItem {
   }
 
   public draw(): void {
-    const width = 431 + this.parent.WidthOffset;
+    const width = 431 + (this.parent ? this.parent.WidthOffset : 0);
     this.rectangle.size.width = width;
     this.rectangle.pos.X = this.offset.X;
     this.rectangle.draw(undefined, Menu.screenResolution);

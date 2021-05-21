@@ -66,7 +66,7 @@ export class UIMenuStatisticsPanel extends AbstractUIMenuPanel {
     if (this.enabled) {
       super.draw();
 
-      const x = this.parentItem.offset.X + this.ParentMenu.WidthOffset / 2;
+      const x = this.parentItem?.offset.X ?? 0 + (this.ParentMenu?.WidthOffset ?? 0) / 2;
       this._items.forEach(async (item, index) => {
         const itemCountOffset = 40 * (index + 1);
         item.backgroundBar.pos.X = x + 200;

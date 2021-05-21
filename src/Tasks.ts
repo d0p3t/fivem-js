@@ -186,7 +186,7 @@ export class Tasks {
     }
   }
 
-  public goToEntity(target: Entity, offset: Vector3 = null, timeout = -1): void {
+  public goToEntity(target: Entity, offset: Vector3 | null = null, timeout = -1): void {
     if (offset === null) {
       offset = new Vector3(0, 0, 0);
     }
@@ -214,7 +214,7 @@ export class Tasks {
   public landPlane(
     startPosition: Vector3,
     touchdownPosition: Vector3,
-    plane: Vehicle = null,
+    plane: Vehicle | null = null,
   ): void {
     if (plane === null) {
       plane = this.ped.CurrentVehicle;

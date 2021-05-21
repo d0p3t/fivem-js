@@ -24,6 +24,8 @@ export class EntityBone {
 
   constructor(owner: Entity, boneIndex?: number, boneName?: string) {
     this.owner = owner;
-    this.index = boneIndex ? boneIndex : GetEntityBoneIndexByName(this.owner.Handle, boneName);
+    this.index = boneIndex
+      ? boneIndex
+      : GetEntityBoneIndexByName(this.owner.Handle, boneName ?? '');
   }
 }

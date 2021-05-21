@@ -80,7 +80,7 @@ export class Blip {
     SetBlipNameToPlayerName(this.handle, player.Handle);
   }
 
-  public get Entity(): Entity {
+  public get Entity(): Entity | null {
     return Entity.fromHandle(GetBlipInfoIdEntityIndex(this.handle));
   }
 

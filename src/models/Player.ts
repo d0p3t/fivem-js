@@ -30,8 +30,8 @@ export class Player {
   }
 
   private handle: number;
-  private ped: Ped;
-  private pvp: boolean;
+  private ped: Ped | undefined;
+  private pvp = false;
 
   constructor(handle: number) {
     this.handle = handle;

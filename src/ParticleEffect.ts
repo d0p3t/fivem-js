@@ -1,5 +1,5 @@
 import { ParticleEffectAsset } from './';
-import { InvertAxis } from './enums';
+import { InvertAxis, InvertAxisFlags } from './enums';
 import { Color, Vector3 } from './utils';
 
 // TODO: Lots of Matrix stuff through memory access
@@ -9,12 +9,12 @@ import { Color, Vector3 } from './utils';
 export abstract class ParticleEffect {
   protected readonly asset: ParticleEffectAsset;
   protected readonly effectName: string;
-  protected offset: Vector3;
-  protected rotation: Vector3;
-  protected color: Color;
-  protected scale: number;
-  protected range: number;
-  protected invertAxis: InvertAxis;
+  protected offset: Vector3 = new Vector3(0, 0, 0);
+  protected rotation: Vector3 = new Vector3(0, 0, 0);
+  protected color: Color = Color.empty;
+  protected scale = 1.0;
+  protected range = 1.0;
+  protected invertAxis: InvertAxis = { flags: InvertAxisFlags.None };
   private handle: number;
 
   /**

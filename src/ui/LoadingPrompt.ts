@@ -23,15 +23,15 @@ export abstract class LoadingPrompt {
    * @param spinnerType Type of spinner.
    */
   public static show(
-    loadingText: string = null,
+    loadingText = '',
     spinnerType: LoadingSpinnerType = LoadingSpinnerType.RegularClockwise,
   ): void {
     if (this.IsActive) {
       this.hide();
     }
 
-    if (loadingText === null) {
-      BeginTextCommandBusyString(null);
+    if (loadingText === '') {
+      BeginTextCommandBusyString('');
     } else {
       BeginTextCommandBusyString('STRING');
       AddTextComponentSubstringPlayerName(loadingText);

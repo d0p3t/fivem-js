@@ -16,9 +16,9 @@ export class UIMenuListItem extends UIMenuItem {
   private _rightArrow: Sprite;
 
   private _index = 0;
-  private _arrowOnlyOnSelected: boolean;
+  private _arrowOnlyOnSelected = false;
   private _items: ListItem[] = [];
-  private _textWidth: number;
+  private _textWidth = 0;
 
   constructor(
     text: string,
@@ -80,7 +80,7 @@ export class UIMenuListItem extends UIMenuItem {
     }
     value = value < 0 ? this._items.length - 1 : value > this._items.length - 1 ? 0 : value;
     this._index = value;
-    delete this._textWidth;
+    this._textWidth = 0;
   }
 
   public get ArrowOnlyOnSelected(): boolean {
@@ -92,11 +92,15 @@ export class UIMenuListItem extends UIMenuItem {
   }
 
   public get IsMouseInBoundsOfLeftArrow(): boolean {
-    return this.parent.isMouseInBounds(this._leftArrow.pos, this._leftArrow.size);
+    return this.parent
+      ? this.parent.isMouseInBounds(this._leftArrow.pos, this._leftArrow.size)
+      : false;
   }
 
   public get IsMouseInBoundsOfRightArrow(): boolean {
-    return this.parent.isMouseInBounds(this._rightArrow.pos, this._rightArrow.size);
+    return this.parent
+      ? this.parent.isMouseInBounds(this._rightArrow.pos, this._rightArrow.size)
+      : false;
   }
 
   public setVerticalPosition(y: number): void {
@@ -120,7 +124,7 @@ export class UIMenuListItem extends UIMenuItem {
       );
     }
 
-    this._rightArrow.pos.X = this.offset.X + this.parent.WidthOffset + 400;
+    this._rightArrow.pos.X = this.offset.X + (this.parent ? this.parent.WidthOffset : 0) + 400;
     this._itemText.pos.X = this._rightArrow.pos.X + 5;
 
     this._itemText.color = this.enabled

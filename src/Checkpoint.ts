@@ -3,10 +3,10 @@ import { Vector3 } from './utils';
 
 export class Checkpoint {
   private handle: number;
-  private position: Vector3;
-  private targetPosition: Vector3;
-  private icon: CheckpointIcon;
-  private radius: number;
+  private position: Vector3 = new Vector3(0, 0, 0);
+  private targetPosition: Vector3 = new Vector3(0, 0, 0);
+  private icon: CheckpointIcon = CheckpointIcon.Empty;
+  private radius = 0;
 
   constructor(handle: number) {
     this.handle = handle;

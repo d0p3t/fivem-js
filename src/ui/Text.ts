@@ -91,7 +91,7 @@ export class Text implements IDrawable {
     alignment = Alignment.Left,
     dropShadow = false,
     outline = false,
-    wordWrap?: Size,
+    wordWrap: Size = new Size(0, 0),
   ) {
     this.caption = caption;
     this.pos = pos;

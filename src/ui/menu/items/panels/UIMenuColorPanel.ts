@@ -7,12 +7,12 @@ import { Game, Menu } from '../../../../';
 export class UIMenuColorPanel extends AbstractUIMenuPanel {
   protected readonly background: Sprite;
 
-  private _title: string;
+  private _title = '';
   private _text: Text;
   private _colors: Color[] = [];
   private _bar: Rectangle[] = [];
 
-  private _lastColor: Color;
+  private _lastColor: Color = Color.empty;
 
   private readonly _leftArrow: Sprite;
   private readonly _rightArrow: Sprite;
@@ -114,8 +114,9 @@ export class UIMenuColorPanel extends AbstractUIMenuPanel {
       last.b !== current.b
     ) {
       this._lastColor = current;
-      this.ParentMenu.panelActivated.emit(this.parentItem, this, this.Index, current);
-      this.parentItem.panelActivated.emit(this, this.Index, current);
+      if (this.ParentMenu)
+        this.ParentMenu.panelActivated.emit(this.parentItem, this, this.Index, current);
+      if (this.parentItem) this.parentItem.panelActivated.emit(this, this.Index, current);
     }
   }
 
@@ -134,7 +135,9 @@ export class UIMenuColorPanel extends AbstractUIMenuPanel {
     if (this.enabled) {
       super.draw();
 
-      const x = this.parentItem.offset.X + this.ParentMenu.WidthOffset / 2;
+      const x =
+        (this.parentItem ? this.parentItem.offset.X : 0) +
+        (this.ParentMenu ? this.ParentMenu.WidthOffset / 2 : 0);
       this._selectedRectangle.pos.X = x + 15 + 44.5 * (this.Index - this._min);
       this._leftArrow.pos.X = x + 7.5;
       this._rightArrow.pos.X = x + 393.5;
@@ -225,16 +228,18 @@ export class UIMenuColorPanel extends AbstractUIMenuPanel {
 
   private _processControls(): void {
     if (Game.isDisabledControlJustPressed(0, Control.Attack)) {
-      if (this.ParentMenu.isMouseInBounds(this._leftArrow.pos, this._leftArrow.size)) {
-        this._goLeft();
-      } else if (this.ParentMenu.isMouseInBounds(this._rightArrow.pos, this._rightArrow.size)) {
-        this._goRight();
-      }
-      this._bar.forEach(async (colorRect, index) => {
-        if (this.ParentMenu.isMouseInBounds(colorRect.pos, colorRect.size)) {
-          this.Index = this._min + index;
+      if (this.ParentMenu) {
+        if (this.ParentMenu.isMouseInBounds(this._leftArrow.pos, this._leftArrow.size)) {
+          this._goLeft();
+        } else if (this.ParentMenu.isMouseInBounds(this._rightArrow.pos, this._rightArrow.size)) {
+          this._goRight();
         }
-      });
+        this._bar.forEach(async (colorRect, index) => {
+          if (this.ParentMenu && this.ParentMenu.isMouseInBounds(colorRect.pos, colorRect.size)) {
+            this.Index = this._min + index;
+          }
+        });
+      }
     }
   }
 }

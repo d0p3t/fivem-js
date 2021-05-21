@@ -2,21 +2,24 @@ import { Ped } from './models/Ped';
 import { Tasks } from './Tasks';
 
 export class TaskSequence {
-  private static nullPed: Ped = null;
-  private handle: number;
+  private static nullPed: Ped | null = null;
+  private handle = 0;
   private isClosed: boolean;
   private count: number;
 
   constructor(handle?: number) {
-    handle ? this.create() : (this.handle = handle);
+    handle === undefined ? this.create() : (this.handle = handle);
 
     if (TaskSequence.nullPed === null) {
       TaskSequence.nullPed = new Ped(0);
     }
+
+    this.isClosed = false;
+    this.count = 0;
   }
 
   private create(): void {
-    this.handle = OpenSequenceTask(0);
+    this.handle = OpenSequenceTask(0)[0];
   }
 
   public dispose(): void {
@@ -37,13 +40,13 @@ export class TaskSequence {
     return this.handle;
   }
 
-  public get AddTask(): Tasks {
+  public get AddTask(): Tasks | null | undefined {
     if (this.isClosed) {
       throw new Error("You can't add tasks to a closed sequence!");
     }
 
     this.count += 1;
-    return TaskSequence.nullPed.Task;
+    return TaskSequence.nullPed?.Task;
   }
 
   public get IsClosed(): boolean {

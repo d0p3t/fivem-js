@@ -4,27 +4,17 @@ import { Vector3 } from './utils';
 
 export abstract class Audio {
   public static playSoundAt(position: Vector3, sound: string, set?: string): number {
-    PlaySoundFromCoord(
-      -1,
-      sound,
-      position.x,
-      position.y,
-      position.z,
-      set ? set : null,
-      false,
-      0,
-      false,
-    );
+    PlaySoundFromCoord(-1, sound, position.x, position.y, position.z, set ?? '', false, 0, false);
     return GetSoundId();
   }
 
   public static playSoundFromEntity(entity: Entity, sound: string, set?: string): number {
-    PlaySoundFromEntity(-1, sound, entity.Handle, set ? set : null, false, 0);
+    PlaySoundFromEntity(-1, sound, entity.Handle, set ?? '', false, 0);
     return GetSoundId();
   }
 
   public static playSoundFrontEnd(sound: string, set?: string): number {
-    PlaySoundFrontend(-1, sound, set ? set : null, false);
+    PlaySoundFrontend(-1, sound, set ?? '', false);
     return GetSoundId();
   }
 
@@ -64,10 +54,10 @@ export abstract class Audio {
     if (musicFile === null) {
       if (this.cachedMusicFile !== null) {
         CancelMusicEvent(this.cachedMusicFile);
-        this.cachedMusicFile = null;
+        this.cachedMusicFile = '';
       }
     } else {
-      CancelMusicEvent(musicFile);
+      CancelMusicEvent(musicFile ?? '');
     }
   }
 
