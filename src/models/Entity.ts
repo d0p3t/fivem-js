@@ -385,7 +385,12 @@ export class Entity {
     );
   }
 
-  public attachToBone(entityBone: EntityBone, position: Vector3, rotation: Vector3, collisions = false): void {
+  public attachToBone(
+    entityBone: EntityBone,
+    position: Vector3,
+    rotation: Vector3,
+    collisions = false,
+  ): void {
     AttachEntityToEntity(
       this.handle,
       entityBone.Owner.Handle,
