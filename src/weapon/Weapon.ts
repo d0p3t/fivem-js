@@ -23,14 +23,10 @@ export class Weapon {
   private readonly components: WeaponComponentCollection;
   private readonly hash: WeaponHash;
 
-  constructor(owner?: Ped, hash?: WeaponHash) {
-    if (owner && hash) {
-      this.owner = owner;
-      this.hash = hash;
-      this.components = new WeaponComponentCollection(this.owner, this);
-    } else {
-      this.hash = WeaponHash.Unarmed;
-    }
+  constructor(owner: Ped, hash: WeaponHash) {
+    this.owner = owner;
+    this.hash = hash;
+    this.components = new WeaponComponentCollection(this.owner, this);
   }
 
   /**
@@ -292,7 +288,7 @@ export class Weapon {
    *
    * @constructor
    */
-  public get HudStats(): WeaponHudStats {
+  public get HudStats(): WeaponHudStats | undefined {
     return WeaponHudStats.get(this.hash);
   }
 

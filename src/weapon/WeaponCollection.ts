@@ -16,11 +16,11 @@ export class WeaponCollection implements Iterable<Weapon> {
 
   [Symbol.iterator](): Iterator<Weapon> {
     let pointer = 0;
-    const weapons = this.weapons;
+    const weapons = Array.from(this.weapons.values());
 
     return {
       next(): IteratorResult<Weapon> {
-        if (pointer < weapons.size) {
+        if (pointer < weapons.length) {
           return { done: false, value: weapons[pointer++] };
         } else {
           return { done: true, value: null };
@@ -34,7 +34,7 @@ export class WeaponCollection implements Iterable<Weapon> {
    *
    * @param hash
    */
-  public get(hash: WeaponHash): Weapon {
+  public get(hash: WeaponHash): Weapon | null {
     let weapon = this.weapons.get(hash);
 
     if (!weapon) {
@@ -57,7 +57,8 @@ export class WeaponCollection implements Iterable<Weapon> {
     const [, hash] = GetCurrentPedWeapon(this.owner.Handle, true);
 
     if (this.weapons.has(hash)) {
-      return this.weapons.get(hash);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return this.weapons.get(hash)!;
     } else {
       return this.createAndAddWeapon(hash);
     }
@@ -68,7 +69,7 @@ export class WeaponCollection implements Iterable<Weapon> {
    *
    * @constructor
    */
-  public get CurrentWeaponObject(): Prop {
+  public get CurrentWeaponObject(): Prop | null {
     if (this.Current.IsUnarmed) {
       return null;
     }
@@ -85,7 +86,8 @@ export class WeaponCollection implements Iterable<Weapon> {
     const hash = GetBestPedWeapon(this.owner.Handle, false);
 
     if (this.weapons.has(hash)) {
-      return this.weapons.get(hash);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return this.weapons.get(hash)!;
     } else {
       return this.createAndAddWeapon(hash);
     }

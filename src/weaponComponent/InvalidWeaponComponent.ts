@@ -6,7 +6,8 @@ import { Game } from '../Game';
 
 export class InvalidWeaponComponent extends WeaponComponent {
   constructor() {
-    super(null, null, WeaponComponentHash.Invalid);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    super(null!, null!, WeaponComponentHash.Invalid);
   }
 
   public get Active(): boolean {

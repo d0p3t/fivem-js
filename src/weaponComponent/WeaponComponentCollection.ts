@@ -26,11 +26,11 @@ export class WeaponComponentCollection implements Iterable<WeaponComponent> {
 
   [Symbol.iterator](): Iterator<WeaponComponent> {
     let pointer = 0;
-    const components = this.components;
+    const components = Array.from(this.components.values());
 
     return {
       next(): IteratorResult<WeaponComponent> {
-        if (pointer < components.size) {
+        if (pointer < components.length) {
           return { done: false, value: components[pointer++] };
         } else {
           return { done: true, value: null };
@@ -193,7 +193,8 @@ export class WeaponComponentCollection implements Iterable<WeaponComponent> {
    * @private
    */
   private get AllWeaponComponentHashes(): WeaponComponentHash[] {
-    return WeaponComponentHashesByWeaponHash.get(this.weapon.Hash);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return WeaponComponentHashesByWeaponHash.get(this.weapon.Hash)!;
   }
 
   /**

@@ -434,7 +434,7 @@ export abstract class Game {
   public static doesGXTEntryExist(entry: number | string): boolean {
     if (typeof entry === 'number') {
       return !!DoesTextLabelExist(entry.toString());
-    } else if (typeof entry === 'string') {
+    } else {
       return !!DoesTextLabelExist(entry);
     }
   }
