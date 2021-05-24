@@ -11,3 +11,7 @@ export { Quaternion } from './Quaternion';
 
 export const Wait = (milliseconds: number): Promise<void> =>
   new Promise(resolve => setTimeout(resolve, milliseconds));
+
+export { enumValues } from './enumValues';
+export { getStringFromUInt8Array } from './getStringFromUInt8Array';
+export { getUInt32FromUint8Array } from './getUInt32FromUint8Array';
