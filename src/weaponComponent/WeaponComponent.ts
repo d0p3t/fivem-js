@@ -1,5 +1,5 @@
 import { Ped } from '../models';
-import { Weapon } from '../weapon/Weapon';
+import { Weapon } from '../weapon';
 import { WeaponComponentHash } from './WeaponComponentHash';
 import { WeaponHash } from '../hashes';
 import { ComponentAttachmentPoint } from './ComponentAttachmentPoint';
@@ -48,7 +48,7 @@ export class WeaponComponent {
    * @constructor
    */
   public get Active(): boolean {
-    return HasPedGotWeaponComponent(this.owner.Handle, this.weapon.Hash, this.componentHash) !== 0;
+    return HasPedGotWeaponComponent(this.owner.Handle, this.weapon.Hash, this.componentHash);
   }
 
   /**
@@ -98,7 +98,8 @@ export class WeaponComponent {
    * @constructor
    */
   public get HudStats(): WeaponComponentHudStats {
-    return WeaponComponentHudStats.get(this.componentHash);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return WeaponComponentHudStats.get(this.componentHash)!;
   }
 
   /**
