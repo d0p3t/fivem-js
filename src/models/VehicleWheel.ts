@@ -6,7 +6,7 @@ export class VehicleWheel {
 
   constructor(owner: Vehicle, index: number) {
     this._owner = owner;
-    this.Index = index;
+    this._index = index;
   }
 
   public get Index(): number {

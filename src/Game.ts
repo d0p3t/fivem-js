@@ -229,8 +229,7 @@ export abstract class Game {
    */
   public static get RadioStation(): RadioStation {
     const stationName: string = GetPlayerRadioStationName();
-    const keys = Object.keys(RadioStation).filter(x => RadioStation[x] === stationName);
-    return keys.length > 0 ? RadioStation[keys[0]] : RadioStation.RadioOff;
+    return (RadioStation as never)[stationName];
   }
 
   /**
@@ -385,7 +384,7 @@ export abstract class Game {
    * @param handle Handle of entity
    * @returns A Ped, Vehicle or Prop object. `undefined` if entity handle doesn't exist.
    */
-  public static entityFromHandle(handle: number): Ped | Vehicle | Prop | undefined {
+  public static entityFromHandle(handle: number): Ped | Vehicle | Prop | null {
     switch (GetEntityType(handle)) {
       case 1:
         return new Ped(handle);

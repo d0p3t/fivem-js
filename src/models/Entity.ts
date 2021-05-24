@@ -8,7 +8,7 @@ import { EntityBoneCollection, Ped, Prop, Vehicle } from './';
 import { EntityBone } from './EntityBone';
 
 export class Entity {
-  public static fromHandle(handle: number): Ped | Vehicle | Prop {
+  public static fromHandle(handle: number): Ped | Vehicle | Prop | null {
     switch (GetEntityType(handle)) {
       case 1:
         return new Ped(handle);
@@ -21,12 +21,12 @@ export class Entity {
     return null;
   }
 
-  public static fromNetworkId(networkId: number): Ped | Vehicle | Prop {
+  public static fromNetworkId(networkId: number): Ped | Vehicle | Prop | null {
     return this.fromHandle(NetworkGetEntityFromNetworkId(networkId));
   }
 
   protected handle: number;
-  protected bones: EntityBoneCollection;
+  protected bones: EntityBoneCollection | undefined;
 
   constructor(handle: number) {
     this.handle = handle;
@@ -237,14 +237,14 @@ export class Entity {
     SetEntityRecordsCollisions(this.handle, value);
   }
 
-  public get Bones(): EntityBoneCollection {
+  public get Bones(): EntityBoneCollection | undefined {
     if (!this.bones) {
       this.bones = new EntityBoneCollection(this);
     }
     return this.bones;
   }
 
-  public get AttachedBlip(): Blip {
+  public get AttachedBlip(): Blip | null {
     const handle: number = GetBlipFromEntity(this.handle);
 
     if (DoesBlipExist(handle)) {
@@ -365,7 +365,7 @@ export class Entity {
     return new Vector3(o[0], o[1], o[2]);
   }
 
-  public attachTo(entity: Entity, position: Vector3, rotation: Vector3): void {
+  public attachTo(entity: Entity, position: Vector3, rotation: Vector3, collisions = false): void {
     AttachEntityToEntity(
       this.handle,
       entity.Handle,
@@ -378,14 +378,19 @@ export class Entity {
       rotation.z,
       false,
       false,
-      false,
+      collisions,
       false,
       2,
       true,
     );
   }
 
-  public attachToBone(entityBone: EntityBone, position: Vector3, rotation: Vector3): void {
+  public attachToBone(
+    entityBone: EntityBone,
+    position: Vector3,
+    rotation: Vector3,
+    collisions = false,
+  ): void {
     AttachEntityToEntity(
       this.handle,
       entityBone.Owner.Handle,
@@ -398,7 +403,7 @@ export class Entity {
       rotation.z,
       false,
       false,
-      false,
+      collisions,
       false,
       2,
       true,
@@ -417,7 +422,7 @@ export class Entity {
     return !!IsEntityAttachedToEntity(this.handle, entity.Handle);
   }
 
-  public getEntityAttachedTo(): Entity {
+  public getEntityAttachedTo(): Ped | Vehicle | Prop | null {
     return Entity.fromHandle(GetEntityAttachedTo(this.handle));
   }
 

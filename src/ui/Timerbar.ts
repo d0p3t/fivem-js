@@ -9,7 +9,8 @@ import { Sprite } from './Sprite';
 const activeTimerBars: Timerbar[] = [];
 
 /** @internal */
-const drawText = (text, position, options): void => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const drawText = (text: string, position: number[], options: any): void => {
   options = {
     ...{
       align: 1,
@@ -76,7 +77,7 @@ const drawText = (text, position, options): void => {
  * ```
  */
 export class Timerbar {
-  private sprite: Sprite = null;
+  private sprite: Sprite | null;
   private title = '';
   private text = '';
   private useProgressBar = false;
@@ -212,7 +213,7 @@ export class Timerbar {
     return this.usePlayerStyle;
   }
 
-  public get Sprite(): Sprite {
+  public get Sprite(): Sprite | null {
     return this.sprite;
   }
 }
@@ -274,10 +275,18 @@ setTick(() => {
         pbarY,
         0.0616,
         0.0105,
-        timerbar.ProgressbarBgColor[0],
-        timerbar.ProgressbarBgColor[1],
-        timerbar.ProgressbarBgColor[2],
-        timerbar.ProgressbarBgColor[3],
+        typeof timerbar.ProgressbarBgColor === 'number'
+          ? timerbar.ProgressbarBgColor
+          : timerbar.ProgressbarBgColor[0],
+        typeof timerbar.ProgressbarBgColor === 'number'
+          ? timerbar.ProgressbarBgColor
+          : timerbar.ProgressbarBgColor[1],
+        typeof timerbar.ProgressbarBgColor === 'number'
+          ? timerbar.ProgressbarBgColor
+          : timerbar.ProgressbarBgColor[2],
+        typeof timerbar.ProgressbarBgColor === 'number'
+          ? timerbar.ProgressbarBgColor
+          : timerbar.ProgressbarBgColor[3],
       );
 
       DrawRect(
@@ -285,10 +294,18 @@ setTick(() => {
         pbarY,
         width,
         0.0105,
-        timerbar.ProgressbarFgColor[0],
-        timerbar.ProgressbarFgColor[1],
-        timerbar.ProgressbarFgColor[2],
-        timerbar.ProgressbarFgColor[3],
+        typeof timerbar.ProgressbarFgColor === 'number'
+          ? timerbar.ProgressbarFgColor
+          : timerbar.ProgressbarFgColor[0],
+        typeof timerbar.ProgressbarFgColor === 'number'
+          ? timerbar.ProgressbarFgColor
+          : timerbar.ProgressbarFgColor[1],
+        typeof timerbar.ProgressbarFgColor === 'number'
+          ? timerbar.ProgressbarFgColor
+          : timerbar.ProgressbarFgColor[2],
+        typeof timerbar.ProgressbarFgColor === 'number'
+          ? timerbar.ProgressbarFgColor
+          : timerbar.ProgressbarFgColor[3],
       );
     } else {
       drawText(timerbar.Text, [0.918 - safeZoneX + 0.0785, drawY + -0.0165], {

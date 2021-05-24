@@ -13,14 +13,14 @@ export class VehicleDoorCollection {
     this._owner = owner;
   }
 
-  public getDoors(index: VehicleDoorIndex): VehicleDoor {
+  public getDoors(index: VehicleDoorIndex): VehicleDoor | undefined {
     if (!this._vehicleDoors.has(index)) {
       this._vehicleDoors.set(index, new VehicleDoor(this._owner, index));
     }
     return this._vehicleDoors.get(index);
   }
 
-  public getAllDoors(): VehicleDoor[] {
+  public getAllDoors(): (VehicleDoor | null | undefined)[] {
     return Object.keys(VehicleDoorIndex)
       .filter(key => !isNaN(Number(key)))
       .map(key => {
@@ -35,23 +35,24 @@ export class VehicleDoorCollection {
 
   public openAllDoors(loose?: boolean, instantly?: boolean): void {
     this.getAllDoors().forEach(door => {
-      door.open(loose, instantly);
+      door?.open(loose, instantly);
     });
   }
 
   public closeAllDoors(instantly?: boolean): void {
     this.getAllDoors().forEach(door => {
-      door.close(instantly);
+      door?.close(instantly);
     });
   }
 
   public breakAllDoors(stayInTheWorld?: boolean): void {
     this.getAllDoors().forEach(door => {
-      door.break(stayInTheWorld);
+      door?.break(stayInTheWorld);
     });
   }
 
   public hasDoor(index: VehicleDoorIndex): boolean {
+    if (this._owner.Bones === undefined) return false;
     switch (index) {
       case VehicleDoorIndex.FrontLeftDoor:
         return this._owner.Bones.hasBone('door_dside_f');
@@ -65,7 +66,8 @@ export class VehicleDoorCollection {
         return this._owner.Bones.hasBone('bonnet');
       case VehicleDoorIndex.Trunk:
         return this._owner.Bones.hasBone('boot');
+      default:
+        return false;
     }
-    return false;
   }
 }

@@ -106,12 +106,7 @@ export abstract class World {
       return;
     }
 
-    SetCloudHatTransition(
-      this.cloudHatDict.has(this.currentCloudHat)
-        ? this.cloudHatDict.get(this.currentCloudHat)
-        : '',
-      3,
-    );
+    SetCloudHatTransition(this.cloudHatDict.get(this.currentCloudHat) ?? '', 3);
   }
 
   /**
@@ -345,7 +340,7 @@ export abstract class World {
     position: Vector3,
     heading = 0,
     isNetwork = true,
-  ): Promise<Ped> {
+  ): Promise<Ped | null> {
     if (!model.IsPed || !(await model.request(1000))) {
       return null;
     }
@@ -389,7 +384,7 @@ export abstract class World {
     position: Vector3,
     heading = 0,
     isNetwork = true,
-  ): Promise<Vehicle> {
+  ): Promise<Vehicle | null> {
     if (!model.IsVehicle || !(await model.request(1000))) {
       return null;
     }
@@ -415,7 +410,7 @@ export abstract class World {
     position: Vector3,
     heading = 0,
     isNetwork = true,
-  ): Promise<Vehicle> {
+  ): Promise<Vehicle | null> {
     const vehicleCount: number = Object.keys(VehicleHash).length / 2; // check
     const randomIndex: number = Maths.getRandomInt(0, vehicleCount);
     const randomVehicleName: string = VehicleHash[randomIndex];
@@ -452,7 +447,7 @@ export abstract class World {
     dynamic: boolean,
     placeOnGround: boolean,
     isNetwork = true,
-  ): Promise<Prop> {
+  ): Promise<Prop | null> {
     if (!model.IsProp || !(await model.request(1000))) {
       return null;
     }
@@ -484,7 +479,7 @@ export abstract class World {
     model: Model,
     value: number,
     rotation?: Vector3,
-  ): Promise<Pickup> {
+  ): Promise<Pickup | null> {
     if (!(await model.request(1000))) {
       return null;
     }
@@ -530,7 +525,7 @@ export abstract class World {
     position: Vector3,
     model: Model,
     value: number,
-  ): Promise<Prop> {
+  ): Promise<Prop | null> {
     if (!(await model.request(1000))) {
       return null;
     }
@@ -589,8 +584,8 @@ export abstract class World {
     bobUpAndDown = false,
     faceCamera = false,
     rotateY = false,
-    textureDict: string = null,
-    textureName: string = null,
+    textureDict = '',
+    textureName = '',
     drawOnEntity = false,
   ): void {
     DrawMarker(
@@ -800,17 +795,17 @@ export abstract class World {
   public static getAllProps(): Prop[] {
     const props: Prop[] = [];
 
-    const [handle, entityHandle] = (FindFirstObject(null) as unknown) as [number, number];
+    const [handle, entityHandle] = FindFirstObject(0) as unknown as [number, number];
     let prop: Prop = Entity.fromHandle(entityHandle) as Prop;
 
     if (prop !== undefined && prop !== null && prop.exists()) {
       props.push(prop);
     }
 
-    let findResult: [number | boolean, number] = [false, null];
+    let findResult: [number | boolean, number] = [false, 0];
 
     do {
-      findResult = (FindNextObject(handle, null) as unknown) as [number | boolean, number];
+      findResult = FindNextObject(handle, 0) as unknown as [number | boolean, number];
       if (findResult[0]) {
         prop = Entity.fromHandle(findResult[1]) as Prop;
         if (prop !== undefined && prop !== null && prop.exists()) {
@@ -847,17 +842,17 @@ export abstract class World {
   public static getAllPeds(): Ped[] {
     const peds: Ped[] = [];
 
-    const [handle, entityHandle] = (FindFirstPed(null) as unknown) as [number, number];
+    const [handle, entityHandle] = FindFirstPed(0) as unknown as [number, number];
     let ped: Ped = Entity.fromHandle(entityHandle) as Ped;
 
     if (ped !== undefined && ped !== null && ped.exists()) {
       peds.push(ped);
     }
 
-    let findResult: [number | boolean, number] = [false, null];
+    let findResult: [number | boolean, number] = [false, 0];
 
     do {
-      findResult = (FindNextPed(handle, null) as unknown) as [number | boolean, number];
+      findResult = FindNextPed(handle, 0) as unknown as [number | boolean, number];
       if (findResult[0]) {
         ped = Entity.fromHandle(findResult[1]) as Ped;
         if (ped !== undefined && ped !== null && ped.exists()) {
@@ -894,17 +889,17 @@ export abstract class World {
   public static getAllVehicles(): Vehicle[] {
     const vehicles: Vehicle[] = [];
 
-    const [handle, entityHandle] = (FindFirstVehicle(null) as unknown) as [number, number];
+    const [handle, entityHandle] = FindFirstVehicle(0) as unknown as [number, number];
     let vehicle: Vehicle = Entity.fromHandle(entityHandle) as Vehicle;
 
     if (vehicle !== undefined && vehicle !== null && vehicle.exists()) {
       vehicles.push(vehicle);
     }
 
-    let findResult: [number | boolean, number] = [false, null];
+    let findResult: [number | boolean, number] = [false, 0];
 
     do {
-      findResult = (FindNextVehicle(handle, null) as unknown) as [number | boolean, number];
+      findResult = FindNextVehicle(handle, 0) as unknown as [number | boolean, number];
       if (findResult[0]) {
         vehicle = Entity.fromHandle(findResult[1]) as Vehicle;
         if (vehicle !== undefined && vehicle !== null && vehicle.exists()) {
@@ -941,17 +936,17 @@ export abstract class World {
   public static getAllPickups(): Pickup[] {
     const pickups: Pickup[] = [];
 
-    const [handle, entityHandle] = (FindFirstPickup(null) as unknown) as [number, number];
+    const [handle, entityHandle] = FindFirstPickup(0) as unknown as [number, number];
     let pickup: Pickup = new Pickup(entityHandle);
 
     if (pickup !== undefined && pickup !== null && pickup.exists()) {
       pickups.push(pickup);
     }
 
-    let findResult: [number | boolean, number] = [false, null];
+    let findResult: [number | boolean, number] = [false, 0];
 
     do {
-      findResult = (FindNextPickup(handle, null) as unknown) as [number | boolean, number];
+      findResult = FindNextPickup(handle, 0) as unknown as [number | boolean, number];
       if (findResult[0]) {
         pickup = new Pickup(findResult[1]);
         if (pickup !== undefined && pickup !== null && pickup.exists()) {

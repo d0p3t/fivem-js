@@ -10,13 +10,8 @@ export class PedBoneCollection extends EntityBoneCollection {
   }
 
   public get LastDamaged(): PedBone {
-    // const for now until native tested
-    const outBone = 0;
-
-    // This native may be returning an object instead (bool, outBone)
-    if (GetPedLastDamageBone(this.owner.Handle, outBone)) {
-      return this[outBone];
-    }
+    const [, outBone] = GetPedLastDamageBone(this.owner.Handle, 0);
+    return (PedBone as never)[outBone];
   }
 
   public clearLastDamaged(): void {

@@ -1,10 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
+    "target": "ES6",
+    "module": "ES6",
+    "moduleResolution": "node",
     "declaration": true,
     "outDir": "./lib",
-    "types": ["@citizenfx/client"]
+    "types": ["@citizenfx/client"],
+    "strict": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/__tests__/*"]

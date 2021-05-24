@@ -39,7 +39,7 @@ export class Scaleform {
 
   protected handle: number;
   protected name: string;
-  protected loaded: boolean;
+  protected loaded = false;
 
   constructor(name: string) {
     this.name = name;

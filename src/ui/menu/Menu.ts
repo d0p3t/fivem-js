@@ -24,8 +24,8 @@ export class Menu {
 
   public visible = false;
 
-  public parentMenu: Menu;
-  public parentItem: UIMenuItem;
+  public parentMenu: Menu | undefined;
+  public parentItem: UIMenuItem | undefined;
   public items: UIMenuItem[] = [];
   public children: Map<string, Menu> = new Map();
 
@@ -45,7 +45,7 @@ export class Menu {
   public readonly panelActivated = new LiteEvent();
 
   private _counterPretext = '';
-  private _counterOverride: string;
+  private _counterOverride = '';
   private _alignment = MenuAlignment.Left;
   private _offset: Point;
   private _navigationDelay = 140;
@@ -382,9 +382,11 @@ export class Menu {
     if (!this.children.has(releaseFrom.id)) {
       return false;
     }
-    const menu: Menu = this.children.get(releaseFrom.id);
-    menu.parentItem = null;
-    menu.parentMenu = null;
+    const menu: Menu | undefined = this.children.get(releaseFrom.id);
+    if (menu instanceof Menu) {
+      menu.parentItem = undefined;
+      menu.parentMenu = undefined;
+    }
     this.children.delete(releaseFrom.id);
     return true;
   }
@@ -499,9 +501,11 @@ export class Menu {
       if (this.children.has(item.id)) {
         const subMenu = this.children.get(item.id);
         this.visible = false;
-        subMenu.visible = true;
-        subMenu._justOpened = true;
-        subMenu.menuOpen.emit();
+        if (subMenu instanceof Menu) {
+          subMenu.visible = true;
+          subMenu._justOpened = true;
+          subMenu.menuOpen.emit();
+        }
         this.menuChange.emit(subMenu, true);
       }
     }
@@ -678,7 +682,7 @@ export class Menu {
           }
         } else {
           this._playSoundAndReleaseId(this.Settings.audio.error, this.Settings.audio.library);
-          this.CurrentSelection = hoveredItemIndex;
+          this.CurrentSelection = hoveredItemIndex ?? 0;
           this.indexChange.emit(this.CurrentSelection);
         }
         await Wait(this._navigationDelay);
@@ -700,7 +704,7 @@ export class Menu {
             }
           } else {
             this._playSoundAndReleaseId(this.Settings.audio.error, this.Settings.audio.library);
-            this.CurrentSelection = hoveredItemIndex;
+            this.CurrentSelection = hoveredItemIndex ?? 0;
             this.indexChange.emit(this.CurrentSelection);
           }
           await Wait(125);
@@ -931,7 +935,11 @@ export class Menu {
     this._background.draw(Menu.screenResolution);
 
     if (this.items.length > 0) {
-      const hasDescription = this.CurrentItem.Description && this.CurrentItem.Description !== '';
+      let hasDescription = false;
+
+      if (this.CurrentItem.Description && this.CurrentItem.Description !== '')
+        hasDescription = true;
+
       this.CurrentItem.selected = true;
 
       if (hasDescription) {

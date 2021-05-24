@@ -6,20 +6,20 @@ import { Menu } from '../../';
 export abstract class AbstractUIMenuPanel {
   public readonly id: string = Crypto.uuidv4();
 
-  protected parentItem: UIMenuItem;
+  protected parentItem: UIMenuItem | undefined;
   protected enabled = true;
 
-  protected readonly background: Sprite | Rectangle;
+  protected readonly background: Sprite | Rectangle | undefined;
 
-  public get ParentMenu(): Menu {
-    return this.parentItem.parent;
+  public get ParentMenu(): Menu | undefined {
+    return this.parentItem ? this.parentItem.parent : undefined;
   }
 
-  public get ParentItem(): UIMenuItem {
-    return this.parentItem;
+  public get ParentItem(): UIMenuItem | undefined {
+    return this.parentItem ?? undefined;
   }
 
-  public set ParentItem(value: UIMenuItem) {
+  public set ParentItem(value: UIMenuItem | undefined) {
     this.parentItem = value;
   }
 
@@ -32,20 +32,22 @@ export abstract class AbstractUIMenuPanel {
   }
 
   public get Height(): number {
-    return this.background.size.height;
+    return this.background ? this.background.size.height : 0;
   }
 
   public setVerticalPosition(y: number): void {
-    this.background.pos.Y = y;
+    if (this.background) this.background.pos.Y = y;
   }
 
   public draw(): void {
-    this.background.size.width = 431 + this.ParentMenu.WidthOffset;
-    this.background.pos.X = this.parentItem.offset.X;
-    if (this.background instanceof Sprite) {
-      this.background.draw(Menu.screenResolution);
-    } else {
-      this.background.draw(undefined, Menu.screenResolution);
+    if (this.background) {
+      this.background.size.width = 431 + (this.ParentMenu ? this.ParentMenu.WidthOffset : 0);
+      this.background.pos.X = this.parentItem ? this.parentItem.offset.X : 0;
+      if (this.background instanceof Sprite) {
+        this.background.draw(Menu.screenResolution);
+      } else {
+        this.background.draw(undefined, Menu.screenResolution);
+      }
     }
   }
 }

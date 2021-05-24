@@ -101,8 +101,8 @@ export class Rope {
       length,
       false,
       false,
-      null,
-      null,
+      '',
+      '',
     );
   }
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Color, Point, Size, Wait } from '../../../../utils';
 import { AbstractUIMenuPanel } from './';
 import { Menu, Sprite, Text } from '../../../';
@@ -12,10 +13,10 @@ export class UIMenuGridPanel extends AbstractUIMenuPanel {
   private _lockXAxis = false;
   private _lockYAxis = false;
 
-  private _topText: Text;
-  private _leftText: Text;
-  private _rightText: Text;
-  private _bottomText: Text;
+  private _topText: Text | undefined;
+  private _leftText: Text | undefined;
+  private _rightText: Text | undefined;
+  private _bottomText: Text | undefined;
 
   private _lastCirclePosition: Point;
 
@@ -40,14 +41,16 @@ export class UIMenuGridPanel extends AbstractUIMenuPanel {
       new Size(200, 200),
     );
     this._circle = new Sprite('mpinventory', 'in_world_circle', new Point(), new Size(20, 20));
-    this.TopText = topText;
-    this.LeftText = leftText;
-    this.RightText = rightText;
-    this.BottomText = bottomText;
+    this.TopText = topText ?? '';
+    this.LeftText = leftText ?? '';
+    this.RightText = rightText ?? '';
+    this.BottomText = bottomText ?? '';
+
+    this._lastCirclePosition = this._setCirclePosition;
   }
 
   public get TopText(): string {
-    return this._topText ? this._topText.caption : null;
+    return this._topText ? this._topText.caption : '';
   }
 
   public set TopText(value: string) {
@@ -55,7 +58,7 @@ export class UIMenuGridPanel extends AbstractUIMenuPanel {
   }
 
   public get LeftText(): string {
-    return this._leftText ? this._leftText.caption : null;
+    return this._leftText ? this._leftText.caption : '';
   }
 
   public set LeftText(value: string) {
@@ -63,7 +66,7 @@ export class UIMenuGridPanel extends AbstractUIMenuPanel {
   }
 
   public get RightText(): string {
-    return this._rightText ? this._rightText.caption : null;
+    return this._rightText ? this._rightText.caption : '';
   }
 
   public set RightText(value: string) {
@@ -71,7 +74,7 @@ export class UIMenuGridPanel extends AbstractUIMenuPanel {
   }
 
   public get BottomText(): string {
-    return this._bottomText ? this._bottomText.caption : null;
+    return this._bottomText ? this._bottomText.caption : '';
   }
 
   public set BottomText(value: string) {
@@ -151,8 +154,10 @@ export class UIMenuGridPanel extends AbstractUIMenuPanel {
     const current = this.CirclePosition;
     if (!last || last.X !== current.X || last.Y !== current.Y) {
       this._lastCirclePosition = current;
-      this.ParentMenu.panelActivated.emit(this.parentItem, this, current);
-      this.parentItem.panelActivated.emit(this, current);
+      if (this.ParentMenu && this.parentItem) {
+        this.ParentMenu.panelActivated.emit(this.parentItem, this, current);
+        this.parentItem.panelActivated.emit(this, current);
+      }
     }
   }
 
@@ -177,7 +182,7 @@ export class UIMenuGridPanel extends AbstractUIMenuPanel {
     if (this.enabled) {
       super.draw();
 
-      const x = this.parentItem.offset.X + this.ParentMenu.WidthOffset / 2;
+      const x = this.parentItem?.offset.X ?? 0 + (this.ParentMenu?.WidthOffset ?? 0) / 2;
       this._grid.pos.X = x + 115.5;
 
       if (!this._isCircleLocked) {
@@ -211,7 +216,9 @@ export class UIMenuGridPanel extends AbstractUIMenuPanel {
 
   private _setText(name: string, value: string): void {
     if (value && value.trim() !== '') {
+      // @ts-ignore
       if (!this[name]) {
+        // @ts-ignore
         this[name] = new Text(
           value,
           new Point(),
@@ -221,9 +228,12 @@ export class UIMenuGridPanel extends AbstractUIMenuPanel {
           Alignment.Centered,
         );
       } else {
+        // @ts-ignore
         this[name].caption = value;
       }
+      // @ts-ignore
     } else if (this[name]) {
+      // @ts-ignore
       delete this[name];
     }
   }
@@ -232,11 +242,11 @@ export class UIMenuGridPanel extends AbstractUIMenuPanel {
     if (
       !this._pressed &&
       Game.isDisabledControlJustPressed(0, Control.Attack) &&
-      this.ParentMenu.isMouseInBounds(this._grid.pos, this._grid.size)
+      this.ParentMenu?.isMouseInBounds(this._grid.pos, this._grid.size)
     ) {
       this._pressed = true;
       (async () => {
-        const drawOffset = this.ParentMenu.DrawOffset;
+        const drawOffset = this.ParentMenu?.DrawOffset ?? new Point(0, 0);
         while (Game.isDisabledControlPressed(0, Control.Attack)) {
           await Wait(0);
           let cX = (GetControlNormal(0, Control.CursorX) - drawOffset.X) * Menu.screenWidth;

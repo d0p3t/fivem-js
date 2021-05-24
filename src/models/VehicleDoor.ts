@@ -7,7 +7,7 @@ export class VehicleDoor {
 
   constructor(owner: Vehicle, index: VehicleDoorIndex) {
     this._owner = owner;
-    this.Index = index;
+    this._index = index;
   }
 
   public get Index(): VehicleDoorIndex {

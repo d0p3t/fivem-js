@@ -14,7 +14,12 @@ export class UIMenuCheckboxItem extends UIMenuItem {
 
   private readonly _checkboxSprite: Sprite;
 
-  constructor(text: string, checked = false, description?: string, style: CheckboxStyle = null) {
+  constructor(
+    text: string,
+    checked = false,
+    description?: string,
+    style: CheckboxStyle = CheckboxStyle.Tick,
+  ) {
     super(text, description);
     this._checkboxSprite = new Sprite('commonmenu', '', new Point(410, 95), new Size(50, 50));
     this.Checked = checked;
@@ -44,7 +49,7 @@ export class UIMenuCheckboxItem extends UIMenuItem {
 
   public draw(): void {
     super.draw();
-    this._checkboxSprite.pos.X = 380 + this.offset.X + this.parent.WidthOffset;
+    this._checkboxSprite.pos.X = 380 + this.offset.X + (this.parent ? this.parent.WidthOffset : 0);
     this._checkboxSprite.textureName = this._getSpriteName();
     this._checkboxSprite.color = this._getSpriteColor();
     this._checkboxSprite.draw(Menu.screenResolution);

@@ -35,10 +35,10 @@ export class Vehicle extends Entity {
     return typeof vehicle !== 'undefined' && vehicle.exists();
   }
 
-  private _doors: VehicleDoorCollection;
-  private _mods: VehicleModCollection;
-  private _wheels: VehicleWheelCollection;
-  private _windows: VehicleWindowCollection;
+  private _doors: VehicleDoorCollection | undefined;
+  private _mods: VehicleModCollection | undefined;
+  private _wheels: VehicleWheelCollection | undefined;
+  private _windows: VehicleWindowCollection | undefined;
 
   constructor(handle: number) {
     super(handle);
@@ -513,7 +513,7 @@ export class Vehicle extends Entity {
   public get Passengers(): Ped[] {
     const passengerCount = this.PassengerCount;
     if (passengerCount === 0) {
-      return;
+      return [];
     }
 
     const result = [];
@@ -625,7 +625,9 @@ export class Vehicle extends Entity {
   }
 
   public get HasBombBay(): boolean {
-    return this.Bones.hasBone('door_hatch_1') && this.Bones.hasBone('door_hatch_r');
+    return this.Bones
+      ? this.Bones.hasBone('door_hatch_1') && this.Bones.hasBone('door_hatch_r')
+      : false;
   }
 
   public openBombBay(): void {

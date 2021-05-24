@@ -10,14 +10,14 @@ export class VehicleWheelCollection {
     this._owner = owner;
   }
 
-  public getWheel(index: VehicleWheelIndex): VehicleWheel {
+  public getWheel(index: VehicleWheelIndex): VehicleWheel | undefined {
     if (!this._vehicleWheels.has(index)) {
       this._vehicleWheels.set(index, new VehicleWheel(this._owner, index));
     }
     return this._vehicleWheels.get(index);
   }
 
-  public getAllWheels(): VehicleWheel[] {
+  public getAllWheels(): (VehicleWheel | null | undefined)[] {
     return Object.keys(VehicleWheelIndex)
       .filter(key => !isNaN(Number(key)))
       .map(key => {
@@ -32,17 +32,18 @@ export class VehicleWheelCollection {
 
   public burstAllWheels(): void {
     this.getAllWheels().forEach(wheel => {
-      wheel.burst();
+      wheel?.burst();
     });
   }
 
   public fixAllWheels(): void {
     this.getAllWheels().forEach(wheel => {
-      wheel.fix();
+      wheel?.fix();
     });
   }
 
   public hasWheel(wheel: VehicleWheelIndex): boolean {
+    if (this._owner.Bones === undefined) return false;
     switch (wheel) {
       case VehicleWheelIndex.FrontLeftWheel:
         return this._owner.Bones.hasBone('wheel_lf');

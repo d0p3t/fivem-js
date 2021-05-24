@@ -1,6 +1,6 @@
 import { Game } from './Game';
 import { MaterialHash } from './hashes';
-import { Entity } from './models';
+import { Ped, Prop, Vehicle } from './models';
 import { Vector3 } from './utils';
 
 /**
@@ -10,7 +10,7 @@ export class RaycastResult {
   /**
    * Return the entity that was hit.
    */
-  public get HitEntity(): Entity {
+  public get HitEntity(): Ped | Vehicle | Prop | null {
     return this.entityHandleArg;
   }
 
@@ -39,7 +39,7 @@ export class RaycastResult {
    * Whether the entity hit exists.
    */
   public get DidHitEntity(): boolean {
-    return this.entityHandleArg.Handle !== 0;
+    return this.entityHandleArg?.Handle !== 0;
   }
 
   /**
@@ -59,7 +59,7 @@ export class RaycastResult {
   private handle: number;
   private hitPositionArg: Vector3;
   private hitSomethingArg: boolean;
-  private entityHandleArg: Entity;
+  private entityHandleArg: Ped | Vehicle | Prop | null;
   private surfaceNormalArg: Vector3;
   private materialArg: MaterialHash;
   private result: number;

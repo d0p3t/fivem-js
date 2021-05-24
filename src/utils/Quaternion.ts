@@ -14,7 +14,7 @@ export class Quaternion {
       this.x = valueXOrVector.x;
       this.y = valueXOrVector.y;
       this.z = valueXOrVector.z;
-      this.w = yOrW;
+      this.w = yOrW ?? 0;
     } else if (yOrW === undefined) {
       this.x = valueXOrVector;
       this.y = valueXOrVector;
@@ -23,8 +23,8 @@ export class Quaternion {
     } else {
       this.x = valueXOrVector;
       this.y = yOrW;
-      this.z = z;
-      this.w = w;
+      this.z = z ?? 0;
+      this.w = w ?? 0;
     }
   }
 }

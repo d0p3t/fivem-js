@@ -3,7 +3,7 @@ import { Entity, EntityBone } from './';
 export class EntityBoneCollection {
   protected readonly owner: Entity;
 
-  private readonly _collection: Enumerator<EntityBone>;
+  private readonly _collection: Enumerator<EntityBone> | undefined;
   private _currentIndex = -1;
 
   constructor(owner: Entity) {
