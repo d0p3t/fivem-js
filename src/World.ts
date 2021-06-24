@@ -379,12 +379,13 @@ export abstract class World {
     model: Model,
     position: Vector3,
     heading = 0,
+    networked = true,
   ): Promise<Vehicle> {
     if (!model.IsVehicle || !(await model.request(1000))) {
       return null;
     }
     return new Vehicle(
-      CreateVehicle(model.Hash, position.x, position.y, position.z, heading, true, false),
+      CreateVehicle(model.Hash, position.x, position.y, position.z, heading, networked, false),
     );
   }
 
