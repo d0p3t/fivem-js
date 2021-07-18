@@ -128,6 +128,14 @@ export class Blip {
     HideNumberOnBlip(this.handle);
   }
 
+  public get IsMissionCreatorBlip(): boolean {
+    return !!IsMissionCreatorBlip(this.handle);
+  }
+
+  public set IsMissionCreatorBlip(isMissionCreator: boolean) {
+    SetBlipAsMissionCreatorBlip(this.handle, isMissionCreator);
+  }
+
   public delete(): void {
     if (this.exists()) {
       RemoveBlip(this.handle);
