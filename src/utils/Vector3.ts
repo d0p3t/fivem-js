@@ -13,6 +13,10 @@ export class Vector3 implements Vec3 {
     return new Vector3(v1.x, v1.y, v1.z);
   }
 
+  public static fromArray(vector: number[]) {
+    return new Vector3(vector[0] || 0, vector[1] || 0, vector[2] || 0);
+  }
+
   public static clone(v1: Vec3): Vector3 {
     return Vector3.create(v1);
   }
@@ -55,6 +59,10 @@ export class Vector3 implements Vec3 {
 
   public static normalize(v: Vector3): Vector3 {
     return Vector3.divide(v, v.Length);
+  }
+
+  public static toArray(v: Vec3): [number, number, number] {
+    return [v.x, v.y, v.z];
   }
 
   constructor(public x: number, public y: number, public z: number) {}
@@ -116,6 +124,10 @@ export class Vector3 implements Vec3 {
     this.x = v.x;
     this.y = v.y;
     this.z = v.z;
+  }
+
+  public toArray(): [number, number, number] {
+    return Vector3.toArray(this);
   }
 
   public get Length(): number {
