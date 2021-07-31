@@ -43,7 +43,7 @@ export enum BlipColor {
   MichaelBlue = 42,
   FranklinGreen,
   TrevorOrange,
-  Yellow = 66
+  Yellow = 66,
 }
 
 export enum BlipSprite {

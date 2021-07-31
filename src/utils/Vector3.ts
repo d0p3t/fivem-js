@@ -13,8 +13,8 @@ export class Vector3 implements Vec3 {
     return new Vector3(v1.x, v1.y, v1.z);
   }
 
-  public static fromArray(vector: number[]) {
-    return new Vector3(vector[0] || 0, vector[1] || 0, vector[2] || 0);
+  public static fromArray(vector: number[]): Vector3 {
+    return new Vector3(vector[0], vector[1], vector[2]);
   }
 
   public static clone(v1: Vec3): Vector3 {

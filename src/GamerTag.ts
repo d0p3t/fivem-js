@@ -28,7 +28,7 @@ export class GamerTag {
     SetMpGamerTagWantedLevel(this.handle, level);
   }
 
-  public setHealthBarColour(color: HudColor) {
+  public setHealthBarColour(color: HudColor): void {
     SetMpGamerTagHealthBarColour(this.handle, color);
   }
 
