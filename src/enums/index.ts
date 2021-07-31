@@ -15,6 +15,7 @@ export { ExplosionType } from './ExplosionType';
 export { FiringPattern } from './FiringPattern';
 export { Font } from './Font';
 export { ForceType } from './ForceType';
+export { GamerTagComponent } from './GamerTagComponent';
 export { Gender } from './Gender';
 export { HelmetType } from './HelmetType';
 export { HudColor } from './HudColor';

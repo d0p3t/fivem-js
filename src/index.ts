@@ -6,6 +6,7 @@ export { Blip } from './Blip';
 export { Camera } from './Camera';
 export { Checkpoint } from './Checkpoint';
 export { GameplayCamera } from './GameplayCamera';
+export { GamerTag } from './GamerTag';
 export { ParticleEffect } from './ParticleEffect';
 export { ParticleEffectAsset } from './ParticleEffectAsset';
 export { Pickup } from './Pickup';
