@@ -168,6 +168,10 @@ export class Vehicle extends Entity {
     return GetVehicleDashboardSpeed(this.handle);
   }
 
+  public get EstimatedMaxSpeed(): number {
+    return GetVehicleEstimatedMaxSpeed(this.handle);
+  }
+
   public get Acceleration(): number {
     return GetVehicleCurrentAcceleration(this.handle);
   }
@@ -685,5 +689,25 @@ export class Vehicle extends Entity {
 
   public set RespotTimer(time: number) {
     SetNetworkVehicleRespotTimer(this.NetworkId, time);
+  }
+
+  public getHandlingFloat(fieldName: string): number {
+    return GetVehicleHandlingFloat(this.handle, 'CHandlingData', fieldName);
+  }
+
+  public setHandlingFloat(fieldName: string, value: number): void {
+    SetVehicleHandlingFloat(this.handle, 'CHandlingData', fieldName, value);
+  }
+
+  public getHandlingInt(fieldName: string): number {
+    return GetVehicleHandlingInt(this.handle, 'CHandlingData', fieldName);
+  }
+
+  public setHandlingInt(fieldName: string, value: number): void {
+    SetVehicleHandlingInt(this.handle, 'CHandlingData', fieldName, Math.ceil(value));
+  }
+
+  public getHandlingVector(fieldName: string): Vector3 {
+    return Vector3.fromArray(GetVehicleHandlingVector(this.handle, 'CHandlingData', fieldName));
   }
 }

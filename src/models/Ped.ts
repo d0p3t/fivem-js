@@ -620,6 +620,10 @@ export class Ped extends Entity {
     RemoveAllPedWeapons(this.handle, true);
   }
 
+  public hasGotWeapon(weapon: WeaponHash): boolean {
+    return !!HasPedGotWeapon(this.handle, weapon, false);
+  }
+
   public getLastWeaponImpactPosition(): Vector3 {
     const position = GetPedLastWeaponImpactCoord(this.handle)[1];
 
