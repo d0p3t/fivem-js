@@ -40,6 +40,14 @@ export class Entity {
     return NetworkGetNetworkIdFromEntity(this.handle);
   }
 
+  public get IsNetworkConcealed(): boolean {
+    return !!NetworkIsEntityConcealed(this.handle);
+  }
+
+  public set IsNetworkConcealed(concealed: boolean) {
+    NetworkConcealEntity(this.handle, concealed);
+  }
+
   public get Health(): number {
     return GetEntityHealth(this.handle);
   }
@@ -105,6 +113,10 @@ export class Entity {
 
   public set Heading(heading: number) {
     SetEntityHeading(this.handle, heading);
+  }
+
+  public get ForwardVector(): Vector3 {
+    return Vector3.fromArray(GetEntityForwardVector(this.handle));
   }
 
   public set IsPositionFrozen(value: boolean) {

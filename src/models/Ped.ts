@@ -619,6 +619,18 @@ export class Ped extends Entity {
     RemoveAllPedWeapons(this.handle, true);
   }
 
+  public hasGotWeapon(weapon: WeaponHash): boolean {
+    return !!HasPedGotWeapon(this.handle, weapon, false);
+  }
+
+  public setAmmo(weapon: WeaponHash, ammoCount: number): void {
+    SetPedAmmo(this.handle, weapon, ammoCount);
+  }
+
+  public getAmmoInWeapon(weapon: WeaponHash): number {
+    return GetAmmoInPedWeapon(this.handle, weapon);
+  }
+
   public getLastWeaponImpactPosition(): Vector3 {
     const position = GetPedLastWeaponImpactCoord(this.handle)[1];
 
@@ -668,6 +680,18 @@ export class Ped extends Entity {
 
   public resetConfigFlag(flagId: number): void {
     SetPedResetFlag(this.handle, flagId, true);
+  }
+
+  public clearTasksImmediatly(): void {
+    ClearPedTasksImmediately(this.handle);
+  }
+
+  public reloadWeapon(): boolean {
+    return !!MakePedReload(this.handle);
+  }
+
+  public refillAmmoInstantly(): boolean {
+    return !!RefillAmmoInstantly(this.handle);
   }
 
   public clone(heading: number): Ped {
