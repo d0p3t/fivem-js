@@ -61,6 +61,10 @@ export class Vector3 implements Vec3 {
     return Vector3.divide(v, v.Length);
   }
 
+  public static toArray(v: Vec3): [number, number, number] {
+    return [v.x, v.y, v.z];
+  }
+
   constructor(public x: number, public y: number, public z: number) {}
 
   public clone(): Vector3 {
@@ -120,6 +124,10 @@ export class Vector3 implements Vec3 {
     this.x = v.x;
     this.y = v.y;
     this.z = v.z;
+  }
+
+  public toArray(): [number, number, number] {
+    return Vector3.toArray(this);
   }
 
   public get Length(): number {
