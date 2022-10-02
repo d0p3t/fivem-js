@@ -1,4 +1,5 @@
 import { Blip } from '../Blip';
+import { Decor, IDecor } from '../Decor';
 import { ForceType } from '../enums';
 import { Game } from '../Game';
 import { WeaponHash } from '../hashes';
@@ -7,7 +8,9 @@ import { Quaternion, Vector3 } from '../utils';
 import { EntityBoneCollection, Ped, Prop, Vehicle } from './';
 import { EntityBone } from './EntityBone';
 
-export class Entity {
+export class Entity implements IDecor {
+
+  
   public static fromHandle(handle: number): Ped | Vehicle | Prop {
     switch (GetEntityType(handle)) {
       case 1:
@@ -30,6 +33,39 @@ export class Entity {
 
   constructor(handle: number) {
     this.handle = handle;
+  }
+
+  GetFloat(property: string): number {
+    return Decor.GetFloat(this.handle, property)
+  }
+  GetInt(property: string): number {
+    return Decor.GetInt(this.handle, property)
+  }
+
+  GetTime(property: string): number {
+    return Decor.GetTime(this.handle, property)
+  }
+  GetBool(property: string): boolean {
+    return Decor.GetBool(this.handle, property)
+  }
+  SetFloat(property: string, value: number): void {
+    Decor.SetFloat(this.handle, property, value)
+  }
+  SetInt(property: string, value: number): void {
+    Decor.SetInt(this.handle, property, value)
+  }
+  
+  SetTime(property: string, value: number): void {
+    Decor.SetTime(this.handle, property, value)
+  }
+  SetBool(property: string, value: boolean): void {
+    Decor.SetBool(this.handle, property, value)
+  }
+  DecorRemove(property: string): void {
+    Decor.Remove(this.handle, property)
+  }
+  DecorExist(property: any): boolean {
+    return Decor.Exist(this.handle, property)
   }
 
   public get Handle(): number {

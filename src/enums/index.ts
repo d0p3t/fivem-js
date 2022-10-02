@@ -50,3 +50,4 @@ export {
 } from './Vehicle';
 export { Weather } from './Weather';
 export { ZoneID } from './ZoneID';
+export { DecorType} from './DecorType'
