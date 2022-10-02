@@ -1,17 +1,17 @@
 import { DecorType } from './enums'
 
 export interface IDecor {
-    GetFloat(property: string): number;
-    GetInt(property: string): number;
-    GetTime(property: string): number;
-    GetBool(property: string): boolean;
+    getFloat(property: string): number;
+    getInt(property: string): number;
+    getTime(property: string): number;
+    getBool(property: string): boolean;
 
-    SetFloat(property: string, value: number): void;
-    SetInt(property: string, value: number): void;
-    SetTime(property: string, value: number): void;
-    SetBool(property: string, value: boolean): void;
-    DecorRemove(property: string): void;
-    DecorExist(property): boolean
+    setFloat(property: string, value: number): void;
+    setInt(property: string, value: number): void;
+    setTime(property: string, value: number): void;
+    setBool(property: string, value: boolean): void;
+    decorRemove(property: string): void;
+    decorExist(property): boolean
 }
 
 export class Decor {
