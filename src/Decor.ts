@@ -28,21 +28,21 @@ export class Decor {
     }
 
     static Exist(handle, property): boolean {
-        return DecorExistOn(handle, property)
+        return DecorExistOn(handle, property) == 1
     }
 
     static GetFloat(handle: number, property: string): number {
         return DecorGetFloat(handle, property)
     }
     static GetInt(handle: number, property: string): number {
-        return DecorGetInt()(handle, property)
+        return DecorGetInt(handle, property)
     }
 
     static GetTime(handle: number, property: string): number {
         return DecorGetInt(handle, property)
     }
     static GetBool(handle: number, property: string): boolean {
-        return DecorGetBool(handle, property)
+        return DecorGetBool(handle, property) == 1
     }
 
     static SetFloat(handle: number, property: string, value: number): void {
